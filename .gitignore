@@ -1,0 +1,9 @@
+
+h3.sublime-workspace
+h3.sublime-project
+*.vice/*
+*.out
+*.pyc
+*/*.ipynb_checkpoints/*
+
+
