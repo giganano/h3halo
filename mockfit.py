@@ -8,7 +8,7 @@ from scipy.stats import multivariate_normal
 from scipy.special import logsumexp
 from utils import cov
 from utils import exponential
-import sys
+import time
 
 ENDTIME = 10
 N_TIMESTEPS = 500
@@ -112,7 +112,11 @@ if __name__ == "__main__":
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	p0 = np.array(p0)
 	# print(p0)
-	state = sampler.run_mcmc(p0, 1, skip_initial_state_check = True)
+	start = time.time()
+	# state = sampler.run_mcmc(p0, 1, skip_initial_state_check = True)
+	state = sampler.run_mcmc(p0, 1000, skip_initial_state_check = True)
+	stop = time.time()
+	print("MCMC time: ", stop - start)
 	samples = sampler.get_chain()
 	samples = np.concatenate(tuple([samples[i] for i in range(len(samples))]))
 	# print(samples)
