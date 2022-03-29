@@ -14,7 +14,7 @@ import sys
 
 ENDTIME = 10
 N_TIMESTEPS = 1000
-N_WALKERS = 6
+N_WALKERS = 50
 N_DIM = 3
 
 
@@ -124,7 +124,7 @@ if __name__ == "__main__":
 	# print(p0)
 	start = time.time()
 	# state = sampler.run_mcmc(p0, 1, skip_initial_state_check = True)
-	state = sampler.run_mcmc(p0, 200, skip_initial_state_check = True)
+	state = sampler.run_mcmc(p0, 20, skip_initial_state_check = True)
 	stop = time.time()
 	print("MCMC time: ", stop - start)
 	samples = sampler.get_chain()
