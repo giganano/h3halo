@@ -28,7 +28,7 @@ with vice.output("mock") as out:
 	totsfr = sum(out.history["sfr"])
 	sfrfrac = [_ / totsfr for _ in out.history["sfr"]]
 	indeces = np.random.choice(list(range(len(sfrfrac))), p = sfrfrac,
-		size = 5000)
+		size = 500)
 	with open("mock.dat", 'w') as data:
 		data.write("# [Fe/H]\t[Fe/H]_err\t[O/Fe]\t[O/Fe]_err\tAge [Gyr]\t")
 		data.write("Age_err\n")
