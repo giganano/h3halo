@@ -4,11 +4,13 @@ import numpy as np
 import math as m
 import vice
 from vice.yields.presets import JW20
+vice._dev.set_logging_level("trace")
 from scipy.stats import multivariate_normal
 from scipy.special import logsumexp
 from utils import cov
 from utils import exponential
 import time
+import sys
 
 ENDTIME = 10
 N_TIMESTEPS = 1000
@@ -39,7 +41,7 @@ class expifr_mcmc():
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		with vice.singlezone(name = "mockfit", verbose = True) as sz:
 			sz.elements = ["fe", "o"]
-			sz.nthreads = 2
+			# sz.nthreads = 2
 			sz.func = exponential(timescale = walker[0])
 			sz.mode = "ifr"
 			sz.Mg0 = 0
@@ -48,6 +50,7 @@ class expifr_mcmc():
 			sz.eta = walker[2]
 			out = sz.run(np.linspace(0, ENDTIME, N_TIMESTEPS + 1),
 				overwrite = True, capture = True)
+		sys.stdout.flush()
 		model = np.array([out.history[key][1:] for key in self.quantities]).T
 		weights = out.history["sfr"][1:]
 
