@@ -4,12 +4,18 @@ import math as m
 import vice
 from vice.yields.presets import JW20
 
+FEH_ERR = 0.1
+OFE_ERR = 0.1
+AGE_ERR = 1
+
 # def sfh(t):
 # 	return m.exp(-t / 2)
 def ifr(t):
 	return m.exp(-t / 2)
 
 with vice.singlezone(name = "mock", verbose = True) as sz:
+	sz.elements = ["o", "fe"]
+	sz.nthreads = 2
 	sz.func = ifr
 	sz.mode = "ifr"
 	sz.tau_star = 10
@@ -24,17 +30,26 @@ with vice.output("mock") as out:
 	indeces = np.random.choice(list(range(len(sfrfrac))), p = sfrfrac,
 		size = 5000)
 	with open("mock.dat", 'w') as data:
-		data.write("# [fe/h]\t[o/fe]\tAge [Gyr]\n")
+		data.write("# [Fe/H]\t[Fe/H]_err\t[O/Fe]\t[O/Fe]_err\tAge [Gyr]\t")
+		data.write("Age_err\n")
 		for i in range(len(indeces)):
 			feh = out.history["[fe/h]"][indeces[i]]
 			ofe = out.history["[o/fe]"][indeces[i]]
 			age = out.history["lookback"][indeces[i]]
-			feh += np.random.normal(scale = 0.1)
-			ofe += np.random.normal(scale = 0.1)
-			age += np.random.normal(scale = 1)
-			# age_diff = np.random.normal(scale = 1)
-			# while age_diff < 0 and abs(age_diff) > age:
-			# 	age_diff = np.random.normal(scale = 1)
-			data.write("%.5e\t%.5e\t%.5e\n" % (feh, ofe, age))
+			feh += np.random.normal(scale = FEH_ERR)
+			ofe += np.random.normal(scale = OFE_ERR)
+			age += np.random.normal(scale = AGE_ERR)
+			data.write("%.5e\t%.5e\t" % (feh, FEH_ERR))
+			data.write("%.5e\t%.5e\t" % (ofe, OFE_ERR))
+			data.write("%.5e\t%.5e\n" % (age, AGE_ERR))
+		# data.write("# [fe/h]\t[o/fe]\tAge [Gyr]\n")
+		# for i in range(len(indeces)):
+		# 	feh = out.history["[fe/h]"][indeces[i]]
+		# 	ofe = out.history["[o/fe]"][indeces[i]]
+		# 	age = out.history["lookback"][indeces[i]]
+		# 	feh += np.random.normal(scale = 0.1)
+		# 	ofe += np.random.normal(scale = 0.1)
+		# 	age += np.random.normal(scale = 1)
+		# 	data.write("%.5e\t%.5e\t%.5e\n" % (feh, ofe, age))
 		data.close()
 

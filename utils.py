@@ -40,7 +40,8 @@ class exponential:
 
 def cov(data):
 	keys = list(data.keys())
-	print(keys)
+	keys = list(filter(lambda x: not x.endswith("_err"), keys))
+	# print(keys)
 	means = [np.mean(data[_]) for _ in keys]
 	cov_ = len(keys) * [None]
 	for i in range(len(cov_)): cov_[i] = len(keys) * [0.]
