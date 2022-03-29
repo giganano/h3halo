@@ -26,6 +26,7 @@ class expifr_mcmc(vice.singlezone):
 		self.func = exponential()
 		self.mode = "ifr"
 		self.Mg0 = 0
+		self.nthreads = 2
 		self.dt = ENDTIME / N_TIMESTEPS
 		self.quantities = list(data.keys())
 		self.quantities = list(filter(lambda x: not x.endswith("_err"),
