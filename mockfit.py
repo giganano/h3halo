@@ -16,10 +16,9 @@ N_WALKERS = 6
 N_DIM = 3
 
 
-class expifr_mcmc(vice.singlezone):
+class expifr_mcmc():
 
-	def __init__(self, data, name = "mockfit", **kwargs):
-		super().__init__(name = name, **kwargs)
+	def __init__(self, data, name = "mockfit"):
 		self.quantities = list(data.keys())
 		self.quantities = list(filter(lambda x: not x.endswith("_err"),
 			self.quantities))
@@ -38,11 +37,17 @@ class expifr_mcmc(vice.singlezone):
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
-		self.func.timescale = walker[0]
-		self.tau_star = walker[1]
-		self.eta = walker[2]
-		out = super().run(np.linspace(0, ENDTIME, N_TIMESTEPS + 1),
-			overwrite = True, capture = True)
+		with vice.singlezone(name = "mockfit", verbose = True) as sz:
+			sz.elements = ["fe", "o"]
+			sz.nthreads = 2
+			sz.func = exponential(timescale = walker[0])
+			sz.mode = "ifr"
+			sz.Mg0 = 0
+			sz.dt = ENDTIME / N_TIMESTEPS
+			sz.tau_star = walker[1]
+			sz.eta = walker[2]
+			out = sz.run(np.linspace(0, ENDTIME, N_TIMESTEPS + 1),
+				overwrite = True, capture = True)
 		model = np.array([out.history[key][1:] for key in self.quantities]).T
 		weights = out.history["sfr"][1:]
 
@@ -100,7 +105,7 @@ if __name__ == "__main__":
 		"lookback": np.array([row[4] for row in raw]),
 		"lookback_err": np.array([row[5] for row in raw])
 	}
-	log_prob = expifr_mcmc(data, verbose = True)
+	log_prob = expifr_mcmc(data)
 	sampler = EnsembleSampler(N_WALKERS, N_DIM, log_prob)
 	# start initial at known position anyway since this is a mock
 	p0 = N_WALKERS * [None]
