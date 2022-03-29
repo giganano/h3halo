@@ -124,11 +124,11 @@ if __name__ == "__main__":
 	# print(p0)
 	start = time.time()
 	# state = sampler.run_mcmc(p0, 1, skip_initial_state_check = True)
-	state = sampler.run_mcmc(p0, 20, skip_initial_state_check = True)
+	state = sampler.run_mcmc(p0, 100, skip_initial_state_check = True)
 	stop = time.time()
 	print("MCMC time: ", stop - start)
 	samples = sampler.get_chain()
 	samples = np.concatenate(tuple([samples[i] for i in range(len(samples))]))
 	# print(samples)
-	np.savetxt("mockchain.out", samples, fmt = "%.5e")
+	np.savetxt("mockchain_long.out", samples, fmt = "%.5e")
 
