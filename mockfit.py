@@ -29,7 +29,7 @@ class expifr_mcmc(vice.singlezone):
 			[data["%s_err" % (key)] for key in self.quantities]).T
 		# self.cov = np.array(cov(data))
 		# self.invcov = np.linalg.inv(self.cov)
-		self.elements = ["o", "fe"]
+		self.elements = ["fe", "o"]
 		self.nthreads = 2
 		self.func = exponential()
 		self.mode = "ifr"
