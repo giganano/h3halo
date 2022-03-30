@@ -3,7 +3,7 @@ SOURCES 	:= $(wildcard *.c)
 OBJECTS 	:= $(SOURCES:.c=.o)
 CFLAGS 		:= -c -fPIC -Wsign-conversion -Wsign-compare
 CC 			:= clang
-all: $(OBJECTS)
+all: likelihood.o
 
 %.o: %.c *.h
 	@ echo "Compiling:" $<

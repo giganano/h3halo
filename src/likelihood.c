@@ -34,16 +34,28 @@ extern void fit_driver_free(FIT_DRIVER *fd) {
 	if (fd != NULL) {
 
 		if ((*fd).model != NULL) {
+			unsigned long i;
+			for (i = 0ul; i < (*fd).n_model; i++) free(fd -> model[i]);
 			free(fd -> model);
 			fd -> model = NULL;
 		} else {}
 
 		if ((*fd).sample != NULL) {
+			unsigned long i;
+			for (i = 0ul; i < (*fd).n_sample; i++) free(fd -> sample[i]);
 			free(fd -> sample);
 			fd -> sample = NULL;
 		} else {}
 
 		if ((*fd).invcov != NULL) {
+			unsigned long i;
+			for (i = 0ul; i < (*fd).n_sample; i++) {
+				unsigned short j;
+				for (j = 0u; j < (*fd).n_quantities; j++) {
+					free(fd -> invcov[i][j]);
+				}
+				free(fd -> invcov[i]);
+			}
 			free(fd -> invcov);
 			fd -> invcov = NULL;
 		} else {}
@@ -93,9 +105,13 @@ static double chi_squared(FIT_DRIVER fd, unsigned long model_idx,
 	double **second_product = multiply_matrices(first_product, delta_t,
 		1u, fd.n_quantities, 1u);
 	double chi_squared = second_product[0][0];
+	free(delta[0]);
 	free(delta);
+	for (i = 0u; i < fd.n_quantities; i++) free(delta_t[i]);
 	free(delta_t);
+	free(first_product[0]);
 	free(first_product);
+	free(second_product[0]);
 	free(second_product);
 	return chi_squared;
 
