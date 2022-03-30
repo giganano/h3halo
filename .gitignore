@@ -1,9 +1,10 @@
 
-h3.sublime-workspace
-h3.sublime-project
-*.vice/*
+h3halo.sublime-workspace
+h3halo.sublime-project
+*/*.vice/*
 *.out
 *.pyc
+*.so
 */*.ipynb_checkpoints/*
 
 

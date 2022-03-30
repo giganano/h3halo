@@ -1,10 +1,10 @@
 
 from emcee import EnsembleSampler
+from src import fit_driver
 import numpy as np
 import math as m
 import vice
 from vice.yields.presets import JW20
-# vice._dev.set_logging_level("trace")
 from scipy.stats import multivariate_normal
 from scipy.special import logsumexp
 from utils import cov
@@ -28,21 +28,19 @@ class expifr_mcmc(vice.singlezone):
 		self.Mg0 = 0
 		self.nthreads = 2
 		self.dt = ENDTIME / N_TIMESTEPS
+
 		self.quantities = list(data.keys())
 		self.quantities = list(filter(lambda x: not x.endswith("_err"),
 			self.quantities))
-		# self.data = data
-		self.data = np.array([data[key] for key in self.quantities]).T
-		self.errors = np.array(
+		sample = np.array([data[key] for key in self.quantities]).T
+		errors = np.array(
 			[data["%s_err" % (key)] for key in self.quantities]).T
-		# self.cov = np.array(cov(data))
-		# self.invcov = np.linalg.inv(self.cov)
-		self.elements = ["fe", "o"]
-		self.nthreads = 2
-		self.func = exponential()
-		self.mode = "ifr"
-		self.Mg0 = 0
-		self.dt = ENDTIME / N_TIMESTEPS
+		invcovs = len(sample) * [None]
+		for i in range(len(sample)):
+			cov = np.diag(errors[i]**2)
+			invcovs[i] = np.linalg.inv(cov)
+
+		self.fd = fit_driver(sample, invcovs)
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
@@ -56,49 +54,14 @@ class expifr_mcmc(vice.singlezone):
 		sys.stdout.write("Success!\n")
 		model = np.array([out.history[key][1:] for key in self.quantities]).T
 		weights = out.history["sfr"][1:]
+		norm = sum(weights)
+		weights = [_ / norm for _ in weights]
 
-		# delta = np.zeros((len(self.data), len(model), len(self.quantities)))
-		# delta = np.meshgrid(self.data, model)[0].T.reshape()
-		# for i in range(len(self.data)):
-		# 	for j in range(len(model)):
-		# 		delta[i][j] = self.data[i] - model[j]
-		# print("finished")
-		delta = model[None, :] - self.data[:, None]
-		# print(delta)
-		# print(delta.shape)
-		# invcovs = np.array(len(self.data) * [0])
-		invcovs = np.zeros((len(self.data), len(self.quantities),
-			len(self.quantities)))
-		for i in range(len(self.data)):
-			invcovs[i] = np.diag(self.errors[i]**2)
-			invcovs[i] = np.linalg.inv(invcovs[i])
-		# print(invcovs)
-		arr = np.zeros((len(self.data), len(model)))
-		logprob = 0
-		for i in range(len(self.data)):
-			arr[i] = -0.5 * np.diag(
-				np.dot(invcovs[i].dot(delta[i].T).T, delta[i].T))
-			logprob += logsumexp(arr[i], b = weights)
-		return logprob
+		self.fd.model = model
+		self.fd.weights = weights
 
-		# log_p_d_m = np.array(len(self.data) * [0.])
-		# for i in range(len(self.data)):
-		# 	cov = np.diag(self.errors[i]**2)
-		# 	invcov = np.linalg.inv(cov)
-		# 	arr = np.array(len(model) * [0.])
-		# 	for j in range(len(arr)):
-		# 		delta = self.data[i] - model[j]
-		# 		arr[j] = -0.5 * np.matmul(np.matmul(
-		# 			delta, invcov), delta.T)
-		# 	log_p_d_m[i] = logsumexp(arr, b = weights)
-		# 	# print(i, log_p_d_m[i])
-		# 	sys.stdout.write("\r%d" % (i))
-		# sys.stdout.write("\n")
-		# log_p_d_m = np.sum(log_p_d_m)
-		# print(log_p_d_m)
-		# return log_p_d_m
-
-
+		result = self.fd()
+		return result
 
 
 if __name__ == "__main__":
@@ -117,19 +80,20 @@ if __name__ == "__main__":
 	p0 = N_WALKERS * [None]
 	for i in range(len(p0)):
 		p0[i] = [2, 10, 25]
-		# p0[i] = [25, 10, 2]
-		# p0[i]  = [3, 15, 25]
 		for j in range(len(p0[i])):
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	p0 = np.array(p0)
-	# print(p0)
 	start = time.time()
-	# state = sampler.run_mcmc(p0, 1, skip_initial_state_check = True)
-	state = sampler.run_mcmc(p0, 100, skip_initial_state_check = True)
+	state = sampler.run_mcmc(p0, 20, skip_initial_state_check = True)
 	stop = time.time()
 	print("MCMC time: ", stop - start)
 	samples = sampler.get_chain()
+	logprob = sampler.get_log_prob()
 	samples = np.concatenate(tuple([samples[i] for i in range(len(samples))]))
-	# print(samples)
-	np.savetxt("mockchain_long.out", samples, fmt = "%.5e")
+	logprob = np.concatenate(tuple([logprob[i] for i in range(len(logprob))]))
+	logprob = [[logprob[_]] for _ in range(len(logprob))]
+	out = np.append(samples, logprob, axis = 1)
+	af = sum(sampler.acceptance_fraction) / N_WALKERS
+	np.savetxt("mockchain.out", out, fmt = "%.5e",
+		header = "acceptance fraction: %.5e" % (af))
 
