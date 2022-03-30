@@ -84,7 +84,7 @@ if __name__ == "__main__":
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	p0 = np.array(p0)
 	start = time.time()
-	state = sampler.run_mcmc(p0, 20, skip_initial_state_check = True)
+	state = sampler.run_mcmc(p0, 2, skip_initial_state_check = True)
 	stop = time.time()
 	print("MCMC time: ", stop - start)
 	samples = sampler.get_chain()
@@ -94,6 +94,6 @@ if __name__ == "__main__":
 	logprob = [[logprob[_]] for _ in range(len(logprob))]
 	out = np.append(samples, logprob, axis = 1)
 	af = sum(sampler.acceptance_fraction) / N_WALKERS
-	np.savetxt("mockchain.out", out, fmt = "%.5e",
+	np.savetxt("mockchain_test.out", out, fmt = "%.5e",
 		header = "acceptance fraction: %.5e" % (af))
 
