@@ -1,3 +1,11 @@
+r"""
+ARGV
+----
+1) The name of the output file
+2) The number of walkers to use
+3) The number of iterations to run each walker through
+4) The number of timesteps to use in each one-zone model integration
+"""
 
 from emcee import EnsembleSampler
 from src import fit_driver
@@ -13,8 +21,8 @@ import time
 import sys
 
 ENDTIME = 10
-N_TIMESTEPS = 1000
-N_WALKERS = 50
+N_TIMESTEPS = int(sys.argv[4])
+N_WALKERS = int(sys.argv[2])
 N_DIM = 3
 
 
@@ -44,14 +52,12 @@ class expifr_mcmc(vice.singlezone):
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
-		sys.stdout.write("walker: [%.5e, %.5e, %.5e] " % (walker[0],
-			walker[1], walker[2]))
+		print("walker: [%.5e, %.5e, %.5e] " % (walker[0], walker[1], walker[2]))
 		self.func.timescale = walker[0]
 		self.tau_star = walker[1]
 		self.eta = walker[2]
 		out = super().run(np.linspace(0, ENDTIME, N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
-		sys.stdout.write("Success!\n")
 		model = np.array([out.history[key][1:] for key in self.quantities]).T
 		weights = out.history["sfr"][1:]
 		norm = sum(weights)
@@ -84,7 +90,8 @@ if __name__ == "__main__":
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	p0 = np.array(p0)
 	start = time.time()
-	state = sampler.run_mcmc(p0, 2, skip_initial_state_check = True)
+	state = sampler.run_mcmc(p0, int(sys.argv[3]),
+		skip_initial_state_check = True)
 	stop = time.time()
 	print("MCMC time: ", stop - start)
 	samples = sampler.get_chain()
@@ -94,6 +101,6 @@ if __name__ == "__main__":
 	logprob = [[logprob[_]] for _ in range(len(logprob))]
 	out = np.append(samples, logprob, axis = 1)
 	af = sum(sampler.acceptance_fraction) / N_WALKERS
-	np.savetxt("mockchain_test.out", out, fmt = "%.5e",
+	np.savetxt(sys.argv[1], out, fmt = "%.5e",
 		header = "acceptance fraction: %.5e" % (af))
 
