@@ -2,9 +2,10 @@ r"""
 ARGV
 ----
 1) The name of the output file
-2) The number of walkers to use
-3) The number of iterations to run each walker through
-4) The number of timesteps to use in each one-zone model integration
+2) The name of the VICE output to store each iterations output in
+3) The number of walkers to use
+4) The number of iterations to run each walker through
+5) The number of timesteps to use in each one-zone model integration
 """
 
 from emcee import EnsembleSampler
@@ -21,14 +22,14 @@ import time
 import sys
 
 ENDTIME = 10
-N_TIMESTEPS = int(sys.argv[4])
-N_WALKERS = int(sys.argv[2])
+N_TIMESTEPS = int(sys.argv[5])
+N_WALKERS = int(sys.argv[3])
 N_DIM = 3
 
 
 class expifr_mcmc(vice.singlezone):
 
-	def __init__(self, data, name = "mockfit", **kwargs):
+	def __init__(self, data, name = sys.argv[2], **kwargs):
 		super().__init__(name = name, **kwargs)
 		self.elements = ["fe", "o"]
 		self.func = exponential()
@@ -90,7 +91,7 @@ if __name__ == "__main__":
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	p0 = np.array(p0)
 	start = time.time()
-	state = sampler.run_mcmc(p0, int(sys.argv[3]),
+	state = sampler.run_mcmc(p0, int(sys.argv[4]),
 		skip_initial_state_check = True)
 	stop = time.time()
 	print("MCMC time: ", stop - start)
