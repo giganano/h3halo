@@ -1,11 +1,12 @@
 r"""
 ARGV
 ----
-1) The name of the output file
-2) The name of the VICE output to store each iterations output in
-3) The number of walkers to use
-4) The number of iterations to run each walker through
-5) The number of timesteps to use in each one-zone model integration
+1) The name of the file containing the mock sample
+2) The name of the output file
+3) The name of the VICE output to store each iterations output in
+4) The number of walkers to use
+5) The number of iterations to run each walker through
+6) The number of timesteps to use in each one-zone model integration
 """
 
 from emcee import EnsembleSampler
@@ -14,22 +15,20 @@ import numpy as np
 import math as m
 import vice
 from vice.yields.presets import JW20
-from scipy.stats import multivariate_normal
-from scipy.special import logsumexp
 from utils import cov
 from utils import exponential
 import time
 import sys
 
 ENDTIME = 10
-N_TIMESTEPS = int(sys.argv[5])
-N_WALKERS = int(sys.argv[3])
+N_TIMESTEPS = int(sys.argv[6])
+N_WALKERS = int(sys.argv[4])
 N_DIM = 3
 
 
 class expifr_mcmc(vice.singlezone):
 
-	def __init__(self, data, name = sys.argv[2], **kwargs):
+	def __init__(self, data, name = sys.argv[3], **kwargs):
 		super().__init__(name = name, **kwargs)
 		self.elements = ["fe", "o"]
 		self.func = exponential()
@@ -72,7 +71,7 @@ class expifr_mcmc(vice.singlezone):
 
 
 if __name__ == "__main__":
-	raw = np.genfromtxt("./mock.dat")
+	raw = np.genfromtxt(sys.argv[1])
 	data = {
 		"[fe/h]": np.array([row[0] for row in raw]),
 		"[fe/h]_err": np.array([row[1] for row in raw]),
@@ -91,7 +90,7 @@ if __name__ == "__main__":
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	p0 = np.array(p0)
 	start = time.time()
-	state = sampler.run_mcmc(p0, int(sys.argv[4]),
+	state = sampler.run_mcmc(p0, int(sys.argv[5]),
 		skip_initial_state_check = True)
 	stop = time.time()
 	print("MCMC time: ", stop - start)
@@ -102,6 +101,6 @@ if __name__ == "__main__":
 	logprob = [[logprob[_]] for _ in range(len(logprob))]
 	out = np.append(samples, logprob, axis = 1)
 	af = sum(sampler.acceptance_fraction) / N_WALKERS
-	np.savetxt(sys.argv[1], out, fmt = "%.5e",
+	np.savetxt(sys.argv[2], out, fmt = "%.5e",
 		header = "acceptance fraction: %.5e" % (af))
 

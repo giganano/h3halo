@@ -1,12 +1,19 @@
+r"""
+ARGV
+----
+1) The name of the output file containing the mock sample
+"""
 
 import numpy as np
 import math as m
 import vice
 from vice.yields.presets import JW20
+import sys
 
 FEH_ERR = 0.05
 OFE_ERR = 0.05
 AGE_ERR = 0.5
+NSTARS = 500
 
 # def sfh(t):
 # 	return m.exp(-t / 2)
@@ -28,8 +35,8 @@ with vice.output("mock") as out:
 	totsfr = sum(out.history["sfr"])
 	sfrfrac = [_ / totsfr for _ in out.history["sfr"]]
 	indeces = np.random.choice(list(range(len(sfrfrac))), p = sfrfrac,
-		size = 500)
-	with open("mock.dat", 'w') as data:
+		size = NSTARS)
+	with open(sys.argv[1], 'w') as data:
 		data.write("# [Fe/H]\t[Fe/H]_err\t[O/Fe]\t[O/Fe]_err\t")
 		data.write("Age [Gyr]\tAge_err\n")
 		for i in range(len(indeces)):
