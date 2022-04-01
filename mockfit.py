@@ -7,6 +7,7 @@ ARGV
 4) The number of walkers to use
 5) The number of iterations to run each walker through
 6) The number of timesteps to use in each one-zone model integration
+7) The number of burn-in steps to run
 """
 
 from emcee import EnsembleSampler
@@ -90,7 +91,9 @@ if __name__ == "__main__":
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	p0 = np.array(p0)
 	start = time.time()
-	state = sampler.run_mcmc(p0, int(sys.argv[5]),
+	state = sampler.run_mcmc(p0, int(sys.argv[7]))
+	sampler.reset()
+	state = sampler.run_mcmc(state, int(sys.argv[5]),
 		skip_initial_state_check = True)
 	stop = time.time()
 	print("MCMC time: ", stop - start)

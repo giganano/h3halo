@@ -12,7 +12,7 @@ import sys
 
 FEH_ERR = 0.05
 OFE_ERR = 0.05
-AGE_ERR = 0.5
+# AGE_ERR = 0.5
 NSTARS = 500
 
 # def sfh(t):
@@ -37,17 +37,19 @@ with vice.output("mock") as out:
 	indeces = np.random.choice(list(range(len(sfrfrac))), p = sfrfrac,
 		size = NSTARS)
 	with open(sys.argv[1], 'w') as data:
-		data.write("# [Fe/H]\t[Fe/H]_err\t[O/Fe]\t[O/Fe]_err\t")
-		data.write("Age [Gyr]\tAge_err\n")
+		data.write("# [Fe/H]\t[Fe/H]_err\t[O/Fe]\t[O/Fe]_err\n")
+		# data.write("# [Fe/H]\t[Fe/H]_err\t[O/Fe]\t[O/Fe]_err\t")
+		# data.write("Age [Gyr]\tAge_err\n")
 		for i in range(len(indeces)):
 			feh = out.history["[fe/h]"][indeces[i]]
 			ofe = out.history["[o/fe]"][indeces[i]]
-			age = out.history["lookback"][indeces[i]]
+			# age = out.history["lookback"][indeces[i]]
 			feh += np.random.normal(scale = FEH_ERR)
 			ofe += np.random.normal(scale = OFE_ERR)
-			age += np.random.normal(scale = AGE_ERR)
+			# age += np.random.normal(scale = AGE_ERR)
 			data.write("%.5e\t%.5e\t" % (feh, FEH_ERR))
 			data.write("%.5e\t%.5e\t" % (ofe, OFE_ERR))
-			data.write("%.5e\t%.5e\n" % (age, AGE_ERR))
+			# data.write("%.5e\t%.5e\n" % (age, AGE_ERR))
+			data.write("\n")
 		data.close()
 
