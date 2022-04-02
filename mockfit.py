@@ -59,7 +59,14 @@ class expifr_mcmc(vice.singlezone):
 		self.eta = walker[2]
 		out = super().run(np.linspace(0, ENDTIME, N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
-		model = np.array([out.history[key][1:] for key in self.quantities]).T
+		model = []
+		for key in self.quantities:
+			if key == "lookback":
+				model.append([m.log10(_) for _ in out.history[key][1:]])
+			else:
+				model.append(out.history[key][1:])
+		model = np.array(model).T
+		# model = np.array([out.history[key][1:] for key in self.quantities]).T
 		weights = out.history["sfr"][1:]
 		norm = sum(weights)
 		weights = [_ / norm for _ in weights]
@@ -78,8 +85,10 @@ if __name__ == "__main__":
 		"[fe/h]_err": np.array([row[1] for row in raw]),
 		"[o/fe]": np.array([row[2] for row in raw]),
 		"[o/fe]_err": np.array([row[3] for row in raw]),
-		"lookback": np.array([row[4] for row in raw]),
-		"lookback_err": np.array([row[5] for row in raw])
+		# "lookback": np.array([row[4] for row in raw]),
+		# "lookback_err": np.array([row[5] for row in raw])
+		"lookback": np.array([m.log10(row[4]) for row in raw]),
+		"lookback_err": np.array([m.log10(row[5]) for row in raw])
 	}
 	log_prob = expifr_mcmc(data)
 	sampler = EnsembleSampler(N_WALKERS, N_DIM, log_prob)
