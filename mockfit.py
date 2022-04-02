@@ -62,7 +62,7 @@ class expifr_mcmc(vice.singlezone):
 		model = []
 		for key in self.quantities:
 			if key == "lookback":
-				model.append([m.log10(_) for _ in out.history[key][1:]])
+				model.append([m.log10(_) for _ in out.history[key][:-1]])
 			else:
 				model.append(out.history[key][1:])
 		model = np.array(model).T
