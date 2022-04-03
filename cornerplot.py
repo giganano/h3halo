@@ -27,9 +27,9 @@ RANGE = [
 	# (8.6, 11.4),
 	# (23.8, 26.2)
 	# precise
-	(1.97, 2.05),
-	(9.5, 10.3),
-	(24.8, 25.2)
+	# (1.97, 2.05),
+	# (9.5, 10.3),
+	# (24.8, 25.2)
 	# imprecise
 	# (1.7, 2.4),
 	# (5, 15),
@@ -46,17 +46,21 @@ RANGE = [
 	# (1.95, 2.05),
 	# (9.6, 11.0),
 	# (24.6, 25.5)
+	# gse
+	(2.0, 2.8),
+	(20, 27),
+	(14, 17)
 ]
-# TICKS = None
+TICKS = None
 TICKS = [
 	# fiducial
 	# [1.9, 2.0, 2.1],
 	# [9, 10, 11],
 	# [24, 25, 26]
 	# precise
-	[1.98, 2, 2.02, 2.04],
-	[9.6, 9.8, 10, 10.2],
-	[24.9, 25, 25.1]
+	# [1.98, 2, 2.02, 2.04],
+	# [9.6, 9.8, 10, 10.2],
+	# [24.9, 25, 25.1]
 	# imprecise
 	# [1.8, 2, 2.2],
 	# [6, 8, 10, 12, 14],
@@ -73,6 +77,10 @@ TICKS = [
 	# [1.96, 2, 2.04],
 	# [10, 10.5],
 	# [24.6, 25, 25.4]
+	# gse
+	[2.2, 2.4, 2.6],
+	[22, 24, 26],
+	[14, 15, 16, 17]
 ]
 MAXLOGP_KWARGS = {
 	"c": named_colors()["deepskyblue"],
@@ -93,8 +101,9 @@ kwargs = {
 	"quantiles": [0.16, 0.50, 0.84],
 	"show_titles": True,
 	"color": named_colors()["black"],
-	"truths": [2, 10, 25],
-	"truth_color": named_colors()["crimson"],
+	"truths": mcmc_chain[idxmax],
+	# "truths": [2, 10, 25],
+	"truth_color": named_colors()["crimson"]
 }
 if RANGE is not None: kwargs["range"] = RANGE
 fig = corner.corner(mcmc_chain, **kwargs)
@@ -114,9 +123,9 @@ if TICKS is not None:
 					# print(DIM * i + j)
 					# print(mcmc_chain[idxmax][j])
 					# print(mcmc_chain[idxmax][i])
-					fig.axes[DIM * i + j].scatter(
-						mcmc_chain[idxmax][j], mcmc_chain[idxmax][i],
-						**MAXLOGP_KWARGS)
+					# fig.axes[DIM * i + j].scatter(
+					# 	mcmc_chain[idxmax][j], mcmc_chain[idxmax][i],
+					# 	**MAXLOGP_KWARGS)
 else: pass
 plt.tight_layout()
 plt.subplots_adjust(hspace = 0, wspace = 0)

@@ -100,7 +100,8 @@ if __name__ == "__main__":
 	# start initial at known position anyway since this is a mock
 	p0 = N_WALKERS * [None]
 	for i in range(len(p0)):
-		p0[i] = [2, 10, 25]
+		# p0[i] = [2, 10, 25]
+		p0[i] = [2.5, 23, 15]
 		for j in range(len(p0[i])):
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	p0 = np.array(p0)
