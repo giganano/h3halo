@@ -53,7 +53,10 @@ with vice.output("mock") as out:
 			data.write("%.5e\t%.5e\t" % (feh, FEH_ERR))
 			data.write("%.5e\t%.5e\t" % (ofe, OFE_ERR))
 			# data.write("%.5e\t%.5e\n" % (age, AGE_ERR))
+			# if i < 100:
 			data.write("%.5e\t%.5e\t" % (logage, LOGAGE_ERR))
 			data.write("\n")
+			# else:
+			# 	data.write("nan\tnan\n")
 		data.close()
 
