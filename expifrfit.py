@@ -22,7 +22,7 @@ from utils import exponential
 import time
 import sys
 
-ENDTIME = 10
+ENDTIME = 5
 N_TIMESTEPS = int(sys.argv[6])
 N_WALKERS = int(sys.argv[4])
 N_DIM = 3

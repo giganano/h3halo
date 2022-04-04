@@ -49,7 +49,7 @@ RANGE = [
 	# gse
 	(2.0, 2.8),
 	(20, 27),
-	(14, 17)
+	(14, 16.4)
 ]
 TICKS = None
 TICKS = [
@@ -80,7 +80,7 @@ TICKS = [
 	# gse
 	[2.2, 2.4, 2.6],
 	[22, 24, 26],
-	[14, 15, 16, 17]
+	[14, 15, 16]
 ]
 MAXLOGP_KWARGS = {
 	"c": named_colors()["deepskyblue"],
