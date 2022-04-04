@@ -27,6 +27,32 @@ N_WALKERS = int(sys.argv[4])
 N_DIM = 3
 
 
+def invcov(errors):
+	nancheck = [m.isnan(_) for _ in errors]
+	if any(nancheck):
+		smallerrors = list(filter(lambda _: not m.isnan(_), errors))
+		smallcov = np.diag([_**2 for _ in smallerrors])
+		smallinvcov = np.linalg.inv(smallcov)
+		invcov = np.zeros((len(errors), len(errors)))
+		nrow = 0
+		for i in range(len(invcov)):
+			ncol = 0
+			if nancheck[i]:
+				for j in range(len(invcov[i])): invcov[i][j] = float("nan")
+			else:
+				for j in range(len(invcov[i])):
+					if nancheck[j]:
+						invcov[i][j] = float("nan")
+					else:
+						invcov[i][j] = smallinvcov[nrow][ncol]
+						ncol += 1
+				nrow += 1
+		return invcov
+	else:
+		cov = np.diag([_**2 for _ in errors])
+		return np.linalg.inv(cov)
+
+
 class expifr_mcmc(vice.singlezone):
 
 	def __init__(self, data, name = sys.argv[3], **kwargs):
@@ -45,9 +71,7 @@ class expifr_mcmc(vice.singlezone):
 		errors = np.array(
 			[data["%s_err" % (key)] for key in self.quantities]).T
 		invcovs = len(sample) * [None]
-		for i in range(len(sample)):
-			cov = np.diag(errors[i]**2)
-			invcovs[i] = np.linalg.inv(cov)
+		for i in range(len(sample)): invcovs[i] = invcov(errors[i])
 
 		self.fd = fit_driver(sample, invcovs)
 
