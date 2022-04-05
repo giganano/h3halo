@@ -6,7 +6,6 @@ from .utils import invcov
 import numpy as np
 import math as m
 import vice
-# from vice.yields.presets import JW20
 import sys
 import os
 
@@ -50,7 +49,7 @@ class mcmc:
 		model = []
 		for key in self._quantities:
 			if key == "lookback":
-				model.append([m.log(_) for _ in output.history[key][:-1]])
+				model.append([m.log10(_) for _ in output.history[key][:-1]])
 			else:
 				model.append(output.history[key][1:])
 		model = np.array(model).T
