@@ -34,7 +34,7 @@ class gsefit(mcmc):
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
-		if walker[3] > 14: return -float("inf")
+		if walker[3] > H3_UNIVERSE_AGE: return -float("inf")
 		print("walker: [%.2f, %.2f, %.2f, %.2f]" % (walker[0], walker[1],
 			walker[2], walker[3]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
@@ -60,7 +60,9 @@ class gsefit(mcmc):
 		weights = [_ / norm for _ in weights]
 		self.fd.model = model
 		self.fd.weights = weights
-		return self.fd()
+		logp = self.fd()
+		print(logp)
+		return logp
 
 
 if __name__ == "__main__":
@@ -74,10 +76,7 @@ if __name__ == "__main__":
 		"lookback_err": np.array([row[5] for row in raw])
 	}
 	log_prob = gsefit(data)
-	pool = Pool(N_PROC)
 	sampler = EnsembleSampler(N_WALKERS, N_DIM, log_prob, pool = pool)
-	# p0 = N_WALKERS * [None]
-	# for i in range(len(p0)):
 	p0 = 10 * np.random.rand(N_WALKERS, N_DIM)
 	start = time.time()
 	state = sampler.run_mcmc(p0, N_BURNIN)

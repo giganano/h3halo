@@ -18,7 +18,8 @@ FILENAME = sys.argv[1]
 LABELS = [
 	r"$\tau_\text{in}$ [Gyr]",
 	r"$\tau_\star$ [Gyr]",
-	r"$\eta$"
+	r"$\eta$",
+	r"$\tau_\text{tot}$ [Gyr]"
 ]
 RANGE = None
 # RANGE = [
