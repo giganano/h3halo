@@ -11,7 +11,7 @@ import time
 import os
 
 DATA_FILE = "./data/gsechem.dat"
-OUTFILE = "./test.out"
+OUTFILE = "./gsechem.out"
 MODEL_BASENAME = "gsefit"
 N_PROC = 10
 N_TIMESTEPS = 1000
@@ -76,6 +76,7 @@ if __name__ == "__main__":
 		"lookback_err": np.array([row[5] for row in raw])
 	}
 	log_prob = gsefit(data)
+	pool = Pool(N_PROC)
 	sampler = EnsembleSampler(N_WALKERS, N_DIM, log_prob, pool = pool)
 	p0 = 10 * np.random.rand(N_WALKERS, N_DIM)
 	start = time.time()
