@@ -59,23 +59,23 @@ def invcov(errors):
 		return np.linalg.inv(cov)
 
 
-class expifr_mcmc(vice.singlezone):
+class expifr_mcmc:
 
 	def __init__(self, data):
-		# self._sz = vice.singlezone()
-		# self._sz.elements = ["fe", "o"]
-		# self._sz.func = exponential()
-		# self._sz.mode = "ifr"
-		# self._sz.Mg0 = 0
-		# self._sz.nthreads = 2
-		# self._sz.dt = ENDTIME / N_TIMESTEPS
-		super().__init__()
-		self.elements = ["fe", "o"]
-		self.func = exponential()
-		self.mode = "ifr"
-		self.Mg0 = 0
-		self.nthreads = 2
-		self.dt = ENDTIME / N_TIMESTEPS
+		self._sz = vice.singlezone()
+		self._sz.elements = ["fe", "o"]
+		self._sz.func = exponential()
+		self._sz.mode = "ifr"
+		self._sz.Mg0 = 0
+		self._sz.nthreads = 2
+		self._sz.dt = ENDTIME / N_TIMESTEPS
+		# super().__init__()
+		# self.elements = ["fe", "o"]
+		# self.func = exponential()
+		# self.mode = "ifr"
+		# self.Mg0 = 0
+		# self.nthreads = 2
+		# self.dt = ENDTIME / N_TIMESTEPS
 
 		self.quantities = list(data.keys())
 		self.quantities = list(filter(lambda x: not x.endswith("_err"),
@@ -90,19 +90,21 @@ class expifr_mcmc(vice.singlezone):
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
-		# self._sz.name = "%s%s" % (sys.argv[3], os.getpid())
-		# self._sz.func.timescale = walker[0]
-		# self._sz.tau_star = walker[1]
-		# self._sz.eta = walker[2]
-		self.name = "%s%s" % (sys.argv[3], os.getpid())
+		self._sz.name = "%s%s" % (sys.argv[3], os.getpid())
+		self._sz.func.timescale = walker[0]
+		self._sz.tau_star = walker[1]
+		self._sz.eta = walker[2]
+		# self.name = "%s%s" % (sys.argv[3], os.getpid())
 		out = self._sz.run(np.linspace(0, ENDTIME, N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
+		# out = super().run(np.linspace(0, ENDTIME, N_TIMESTEPS + 1),
+		# 	overwrite = True, capture = True)
 		print("walker: [%.5e, %.5e, %.5e] " % (walker[0], walker[1], walker[2]))
-		self.func.timescale = walker[0]
-		self.tau_star = walker[1]
-		self.eta = walker[2]
-		out = super().run(np.linspace(0, ENDTIME, N_TIMESTEPS + 1),
-			overwrite = True, capture = True)
+		# self.func.timescale = walker[0]
+		# self.tau_star = walker[1]
+		# self.eta = walker[2]
+		# out = super().run(np.linspace(0, ENDTIME, N_TIMESTEPS + 1),
+		# 	overwrite = True, capture = True)
 		model = []
 		for key in self.quantities:
 			if key == "lookback":
