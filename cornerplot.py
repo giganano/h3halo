@@ -20,8 +20,8 @@ LABELS = [
 	r"$\tau_\star$ [Gyr]",
 	r"$\eta$"
 ]
-# RANGE = None
-RANGE = [
+RANGE = None
+# RANGE = [
 	# fiducial
 	# (1.88, 2.14),
 	# (8.6, 11.4),
@@ -55,12 +55,12 @@ RANGE = [
 # 	(8.6, 11.4),
 # 	(24.1, 25.9),
 	# lowered yields
-	(1.85, 2.08),
-	(2.6, 3.8),
-	(7.5, 8.5)
-]
-# TICKS = None
-TICKS = [
+# 	(1.85, 2.08),
+# 	(2.6, 3.8),
+# 	(7.5, 8.5)
+# ]
+TICKS = None
+# TICKS = [
 	# fiducial
 	# [1.9, 2.0, 2.1],
 	# [9, 10, 11],
@@ -94,10 +94,10 @@ TICKS = [
 # 	(9, 10, 11),
 # 	(24.5, 25, 25.5)
 	# lowered yields
-	[1.9, 2.0],
-	[3.0, 3.5],
-	[7.5, 8.0, 8.5]
-]
+# 	[1.9, 2.0],
+# 	[3.0, 3.5],
+# 	[7.5, 8.0, 8.5]
+# ]
 MAXLOGP_KWARGS = {
 	"c": named_colors()["deepskyblue"],
 	"marker": markers()["star"],

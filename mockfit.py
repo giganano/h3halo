@@ -42,16 +42,14 @@ class expifr_mcmc(mcmc):
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
+		print("walker: [%.5e, %.5e, %.5e] " % (walker[0], walker[1], walker[2]))
 		self.sz.name = "%s%s" % (sys.argv[3], os.getpid())
 		self.sz.func.timescale = walker[0]
 		self.sz.tau_star = walker[1]
 		self.sz.eta = walker[2]
-		result = super().__call__(self.sz.run(
+		return super().__call__(self.sz.run(
 			np.linspace(0, ENDTIME, N_TIMESTEPS + 1),
 			overwrite = True, capture = True))
-		print("walker: [%.5e, %.5e, %.5e] " % (walker[0], walker[1], walker[2]))
-		print(result)
-		return result
 
 
 if __name__ == "__main__":
