@@ -10,8 +10,8 @@ from vice.yields.presets import JW20
 import time
 import os
 
-DATA_FILE = "./data/gsechem.dat"
-OUTFILE = "./gsechem.out"
+DATA_FILE = "./data/someages.dat"
+OUTFILE = "./someages.out"
 MODEL_BASENAME = "gsefit"
 N_PROC = 10
 N_TIMESTEPS = 1000
@@ -19,7 +19,7 @@ N_WALKERS = 256
 N_BURNIN = 100
 N_ITERS = 100
 H3_UNIVERSE_AGE = 14
-N_DIM = 4
+N_DIM = 3
 
 
 class gsefit(mcmc):
@@ -34,17 +34,21 @@ class gsefit(mcmc):
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
-		if walker[3] > H3_UNIVERSE_AGE: return -float("inf")
+		# if walker[3] > H3_UNIVERSE_AGE: return -float("inf")
 		print("walker: [%.2f, %.2f, %.2f, %.2f]" % (walker[0], walker[1],
-			walker[2], walker[3]))
+			# walker[2], walker[3]))
+			walker[2]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
-		self.sz.dt = walker[3] / N_TIMESTEPS
+		# self.sz.dt = walker[3] / N_TIMESTEPS
 		self.sz.func.timescale = walker[0]
 		self.sz.tau_star = walker[1]
 		self.sz.eta = walker[2]
-		output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1),
+		# output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1),
+		# 	overwrite = True, capture = True)
+		output = self.sz.run(np.linspace(0, 10, N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
-		diff = H3_UNIVERSE_AGE - walker[3]
+		# diff = H3_UNIVERSE_AGE - walker[3]
+		diff = 0
 		model = []
 		for key in self.quantities:
 			if key == "lookback":
