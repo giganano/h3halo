@@ -18,9 +18,9 @@ import numpy as np
 import math as m
 import vice
 from vice.yields.presets import JW20
-vice.yields.ccsne.settings['o'] /= 3
-vice.yields.ccsne.settings['fe'] /= 3
-vice.yields.sneia.settings['fe'] /= 3
+# vice.yields.ccsne.settings['o'] /= 3
+# vice.yields.ccsne.settings['fe'] /= 3
+# vice.yields.sneia.settings['fe'] /= 3
 from utils import cov
 from utils import exponential
 import time
