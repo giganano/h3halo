@@ -13,4 +13,8 @@ all: likelihood.o
 
 .PHONY: 
 clean:
+	@ rm -rf __pycache__
+	@ rm -f _fit_driver.c
+	@ rm -rf build
+	@ rm -rf *.so
 	@ rm -rf *.o

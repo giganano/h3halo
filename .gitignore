@@ -1,10 +1,14 @@
 
 h3halo.sublime-workspace
 h3halo.sublime-project
-*/*.vice/*
+*.vice/*
 *.out
 *.pyc
 *.so
+*.o
+*.obj
+src/_fit_driver.c
+src/build/*
 */*.ipynb_checkpoints/*
 
 
