@@ -7,17 +7,19 @@ import numpy as np
 import math as m
 import vice
 from vice.yields.presets import JW20
+vice.yields.ccsne.settings['mg'] = 0.00261
+vice.yields.sneia.settings['mg'] = 0
 import time
 import os
 
 DATA_FILE = "./data/gsechem.dat"
-OUTFILE = "./data/gsechem_5000.out"
-MODEL_BASENAME = "gsefit_5000_"
-N_PROC = 4
+OUTFILE = "./data/gsechem.out"
+MODEL_BASENAME = "gsefit"
+N_PROC = 10
 N_TIMESTEPS = 1000
-N_WALKERS = 50
+N_WALKERS = 256
 N_BURNIN = 100
-N_ITERS = 100
+N_ITERS = 400
 H3_UNIVERSE_AGE = 14
 N_DIM = 4
 
@@ -26,7 +28,8 @@ class gsefit(mcmc):
 
 	def __init__(self, data):
 		super().__init__(data)
-		self.sz.elements = ["fe", "o"]
+		# self.sz.elements = ["fe", "o"]
+		self.sz.elements = ["fe", "mg"]
 		self.sz.func = exponential()
 		self.sz.mode = "ifr"
 		self.sz.Mg0 = 0
@@ -74,8 +77,8 @@ if __name__ == "__main__":
 	data = {
 		"[fe/h]": np.array([row[0] for row in raw]),
 		"[fe/h]_err": np.array([row[1] for row in raw]),
-		"[o/fe]": np.array([row[2] for row in raw]),
-		"[o/fe]_err": np.array([row[3] for row in raw]),
+		"[mg/fe]": np.array([row[2] for row in raw]),
+		"[mg/fe]_err": np.array([row[3] for row in raw]),
 		"lookback": np.array([row[4] for row in raw]),
 		"lookback_err": np.array([row[5] for row in raw])
 	}
