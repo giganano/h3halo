@@ -35,7 +35,7 @@ class gsefit(mcmc):
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		if walker[3] > H3_UNIVERSE_AGE: return -float("inf")
-		print("walker: [%.2f, %.2f, %.2f]" % (walker[0], walker[1],
+		print("walker: [%.2f, %.2f, %.2f, %.2f]" % (walker[0], walker[1],
 			walker[2], walker[3]))
 			# walker[2]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
