@@ -10,12 +10,12 @@ from vice.yields.presets import JW20
 import time
 import os
 
-DATA_FILE = "./data/someages.dat"
+DATA_FILE = "./mocksamples/someages.dat"
 OUTFILE = "./someages.out"
 MODEL_BASENAME = "gsefit"
 N_PROC = 10
 N_TIMESTEPS = 1000
-N_WALKERS = 256
+N_WALKERS = 50
 N_BURNIN = 100
 N_ITERS = 100
 H3_UNIVERSE_AGE = 14
@@ -35,7 +35,7 @@ class gsefit(mcmc):
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		# if walker[3] > H3_UNIVERSE_AGE: return -float("inf")
-		print("walker: [%.2f, %.2f, %.2f, %.2f]" % (walker[0], walker[1],
+		print("walker: [%.2f, %.2f, %.2f]" % (walker[0], walker[1],
 			# walker[2], walker[3]))
 			walker[2]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
