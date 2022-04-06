@@ -10,10 +10,10 @@ from vice.yields.presets import JW20
 import time
 import os
 
-DATA_FILE = "./mocksamples/someages.dat"
-OUTFILE = "./someages_tautot.out"
-MODEL_BASENAME = "gsefit"
-N_PROC = 10
+DATA_FILE = "./data/gsechem.dat"
+OUTFILE = "./data/gsechem_5000.out"
+MODEL_BASENAME = "gsefit_5000_"
+N_PROC = 4
 N_TIMESTEPS = 1000
 N_WALKERS = 50
 N_BURNIN = 100
