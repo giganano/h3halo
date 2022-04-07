@@ -21,83 +21,19 @@ LABELS = [
 	r"$\eta$",
 	r"$\tau_\text{tot}$ [Gyr]"
 ]
-RANGE = None
-# RANGE = [
-	# fiducial
-	# (1.88, 2.14),
-	# (8.6, 11.4),
-	# (23.8, 26.2)
-	# precise
-	# (1.97, 2.05),
-	# (9.5, 10.3),
-	# (24.8, 25.2)
-	# imprecise
-	# (1.7, 2.4),
-	# (5, 15),
-	# (22, 28)
-	# small
-	# (1.5, 2.1),
-	# (8, 16),
-	# (23.4, 27.6)
-	# noages
-	# (1.6, 2.3),
-	# (8.4, 12.6),
-	# (23.4, 26)
-	# large
-	# (1.95, 2.05),
-	# (9.6, 11.0),
-	# (24.6, 25.5)
-	# gse
-# 	(0.92, 1.18),
-# 	(15, 20),
-# 	(17, 20)
-	# some ages
-# 	(1.92, 2.28),
-# 	(8.6, 11.4),
-# 	(24.1, 25.9),
-	# lowered yields
-# 	(1.85, 2.08),
-# 	(2.6, 3.8),
-# 	(7.5, 8.5)
-# ]
+# RANGE = None
+RANGE = [
+	(0.5, 2),
+	(50, 65),
+	(27, 33),
+	(10, 15)
+]
 TICKS = None
 # TICKS = [
-	# fiducial
-	# [1.9, 2.0, 2.1],
-	# [9, 10, 11],
-	# [24, 25, 26]
-	# precise
-	# [1.98, 2, 2.02, 2.04],
-	# [9.6, 9.8, 10, 10.2],
-	# [24.9, 25, 25.1]
-	# imprecise
-	# [1.8, 2, 2.2],
-	# [6, 8, 10, 12, 14],
-	# [23, 25, 27]
-	# small
-	# [1.6, 1.8, 2.0],
-	# [10, 12, 14],
-	# [24, 25, 26, 27]
-	# noages
-	# [1.8, 2.0, 2.2],
-	# [9, 10, 11, 12],
-	# [24, 25, 26]
-	# large
-	# [1.96, 2, 2.04],
-	# [10, 10.5],
-	# [24.6, 25, 25.4]
-	# gse
-# 	[1., 1.1],
-# 	[16, 17, 18, 19],
-# 	[18, 19]
-	# some ages
-# 	(2, 2.1, 2.2),
-# 	(9, 10, 11),
-# 	(24.5, 25, 25.5)
-	# lowered yields
-# 	[1.9, 2.0],
-# 	[3.0, 3.5],
-# 	[7.5, 8.0, 8.5]
+# 	[0.8, 1.0],
+# 	[24, 26, 28],
+# 	[9, 10],
+# 	[10, 11, 12, 13]
 # ]
 MAXLOGP_KWARGS = {
 	"c": named_colors()["deepskyblue"],
@@ -107,10 +43,13 @@ MAXLOGP_KWARGS = {
 }
 
 raw = np.genfromtxt(FILENAME)
+# raw = np.array(list(filter(lambda _: _[0] <= 5, raw)))
+raw = np.array(list(filter(lambda _: not np.isinf(_[-1]), raw)))
 mcmc_chain = np.array([row[:-1] for row in raw])
 logp = [row[-1] for row in raw]
 idxmax = logp.index(max(logp))
 DIM = len(mcmc_chain[0])
+# print(mcmc_chain[idxmax])
 
 kwargs = {
 	"labels": LABELS,
@@ -119,24 +58,36 @@ kwargs = {
 	"show_titles": True,
 	"color": named_colors()["black"],
 	"truths": mcmc_chain[idxmax],
-	# "truths": [2, 10, 25],
+	# "truths": [2, 10, 25, 10],
 	"truth_color": named_colors()["crimson"]
 }
+kwargs["truths"][-1] = 12.54
 if RANGE is not None: kwargs["range"] = RANGE
-fig = corner.corner(mcmc_chain, **kwargs)
+fig = corner.corner(mcmc_chain, title_kwargs = {"fontsize": 15}, **kwargs)
 # fig.set_size_inches(15, 15)
 # print(fig.size)
 if TICKS is not None:
 	for i in range(DIM):
 		for j in range(DIM):
-			if i >= j:
+			# if i >= j:
+			# print(i, j, DIM, DIM * i + j)
+			# print(fig.axes[DIM * i + j])
+			if i == DIM - 1:
 				fig.axes[DIM * i + j].xaxis.set_major_formatter(fsf("%g"))
 				fig.axes[DIM * i + j].tick_params(labelrotation = 0)
+			if j == 0 and i > 0:
+				# print(i, j)
+				# print(DIM * i)
+				# print(fig.axes[DIM * i].__repr__())
+				fig.axes[DIM * i].yaxis.set_major_formatter(fsf("%g"))
+				fig.axes[DIM * i].tick_params(labelrotation = 0)
+				# fig.axes[DIM * i].set_yticks(TICKS[i])
+			if i >= j:
 				fig.axes[DIM * i + j].set_xticks(TICKS[j])
 				if i != j:
-					if not j: fig.axes[DIM * i + j].yaxis.set_major_formatter(
-						fsf("%g"))
 					fig.axes[DIM * i + j].set_yticks(TICKS[i])
+					# if not j: fig.axes[DIM * i + j].yaxis.set_major_formatter(
+					# 	fsf("%g"))
 					# print(DIM * i + j)
 					# print(mcmc_chain[idxmax][j])
 					# print(mcmc_chain[idxmax][i])

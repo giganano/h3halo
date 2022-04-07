@@ -15,6 +15,8 @@ FEH_ERR = 0.05
 OFE_ERR = 0.05
 LOGAGE_ERR = 0.1
 NSTARS = 500
+DURATION = 10
+H3_UNIVERSE_AGE = 14
 
 # def sfh(t):
 # 	return m.exp(-t / 2)
@@ -29,7 +31,7 @@ with vice.singlezone(name = "mock", verbose = True) as sz:
 	sz.tau_star = 10
 	sz.eta = 25
 	sz.Mg0 = 0
-	sz.run(np.linspace(0, 10, 1001), overwrite = True)
+	sz.run(np.linspace(0, DURATION, 1001), overwrite = True)
 
 with vice.output("mock") as out:
 	np.random.seed(0)
@@ -44,7 +46,9 @@ with vice.output("mock") as out:
 		for i in range(len(indeces)):
 			feh = out.history["[fe/h]"][indeces[i]]
 			ofe = out.history["[o/fe]"][indeces[i]]
-			logage = m.log10(out.history["lookback"][indeces[i]])
+			logage = m.log10(out.history["lookback"][indeces[i]] +
+				H3_UNIVERSE_AGE - DURATION)
+			# logage = m.log10(out.history["lookback"][indeces[i]])
 			# age = out.history["lookback"][indeces[i]]
 			feh += np.random.normal(scale = FEH_ERR)
 			ofe += np.random.normal(scale = OFE_ERR)
