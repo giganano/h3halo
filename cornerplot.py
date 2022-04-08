@@ -20,21 +20,38 @@ LABELS = [
 	r"$\tau_\star$ [Gyr]",
 	r"$\eta$",
 	r"$\tau_\text{tot}$ [Gyr]"
+	# r"$100\times y_\text{O}^\text{CC}$",
+	# r"$100\times y_\text{Fe}^\text{CC}$",
+	# r"$100\times y_\text{Fe}^\text{Ia}$"
 ]
 # RANGE = None
 RANGE = [
-	(0.5, 2),
-	(50, 65),
-	(27, 33),
-	(10, 15)
+	(1.5, 2.7),
+	(18.5, 27.5),
+	(14.4, 17.6),
+	(6, 12)
+# 	(1.7, 2.7),
+# 	(5, 65),
+# 	(10, 100),
+# 	(8, 15),
+# 	(0.5, 6),
+# 	(0.05, 0.55),
+# 	(0.0, 1)
 ]
-TICKS = None
-# TICKS = [
-# 	[0.8, 1.0],
-# 	[24, 26, 28],
-# 	[9, 10],
-# 	[10, 11, 12, 13]
-# ]
+# TICKS = None
+TICKS = [
+	[1.5, 2, 2.5],
+	[20, 25],
+	[15, 16, 17],
+	[6, 8, 10, 12]
+# 	[2.0, 2.5],
+# 	[20, 40, 60],
+# 	[20, 40, 60, 80],
+# 	[10, 12, 14],
+# 	[2, 4, 6],
+# 	[0.2, 0.4],
+# 	[0, 0.5, 1]
+]
 MAXLOGP_KWARGS = {
 	"c": named_colors()["deepskyblue"],
 	"marker": markers()["star"],
@@ -46,6 +63,8 @@ raw = np.genfromtxt(FILENAME)
 # raw = np.array(list(filter(lambda _: _[0] <= 5, raw)))
 raw = np.array(list(filter(lambda _: not np.isinf(_[-1]), raw)))
 mcmc_chain = np.array([row[:-1] for row in raw])
+# for i in range(len(mcmc_chain)):
+# 	for j in [-3, -2, -1]: mcmc_chain[i][j] *= 100
 logp = [row[-1] for row in raw]
 idxmax = logp.index(max(logp))
 DIM = len(mcmc_chain[0])
@@ -58,10 +77,10 @@ kwargs = {
 	"show_titles": True,
 	"color": named_colors()["black"],
 	"truths": mcmc_chain[idxmax],
-	# "truths": [2, 10, 25, 10],
+	# "truths": [2, 10, 25, 10, 1.5, 0.12, 0.17],
 	"truth_color": named_colors()["crimson"]
 }
-kwargs["truths"][-1] = 12.54
+# kwargs["truths"][-1] = 12.54
 if RANGE is not None: kwargs["range"] = RANGE
 fig = corner.corner(mcmc_chain, title_kwargs = {"fontsize": 15}, **kwargs)
 # fig.set_size_inches(15, 15)
