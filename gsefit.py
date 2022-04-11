@@ -21,7 +21,7 @@ N_WALKERS = 256
 N_BURNIN = 100
 N_ITERS = 100
 H3_UNIVERSE_AGE = 14
-N_DIM = 4
+N_DIM = 5
 
 # emcee walker parameters
 #
