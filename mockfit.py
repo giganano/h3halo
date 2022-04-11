@@ -16,7 +16,7 @@ import os
 DATA_FILE = "./mocksamples/simpleburst.dat"
 OUTFILE = "./mocksamples/simpleburst_noages_5000.out"
 MODEL_BASENAME = "someages_wyields"
-N_PROC = 4
+N_PROC = 10
 N_TIMESTEPS = 1000
 N_WALKERS = 50
 N_BURNIN = 100
@@ -51,7 +51,7 @@ class expifr_mcmc(mcmc):
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		if walker[2] > H3_UNIVERSE_AGE: return -float("inf")
-		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2e, %.2f, %.2f, %.2f] " % (
+		print("walker: [%.2f, %.2f, %.2f, %.2e, %.2f, %.2f, %.2f] " % (
 			walker[0], walker[1], walker[2], walker[3], walker[4],
 			walker[5], walker[6]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
@@ -98,7 +98,7 @@ if __name__ == "__main__":
 	p0 = N_WALKERS * [None]
 	for i in range(len(p0)):
 		# p0[i] = [2, 10, 25, 10]
-		p0[i] = [2, 10, 25, 10, 0.015, 0.0012, 0.0017]
+		p0[i] = [2, 10, 5, 0.015, 2.5, 1, ]
 		for j in range(len(p0[i])):
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	p0 = np.array(p0)
