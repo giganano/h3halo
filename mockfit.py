@@ -62,7 +62,7 @@ class expifr_mcmc(mcmc):
 		self.sz.tau_star.norm = walker[3]
 		self.sz.tau_star.deltas[0] = walker[4]
 		self.sz.tau_star.deltas[1] = walker[5]
-		self.sz.tau_star.slope = (walker[6] - walker[3]) / walker[5]
+		self.sz.tau_star.slopes[2] = (walker[6] - walker[3]) / walker[5]
 		output = self.sz.run(np.linspace(0, walker[2], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
 		diff = H3_UNIVERSE_AGE - walker[2]
