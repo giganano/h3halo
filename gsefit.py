@@ -45,7 +45,7 @@ class gsefit(mcmc):
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		if walker[3] > H3_UNIVERSE_AGE: return -float("inf")
-		if 0.003 <= walker[4] <= 0.075: return -float("inf")
+		if walker[4] < 0.003 or walker[4] > 0.075: return -float("inf")
 		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2e]" % (walker[0], walker[1],
 			walker[2], walker[3], walker[4]))
 			# walker[2]))
@@ -97,6 +97,10 @@ if __name__ == "__main__":
 	pool = Pool(N_PROC)
 	sampler = EnsembleSampler(N_WALKERS, N_DIM, log_prob, pool = pool)
 	p0 = 10 * np.random.rand(N_WALKERS, N_DIM)
+	# confine the yield to the allowed range to begin with
+	for i in range(len(p0)):
+		while p0[i][4] < 0.003 or p0[i][4] > 0.075:
+			p0[i][4] = np.random.rand()
 	start = time.time()
 	state = sampler.run_mcmc(p0, N_BURNIN)
 	sampler.reset()
