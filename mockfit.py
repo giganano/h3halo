@@ -22,18 +22,17 @@ N_WALKERS = 50
 N_BURNIN = 100
 N_ITERS = 100
 H3_UNIVERSE_AGE = 14
-N_DIM = 8
+N_DIM = 7
 
 # emcee walker parameters
 #
 # 0. infall timescale
 # 1. Mass loading factor
 # 2. total duration of the model
-# 3. CCSN O yield
-# 4. value of initial tau_star
-# 5. duration of initial tau_star
-# 6. duration of tau_star decrease
-# 7. value of final tau_star
+# 3. value of initial tau_star
+# 4. duration of initial tau_star
+# 5. duration of tau_star decrease
+# 6. value of final tau_star
 
 
 class expifr_mcmc(mcmc):
@@ -53,21 +52,17 @@ class expifr_mcmc(mcmc):
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		if walker[2] > H3_UNIVERSE_AGE: return -float("inf")
 		print("walker: [%.2f, %.2f, %.2f, %.2e, %.2f, %.2f, %.2f] " % (
-			walker[0], walker[1], walker[2], walker[3], walker[4],
-			walker[5], walker[6]))
+			walker[0], walker[1], walker[2], walker[3],
+			walker[4], walker[5], walker[6]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
 		self.sz.func.timescale = walker[0]
 		# self.sz.tau_star = walker[1]
 		self.sz.eta = walker[1]
 		self.sz.dt = walker[2] / N_TIMESTEPS
-		vice.yields.ccsne.settings['o'] = walker[3]
-		self.sz.tau_star.norm = walker[4]
-		self.sz.tau_star.deltas[0] = walker[5]
-		self.sz.tau_star.deltas[1] = walker[6]
-		self.sz.tau_star.slope = (walker[7] - walker[4]) / walker[6]
-		# self.sz.tau_star.deltas[0] = walker[4]
-		# self.sz.tau_star.deltas[1] = walker[5]
-		# self.sz.tau_star.slopes[1] = walker[6]
+		self.sz.tau_star.norm = walker[3]
+		self.sz.tau_star.deltas[0] = walker[4]
+		self.sz.tau_star.deltas[1] = walker[5]
+		self.sz.tau_star.slope = (walker[6] - walker[3]) / walker[5]
 		output = self.sz.run(np.linspace(0, walker[2], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
 		diff = H3_UNIVERSE_AGE - walker[2]
@@ -103,7 +98,7 @@ if __name__ == "__main__":
 	p0 = N_WALKERS * [None]
 	for i in range(len(p0)):
 		# p0[i] = [2, 10, 25, 10]
-		p0[i] = [2, 10, 5, 0.015, 50, 2.5, 1, 2]
+		p0[i] = [2, 10, 5, 50, 2.5, 1, 2]
 		for j in range(len(p0[i])):
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	p0 = np.array(p0)
