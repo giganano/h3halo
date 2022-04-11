@@ -13,7 +13,7 @@ import time
 import os
 
 DATA_FILE = "./data/gsechem.dat"
-OUTFILE = "./data/gsechem_25600.out"
+OUTFILE = "./data/gsechem_plateau_25600.out"
 MODEL_BASENAME = "gsefit"
 N_PROC = 10
 N_TIMESTEPS = 1000
@@ -23,6 +23,13 @@ N_ITERS = 100
 H3_UNIVERSE_AGE = 14
 N_DIM = 4
 
+# emcee walker parameters
+#
+# 0. infall timescale
+# 1. SFE timescale
+# 2. mass loading factor
+# 3. total duration of the model
+# 4. CCSN O yield
 
 class gsefit(mcmc):
 
@@ -38,14 +45,16 @@ class gsefit(mcmc):
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		if walker[3] > H3_UNIVERSE_AGE: return -float("inf")
-		print("walker: [%.2f, %.2f, %.2f, %.2f]" % (walker[0], walker[1],
-			walker[2], walker[3]))
+		if 0.003 <= walker[4] <= 0.075: return -float("inf")
+		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2e]" % (walker[0], walker[1],
+			walker[2], walker[3], walker[4]))
 			# walker[2]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
 		self.sz.dt = walker[3] / N_TIMESTEPS
 		self.sz.func.timescale = walker[0]
 		self.sz.tau_star = walker[1]
 		self.sz.eta = walker[2]
+		vice.yields.ccsne.settings['o'] = walker[4]
 		output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
 		# output = self.sz.run(np.linspace(0, 10, N_TIMESTEPS + 1),
@@ -81,8 +90,8 @@ if __name__ == "__main__":
 		# "[mg/fe]_err": np.array([row[3] for row in raw]),
 		"[o/fe]": np.array([row[2] for row in raw]),
 		"[o/fe]_err": np.array([row[3] for row in raw]),
-		# "lookback": np.array([row[4] for row in raw]),
-		# "lookback_err": np.array([row[5] for row in raw])
+		"lookback": np.array([row[4] for row in raw]),
+		"lookback_err": np.array([row[5] for row in raw])
 	}
 	log_prob = gsefit(data)
 	pool = Pool(N_PROC)
