@@ -19,25 +19,29 @@ LABELS = [
 	r"$\tau_\text{in}$ [Gyr]",
 	r"$\tau_\star$ [Gyr]",
 	r"$\eta$",
-	r"$\tau_\text{tot}$ [Gyr]"
-	# r"$100\times y_\text{O}^\text{CC}$",
-	# r"$100\times y_\text{Fe}^\text{CC}$",
-	# r"$100\times y_\text{Fe}^\text{Ia}$"
+	r"$\tau_\text{tot}$ [Gyr]",
+	r"$100\times y_\alpha^\text{CC}$"
+	# r"$\tau_{\star,0}$ [Gyr]",
+	# r"$\Delta_1$ [Gyr]",
+	# r"$\Delta_2$ [Gyr]",
+	# r"$\tau_{\star,1}$ [Gyr]"
 ]
-RANGE = None
-# RANGE = [
-# 	(0.9, 1.9),
-# 	(22, 34),
-# 	(11, 15),
-# 	(5.5, 8.5)
-# ]
-TICKS = None
-# TICKS = [
-# 	[1.0, 1.5],
-# 	[25, 30],
-# 	[12, 14],
-# 	[6, 7, 8]
-# ]
+# RANGE = None
+RANGE = [
+	(0.8, 2.0),
+	(22, 38),
+	(11, 19),
+	(6.0, 8.6),
+	(1.45, 1.65)
+]
+# TICKS = None
+TICKS = [
+	[1.0, 1.5],
+	[25, 30, 35],
+	[12, 14, 16, 18],
+	[7, 8],
+	[1.5, 1.6]
+]
 MAXLOGP_KWARGS = {
 	"c": named_colors()["deepskyblue"],
 	"marker": markers()["star"],
@@ -49,8 +53,7 @@ raw = np.genfromtxt(FILENAME)
 # raw = np.array(list(filter(lambda _: _[0] <= 5, raw)))
 raw = np.array(list(filter(lambda _: not np.isinf(_[-1]), raw)))
 mcmc_chain = np.array([row[:-1] for row in raw])
-# for i in range(len(mcmc_chain)):
-# 	for j in [-3, -2, -1]: mcmc_chain[i][j] *= 100
+for i in range(len(mcmc_chain)): mcmc_chain[i][4] *= 100
 logp = [row[-1] for row in raw]
 idxmax = logp.index(max(logp))
 DIM = len(mcmc_chain[0])
@@ -62,8 +65,8 @@ kwargs = {
 	"quantiles": [0.16, 0.50, 0.84],
 	"show_titles": True,
 	"color": named_colors()["black"],
-	# "truths": mcmc_chain[idxmax],
-	"truths": [2, 10, 25, 10],
+	"truths": mcmc_chain[idxmax],
+	# "truths": [2, 10, 5, 50, 2.5, 1, 2],
 	"truth_color": named_colors()["crimson"]
 }
 # kwargs["truths"][-1] = 12.54
@@ -96,9 +99,9 @@ if TICKS is not None:
 					# print(DIM * i + j)
 					# print(mcmc_chain[idxmax][j])
 					# print(mcmc_chain[idxmax][i])
-					fig.axes[DIM * i + j].scatter(
-						mcmc_chain[idxmax][j], mcmc_chain[idxmax][i],
-						**MAXLOGP_KWARGS)
+					# fig.axes[DIM * i + j].scatter(
+					# 	mcmc_chain[idxmax][j], mcmc_chain[idxmax][i],
+					# 	**MAXLOGP_KWARGS)
 else: pass
 plt.tight_layout()
 plt.subplots_adjust(hspace = 0, wspace = 0)

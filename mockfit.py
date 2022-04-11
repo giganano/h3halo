@@ -14,9 +14,9 @@ import sys
 import os
 
 DATA_FILE = "./mocksamples/simpleburst.dat"
-OUTFILE = "./mocksamples/simpleburst_noages_5000.out"
+OUTFILE = "./mocksamples/simpleburst_5000.out"
 MODEL_BASENAME = "simpleburst"
-N_PROC = 10
+N_PROC = 4
 N_TIMESTEPS = 1000
 N_WALKERS = 50
 N_BURNIN = 100

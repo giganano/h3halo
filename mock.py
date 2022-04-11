@@ -15,7 +15,7 @@ import sys
 FEH_ERR = 0.05
 OFE_ERR = 0.05
 LOGAGE_ERR = 0.1
-NSTARS = 100
+NSTARS = 1000
 DURATION = 5
 H3_UNIVERSE_AGE = 14
 
@@ -67,11 +67,11 @@ with vice.output("mock") as out:
 			data.write("%.5e\t%.5e\t" % (feh, FEH_ERR))
 			data.write("%.5e\t%.5e\t" % (ofe, OFE_ERR))
 			# data.write("%.5e\t%.5e\n" % (age, AGE_ERR))
-			# if i < 100:
-			data.write("%.5e\t%.5e\t" % (logage, LOGAGE_ERR))
-			data.write("\n")
-			# else:
-			# 	data.write("nan\tnan\n")
+			if i < 150:
+				data.write("%.5e\t%.5e\t" % (logage, LOGAGE_ERR))
+				data.write("\n")
+			else:
+				data.write("nan\tnan\n")
 		data.close()
 	# out.show("[O/Fe]-[Fe/H]")
 
