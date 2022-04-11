@@ -24,34 +24,20 @@ LABELS = [
 	# r"$100\times y_\text{Fe}^\text{CC}$",
 	# r"$100\times y_\text{Fe}^\text{Ia}$"
 ]
-# RANGE = None
-RANGE = [
-	(1.5, 2.7),
-	(18.5, 27.5),
-	(14.4, 17.6),
-	(6, 12)
-# 	(1.7, 2.7),
-# 	(5, 65),
-# 	(10, 100),
-# 	(8, 15),
-# 	(0.5, 6),
-# 	(0.05, 0.55),
-# 	(0.0, 1)
-]
-# TICKS = None
-TICKS = [
-	[1.5, 2, 2.5],
-	[20, 25],
-	[15, 16, 17],
-	[6, 8, 10, 12]
-# 	[2.0, 2.5],
-# 	[20, 40, 60],
-# 	[20, 40, 60, 80],
-# 	[10, 12, 14],
-# 	[2, 4, 6],
-# 	[0.2, 0.4],
-# 	[0, 0.5, 1]
-]
+RANGE = None
+# RANGE = [
+# 	(0.9, 1.9),
+# 	(22, 34),
+# 	(11, 15),
+# 	(5.5, 8.5)
+# ]
+TICKS = None
+# TICKS = [
+# 	[1.0, 1.5],
+# 	[25, 30],
+# 	[12, 14],
+# 	[6, 7, 8]
+# ]
 MAXLOGP_KWARGS = {
 	"c": named_colors()["deepskyblue"],
 	"marker": markers()["star"],
@@ -76,8 +62,8 @@ kwargs = {
 	"quantiles": [0.16, 0.50, 0.84],
 	"show_titles": True,
 	"color": named_colors()["black"],
-	"truths": mcmc_chain[idxmax],
-	# "truths": [2, 10, 25, 10, 1.5, 0.12, 0.17],
+	# "truths": mcmc_chain[idxmax],
+	"truths": [2, 10, 25, 10],
 	"truth_color": named_colors()["crimson"]
 }
 # kwargs["truths"][-1] = 12.54
@@ -110,9 +96,9 @@ if TICKS is not None:
 					# print(DIM * i + j)
 					# print(mcmc_chain[idxmax][j])
 					# print(mcmc_chain[idxmax][i])
-					# fig.axes[DIM * i + j].scatter(
-					# 	mcmc_chain[idxmax][j], mcmc_chain[idxmax][i],
-					# 	**MAXLOGP_KWARGS)
+					fig.axes[DIM * i + j].scatter(
+						mcmc_chain[idxmax][j], mcmc_chain[idxmax][i],
+						**MAXLOGP_KWARGS)
 else: pass
 plt.tight_layout()
 plt.subplots_adjust(hspace = 0, wspace = 0)

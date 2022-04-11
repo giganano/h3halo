@@ -75,24 +75,35 @@ class piecewise_linear:
 		assert n_knots > 0
 		self.norm = norm
 		self._deltas = n_knots * [0.]
-		self._slopes = n_knots * [0.]
+		self._slopes = (n_knots + 1) * [0.]
 
 	def __call__(self, x):
-		breaks = [self._deltas[0]]
-		for i in range(1, len(self._deltas)): breaks.append(
+		breaks = [0]
+		# breaks = [self._deltas[0]]
+		for i in range(len(self._deltas)): breaks.append(
 			self._deltas[i] + breaks[-1])
-		if x <= breaks[0]:
-			return self._norm
-		else:
-			y = self._norm
-			for i in range(len(breaks) - 1):
-				if breaks[i] <= x <= breaks[i + 1]:
-					y += self._slopes[i] * (x - breaks[i])
-					break
-				else:
-					y += self._slopes[i] * (breaks[i + 1] - breaks[i])
-			if x > breaks[-1]: y += self._slopes[-1] * (x - breaks[-1])
-			return y
+		# print(breaks)
+		y = self._norm
+		for i in range(self.n_knots):
+			if breaks[i] <= x <= breaks[i + 1]:
+				y += self._slopes[i] * (x - breaks[i])
+				break
+			else:
+				y += self._slopes[i] * (breaks[i + 1] - breaks[i])
+		if x > breaks[-1]: y += self._slopes[-1] * (x - breaks[-1])
+		return y
+		# if x <= breaks[0]:
+		# 	return self._norm
+		# else:
+		# 	y = self._norm
+		# 	for i in range(len(breaks) - 1):
+		# 		if breaks[i] <= x <= breaks[i + 1]:
+		# 			y += self._slopes[i] * (x - breaks[i])
+		# 			break
+		# 		else:
+		# 			y += self._slopes[i] * (breaks[i + 1] - breaks[i])
+		# 	if x > breaks[-1]: y += self._slopes[-1] * (x - breaks[-1])
+		# 	return y
 
 	@property
 	def n_knots(self):

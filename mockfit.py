@@ -2,7 +2,7 @@
 from multiprocessing import Pool
 from emcee import EnsembleSampler
 from src import mcmc
-from src.utils import exponential, savechain
+from src.utils import exponential, savechain, piecewise_linear
 import numpy as np
 import math as m
 import vice
@@ -13,8 +13,8 @@ import time
 import sys
 import os
 
-DATA_FILE = "./mocksamples/someages_offset4.dat"
-OUTFILE = "./mocksamples/someages_offset4_wyields_5000.out"
+DATA_FILE = "./mocksamples/simpleburst.dat"
+OUTFILE = "./mocksamples/simpleburst_noages_5000.out"
 MODEL_BASENAME = "someages_wyields"
 N_PROC = 4
 N_TIMESTEPS = 1000
@@ -26,13 +26,13 @@ N_DIM = 7
 
 # emcee walker parameters
 #
-# 1. infall timescale
-# 2. SFE timescale
-# 3. Mass loading factor
-# 4. total duration of the model
-# 5. CCSN O yield
-# 6. CCSN Fe yield
-# 7. SN Ia Fe yield
+# 0. infall timescale
+# 1. Mass loading factor
+# 2. total duration of the model
+# 3. CCSN O yield
+# 4. delta1 of the piece-wise linear tau_star
+# 5. delta2 of the piece-wise linear tau_star
+# 6. the slope of the piece-wise linear tau_star
 
 
 class expifr_mcmc(mcmc):
@@ -44,28 +44,28 @@ class expifr_mcmc(mcmc):
 		self.sz.mode = "ifr"
 		self.sz.Mg0 = 0
 		self.sz.nthreads = 2
-		# self.sz.dt = ENDTIME / N_TIMESTEPS
+		self.sz.tau_star = piecewise_linear(2)
+		self.sz.tau_star.slopes[0] = 0
+		self.sz.tau_star.slopes[2] = 0
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
-		if walker[3] > H3_UNIVERSE_AGE: return -float("inf")
-		if not 0.003 <= walker[4] <= 0.075: return -float("inf")
-		if not 0.00024 <= walker[5] <= 0.006: return -float("inf")
-		if not 0.00034 <= walker[6] <= 0.0085: return -float("inf")
-		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2e, %.2e, %.2e] " % (
-			walker[0], walker[1], walker[2], walker[3], walker[4], walker[5],
-			walker[6]))
-		vice.yields.ccsne.settings['o'] = walker[4]
-		vice.yields.ccsne.settings['fe'] = walker[5]
-		vice.yields.sneia.settings['fe'] = walker[6]
+		if walker[2] > H3_UNIVERSE_AGE: return -float("inf")
+		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2e, %.2f, %.2f, %.2f] " % (
+			walker[0], walker[1], walker[2], walker[3], walker[4],
+			walker[5], walker[6]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
 		self.sz.func.timescale = walker[0]
-		self.sz.tau_star = walker[1]
-		self.sz.eta = walker[2]
-		self.sz.dt = walker[3] / N_TIMESTEPS
-		output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1),
+		# self.sz.tau_star = walker[1]
+		self.sz.eta = walker[1]
+		self.sz.dt = walker[2] / N_TIMESTEPS
+		vice.yields.ccsne.settings['o'] = walker[3]
+		self.sz.tau_star.deltas[0] = walker[4]
+		self.sz.tau_star.deltas[1] = walker[5]
+		self.sz.tau_star.slopes[1] = walker[6]
+		output = self.sz.run(np.linspace(0, walker[2], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
-		diff = H3_UNIVERSE_AGE - walker[3]
+		diff = H3_UNIVERSE_AGE - walker[2]
 		model = []
 		for key in self.quantities:
 			if key == "lookback":
@@ -76,13 +76,9 @@ class expifr_mcmc(mcmc):
 		model = np.array(model).T
 		weights = output.history["sfr"][1:]
 		norm = sum(weights)
-		weights = [_ / norm for _ in weights]
 		self.fd.model = model
 		self.fd.weights = weights
 		return self.fd()
-		# return super().__call__(self.sz.run(
-		# 	np.linspace(0, walker[3], N_TIMESTEPS + 1),
-		# 	overwrite = True, capture = True))
 
 
 if __name__ == "__main__":
@@ -92,8 +88,8 @@ if __name__ == "__main__":
 		"[fe/h]_err": np.array([row[1] for row in raw]),
 		"[o/fe]": np.array([row[2] for row in raw]),
 		"[o/fe]_err": np.array([row[3] for row in raw]),
-		"lookback": np.array([row[4] for row in raw]),
-		"lookback_err": np.array([row[5] for row in raw])
+		# "lookback": np.array([row[4] for row in raw]),
+		# "lookback_err": np.array([row[5] for row in raw])
 	}
 	log_prob = expifr_mcmc(data)
 	pool = Pool(int(N_PROC))
@@ -101,7 +97,7 @@ if __name__ == "__main__":
 	# start initial at known position anyway since this is a mock
 	p0 = N_WALKERS * [None]
 	for i in range(len(p0)):
-		# p0[i] = [2, 10, 25]
+		# p0[i] = [2, 10, 25, 10]
 		p0[i] = [2, 10, 25, 10, 0.015, 0.0012, 0.0017]
 		for j in range(len(p0[i])):
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])

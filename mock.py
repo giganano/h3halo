@@ -4,6 +4,7 @@ ARGV
 1) The name of the output file containing the mock sample
 """
 
+from src.utils import piecewise_linear
 import numpy as np
 import math as m
 import vice
@@ -14,8 +15,8 @@ import sys
 FEH_ERR = 0.05
 OFE_ERR = 0.05
 LOGAGE_ERR = 0.1
-NSTARS = 500
-DURATION = 10
+NSTARS = 100
+DURATION = 5
 H3_UNIVERSE_AGE = 14
 
 # def sfh(t):
@@ -28,9 +29,18 @@ with vice.singlezone(name = "mock", verbose = True) as sz:
 	sz.nthreads = 2
 	sz.func = ifr
 	sz.mode = "ifr"
-	sz.tau_star = 10
-	sz.eta = 25
+	# sz.tau_star = 10
+	sz.tau_star = piecewise_linear(2)
+	sz.tau_star.norm = 50
+	sz.tau_star.deltas[0] = 2.5
+	sz.tau_star.deltas[1] = 1
+	sz.tau_star.slopes[0] = 0
+	sz.tau_star.slopes[1] = -48
+	sz.tau_star.slopes[2] = 0
+	# sz.eta = 25
+	sz.eta = 10
 	sz.Mg0 = 0
+	sz.dt = DURATION / 1000
 	sz.run(np.linspace(0, DURATION, 1001), overwrite = True)
 
 with vice.output("mock") as out:
@@ -63,4 +73,5 @@ with vice.output("mock") as out:
 			# else:
 			# 	data.write("nan\tnan\n")
 		data.close()
+	# out.show("[O/Fe]-[Fe/H]")
 
