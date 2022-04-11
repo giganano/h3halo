@@ -15,14 +15,14 @@ import os
 
 DATA_FILE = "./mocksamples/simpleburst.dat"
 OUTFILE = "./mocksamples/simpleburst_noages_5000.out"
-MODEL_BASENAME = "someages_wyields"
+MODEL_BASENAME = "simpleburst"
 N_PROC = 10
 N_TIMESTEPS = 1000
 N_WALKERS = 50
 N_BURNIN = 100
 N_ITERS = 100
 H3_UNIVERSE_AGE = 14
-N_DIM = 7
+N_DIM = 8
 
 # emcee walker parameters
 #
@@ -30,9 +30,10 @@ N_DIM = 7
 # 1. Mass loading factor
 # 2. total duration of the model
 # 3. CCSN O yield
-# 4. delta1 of the piece-wise linear tau_star
-# 5. delta2 of the piece-wise linear tau_star
-# 6. the slope of the piece-wise linear tau_star
+# 4. value of initial tau_star
+# 5. duration of initial tau_star
+# 6. duration of tau_star decrease
+# 7. value of final tau_star
 
 
 class expifr_mcmc(mcmc):
@@ -60,9 +61,13 @@ class expifr_mcmc(mcmc):
 		self.sz.eta = walker[1]
 		self.sz.dt = walker[2] / N_TIMESTEPS
 		vice.yields.ccsne.settings['o'] = walker[3]
-		self.sz.tau_star.deltas[0] = walker[4]
-		self.sz.tau_star.deltas[1] = walker[5]
-		self.sz.tau_star.slopes[1] = walker[6]
+		self.sz.tau_star.norm = walker[4]
+		self.sz.tau_star.deltas[0] = walker[5]
+		self.sz.tau_star.deltas[1] = walker[6]
+		self.sz.tau_star.slope = (walker[7] - walker[4]) / walker[6]
+		# self.sz.tau_star.deltas[0] = walker[4]
+		# self.sz.tau_star.deltas[1] = walker[5]
+		# self.sz.tau_star.slopes[1] = walker[6]
 		output = self.sz.run(np.linspace(0, walker[2], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
 		diff = H3_UNIVERSE_AGE - walker[2]
@@ -98,7 +103,7 @@ if __name__ == "__main__":
 	p0 = N_WALKERS * [None]
 	for i in range(len(p0)):
 		# p0[i] = [2, 10, 25, 10]
-		p0[i] = [2, 10, 5, 0.015, 2.5, 1, ]
+		p0[i] = [2, 10, 5, 0.015, 50, 2.5, 1, 2]
 		for j in range(len(p0[i])):
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	p0 = np.array(p0)
