@@ -55,11 +55,11 @@ class gsefit(mcmc):
 		self.sz.tau_star = walker[1]
 		self.sz.eta = walker[2]
 
-		# determined from logarithmic yield ratios relative to solar under our
-		# fiducial set of yields
-		afe_eq = 0.067
-		vice.yields.ccsne.settings["fe"] = 10**afe_eq / (
-			10**walker[4] - 10**afe_eq) * vice.yields.sneia.settings["fe"]
+		tot_fe_yield = 0.0029
+		vice.yields.ccsne.settings["fe"] = 10**(-walker[4]) * (
+			vice.solar_z["fe"] / vice.solar_z["o"])
+		vice.yields.sneia.settings["fe"] = (
+			tot_fe_yield - vice.yields.ccsne.settings["fe"])
 
 		output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
