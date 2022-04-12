@@ -55,11 +55,18 @@ class gsefit(mcmc):
 		self.sz.tau_star = walker[1]
 		self.sz.eta = walker[2]
 
-		tot_fe_yield = 0.0029
-		vice.yields.ccsne.settings["fe"] = 10**(-walker[4]) * (
-			vice.solar_z["fe"] / vice.solar_z["o"])
-		vice.yields.sneia.settings["fe"] = (
-			tot_fe_yield - vice.yields.ccsne.settings["fe"])
+		# equilibrium [a/Fe] ratio for constant SFR given our fiducial yields
+		afe_eq = 0.067
+		vice.yields.ccsne.settings["fe"] = vice.yields.ccsne.settings["o"] * (
+			10**(-walker[4]) * vice.solar_z["fe"] / vice.solar_z["o"])
+		vice.yields.sneia.settings["fe"] = vice.yields.ccsne.settings["fe"] * (
+			10**(walker[4] - afe_eq) - 1)
+
+		# tot_fe_yield = 0.0029
+		# vice.yields.ccsne.settings["fe"] = 10**(-walker[4]) * (
+		# 	vice.solar_z["fe"] / vice.solar_z["o"])
+		# vice.yields.sneia.settings["fe"] = (
+		# 	tot_fe_yield - vice.yields.ccsne.settings["fe"])
 
 		output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
