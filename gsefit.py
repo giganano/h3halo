@@ -29,7 +29,7 @@ N_DIM = 5
 # 1. SFE timescale
 # 2. mass loading factor
 # 3. total duration of the model
-# 4. CCSN O yield
+# 4. [a/Fe] plateau height
 
 class gsefit(mcmc):
 
@@ -45,8 +45,8 @@ class gsefit(mcmc):
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		if walker[3] > H3_UNIVERSE_AGE: return -float("inf")
-		if walker[4] < 0.003 or walker[4] > 0.075: return -float("inf")
-		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2e]" % (walker[0], walker[1],
+		if walker[4] < 0.1 or walker[4] > 0.8: return -float("inf")
+		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2f]" % (walker[0], walker[1],
 			walker[2], walker[3], walker[4]))
 			# walker[2]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
@@ -54,7 +54,13 @@ class gsefit(mcmc):
 		self.sz.func.timescale = walker[0]
 		self.sz.tau_star = walker[1]
 		self.sz.eta = walker[2]
-		vice.yields.ccsne.settings['o'] = walker[4]
+
+		# determined from logarithmic yield ratios relative to solar under our
+		# fiducial set of yields
+		afe_eq = 0.067
+		vice.yields.ccsne.settings["fe"] = 10**afe_eq / (
+			10**walker[4] - 10**afe_eq) * vice.yields.sneia.settings["fe"]
+
 		output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
 		# output = self.sz.run(np.linspace(0, 10, N_TIMESTEPS + 1),
@@ -97,9 +103,9 @@ if __name__ == "__main__":
 	pool = Pool(N_PROC)
 	sampler = EnsembleSampler(N_WALKERS, N_DIM, log_prob, pool = pool)
 	p0 = 10 * np.random.rand(N_WALKERS, N_DIM)
-	# confine the yield to the allowed range to begin with
+	# confine the [a/Fe] plateau to the allowed range to begin with
 	for i in range(len(p0)):
-		while p0[i][4] < 0.003 or p0[i][4] > 0.075:
+		while p0[i][4] < 0.1 or p0[i][4] > 0.8:
 			p0[i][4] = np.random.rand()
 	start = time.time()
 	state = sampler.run_mcmc(p0, N_BURNIN)
