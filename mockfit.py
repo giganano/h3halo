@@ -13,10 +13,10 @@ import time
 import sys
 import os
 
-DATA_FILE = "./mocksamples/simpleburst.dat"
-OUTFILE = "./mocksamples/simpleburst_5000.out"
+DATA_FILE = "./mocksamples/simpleburst_hyperprecise.dat"
+OUTFILE = "./mocksamples/simpleburst_hyperprecise_5000.out"
 MODEL_BASENAME = "simpleburst"
-N_PROC = 4
+N_PROC = 10
 N_TIMESTEPS = 1000
 N_WALKERS = 50
 N_BURNIN = 100
