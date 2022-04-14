@@ -22,25 +22,23 @@ LABELS = [
 	r"$\tau_\text{tot}$ [Gyr]",
 	# r"$\tau_{\star,0}$ [Gyr]",
 	# r"$\Delta_1$ [Gyr]",
-	r"$\Delta_2$ [Gyr]",
-	r"$\tau_{\star,1}$ [Gyr]"
+	r"$\Delta_2$ [Gyr]"
+	# r"$\tau_{\star,1}$ [Gyr]"
 	# r"[$\alpha$/Fe]$_\text{CC}$",
 ]
 RANGE = None
 # RANGE = [
-# 	(0.9, 1.9),
-# 	(22, 38),
-# 	(11.4, 15.6),
-# 	(5.8, 8.2),
-# 	(0.44, 0.56)
+# 	(1.82, 2.18),
+# 	(9.2, 10.8),
+# 	(4.7, 5.4),
+# 	(0.92, 1.16),
 # ]
 TICKS = None
 # TICKS = [
-# 	[1.0, 1.5],
-# 	[25, 30, 35],
-# 	[12, 13, 14, 15],
-# 	[6, 7, 8],
-# 	[0.45, 0.5, 0.55]
+# 	[1.9, 2.0, 2.1],
+# 	[9.5, 10, 10.5],
+# 	[4.8, 5, 5.2],
+# 	[1, 1.1]
 # ]
 MAXLOGP_KWARGS = {
 	"c": named_colors()["deepskyblue"],
@@ -55,7 +53,6 @@ mcmc_chain = np.array([row[:-1] for row in raw])
 # for i in range(len(mcmc_chain)): mcmc_chain[i][4] *= 100
 logp = [row[-1] for row in raw]
 idxmax = logp.index(max(logp))
-# print(mcmc_chain[idxmax])
 DIM = len(mcmc_chain[0])
 
 kwargs = {
@@ -63,9 +60,9 @@ kwargs = {
 	"quantiles": [0.16, 0.50, 0.84],
 	"show_titles": True,
 	"color": named_colors()["black"],
-	"truths": mcmc_chain[idxmax],
+	# "truths": mcmc_chain[idxmax],
 	# "truths": [2, 10, 4, 50, 2.5, 1, 2],
-	"truths": [2, 10, 5, 1, 2],
+	"truths": [2, 10, 5, 1],
 	"truth_color": named_colors()["crimson"]
 }
 if RANGE is not None: kwargs["range"] = RANGE
