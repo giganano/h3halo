@@ -12,9 +12,9 @@ from vice.yields.presets import JW20
 import sys
 
 # fiducial: 5% precision in O and Fe abundances, 10% in age
-FEH_ERR = 0.05
-OFE_ERR = 0.05
-LOGAGE_ERR = 0.1
+FEH_ERR = 0.005
+OFE_ERR = 0.005
+LOGAGE_ERR = 0.01
 NSTARS = 1000
 DURATION = 5
 H3_UNIVERSE_AGE = 14

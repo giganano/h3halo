@@ -1,5 +1,6 @@
 
 from emcee import EnsembleSampler
+from scipy.stats import multivariate_normal
 import numbers
 import numpy as np
 import math as m
@@ -68,6 +69,42 @@ def invcov(errors):
 		return np.linalg.inv(cov)
 
 
+def chisquared(sample, errors, model, weights):
+	norm = sum(weights)
+	weights = [_ / norm for _ in weights]
+	chisq = 0
+	for i in range(len(sample)):
+		# print(sample[i])
+		# print(errors[i])
+		if any([m.isnan(_) for _ in errors[i]]):
+			# indeces = list(filter(lambda _: not m.isnan(_), errors[i]))
+			indeces = []
+			for j in range(len(errors[i])):
+				if not m.isnan(errors[i][j]): indeces.append(j)
+		else:
+			indeces = list(range(len(errors[i])))
+		# print(indeces)
+		sample_ = np.array([sample[i][_] for _ in indeces])
+		errors_ = np.array([errors[i][_] for _ in indeces])
+		mvn = multivariate_normal(mean = sample_,
+			cov = np.diag(errors_**2))
+		pdf = len(model) * [0.]
+		for j in range(len(pdf)):
+			# print(model[j])
+			# print(indeces)
+			# print("==================================")
+			model_ = [model[j][_] for _ in indeces]
+			pdf[j] = weights[j] * mvn.pdf(model_)
+		idx_match = pdf.index(max(pdf))
+		predicted = np.array([model[idx_match][_] for _ in indeces])
+		for j in range(len(indeces)):
+			# print(predicted[j])
+			# print(sample_[j])
+			# print("=============")
+			chisq += (predicted[j] - sample_[j])**2 / errors_[j]**2
+	return chisq
+
+
 class piecewise_linear:
 
 	def __init__(self, n_knots, norm = 0):
@@ -79,10 +116,8 @@ class piecewise_linear:
 
 	def __call__(self, x):
 		breaks = [0]
-		# breaks = [self._deltas[0]]
 		for i in range(len(self._deltas)): breaks.append(
 			self._deltas[i] + breaks[-1])
-		# print(breaks)
 		y = self._norm
 		for i in range(self.n_knots):
 			if breaks[i] <= x <= breaks[i + 1]:
@@ -92,18 +127,6 @@ class piecewise_linear:
 				y += self._slopes[i] * (breaks[i + 1] - breaks[i])
 		if x > breaks[-1]: y += self._slopes[-1] * (x - breaks[-1])
 		return y
-		# if x <= breaks[0]:
-		# 	return self._norm
-		# else:
-		# 	y = self._norm
-		# 	for i in range(len(breaks) - 1):
-		# 		if breaks[i] <= x <= breaks[i + 1]:
-		# 			y += self._slopes[i] * (x - breaks[i])
-		# 			break
-		# 		else:
-		# 			y += self._slopes[i] * (breaks[i + 1] - breaks[i])
-		# 	if x > breaks[-1]: y += self._slopes[-1] * (x - breaks[-1])
-		# 	return y
 
 	@property
 	def n_knots(self):
