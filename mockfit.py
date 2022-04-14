@@ -22,7 +22,7 @@ N_WALKERS = 256
 N_BURNIN = 100
 N_ITERS = 100
 H3_UNIVERSE_AGE = 14
-N_DIM = 5
+N_DIM = 4
 
 # emcee walker parameters
 #
@@ -78,10 +78,11 @@ class expifr_mcmc(mcmc):
 			else:
 				model.append(output.history[key][1:])
 		model = np.array(model).T
-		weights = output.history["sfr"][1:]
-		norm = sum(weights)
+		# weights = output.history["sfr"][1:]
+		# norm = sum(weights)
+		# weights = [_ / norm for _ in weights]
 		self.fd.model = model
-		self.fd.weights = weights
+		self.fd.weights = output.history["sfr"][1:]
 		return self.fd()
 
 
