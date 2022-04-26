@@ -10,7 +10,7 @@ ARGV
 7) The number of burn-in steps to run
 """
 
-from multiprocessing improt Pool
+from multiprocessing import Pool
 from emcee import EnsembleSampler
 from src import fit_driver
 import numpy as np
