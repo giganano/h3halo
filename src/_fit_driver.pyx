@@ -96,11 +96,11 @@ cdef class fit_driver:
 		if self._fd[0].weights is not NULL: free(self._fd[0].weights)
 		self._fd[0].weights = <double *> malloc (self._fd[0].n_model *
 			sizeof(double))
-		# norm = sum(value)
+		norm = sum(value)
 		for i in range(self._fd[0].n_model): 
 			if value[i] >= 0:
-				# self._fd[0].weights[i] = value[i] / norm
-				self._fd[0].weights[i] = value[i]
+				self._fd[0].weights[i] = value[i] / norm
+				# self._fd[0].weights[i] = value[i]
 			else:
 				raise ValueError("Negative weight at index %d." % (i))
 

@@ -69,10 +69,11 @@ class sinusoid_mcmc(mcmc):
 			else:
 				model.append(output.history[key][1:])
 		model = np.array(model).T
-		dt = output.history["time"][1] - output.history["time"][0]
-		weights = [_ * dt for _ in output.history["sfr"][1:]]
+		# dt = output.history["time"][1] - output.history["time"][0]
+		# weights = [_ * dt for _ in output.history["sfr"][1:]]
 		self.fd.model = model
-		self.fd.weights = weights
+		# self.fd.weights = weights
+		self.fd.weights = output.history["sfr"][1:]
 		return self.fd()
 
 
