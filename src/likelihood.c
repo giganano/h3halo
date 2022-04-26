@@ -151,6 +151,11 @@ extern double loglikelihood(FIT_DRIVER fd) {
 		}
 		result += log(s);
 	}
+
+	double weight_sum = 0;
+	for (i = 0ul; i < fd.n_model; i++) weight_sum += fd.weights[i];
+	result -= weight_sum;
+
 	return result;
 
 }
