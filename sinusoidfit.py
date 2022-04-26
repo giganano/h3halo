@@ -14,13 +14,13 @@ import sys
 import os
 
 DATA_FILE = "./mocksamples/sinusoidal.dat"
-OUTFILE = "./mocksamples/sinusoidal_5000.out"
+OUTFILE = "./mocksamples/sinusoidal_51200.out"
 MODEL_BASENAME = "sinusoidal"
 N_PROC = 10
 N_TIMESTEPS = 1000
-N_WALKERS = 50
+N_WALKERS = 256
 N_BURNIN = 100
-N_ITERS = 100
+N_ITERS = 200
 H3_UNIVERSE_AGE = 14
 N_DIM = 6
 
