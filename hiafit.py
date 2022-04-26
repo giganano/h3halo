@@ -15,7 +15,7 @@ import os
 
 DATA_FILE = "./data/hia-insitu/hiachem.dat"
 OUTFILE = "./data/hia-insitu/hiachem_25600.out"
-MODEL_BASENAME = "simpleburst"
+MODEL_BASENAME = "hiafit"
 N_PROC = 10
 N_TIMESTEPS = 1000
 N_WALKERS = 256

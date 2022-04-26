@@ -74,35 +74,170 @@ def chisquared(sample, errors, model, weights):
 	weights = [_ / norm for _ in weights]
 	chisq = 0
 	for i in range(len(sample)):
-		# print(sample[i])
-		# print(errors[i])
 		if any([m.isnan(_) for _ in errors[i]]):
-			# indeces = list(filter(lambda _: not m.isnan(_), errors[i]))
 			indeces = []
 			for j in range(len(errors[i])):
 				if not m.isnan(errors[i][j]): indeces.append(j)
 		else:
 			indeces = list(range(len(errors[i])))
-		# print(indeces)
 		sample_ = np.array([sample[i][_] for _ in indeces])
 		errors_ = np.array([errors[i][_] for _ in indeces])
 		mvn = multivariate_normal(mean = sample_,
 			cov = np.diag(errors_**2))
 		pdf = len(model) * [0.]
 		for j in range(len(pdf)):
-			# print(model[j])
-			# print(indeces)
-			# print("==================================")
 			model_ = [model[j][_] for _ in indeces]
 			pdf[j] = weights[j] * mvn.pdf(model_)
 		idx_match = pdf.index(max(pdf))
 		predicted = np.array([model[idx_match][_] for _ in indeces])
 		for j in range(len(indeces)):
-			# print(predicted[j])
-			# print(sample_[j])
-			# print("=============")
 			chisq += (predicted[j] - sample_[j])**2 / errors_[j]**2
 	return chisq
+
+
+class sinusoid:
+
+	def __init__(self, amplitude = 1, period = 1, shift = 0):
+		self.amplitude = amplitude
+		self.period = period
+		self.shift = shift
+
+	def __call__(self, x):
+		return self._amplitude * m.sin(2 * m.pi * (x - self._shift) / 
+			self._period)
+
+	@property
+	def amplitude(self):
+		r"""
+		Type : ``float``
+
+		Default : 1
+
+		The prefactor of the sinusoid in arbitrary units.
+		"""
+		return self._amplitude
+
+	@amplitude.setter
+	def amplitude(self, value):
+		if isinstance(value, numbers.Number):
+			self._amplitude = float(value)
+		else:
+			raise TypeError(
+				"Sinusoid amplitude must be a real number. Got: %s" % (
+					type(value)))
+
+	@property
+	def period(self):
+		r"""
+		Type : ``float``
+
+		Default : 1
+
+		The period of the sinusoid in arbitrary units.
+		"""
+		return self._period
+
+	@period.setter
+	def period(self, value):
+		if isinstance(value, numbers.Number):
+			self._period = float(value)
+		else:
+			raise TypeError(
+				"Sinusoid period must be a real number. Got: %s" % (
+					type(value)))
+
+	@property
+	def shift(self):
+		r"""
+		Type : ``float``
+
+		Default : 0
+
+		Horizontal shift of the sinusoid in the x-direction in arbitrary
+		units.
+		"""
+		return self._shift
+
+	@shift.setter
+	def shift(self, value):
+		if isinstance(value, numbers.Number):
+			self._shift = float(value)
+		else:
+			raise TypeError(
+				"Sinusoid shift must be a real number. Got: %s" % (
+					type(value)))
+
+
+class gaussian:
+
+	def __init__(self, mean = 0, amplitude = 1, width = 1):
+		self.mean = mean
+		self.amplitude = amplitude
+		self.width = width
+
+	def __call__(self, x):
+		return self._amplitude * m.exp(-(x - self._mean)**2 / (
+			2 * self._width**2))
+
+	@property
+	def mean(self):
+		r"""
+		Type : ``float``
+
+		Default : 0
+
+		The x-coordinate of the peak of the gaussian in arbitrary units.
+		"""
+		return self._mean
+
+	@mean.setter
+	def mean(self, value):
+		if isinstance(value, numbers.Number):
+			self._mean = float(value)
+		else:
+			raise TypeError(
+				"Mean of gaussian must be a real number. Got: %s" % (
+					type(value)))
+
+	@property
+	def amplitude(self):
+		r"""
+		Type : ``float``
+
+		Default : 1
+
+		The y-coordiate of the gaussian at its peak in arbitrary units.
+		"""
+		return self._amplitude
+
+	@amplitude.setter
+	def amplitude(self, value):
+		if isinstance(value, numbers.Number):
+			self._amplitude = float(value)
+		else:
+			raise TypeError(
+				"Amplitude of gaussian must be a real number. Got: %s" % (
+					type(value)))
+
+	@property
+	def width(self):
+		r"""
+		Type : ``float``
+
+		Default : 1
+
+		The standard deviation of the gaussian in arbitrary units.
+		"""
+		return self._width
+
+	@width.setter
+	def width(self, value):
+		if isinstance(value, numbers.Number):
+			self._width = float(value)
+		else:
+			raise TypeError("""\
+"Standard deviation of gaussian must be a real number. Got: %s""" % (
+				type(value)))
 
 
 class piecewise_linear:
@@ -219,4 +354,10 @@ class exponential:
 		else:
 			raise TypeError("Timescale must be a real number. Got: %s" % (
 				type(value)))
+
+
+class linear_exponential(exponential):
+
+	def __call__(self, x):
+		return x * super().__call__(x)
 

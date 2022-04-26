@@ -17,29 +17,34 @@ load_mpl_presets()
 FILENAME = sys.argv[1]
 LABELS = [
 	r"$\tau_\text{in}$ [Gyr]",
-	# r"$\tau_\star$ [Gyr]",
 	r"$\eta$",
 	r"$\tau_\text{tot}$ [Gyr]",
-	# r"$\tau_{\star,0}$ [Gyr]",
-	# r"$\Delta_1$ [Gyr]",
-	r"$\Delta_2$ [Gyr]"
-	# r"$\tau_{\star,1}$ [Gyr]"
+	r"$\tau_{\star,1}$ [Gyr]",
+	r"$\Delta_1$ [Gyr]",
+	r"$\Delta_2$ [Gyr]",
+	r"$\tau_{\star,2}$ [Gyr]"
 	# r"[$\alpha$/Fe]$_\text{CC}$",
 ]
-RANGE = None
-# RANGE = [
-# 	(1.82, 2.18),
-# 	(9.2, 10.8),
-# 	(4.7, 5.4),
-# 	(0.92, 1.16),
-# ]
-TICKS = None
-# TICKS = [
-# 	[1.9, 2.0, 2.1],
-# 	[9.5, 10, 10.5],
-# 	[4.8, 5, 5.2],
-# 	[1, 1.1]
-# ]
+# RANGE = None
+RANGE = [
+	(0, 10),
+	(0, 3),
+	(4, 12),
+	(44, 56),
+	(0.5, 4),
+	(0, 3.5),
+	(1, 4)
+]
+# TICKS = None
+TICKS = [
+	[2, 4, 6, 8],
+	[1, 2],
+	[5, 10],
+	[45, 50, 55],
+	[1, 2, 3],
+	[1, 2, 3],
+	[2, 3]
+]
 MAXLOGP_KWARGS = {
 	"c": named_colors()["deepskyblue"],
 	"marker": markers()["star"],
@@ -60,9 +65,9 @@ kwargs = {
 	"quantiles": [0.16, 0.50, 0.84],
 	"show_titles": True,
 	"color": named_colors()["black"],
-	# "truths": mcmc_chain[idxmax],
-	# "truths": [2, 10, 4, 50, 2.5, 1, 2],
-	"truths": [2, 10, 5, 1],
+	"truths": mcmc_chain[idxmax],
+	# "truths": [2, 10, 5, 50, 2.5, 1, 2],
+	# "truths": [2, 10, 5, 1],
 	"truth_color": named_colors()["crimson"]
 }
 if RANGE is not None: kwargs["range"] = RANGE
