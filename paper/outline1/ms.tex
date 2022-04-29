@@ -1,0 +1,74 @@
+
+\documentclass[fleqn, usenatbib]{mnras}
+\usepackage{newtxtext, newtxmath} 	% Required for MNRAS
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+% \usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{pdflscape}
+\usepackage{natbib}
+\usepackage[section]{placeins}
+\usepackage{lipsum}
+\usepackage{etoolbox}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage[toc, page]{appendix}
+\usepackage{subfiles}
+% \voffset-0.6in
+% \usepackage[margin = 0.5in]{geometry}
+\usepackage{geometry}
+% \geometry{margin=0.6in}
+% \addtolength{\topmargin}{-0.6in}
+% \hypersetup{draft}
+% \linespread{1.8}
+\hypersetup{ % all blue links
+	colorlinks		= true,
+	urlcolor 		= blue,
+	linkcolor 		= blue,
+	citecolor 		= blue
+}
+
+% control over bibtex's alphabetizing
+\providecommand{\noopsort}[1]{}
+
+\title[Dwarf Galaxies and Chemical Abundances]{Constraints on Dwarf Galaxy
+Evolution from Chemical Abundances}
+
+\author[J.W. Johnson et al.]{James W. Johnson,$^{1, 2}$\thanks{
+	Contact e-mail: \href{mailto:
+	johnson.7419@osu.edu}{johnson.7419@osu.edu}}
+	Charlie Conroy,$^{3}$
+	Benjamin D. Johnson,$^{3}$
+	Phillip A. Cargile,$^{3}$ et al. (?)
+	\\ \null \\
+	$^{1}$ Department of Astronomy, The Ohio State University,
+	140 W. 18th Ave., Columbus, OH, 43210, USA
+	\\
+	$^{2}$ Center for Cosmology and Astroparticle Physics (CCAPP),
+	The Ohio State University, 191 W. Woodruff Ave., Columbus, OH, 43210, USA
+	\\
+	$^{3}$ Center for Astrophysics | Harvard \& Smithsonian, 60 Garden Street,
+	Cambridge, MA, 02138, USA
+}
+
+\date{Accepted XXX; Received YYY; in original form ZZZ}
+\pubyear{2022}
+
+\begin{document}
+\label{firstpage}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\maketitle
+
+\begin{keywords}
+methods: numerical -- galaxies: abundances -- galaxies: evolution --
+galaxies: star formation -- galaxies: stellar content
+\end{keywords}
+
+\subfile{methods.tex}
+
+\label{lastpage}
+\end{document}
+

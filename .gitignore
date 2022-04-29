@@ -2,6 +2,8 @@
 h3halo.sublime-workspace
 h3halo.sublime-project
 *.vice/*
+*.aux
+*.log
 *.out
 *.pyc
 *.so
