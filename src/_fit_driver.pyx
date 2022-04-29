@@ -100,6 +100,7 @@ cdef class fit_driver:
 		for i in range(self._fd[0].n_model): 
 			if value[i] >= 0:
 				self._fd[0].weights[i] = value[i] / norm
+				# self._fd[0].weights[i] = value[i]
 			else:
 				raise ValueError("Negative weight at index %d." % (i))
 

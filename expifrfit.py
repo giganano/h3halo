@@ -10,7 +10,7 @@ ARGV
 7) The number of burn-in steps to run
 """
 
-
+from multiprocessing import Pool
 from emcee import EnsembleSampler
 from src import fit_driver
 import numpy as np
@@ -25,6 +25,7 @@ import sys
 ENDTIME = 5
 N_TIMESTEPS = int(sys.argv[6])
 N_WALKERS = int(sys.argv[4])
+N_PROC = 10
 N_DIM = 3
 
 
@@ -55,6 +56,7 @@ class expifr_mcmc(vice.singlezone):
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		print("walker: [%.5e, %.5e, %.5e] " % (walker[0], walker[1], walker[2]))
+		self.name = "%s%s" % (sys.argv[3], os.getpid())
 		self.func.timescale = walker[0]
 		self.tau_star = walker[1]
 		self.eta = walker[2]
@@ -96,12 +98,13 @@ if __name__ == "__main__":
 		# "lookback_err": np.array([m.log10(row[5]) for row in raw])
 	}
 	log_prob = expifr_mcmc(data)
-	sampler = EnsembleSampler(N_WALKERS, N_DIM, log_prob)
+	pool = Pool(int(N_PROC))
+	sampler = EnsembleSampler(N_WALKERS, N_DIM, log_prob, pool = pool)
 	# start initial at known position anyway since this is a mock
 	p0 = N_WALKERS * [None]
 	for i in range(len(p0)):
-		# p0[i] = [2, 10, 25]
-		p0[i] = [2.5, 23, 15]
+		p0[i] = [2, 10, 25]
+		# p0[i] = [2.5, 23, 15]
 		for j in range(len(p0[i])):
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	p0 = np.array(p0)

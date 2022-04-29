@@ -144,6 +144,7 @@ extern double loglikelihood(FIT_DRIVER fd) {
 
 	double result = 0;
 	unsigned long i, j;
+
 	for (i = 0ul; i < fd.n_sample; i++) {
 		double s = 0;
 		for (j = 0ul; j < fd.n_model; j++) {
@@ -151,6 +152,7 @@ extern double loglikelihood(FIT_DRIVER fd) {
 		}
 		result += log(s);
 	}
+
 	return result;
 
 }

@@ -97,14 +97,35 @@ def chisquared(sample, errors, model, weights):
 
 class sinusoid:
 
-	def __init__(self, amplitude = 1, period = 1, shift = 0):
+	def __init__(self, mean = 0, amplitude = 1, period = 1, shift = 0):
+		self.mean = mean
 		self.amplitude = amplitude
 		self.period = period
 		self.shift = shift
 
 	def __call__(self, x):
-		return self._amplitude * m.sin(2 * m.pi * (x - self._shift) / 
-			self._period)
+		return self._mean + self._amplitude * m.sin(
+			2 * m.pi * (x - self._shift) / self._period)
+
+	@property
+	def mean(self):
+		r"""
+		Type : ``float``
+
+		Default : 0
+
+		The mean value of the sinusoid in arbitrary units.
+		"""
+		return self._mean
+
+	@mean.setter
+	def mean(self, value):
+		if isinstance(value, numbers.Number):
+			self._mean = float(value)
+		else:
+			raise TypeError(
+				"Sinusoid mean value must be a real number. Got: %s" % (
+					type(value)))
 
 	@property
 	def amplitude(self):
