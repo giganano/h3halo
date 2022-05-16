@@ -31,6 +31,12 @@
 	citecolor 		= blue
 }
 
+\newcommand{\mc}{\texttt{emcee}}
+\newcommand{\vice}{\texttt{VICE}}
+\newcommand{\feh}{\ensuremath{\text{[Fe/H]}}}
+\newcommand{\afe}{\ensuremath{\text{[$\alpha$/Fe]}}}
+\newcommand{\logage}{\ensuremath{\log\text{(age)}}}
+
 % control over bibtex's alphabetizing
 \providecommand{\noopsort}[1]{}
 
@@ -67,7 +73,10 @@ methods: numerical -- galaxies: abundances -- galaxies: evolution --
 galaxies: star formation -- galaxies: stellar content
 \end{keywords}
 
-\subfile{methods.tex}
+\subfile{fitting.tex}
+
+\bibliographystyle{mnras}
+\bibliography{ms}
 
 \label{lastpage}
 \end{document}

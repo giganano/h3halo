@@ -1,0 +1,70 @@
+
+\documentclass[ms.tex]{subfiles}
+\begin{document}
+
+\section{The Fitting Method}
+\label{sec:fitting}
+
+\begin{itemize}
+
+	\item Introduce a new algorithm that fits the track itself to
+	the~\feh~and~\afe~abundances of individual stars as opposed to binning the
+	data and fitting the distribution.
+	Though we use chemical abundances as our chief observational quantity, this
+	procedure is highly generic and should in principle be applicable in any
+	region of parameter space where there is intrinsic variation in the density
+	of data points (e.g. isochrones in stellar evolution).
+
+	\item We make use of~\mc~\cite{Foreman-Mackey2013} to run Markov Chain
+	Monte Carlo (MCMC) fits of parameters in one-zone models of chemical
+	evolution.
+	At each step in parameter space,~\mc~makes a call to the~\texttt{Versatile
+	Integrator for Chemical Evolution}~\citep[\vice;][]{Johnson2020,
+	Griffith2021, Johnson2021} to compute the predicted abundances for that
+	selection of parameters.
+	We then compute the likelihood function $L(d|m)$ according to the following
+	procedure.
+
+	\item For a given realization of a one-zone model with known parameters~$m$
+	and one-zone model predictions~$\mu$ = (\feh,~\afe,~\logage), the
+	likelihood of the data given the model is equal to the product of the
+	likelihoods of each individual data point:
+	\begin{subequations}\begin{align}
+	L(d|m) &= \prod_i L(d_i|m)
+	\\
+	\implies \ln L(d|m) &= \sum_i \ln L(d_i|m).
+	\end{align}\end{subequations}
+	However, for a given model~$m$, there is no guaranteed way of knowing
+	which point~$m_j$ along the computed~\afe-\feh~track should correspond to
+	some data point~$d_i$.
+	We therefore marginalize over the entire track for every data point~$d_i$
+	by summing the likelihoods from all~$m_j$ model vectors:
+	\begin{subequations}\begin{align}
+	L(d_i|m) &= \sum_j L(d_i|m_j)
+	\\
+	\implies \ln L(d|m) &= \sum_i \ln \left(\sum_j L(d_i|m_j)\right)
+	\end{align}\end{subequations}
+
+	\item We relate the data point~$d_i$ and the model point~$m_j$ with the
+	relation~$L(d_i|m_j) \propto e^{-\chi^2/2}$ with
+	$\chi^2 = \Delta_{ij}C_i^{-1}\Delta_{ij}^T$, where
+	$\Delta_{ij} = \mu_{i,\text{data}} - \mu_{j,\text{model}}$ (i.e. the
+	difference between a pair of data and model vectors) and $C_i^{-1}$ is the
+	inverse covariance matrix of the~$i$th data point.
+
+	\item Chemical evolution tracks, however, have real, intrinsic variations
+	in the density of points along the track.
+	In one case, a high density of data points may simply reflect the fact that
+	the model vector~$\mu_{j,\text{data}}$ is not far from the vector from the
+	previous timestep~$\mu_{j - 1,\text{data}}$.
+	In another case, a high density of data points may reflect the fact that
+	the star formation rate was high when the galaxy was passing through some
+	region of parameter space.
+	The density of points in the data may also vary because of non-uniform
+	sampling.
+
+
+\end{itemize}
+
+\end{document}
+
