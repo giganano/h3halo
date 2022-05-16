@@ -14,13 +14,13 @@ import sys
 import os
 
 DATA_FILE = "./data/hia-insitu/hiachem.dat"
-OUTFILE = "./data/hia-insitu/hiachem_25600.out"
+OUTFILE = "./data/hia-insitu/hiachem_256k.out"
 MODEL_BASENAME = "hiafit"
 N_PROC = 10
 N_TIMESTEPS = 1000
 N_WALKERS = 256
-N_BURNIN = 100
-N_ITERS = 100
+N_BURNIN = 200
+N_ITERS = 1000
 H3_UNIVERSE_AGE = 14
 N_DIM = 7
 
