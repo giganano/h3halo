@@ -5,7 +5,7 @@ BIBCOMPILER 	:= bibtex
 
 all: ms.pdf
 
-ms.pdf: ms.tex $(TEXSOURCES)
+ms.pdf: ms.tex ms.bib $(TEXSOURCES)
 	@ $(TEXCOMPILER) $(basename $<)
 	@ $(BIBCOMPILER) $(basename $<)
 	@ $(TEXCOMPILER) $(basename $<)
