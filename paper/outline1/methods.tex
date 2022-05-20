@@ -47,6 +47,13 @@
 	spacial information, reducing GCE to a system of coupled
 	integro-differential equations which can be solved numerically.
 
+\end{itemize}
+
+\subsubsection{Inflows, Outflows, Star Formation, and Recycling}
+\label{sec:methods:onezone:gas}
+
+\begin{itemize}
+
 	\item At a given moment in time, gas is added to the interstellar medium
 	(ISM) via inflows and recycled stellar envelopes and is taken out of the
 	ISM via outflows and new stars.
@@ -62,6 +69,18 @@
 	generations of stars.
 
 	\begin{itemize}
+		\item We relate the SFR to the gas supply by introducing the ``star
+		formation efficiency (SFE) timescale'':
+		\begin{equation}
+		\tau_\star \equiv \frac{M_\text{g}}{\dot{M}_\star},
+		\end{equation}
+		This quantity is often referred to as the ``depletion time'' in the
+		observational literature~\citep[e.g.][]{Tacconi2018}.
+		This nomenclature, taken from~\citet{Weinberg2017}, is based on its
+		inverse~$\tau_\star^{-1}$ often being referred to as the SFE itself
+		because it describes the~\textit{fractional} rate at which some ISM
+		fluid element is forming stars.
+
 		\item There are various prescriptions for outflows in the literature.
 		Some authors~\citep[e.g.][]{Andrews2017, Weinberg2017} assume a linear
 		proportionality between the two:
@@ -72,6 +91,9 @@
 		Recently,~\citet{delosReyes2022} constrained the evolution of the
 		Sculptor dwarf spheroidal galaxy with a linear proportionality between
 		the SFR and the SN rate~$\dot{N}_\text{II} + \dot{N}_\text{Ia}$.
+		\citet*{Kobayashi2020} developed a model in which outflow-driving winds
+		develop in the early phases of the Milky Way's evolution, but die out
+		on some timescale as the Galaxy grows.
 		For modelling the Milky Way, some authors neglect outflows, arguing
 		that they do not signicantly alter the chemical evolution of the
 		disc~\citep[e.g.][]{Spitoni2019, Spitoni2021}.
@@ -80,10 +102,48 @@
 		Our fitting routine, however, is easily extended to the parametrization
 		of~\citet{delosReyes2022}, and if outflows are to be neglected, one can
 		simply take~$\eta = 0$ in their fit.
+
+		\item \citet{Weinberg2017} demonstrate that~$\tau_\star$ and~$\eta$
+		determine the first-order details of the gas-phase evolutionary track
+		in the~\afe-\feh~plane (see their Fig. 2).
+		With low~$\tau_\star$ (i.e. high SFE), nucleosynthesis is fast because
+		star formation is fast, and a higher metallicity can be obtained before
+		the onset of SN Ia than in lower SFE models.
+		For this reason,~$\tau_\star$ plays the dominant role in shaping the
+		position of the knee in the~\afe-\feh~plane.
+		As the galaxy evolves, it approaches a chemical equilibrium in which
+		newly produced metals are balanced by the loss of metals to outflows
+		and new stars.
+		Controlling the strength of the sink term of outflows,~$\eta$ plays
+		the dominant role in shaping the late-time equilibrium abundance of the
+		model, which high outflow models (i.e. high~$\eta$) predicting lower
+		equilibrium abundances than their weak outflow counterparts.
+		For observed data, the shape of the track itself directly constrains
+		these parameters.
+		The detailed form of the SFH has minimal impact on the shape of the
+		tracks; rather, that information is encoded in the density of points
+		along the evolutionary track and in the stellar metallicity
+		distribution functions (MDFs).
+
+		\item The recycling rate~$\dot{M}_\text{r}$, in general, depends on the
+		stellar IMF~\citep[e.g.][]{Salpeter1955, Miller1979, Kroupa2001,
+		Chabrier2003}, 
+
 	\end{itemize}
 
-
 \end{itemize}
+
+\subsubsection{Core Collapse Supernovae}
+\label{sec:methods:onezone:ccsne}
+
+\subsubsection{Type Ia Supernovae}
+\label{sec:methods:onezone:sneia}
+
+\subsubsection{Asymptotic Giant Branch Stars}
+\label{sec:methods:onezone:agb}
+
+\subsubsection{Nucleosynthetic Yields}
+\label{sec:methods:onezone:yields}
 
 \subsection{A Fiducial Mock Sample}
 \label{sec:methods:fiducialmock}
