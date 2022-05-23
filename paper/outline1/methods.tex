@@ -127,7 +127,42 @@
 
 		\item The recycling rate~$\dot{M}_\text{r}$, in general, depends on the
 		stellar IMF~\citep[e.g.][]{Salpeter1955, Miller1979, Kroupa2001,
-		Chabrier2003}, 
+		Chabrier2003}, the initial-final remnant mass relation
+		\citep[e.g.][]{Kalirai2008}, and mass-lifetime relation
+		(e.g.~\citealp{Larson1974, Maeder1989};~\citealp*{Hurley2000}).
+		A single stellar population returns some fraction of its initial
+		mass~$r$ back to the ISM according to:
+		\begin{equation}
+		\label{eq:crf}
+		r(\tau) = \ddfrac{
+			\int_{m_\text{to}(\tau)}^u (m - m_\text{rem})\frac{dN}{dm} dm
+		}{
+			\int_l^u m \frac{dN}{dm} dm
+		}
+		\end{equation}
+		where~$l$ and~$u$ are the lower and upper mass limits of star formation,
+		respectively,~$m_\text{to}(\tau)$ is the turnoff mass of a stellar
+		population of age~$\tau$,~$m_\text{rem}$ is the mass of a remnant left
+		behind by a star of initial mass~$m$, and~$dN/dm$ is the adopted IMF.
+		Under this prescription, the recycling rate from~\textit{many} stellar
+		populations, taking into account the full SFH, is given by:
+		\begin{equation}
+		\label{eq:mdot_recycled}
+		\dot{M}_\text{r} = \int_0^T \dot{M}_\star \dot{r}(T - t) dt
+		\end{equation}
+		where~$T$ is the time in the model.
+		Due to the steep nature of the mass-lifetime relation, the recycling
+		rate is dominated by young stellar populations.
+		\citet{Weinberg2017} demonstrate that it is sufficiently accurate in
+		one-zone models to assume that some fraction~$r_\text{inst}$ of a
+		stellar population's initial mass is returned to the ISM immediately
+		(see their Fig. 7; they recommend~$r_\text{inst} = 0.4$ for a
+		\citealt{Kroupa2001} IMF, and~$r_\text{inst} = 0.2$ for a
+		\citealt{Salpeter1955} IMF).
+		Although it is simpler to assume~$\dot{M}_\text{r} =
+		r_\text{inst}\dot{M}_\star$, numerical integration of equations
+		\refp{eq:crf} and~\refp{eq:mdot_recycled} is easy, and~\vice~already
+		does it, so we stick with that.
 
 	\end{itemize}
 
@@ -174,6 +209,31 @@ The red lines denotes the known relations for the gas-phase.
 }
 \label{fig:fiducialmock}
 \end{figure*}
+
+\begin{itemize}
+
+	\item In this section, we define a fiducial mock sample by sampling
+	individual stars from a one-zone model of known parameters and adding
+	artificial uncertainty.
+	We then use this fiducial sample to describe our fitting technique
+	in~\S~\ref{sec:methods:fitting}.
+	We then discuss how the accuracy and precision of the recovered best-fit
+	parameters is affected by sample size and measurement precision.
+
+	\item We take an exponential infall history described by
+	\begin{equation}
+	\dot{M}_\text{in} \propto e^{-t/\tau_\text{in}}
+	\end{equation}
+	with~$\tau_\text{in} = 2$ Gyr and an initial gas mass of 0.
+	The overall normalization of the infall history is irrelevant because
+	mass information cancels in one-zone models when you compute abundances.
+	We additionally select~$\tau_\star = 15$ Gyr and~$\eta = 10$.
+	We set the onset of star formation~$\tau = 13.2$ Gyr ago, allowing~$\sim$0.5
+	Gyr between the Big Bang and the first stars.
+	We evolve this model for 10 Gyr (i.e. the exact ages of the youngest stars
+	in the mock sample are~$\tau = 3.2$ Gyr).
+
+\end{itemize}
 
 
 \subsection{The Fitting Method}
