@@ -7,44 +7,43 @@ ARGV
 from src.utils import piecewise_linear
 import numpy as np
 import math as m
+import random
 import vice
-from vice.yields.presets import JW20
+# from vice.yields.presets import JW20
+vice.yields.ccsne.settings['o'] = 0.01
+vice.yields.sneia.settings['o'] = 0
+vice.yields.ccsne.settings['fe'] = 0.0008
+vice.yields.sneia.settings['fe'] = 0.0011
 import sys
 
 # fiducial: 5% precision in O and Fe abundances, 10% in age
+MODELNAME = "./mocksamples/fiducial"
 FEH_ERR = 0.05
 OFE_ERR = 0.05
 LOGAGE_ERR = 0.1
-NSTARS = 1000
-DURATION = 5
+NSTARS = 500
+NAGES = 100
+DURATION = 10
+SF_ONSET_LOOKBACK = 13.2
 H3_UNIVERSE_AGE = 14
 
-# def sfh(t):
-# 	return m.exp(-t / 2)
 def ifr(t):
 	return m.exp(-t / 2)
 
-with vice.singlezone(name = "mock", verbose = True) as sz:
+with vice.singlezone(name = MODELNAME, verbose = True) as sz:
 	sz.elements = ["fe", "o"]
 	sz.nthreads = 2
 	sz.func = ifr
 	sz.mode = "ifr"
-	# sz.tau_star = 10
-	sz.tau_star = piecewise_linear(2)
-	sz.tau_star.norm = 50
-	sz.tau_star.deltas[0] = 2.5
-	sz.tau_star.deltas[1] = 1
-	sz.tau_star.slopes[0] = 0
-	sz.tau_star.slopes[1] = -48
-	sz.tau_star.slopes[2] = 0
-	# sz.eta = 25
+	sz.tau_star = 15
 	sz.eta = 10
 	sz.Mg0 = 0
 	sz.dt = DURATION / 1000
 	sz.run(np.linspace(0, DURATION, 1001), overwrite = True)
 
+
 with vice.output("mock") as out:
-	np.random.seed(0)
+	random.seed(a = 0)
 	totsfr = sum(out.history["sfr"])
 	sfrfrac = [_ / totsfr for _ in out.history["sfr"]]
 	indeces = np.random.choice(list(range(len(sfrfrac))), p = sfrfrac,
@@ -57,17 +56,13 @@ with vice.output("mock") as out:
 			feh = out.history["[fe/h]"][indeces[i]]
 			ofe = out.history["[o/fe]"][indeces[i]]
 			logage = m.log10(out.history["lookback"][indeces[i]] +
-				H3_UNIVERSE_AGE - DURATION)
-			# logage = m.log10(out.history["lookback"][indeces[i]])
-			# age = out.history["lookback"][indeces[i]]
+				SF_ONSET_LOOKBACK - DURATION)
 			feh += np.random.normal(scale = FEH_ERR)
 			ofe += np.random.normal(scale = OFE_ERR)
 			logage += np.random.normal(scale = LOGAGE_ERR)
-			# age += np.random.normal(scale = AGE_ERR)
 			data.write("%.5e\t%.5e\t" % (feh, FEH_ERR))
 			data.write("%.5e\t%.5e\t" % (ofe, OFE_ERR))
-			# data.write("%.5e\t%.5e\n" % (age, AGE_ERR))
-			if i < 150:
+			if i < NAGES:
 				data.write("%.5e\t%.5e\t" % (logage, LOGAGE_ERR))
 				data.write("\n")
 			else:

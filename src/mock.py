@@ -1,6 +1,7 @@
 
 import numpy as np
 import math as m
+import random
 import vice
 # from vice.yields.presets import JW20
 import sys
@@ -49,7 +50,7 @@ def create_mock(sz, outfile, n_stars = 500, n_ages = 100, feh_err = 0.05,
 	n_outputs = int(duration / sz.dt) + 1
 	with sz.run(np.linspace(0, duration, n_outputs), overwrite = True,
 		capture = True) as out:
-		np.random.seed(seed)
+		random.seed(seed)
 		totsfr = sum(out.history["sfr"])
 		sfrfrac = [_ / totsfr for _ in out.history["sfr"]]
 		indeces = np.random.choice(list(range(len(sfrfrac))), p = sfrfrac,
