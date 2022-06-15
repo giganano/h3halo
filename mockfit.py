@@ -18,16 +18,19 @@ import os
 # DATA_FILE = "./mocksamples/fiducial.dat"
 # OUTFILE = "./mocksamples/fiducial_5000.out"
 # MODEL_BASENAME = "fiducial"
-DATA_FILE = "./mocksamples/n100.dat"
-OUTFILE = "./mocksamples/n100_5000.out"
-MODEL_BASENAME = "n100_"
+# DATA_FILE = "./mocksamples/n100.dat"
+# OUTFILE = "./mocksamples/n100_5000.out"
+# MODEL_BASENAME = "n100_"
+DATA_FILE = sys.argv[1]
+OUTFILE = sys.argv[2]
+MODEL_BASENAME = sys.argv[3]
 
 
 N_PROC = 10
 N_TIMESTEPS = 1000
-N_WALKERS = 50
+N_WALKERS = 256
 N_BURNIN = 100
-N_ITERS = 100
+N_ITERS = 200
 COSMOLOGICAL_AGE = 13.2
 N_DIM = 6
 
