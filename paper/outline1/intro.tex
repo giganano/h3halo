@@ -1,0 +1,41 @@
+
+\documentclass[ms.tex]{subfiles}
+\begin{document}
+
+\section{Introduction}
+\label{sec:intro}
+
+\begin{itemize}
+
+	\item The chemical abundances of stars contain information on the
+	evolutionary history of their host galaxy, but how precisely can this
+	information be derived from abundances?
+	How does this depend on factors like the size of the sample, measurement
+	precision, and the availability (or non-availability) of age information?
+
+	\item One-zone models of GCE are computationally cheap, allowing them to be
+	fit to data assuming some parametrization for the galaxy's evolutionary
+	history.
+	This are both simple and complex examples of how one might go about
+	obtaining these measurements.
+	\citet{Kirby2011} measure and fit the MDFs of eight Milky Way dwarf
+	satellite galaxies with the goal being to determine which evolve according
+	to ``leaky box,'' ``pre-enriched,'' or ``extra gas'' analytic models.
+	\citet{Spitoni2020} use MCMC methods for solar neighbourhood stars and
+	base their likelihood function off of the minimum distance between each
+	star in their sample and the evolutionary track in the~\afe-\feh~plane to
+	derive best-fit parameters for the two-infall model of the Milky Way.
+
+	\item Here we develop an approach which is universally applicable, requires
+	no binning of the data, and is accurate with as few as~$\sim$20 stars even
+	when there is no age information available.
+	We treat the abundances of stars as a sample from the galaxy's evolutionary
+	history according to an inhomogeneous poisson point process (IPPP).
+	We demonstrate by means of mock data that this method accurately recovers
+	evolutionary parameters provided that the sample is well-described by a
+	one-zone model.
+
+
+\end{itemize}
+
+\end{document}

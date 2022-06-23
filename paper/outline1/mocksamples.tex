@@ -1,0 +1,298 @@
+
+\documentclass[ms.tex]{subfiles}
+\begin{document}
+
+\section{Mock Samples}
+\label{sec:mocks}
+
+\subsection{A Fiducial Mock Sample}
+\label{sec:mocks:fiducial}
+
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.5]{fiducial_mock_afe_feh.pdf}
+\includegraphics[scale = 0.42]{fiducial_mock_agedist.pdf}
+\includegraphics[scale = 0.42]{fiducial_mock_amr.pdf}
+\caption{
+\textbf{Left}: Our fiducial mock sample in the~\afe-\feh~plane.
+There are~$N = 500$ stars with abundance uncertainties
+of~$\sigma(\feh) = \sigma(\afe) = 0.05$ as indicated by the errorbar.
+$N = 100$ of the stars have age information available with an artificial
+uncertainty of~$\sigma(\log_{10}(\text{age})) = 0.1$ as indicated by the
+colorbar.
+The red line denotes the evolutionary track in the gas-phase from the one-zone
+model that generated the mock.
+On the top and right, we show the marginalized distributions
+in~\afe~and~\feh, with red lines denoting the known distribution.
+\textbf{Center}: The mock (black, binned) and known (red) age distributions.
+The dashed red line indicates the age distribution that is obtained by sampling
+$N = 10^4$ rather than $N = 500$ stars and assuming the same age uncertainty
+of~$\sigma(\log_{10}(\text{age})) = 0.1$.
+\textbf{Right}: The age-\feh~(top) and age-\afe~(bottom) relation for the mock
+sample, with artificial uncertainties denoted by the error bars on each panel.
+The red lines denotes the known relations for the gas-phase.
+}
+\label{fig:fiducialmock}
+\end{figure*}
+
+\begin{table}
+\caption{
+The known parameters of the one-zone model from which we generate our mock
+stellar samples.
+}
+\begin{tabularx}{\columnwidth}{l @{\extracolsep{\fill}} l r}
+\hline
+Parameter & Description & Value
+\\
+\hline
+$\tau_\text{in}$ & e-folding timescale of the infall history & 2 Gyr
+\\
+$\eta$ & Outflow mass-loading factor
+($\eta \equiv \dot{M}_\text{out} / \dot{M}_\star$) & 10
+\\
+$\tau_\star$ & SFE timescale ($\tau_\star \equiv M_\text{g} / \dot{M}_\star$) &
+15 Gyr
+\\
+$\tau_\text{tot}$ & Duration of star formation & 10 Gyr
+\\
+\yfecc & IMF-averaged fractional net Fe yield from CCSNe & 0.0008
+\\
+\yfeia & IMF-averaged fractional net Fe yield from SN Ia & 0.0011
+\\
+\hline
+\end{tabularx}
+\label{tab:fiducial_mock_params}
+\end{table}
+
+\begin{itemize}
+
+	\item We use our parametrization of one-zone GCE models described
+	in~\S~\ref{sec:methods:onezone} to set up an underlying model from which
+	mock samples can be drawn; we then use a fiducial mock sample to describe
+	our fitting method in~\S~\ref{sec:methods:fitting} and explore variations
+	in, e.g., sample size and precision.
+
+	\item We take an exponential infall history described by
+	\begin{equation}
+	\dot{M}_\text{in} \propto e^{-t/\tau_\text{in}}
+	\end{equation}
+	with~$\tau_\text{in} = 2$ Gyr and an initial gas mass of 0.
+	The overall normalization of the infall history is irrelevant because
+	mass information cancels in one-zone models when you compute abundances.
+	We additionally select~$\tau_\star = 15$ Gyr and~$\eta = 10$ with the
+	thought that slow star formation and strong outflows would mimic the
+	evolution seen in a typical field dwarf galaxy.
+	We set the onset of star formation~$\tau = 13.2$ Gyr ago, allowing~$\sim$0.5
+	Gyr between the Big Bang and the first stars.
+	We evolve this model for 10 Gyr (i.e. the exact ages of the youngest stars
+	in the mock sample are~$\tau = 3.2$ Gyr).
+
+	\item {\color{red} YIELDS}
+
+	\item One-zone models produce stellar populations rather than individual
+	stars, so if a mock sample of individual stars is to be obtained, we must
+	sample from the underlying population.
+	Higher mass stellar populations have proportionally more stars than lower
+	mass stellar populations, so we take the probability of sampling to be
+	proportional to the mass of a population.
+	In the interest of mimicing typical observational samples for local group
+	dwarfs, we take~$N = 500$ stars with abundance uncertainties of
+	$\sigma\afe = \sigma\feh = 0.05$.
+	100 of these stars have age information with an uncertainty
+	of~$\sigma\logage = 0.1$.
+
+	\item We illustrate this sample in Fig.~\ref{fig:fiducialmock}.
+	This sample shows a ``knee'' in the~\afe-\feh~diagram near~\feh~$\sim$-2.3
+	and an equilibrium abundance near~\feh~$\sim$-0.3, but due to the
+	declining nature of the SFH, most of the stars form in
+	the~\feh~$\sim$-1 and~\afe~$\sim$+0.2 region of chemical space.
+
+\end{itemize}
+
+\subsection{Recovered Parameters of the Fiducial Mock}
+\label{sec:mocks:fiducial_fit}
+
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.45]{fiducial_76k8.pdf}
+\caption{Corner-plot for fiducial sample fit.}
+\label{fig:corner_fiducial}
+\end{figure*}
+
+\begin{itemize}
+
+	\item We apply the method outlined in~\S~\ref{sec:methods:fitting} to the
+	mock sample detailed in~\S~\ref{sec:mocks:fiducial}.
+	Fig.~\ref{fig:corner_fiducial} shows the ``corner-plot'' derived from this
+	procedure.
+	Along the diagonal, we show the marginalized likelihood distributions in
+	each parameter along with their best-fit values and confidence intervals.
+	Below the diagonal, we show 2-dimensional cross-sections of the
+	6-dimensional likelihood function.
+	Blue stars mark the element of the Markov Chain with the highest value
+	of~$\ln L$, and red ``cross-hairs'' denote the true, known values of the
+	parameters from the mock sample (see Table~\ref{tab:fiducial_mock_params}).
+
+	\item Our fitting method is able to accurately recover the known
+	evolutionary parameters of the mock sample.
+	Although it may appear that there are a high number of~$\gtrsim1\sigma$
+	discrepancies, we demonstrate in~\S~
+
+	\item We note a handful of degeneracies in the likelihood distributions of
+	the recovered parameters.
+	{\color{red}
+	Because some of these degeneracies arise from similar physics, this
+	discussion can be shortened significantly by motivating items from that
+	perspective rather than going through panel-by-panel.
+	}
+
+	\begin{itemize}
+
+		\item[\textbf{1.}] There is an inverse relationship between the
+		derived Fe yields from CCSN and SN Ia.
+		This is expected, because for the fixed~$\alpha$ yield of~\yacc~= 0.01,
+		the total yield of Fe is constrained by the~\feh~MDF, and for a high
+		(low) value of~\yfecc, a low (high) value of~\yfeia~is required to
+		make up the difference between the model and the data.
+
+		\item[\textbf{2.}] There is an inverse relationship between the prompt
+		component of the Fe yield~\yfecc~and the SFE timescale~$\tau_\star$.
+		This arises because~$\tau_\star$ is the parameter which plays the
+		dominant role in establishing the position of the ``knee'' in
+		the~\afe-\feh~diagram by influencing the rate of enrichment at early
+		times~\citep[see discussion in][]{Weinberg2017}.
+		For high (low) values of~\yfecc, a low (high) value of~$\tau_\star$ is
+		required in order to place the knee at a position consistent with the
+		data.
+
+		\item[\textbf{3.}] There is a direct relationship between the infall
+		timescale~$\tau_\text{in}$ and the total duration of star formation
+		$\tau_\text{tot}$.
+		This arises because both affect the high-metallicity tail of the~\feh
+		distribution similarly.
+		With shorter~$\tau_\text{in}$, the gas supply and the SFH drop off more
+		sharply.
+		This increases the~\feh~equilibrium abundance by allowing SNe Ia to
+		enrich a ``gas-starved'' ISM~\citep[see discussion in][]{Weinberg2017},
+		thereby increasing the fraction of high~\feh~stars.
+		To make up this potential difference with the data, the model can shut
+		off star formation earlier, cutting off the high-metallicity end of
+		the~\feh~MDF, giving rise to this direct relationship.
+
+		\item[\textbf{4.}] There is an inverse relationship between the infall
+		timescale and the mass loading factor~$\eta$.
+		This arises because both affect the equilibrium abundance in the same
+		manner.
+		As discussed above, shorter values of~$\tau_\text{in}$ increase the
+		equilibrium Fe abundance slightly by allowing SNe Ia to enrich a
+		``gas-starved'' ISM.
+		To make up for this potential discrepancy with the data, one can
+		strengthen outflows by increasing~$\eta$, decreasing the equilibrium
+		abundance.
+
+		\item[\textbf{5.}] There is a degeneracy between the total duration of
+		star formation~$\tau_\text{tot}$ and the SFE timescale~$\tau_\star$.
+		This arises because both affect the shape of the~\feh~MDF.
+		Fe approaches equilibrium on either the SFE timescale~$\tau_\star$ or
+		the SN Ia DTD characteristic timescale - whichever is longer, which for
+		dwarf galaxies with inefficient star formation, is~$\tau_\star$.
+		As a result, higher~$\tau_\star$ models approach equilibrium faster.
+		To avoid overpredicting the frequency of near-equilibrium stars
+		compared to the data, one can simply cut off star formation earlier,
+		thereby increasing the frequency of lower metallicity stars.
+
+		\item[\textbf{6.}] {\color{red}
+		The~$\eta$~\yfeia~degeneracy?
+		It goes in the opposite direction that one would intuitively think:
+		higher~\yfeia~models prefer lower~$\eta$.
+		}
+
+	\end{itemize}
+
+	\item There are additional, weaker degeneracies which can be understood
+	by confounding variables.
+	For example, the degeneracy between~$\tau_\star$ and~\yfeia~arises because
+	both are degenerate with~\yfecc.
+
+
+	\item We remind the reader that our fits achieve such a precision by
+	selecting a scale on which the~$\alpha$ element yield~\yacc~is defined to
+	be exactly 0.01 (see discussion in~\S~\ref{sec:methods:onezone:yields}).
+	Aside from the infall timescale~$\tau_\text{in}$ and the total duration of
+	star formation~$\tau_\text{tot}$, each parameter in this fit is affected by
+	the yield-outflow degeneracy.
+	We quantify this in detail in Appendix X.
+
+\end{itemize}
+
+\subsection{Variations in Sample Size, Measurement Precision, and the
+Availability of Age Information}
+\label{sec:mocks:variations}
+
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.45]{dp_sigma_samplesize.pdf}
+\includegraphics[scale = 0.45]{dp_sigma_precision.pdf}
+\caption{
+$\left|\Delta\theta\right|/\sigma$ for sample size (left), measurement
+precision (middle) in the abundances (red) and age (blue), and the fraction of
+the sample that has age measurements (right).
+}
+\label{fig:dp_sigma}
+\end{figure*}
+
+\begin{itemize}
+
+	\item Next we explore variations in details surrounding the mock sample
+	itself, such as sample size, measurement precision, and the availability of
+	age information.
+
+	\item In Fig.~\ref{fig:dp_sigma}, we show the mean deviation between each
+	re-derived parameter~$\theta$ and its known value from the mock sample in
+	units of the precision on~$\theta$.
+	In the left panel, we show this quantity as a function of sample size.
+	We consider samples of~$N = 20$, 50, 100, 200, 500 (fiducial), 1000, and
+	2000.
+	For all sample sizes, the re-derived parameters
+	$\{\theta\} = \{\theta_1, \theta_2, \theta_3, ..., \theta_J\}$ are
+	derived within~$\sim1\sigma$ or slightly better of their known values.
+	This is consistent with a Gaussian random process, because even with
+	infinite data, the most likely deviation from the true value is exactly
+	1$\sigma$.
+	This suggests that our method for deriving the evolutionary parameters of
+	dwarf galaxies accurately described by one-zone GCE models should be
+	accurate even when only~$N \approx 20$ stars are available.
+	We do not explore mock samples smaller than~$N = 20$ because we fit our
+	mock samples with~$J = 6$ free parameters, and below~$N = 20$, the number
+	of degrees of freedom drops rapidly.
+
+\end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

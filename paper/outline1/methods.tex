@@ -279,109 +279,6 @@
 
 \end{itemize}
 
-\subsection{A Fiducial Mock Sample}
-\label{sec:methods:fiducialmock}
-
-\begin{figure*}
-\centering
-\includegraphics[scale = 0.5]{fiducial_mock_afe_feh.pdf}
-\includegraphics[scale = 0.42]{fiducial_mock_agedist.pdf}
-\includegraphics[scale = 0.42]{fiducial_mock_amr.pdf}
-\caption{
-\textbf{Left}: Our fiducial mock sample in the~\afe-\feh~plane.
-There are~$N = 500$ stars with abundance uncertainties
-of~$\sigma(\feh) = \sigma(\afe) = 0.05$ as indicated by the errorbar.
-$N = 100$ of the stars have age information available with an artificial
-uncertainty of~$\sigma(\log_{10}(\text{age})) = 0.1$ as indicated by the
-colorbar.
-The red line denotes the evolutionary track in the gas-phase from the one-zone
-model that generated the mock.
-On the top and right, we show the marginalized distributions
-in~\afe~and~\feh, with red lines denoting the known distribution.
-\textbf{Center}: The mock (black, binned) and known (red) age distributions.
-The dashed red line indicates the age distribution that is obtained by sampling
-$N = 10^4$ rather than $N = 500$ stars and assuming the same age uncertainty
-of~$\sigma(\log_{10}(\text{age})) = 0.1$.
-\textbf{Right}: The age-\feh~(top) and age-\afe~(bottom) relation for the mock
-sample, with artificial uncertainties denoted by the error bars on each panel.
-The red lines denotes the known relations for the gas-phase.
-}
-\label{fig:fiducialmock}
-\end{figure*}
-
-\begin{table}
-\caption{
-The known parameters of the one-zone model from which we generate our mock
-stellar samples.
-}
-\begin{tabularx}{\columnwidth}{l @{\extracolsep{\fill}} l r}
-\hline
-Parameter & Description & Value
-\\
-\hline
-$\tau_\text{in}$ & e-folding timescale of the infall history & 2 Gyr
-\\
-$\eta$ & Outflow mass-loading factor
-($\eta \equiv \dot{M}_\text{out} / \dot{M}_\star$) & 10
-\\
-$\tau_\star$ & SFE timescale ($\tau_\star \equiv M_\text{g} / \dot{M}_\star$) &
-15 Gyr
-\\
-$\tau_\text{tot}$ & Duration of star formation & 10 Gyr
-\\
-\yfecc & IMF-averaged fractional net Fe yield from CCSNe & 0.0008
-\\
-\yfeia & IMF-averaged fractional net Fe yield from SN Ia & 0.0011
-\\
-\hline
-\end{tabularx}
-\end{table}
-
-\begin{itemize}
-
-	\item We use our parametrization of one-zone GCE models described
-	in~\S~\ref{sec:methods:onezone} to set up an underlying model from which
-	mock samples can be drawn; we then use a fiducial mock sample to describe
-	our fitting method in~\S~\ref{sec:methods:fitting} and explore variations
-	in, e.g., sample size and precision.
-
-	\item We take an exponential infall history described by
-	\begin{equation}
-	\dot{M}_\text{in} \propto e^{-t/\tau_\text{in}}
-	\end{equation}
-	with~$\tau_\text{in} = 2$ Gyr and an initial gas mass of 0.
-	The overall normalization of the infall history is irrelevant because
-	mass information cancels in one-zone models when you compute abundances.
-	We additionally select~$\tau_\star = 15$ Gyr and~$\eta = 10$ with the
-	thought that slow star formation and strong outflows would mimic the
-	evolution seen in a typical field dwarf galaxy.
-	We set the onset of star formation~$\tau = 13.2$ Gyr ago, allowing~$\sim$0.5
-	Gyr between the Big Bang and the first stars.
-	We evolve this model for 10 Gyr (i.e. the exact ages of the youngest stars
-	in the mock sample are~$\tau = 3.2$ Gyr).
-
-	\item {\color{red} YIELDS}
-
-	\item One-zone models produce stellar populations rather than individual
-	stars, so if a mock sample of individual stars is to be obtained, we must
-	sample from the underlying population.
-	Higher mass stellar populations have proportionally more stars than lower
-	mass stellar populations, so we take the probability of sampling to be
-	proportional to the mass of a population.
-	In the interest of mimicing typical observational samples for local group
-	dwarfs, we take~$N = 500$ stars with abundance uncertainties of
-	$\sigma\afe = \sigma\feh = 0.05$.
-	100 of these stars have age information with an uncertainty
-	of~$\sigma\logage = 0.1$.
-
-	\item We illustrate this sample in Fig.~\ref{fig:fiducialmock}.
-	This sample shows a ``knee'' in the~\afe-\feh~diagram near~\feh~$\sim$-2.3
-	and an equilibrium abundance near~\feh~$\sim$-0.3, but due to the
-	declining nature of the SFH, most of the stars form in
-	the~\feh~$\sim$-1 and~\afe~$\sim$+0.2 region of chemical space.
-
-\end{itemize}
-
 
 \subsection{The Fitting Method}
 \label{sec:methods:fitting}
@@ -585,13 +482,10 @@ $\tau_\text{tot}$ & Duration of star formation & 10 Gyr
 	according to equation~\refp{eq:likelihood_func} and let~\mc~take care of
 	the rest.
 
-	\item In~\S~\ref{sec:methods:mocksamplefits}, we apply this method to our
+	\item In~\S~\ref{sec:mocks:fiducial_fit}, we apply this method to our
 	fiducial mock sample and discuss how the accuracy and precision of the
 	recovered known parameters is affected by sample size, precision, and
 	the availability of age information.
-
-\subsection{Mock Sample Fits}
-\label{sec:methods:mocksamplefits}
 
 \end{itemize}
 
