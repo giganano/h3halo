@@ -68,7 +68,7 @@ class expifr_mcmc(mcmc):
 		self.sz.dt = walker[3] / N_TIMESTEPS
 		vice.yields.ccsne.settings['fe'] = walker[4]
 		vice.yields.sneia.settings['fe'] = walker[5]
-		vice.yields.ccsne.settings['o'] = walker[6]:
+		vice.yields.ccsne.settings['o'] = walker[6]
 		output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1), 
 			overwrite = True, capture = True)
 		diff = COSMOLOGICAL_AGE - walker[3]
