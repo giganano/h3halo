@@ -32,7 +32,7 @@ N_WALKERS = 256
 N_BURNIN = 100
 N_ITERS = 100
 COSMOLOGICAL_AGE = 13.2
-N_DIM = 6
+N_DIM = 7
 
 # emcee walker parameters
 #
@@ -42,6 +42,7 @@ N_DIM = 6
 # 3. total duration of the model
 # 4. IMF-averaged Fe yield from CCSNe
 # 5. DTD-integrated Fe yield from SNe Ia
+# 6 (temporary). IMF-averaged alpha-element yield
 
 
 class expifr_mcmc(mcmc):
@@ -67,6 +68,7 @@ class expifr_mcmc(mcmc):
 		self.sz.dt = walker[3] / N_TIMESTEPS
 		vice.yields.ccsne.settings['fe'] = walker[4]
 		vice.yields.sneia.settings['fe'] = walker[5]
+		vice.yields.ccsne.settings['o'] = walker[6]:
 		output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1), 
 			overwrite = True, capture = True)
 		diff = COSMOLOGICAL_AGE - walker[3]

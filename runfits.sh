@@ -41,7 +41,10 @@ date
 # python mockfit.py ./mocksamples/agefrac_0p7.dat ./mocksamples/agefrac_0p7_25k6.out agefrac_0p7_
 # python mockfit.py ./mocksamples/agefrac_0p8.dat ./mocksamples/agefrac_0p8_25k6.out agefrac_0p8_
 # python mockfit.py ./mocksamples/agefrac_0p9.dat ./mocksamples/agefrac_0p9_25k6.out agefrac_0p9_
-python mockfit.py ./mocksamples/agefrac_1p0.dat ./mocksamples/agefrac_1p0_25k6.out agefrac_1p0_
+# python mockfit.py ./mocksamples/agefrac_1p0.dat ./mocksamples/agefrac_1p0_25k6.out agefrac_1p0_
+
+# example fit with all yields as free parameters
+python mockfit.py ./mocksamples/fiducial.dat ./mocksamples/degeneracy_25k6.out degeneracy_
 
 date
 
