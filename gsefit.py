@@ -7,91 +7,111 @@ import numpy as np
 import math as m
 import vice
 from vice.yields.presets import JW20
-vice.yields.ccsne.settings['mg'] = 0.00261
-vice.yields.sneia.settings['mg'] = 0
+vice.yields.ccsne.settings['o'] = 0.01
+vice.yields.sneia.settings['o'] = 0
+# vice.yields.ccsne.settings['mg'] = 0.00261
+# vice.yields.sneia.settings['mg'] = 0
 import time
 import os
 
 DATA_FILE = "./data/gsechem.dat"
-OUTFILE = "./data/gsechem_plateau_25600.out"
+OUTFILE = "./data/gsechem_25k6.out"
 MODEL_BASENAME = "gsefit"
+
+
 N_PROC = 10
 N_TIMESTEPS = 1000
 N_WALKERS = 256
 N_BURNIN = 100
 N_ITERS = 100
-H3_UNIVERSE_AGE = 14
-N_DIM = 5
+COSMOLOGICAL_AGE = 13.2
+N_DIM = 6
 
 # emcee walker parameters
 #
 # 0. infall timescale
-# 1. SFE timescale
-# 2. mass loading factor
+# 1. mass loading factor
+# 2. SFE timescale
 # 3. total duration of the model
-# 4. [a/Fe] plateau height
+# 4. IMF-averaged Fe yield from CCSNe
+# 5. DTD-integrated Fe yield from SNe Ia
 
 class gsefit(mcmc):
 
 	def __init__(self, data):
 		super().__init__(data)
 		self.sz.elements = ["fe", "o"]
-		# self.sz.elements = ["fe", "mg"]
 		self.sz.func = exponential()
 		self.sz.mode = "ifr"
 		self.sz.Mg0 = 0
-		self.sz.nthreads = 2
+		# self.sz.nthreads = 2
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
-		if walker[3] > H3_UNIVERSE_AGE: return -float("inf")
-		if walker[4] < 0.1 or walker[4] > 0.8: return -float("inf")
-		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2f]" % (walker[0], walker[1],
-			walker[2], walker[3], walker[4]))
-			# walker[2]))
+		if walker[3] > COSMOLOGICAL_AGE: return -float("inf")
+		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2f, %.2f]" % (walker[0],
+			walker[1], walker[2], walker[3], walker[4], walker[5]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
-		self.sz.dt = walker[3] / N_TIMESTEPS
 		self.sz.func.timescale = walker[0]
-		self.sz.tau_star = walker[1]
-		self.sz.eta = walker[2]
-
-		# equilibrium [a/Fe] ratio for constant SFR given our fiducial yields
-		afe_eq = 0.067
-		vice.yields.ccsne.settings["fe"] = vice.yields.ccsne.settings["o"] * (
-			10**(-walker[4]) * vice.solar_z["fe"] / vice.solar_z["o"])
-		vice.yields.sneia.settings["fe"] = vice.yields.ccsne.settings["fe"] * (
-			10**(walker[4] - afe_eq) - 1)
-
-		# tot_fe_yield = 0.0029
-		# vice.yields.ccsne.settings["fe"] = 10**(-walker[4]) * (
-		# 	vice.solar_z["fe"] / vice.solar_z["o"])
-		# vice.yields.sneia.settings["fe"] = (
-		# 	tot_fe_yield - vice.yields.ccsne.settings["fe"])
-
+		self.sz.eta = walker[1]
+		self.sz.tau_star = walker[2]
+		self.sz.dt = walker[3] / N_TIMESTEPS
+		vice.yields.ccsne.settings['fe'] = walker[4]
+		vice.yields.sneia.settings['fe'] = walker[5]
 		output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
-		# output = self.sz.run(np.linspace(0, 10, N_TIMESTEPS + 1),
-		# 	overwrite = True, capture = True)
-		diff = H3_UNIVERSE_AGE - walker[3]
-		# diff = 0
+		diff = COSMOLOGICAL_AGE - walker[3]
 		model = []
 		for key in self.quantities:
 			if key == "lookback":
 				model.append(
-					# take into account offset between GSE stopping evolution
-					# and the present day
 					[m.log10(_ + diff) for _ in output.history[key][:-1]])
 			else:
 				model.append(output.history[key][1:])
 		model = np.array(model).T
-		weights = output.history["sfr"][1:]
-		norm = sum(weights)
-		weights = [_ / norm for _ in weights]
 		self.fd.model = model
-		self.fd.weights = weights
-		logp = self.fd()
-		print(logp)
-		return logp
+		self.fd.weights = output.history["sfr"][1:]
+		return self.fd()
+
+		# if any([_ < 0 for _ in walker]): return -float("inf")
+		# if walker[3] > H3_UNIVERSE_AGE: return -float("inf")
+		# if walker[4] < 0.1 or walker[4] > 0.8: return -float("inf")
+		# print("walker: [%.2f, %.2f, %.2f, %.2f, %.2f]" % (walker[0], walker[1],
+		# 	walker[2], walker[3], walker[4]))
+		# self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
+		# self.sz.dt = walker[3] / N_TIMESTEPS
+		# self.sz.func.timescale = walker[0]
+		# self.sz.tau_star = walker[1]
+		# self.sz.eta = walker[2]
+
+		# # equilibrium [a/Fe] ratio for constant SFR given our fiducial yields
+		# afe_eq = 0.067
+		# vice.yields.ccsne.settings["fe"] = vice.yields.ccsne.settings["o"] * (
+		# 	10**(-walker[4]) * vice.solar_z["fe"] / vice.solar_z["o"])
+		# vice.yields.sneia.settings["fe"] = vice.yields.ccsne.settings["fe"] * (
+		# 	10**(walker[4] - afe_eq) - 1)
+
+		# output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1),
+		# 	overwrite = True, capture = True)
+		# diff = H3_UNIVERSE_AGE - walker[3]
+		# model = []
+		# for key in self.quantities:
+		# 	if key == "lookback":
+		# 		model.append(
+		# 			# take into account offset between GSE stopping evolution
+		# 			# and the present day
+		# 			[m.log10(_ + diff) for _ in output.history[key][:-1]])
+		# 	else:
+		# 		model.append(output.history[key][1:])
+		# model = np.array(model).T
+		# weights = output.history["sfr"][1:]
+		# norm = sum(weights)
+		# weights = [_ / norm for _ in weights]
+		# self.fd.model = model
+		# self.fd.weights = weights
+		# logp = self.fd()
+		# print(logp)
+		# return logp
 
 
 if __name__ == "__main__":
@@ -112,8 +132,10 @@ if __name__ == "__main__":
 	p0 = 10 * np.random.rand(N_WALKERS, N_DIM)
 	# confine the [a/Fe] plateau to the allowed range to begin with
 	for i in range(len(p0)):
-		while p0[i][4] < 0.1 or p0[i][4] > 0.8:
-			p0[i][4] = np.random.rand()
+		p0[i][4] /= 1000
+		p0[i][5] /= 1000
+	# 	while p0[i][4] < 0.1 or p0[i][4] > 0.8:
+	# 		p0[i][4] = np.random.rand()
 	start = time.time()
 	state = sampler.run_mcmc(p0, N_BURNIN)
 	sampler.reset()
