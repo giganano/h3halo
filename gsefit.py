@@ -14,8 +14,8 @@ vice.yields.sneia.settings['o'] = 0
 import time
 import os
 
-DATA_FILE = "./data/gsechem.dat"
-OUTFILE = "./data/gsechem_25k6.out"
+DATA_FILE = "./data/gse/gsechem.dat"
+OUTFILE = "./data/gse/gsechem_25k6.out"
 MODEL_BASENAME = "gsefit"
 
 
