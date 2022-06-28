@@ -42,14 +42,11 @@
 \newcommand{\yfecc}{\ensuremath{y_\text{Fe}^\text{CC}}}
 \newcommand{\yfeia}{\ensuremath{y_\text{Fe}^\text{Ia}}}
 \newcommand{\script}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\scinote}[2]{\ensuremath{#1\times10^{#2}}}
+\newcommand{\erf}{\ensuremath{\text{erf}}}
 
 % control over bibtex's alphabetizing
 \providecommand{\noopsort}[1]{}
-
-% table spacing and formatting
-% \renewcommand{\arraystretch}{2}
-% \newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
-% \newcommand\clearrow{\global\let\rowmac\relax}
 
 % \title[Dwarf Galaxies and Chemical Abundances]{Constraints on Dwarf Galaxy
 % Evolution from Chemical Abundances}
@@ -95,6 +92,10 @@ galaxies: star formation -- galaxies: stellar content
 
 \bibliographystyle{mnras}
 \bibliography{ms}
+
+\begin{appendices}
+\subfile{likelihood_normalization.tex}
+\end{appendices}
 
 \label{lastpage}
 \end{document}

@@ -13,7 +13,7 @@ def ifr(t):
 	return m.exp(-t / 2)
 
 
-with vice.singlezone(name = "./mocksamples/age_err_0p02", verbose = True) as sz:
+with vice.singlezone(name = "./mocksamples/agefrac_1p0", verbose = True) as sz:
 	sz.elements = ["fe", "o"]
 	sz.nthreads = 2
 	sz.func = ifr
@@ -25,5 +25,6 @@ with vice.singlezone(name = "./mocksamples/age_err_0p02", verbose = True) as sz:
 	# create_mock(sz, "./mocksamples/n20.dat", n_stars = 20, n_ages = 4)
 	# create_mock(sz, "./mocksamples/ab_err_0p5.dat",
 	# 	feh_err = 0.5, ofe_err = 0.5)
-	create_mock(sz, "./mocksamples/age_err_0p02.dat", logage_err = 0.02)
+	# create_mock(sz, "./mocksamples/age_err_0p02.dat", logage_err = 0.02)
+	create_mock(sz, "./mocksamples/agefrac_1p0.dat", n_stars = 500, n_ages = 500)
 
