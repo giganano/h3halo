@@ -110,15 +110,17 @@ if __name__ == "__main__":
 	sampler = EnsembleSampler(N_WALKERS, N_DIM, log_prob, pool = pool)
 	p0 = np.zeros((N_WALKERS, N_DIM))
 	for i in range(len(p0)):
-		p0[i][0] = 10 * np.random.rand()
-		p0[i][1] = 100 * np.random.rand()
-		p0[i][2] = 1000 * np.random.rand()
-		p0[i][3] = 100 * np.random.rand()
-		p0[i][4] = 10 * np.random.rand()
-		p0[i][5] = 3 * np.random.rand()
-		p0[i][6] = 13.2 * np.random.rand()
-		p0[i][7] = np.random.rand() / 100
-		p0[i][8] = np.random.rand() / 100
+		p0[i][0] = 2
+		p0[i][1] = 25
+		p0[i][2] = 100
+		p0[i][3] = 10
+		p0[i][4] = 6
+		p0[i][5] = 1
+		p0[i][6] = 8
+		p0[i][7] = 0.0008
+		p0[i][8] = 0.0011
+		for j in range(len(p0[i])):
+			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	start = time.time()
 	state = sampler.run_mcmc(p0, N_BURNIN)
 	sampler.reset()

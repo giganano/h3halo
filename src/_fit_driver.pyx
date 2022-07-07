@@ -69,9 +69,9 @@ cdef class fit_driver:
 	@property
 	def model(self):
 		_model = self._fd[0].n_model * [None]
-		for i in range(len(self._fd[0].n_model)):
+		for i in range(self._fd[0].n_model):
 			_model[i] = self._fd[0].n_quantities * [0.]
-			for j in range(len(self._fd[0].n_quantities)):
+			for j in range(self._fd[0].n_quantities):
 				_model[i][j] = self._fd[0].model[i][j]
 		return _model
 
