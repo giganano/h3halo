@@ -108,10 +108,17 @@ if __name__ == "__main__":
 	log_prob = sgrfit(data)
 	pool = Pool(N_PROC)
 	sampler = EnsembleSampler(N_WALKERS, N_DIM, log_prob, pool = pool)
-	p0 = 1000 * np.random.rand(N_WALKERS, N_DIM)
+	p0 = np.zeros(N_WALKERS, N_DIM)
 	for i in range(len(p0)):
-		p0[i][7] /= 100000
-		p0[i][8] /= 100000
+		p0[i][0] = 10 * np.random.rand()
+		p0[i][1] = 100 * np.random.rand()
+		p0[i][2] = 1000 * np.random.rand()
+		p0[i][3] = 100 * np.random.rand()
+		p0[i][4] = 10 * np.random.rand()
+		p0[i][5] = 3 * np.random.rand()
+		p0[i][6] = 13.2 * np.random.rand()
+		p0[i][7] = np.random.rand() / 100
+		p0[i][8] = np.random.rand() / 100
 	start = time.time()
 	state = sampler.run_mcmc(p0, N_BURNIN)
 	sampler.reset()
