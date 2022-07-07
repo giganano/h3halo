@@ -285,184 +285,310 @@
 
 \begin{itemize}
 
-	\item Here we present our method for applying one-zone GCE models to a
-	series of observed abundances and determining the best-fit values.
-	The generic statistical problem at play here is the~\textit{inhomogeneous
-	poisson point process} (IPPP).
-	By applying the principles of an IPPP to models which produces tracks in
-	some observed space, we can infer the best-fit parameters given some set
-	of noisy observables in that space.
-	Such models arise not only in the context of chemical evolution as in this
-	work, but also in stellar streams and color-magnitude diagrams (i.e.
-	stellar isochrones).
-	This approach should therefore be extensible to these topics as well.
-
-	% \item In this section, we present our method for applying one-zone GCE
-	% models to a series of points in the~\afe-\feh~plane and determining the
-	% best-fit values of the parameters.
-	% The more generic statistical problem at play here is to infer the parameters
-	% of models which produce tracks in some observed space from a set of noisy
-	% observations of individuals in that space.
-	% Such models arise not only in the context of chemical evolution as in this
-	% work, but also in stellar streams and color-magnitude diagrams (i.e. stellar
-	% isochrones); this approach should therefore be extensible to these topics.
-
-	\item Our approach makes the following assumptions regarding the track and
-	the data:
-	\begin{itemize}
-
-		\item[\textbf{1.}] The track is infinitely thin. In the absence of
-		observational errors, all of the data would fall perfectly on a line
-		in~$J$-dimensional space.
-
-		\item[\textbf{2.}] The density~\textit{along} the track changes slowly
-		relative to the observational uncertainties.
-
-		\item[\textbf{3.}] The observational uncertainties on the data are
-		described by a multivariate Gaussian.
-
-		\item[\textbf{4.}] All of the data are associated with the model.
-
-		\item[\textbf{5.}] The sample selection is not a function of the
-		observables (though this can be relaxed; see discussion on weights
-		below).
-
-	\end{itemize}
-
-	\item For a given data sample~\script{D}, the goal is to find the
-	model~\script{M} predicted by a set of parameters~$\theta$ which maximizes
-	the~\textit{posterior probability}~$L(\script{M} | \script{D})$.
-	In practice, however, best-fit values for~$\theta$ are obtained by
-	maximizing the~\textit{likelihood function}~$L(\script{D} | \script{M})$
-	describing the probability of observing the data~\script{D} given the
-	model~\script{M}.
-	Bayes' Theorem relates the two according to:
+	\item Here we provide an overview of our method for fitting one-zone GCE
+	models to data.
+	Our method uses the observed abundances and ages (where available) of an
+	ensemble of stars and, with no binning of the data, accurately constructs
+	the~\textit{likelihood function}~$L(\script{D} | \{\theta\})$ describing
+	the probability of observing the data~\script{D} given a set of model
+	parameters~$\{\theta\}$.
+	This is related to the~\textit{posterior probability}~$L(\{\theta\} |
+	\script{D})$ according to Bayes' Theorem:
 	\begin{equation}
-	\label{eq:bayes_theorem}
-	L(\script{M} | \script{D}) = \frac{
-		L(\script{D} | \script{M}) L(\script{M})
+	L(\{\theta\} | \script{D}) = \frac{
+		L(\script{D} | \{\theta\}) L(\{\theta\})
 	}{
-		L(\script{D})
+		L(\script{D}),
 	}
 	\end{equation}
-	where~$L(\script{M})$ is the likelihood of the model (known as
-	the~\textit{prior}) and~$L(\script{D})$ is the likelihood of the data
-	(known as the~\textit{evidence}).
-	The evidence is an overall constant of normalization, but the prior can
-	influence the best-fit values determined by folding in any existing
-	information on the model parameters.
-	In general, it is common to assume a ``flat'' (or ``uniform'') prior when
-	no additional information is available, and therefore
-	$L(\script{M} | \script{D}) \approx L(\script{D} | \script{M})$.
+	where~$L(\{\theta\})$ is the likelihood of the parameters themselves
+	(known as the~\textit{prior}) and~$L(\script{D})$ is the likelihood of the
+	data (known as the~\textit{evidence}).
+	Although it is more desirable to measure the posterior probability,
+	in practice only the likelihood function can be robustly determined
+	because the prior is not directly quantifiable; it requires information
+	independent of the data on how likely the chosen parameters~$\{\theta\}$
+	are to be accurate.
+	With no prior information on what the parameters should be, the best
+	practice is to assume a ``flat'' or ``uniform'' prior in which
+	$L(\{\theta\})$ is a constant, and therefore
+	$L(\{\theta\} | \script{D}) \approx L(\script{D} | \{\theta\})$; we retain
+	this convention here.
 
-	\item In this context, the goal is to combine the likelihoods for~$N$
-	discrete observations and compute a single likelihood for a given track.
-	As long as each datum is independent of the rest of the sample, the total
-	likelihood can be expressed as the product of the likelihood of each
-	individual datum~$\script{D}_i$:
-	\begin{subequations}\begin{align}
-	L(\script{D} | \script{M}) &= \prod_i L(\script{D}_i | \script{M})
-	\\
-	\implies \ln L(\script{D} | \script{M}) &= \sum_i \ln L(\script{D}_i |
-	\script{M})
-	\label{eq:l_d_m}
-	\end{align}\end{subequations}
+	\item Our method treats the sampling of stars from a one-zone GCE model
+	as an~\textit{inhomogeneous poisson point process} (IPPP).
+	In Appendix~\ref{sec:l_derivation}, we present a detailed derivation of
+	our likelihood function in which we apply the principles of an IPPP and
+	statistical likelihood to one-zone GCE models.
+	Owing to its detailed nature, we provide only qualitative discussion of
+	its form here, reserving more in-depth justification for Appendix
+	\ref{sec:l_derivation}.
+	Though our use case in this paper is in the context of GCE, this method
+	is highly generic and should be extensible to other astrophysical models
+	which produce evolutionary tracks in some observed space.
+	Such models arise also in the context of stellar streams and
+	color-magnitude diagrams (i.e. stellar isochrones).
 
-	\item Computing the likelihood of observing the datum~$\script{D}_i$ given
-	some model~$M$ is non-trivial because~$\script{D}_i$ came from an unknown
-	location along the track.
-	We therefore marginalize~$L(\script{D}_i | M)$ over the entirety
-	of~\script{M} by integrating the likelihood of a particular observed data
-	point along the entire track.
-	In practice, models will sample the track at some set of~$K$ points
-	$\script{M} = \{\script{M}_1, \script{M}_2, \script{M}_3, ... , 
-	\script{M}_K\}$, allowing the~$L(\script{D}_i | \script{M})$ to be
-	expressed as a summation over all model points~$\script{M}_j$:
+	\item In practice, one-zone GCE models do not predict a smooth, functional
+	form for the evolutionary track through abundance space.
+	Instead, it is most often quantified in some piece-wise linear form
+	predicted by some numerical code.
+	For a sample~\script{D} with~$N$ individual stars and a predicted track
+	\script{M} with~$K$ points in its piece-wise linear form, the likelihood
+	function is given by
 	\begin{equation}
-	\label{eq:l_di_m}
-	L(\script{D}_i | \script{M}) = \sum_j L(\script{D}_i | \script{M}_j).
+	\ln L(\script{D} | \{\theta\}) = \sum_i^N \ln \left(
+	\sum_j^K w_j \exp \left(
+	\frac{-1}{2} \delta_{ij} C_i^{-1} \delta_{ij}^T
+	\right)
+	\right),
+	\label{eq:likelihood}
 	\end{equation}
-	There are two important factors which additionally influence
-	$L(\script{D}_i | \script{M}_j)$:
+	where~$\delta_{ij} = \script{D}_i - \script{M}_j$ is the vector difference
+	between the~$i$th datum and the~$j$th point on the predicted track,
+	$C_i^{-1}$ is the inverse covariance matrix of the~$i$th datum, and~$w_j$
+	is a weight to be attached to~$\script{M}_j$ which scales with the
+	SFR and the selection function of the survey, normalized such that
+	$\sum_j w_j = 1$ (see discussion below).
+
+	\item This functional form arises from marginalizing the likelihood of
+	observing each datum over the entire evolutionary track~\script{M}
+	according to:
+	\begin{equation}
+	\ln L(\script{D} | \{\theta\}) = \sum_i^K \ln \left(
+	\sum_j^K L\left(\script{D}_i | \script{M}_j
+	\right)\right),
+	\end{equation}
+	where the likelihood of observing the~$i$th datum given the~$j$th point on
+	the evolutionary track is given by a weighted~$e^{-\chi^2/2}$
+	expression.
+	Mathematically, the requirement for this marginalization arises naturally
+	from the application of statistical likelihood to an evolutionary track
+	(see Appendix~\ref{sec:l_derivation}).
+	Qualitatively, it can be understood from the notion that there is no way
+	of knowing which point on the evolutionary track the datum~$\script{D}_i$
+	is truly associated with, and the only way to properly take this into
+	account is to consider all pair-wise combinations of~\script{D}
+	and~\script{M}.
+
+	\item The validity of equation~\refp{eq:likelihood} is contingent on the
+	following assumptions.
 	\begin{itemize}
+		\item \textit{The track is infinitely thin.}
+		In the absence of measurement errors, all of the data would fall
+		perfectly on a line in the observed space.
+		As discussed at the beginning of~\S~\ref{sec:methods:onezone}, the
+		fundamental assumption of one-zone GCE models is instantaneous
+		diffusion and, consequently, chemical homogeneity.
+		They sacrifice this spatial information in exchange for a drastic
+		reduction in computational expense.
+		By construction, they predict a single exact abundance of all nuclear
+		species in the star formation reservoir at any given time.
+		If the model in question instead predicts a track with some finite
+		width, then computing the likelihood function is a fundamentally
+		different problem.
 
-		\item[\textbf{1.}] The inherent density of objects at the
-		point~$\script{M}_j$.
-		In the context of chemical evolution, this is directly related to the
-		star formation rate.
-		If the SFR is high at a time~$j$, then it is proprtionally more likely
-		that the datum~$\script{D}_i$ is associated with the model point
-		$\script{M}_j$ than at another point in time when the SFR is lower.
-		In the context of, e.g., stellar isochrones and color-magnitude
-		diagrams, this is related to the IMF.
+		\item \textit{Each observation is independent.}
+		When this condition is met, the total likelihood of observing the
+		data~\script{D} can be expressed as the product of the likelihood of
+		observing each individual datum:
+		\begin{subequations}\begin{align}
+		L(\script{D} | \{\theta\}) &= \prod_i^N L(\script{D}_i | \script{M})
+		\\
+		\implies \ln L(\script{D} | \{\theta\}) &= \sum_i^N \ln
+		L(\script{D}_i | \{\theta\}).
+		\end{align}\end{subequations}
+		This condition plays an important role in giving rise to the
+		functional form of equation~\refp{eq:likelihood}.
 
-		\item[\textbf{2.}] The selection function of the sample at the
-		point~$\script{M}_j$.
-		If the survey design is such that different regions of the track are
-		sampled more deeply than others, this will be reflected in the
-		distribution in the observed space.
-		In the context of chemical evolution, this can happen by proxy of
-		selection choices in, e.g., stellar age, luminosity, or color.
+		\item \textit{The observational uncertainties are described by a
+		multivariate Gaussian.}
+		If this condition fails, the expression for~$\chi^2 =
+		\delta_{ij}C_i^{-1}\delta_{ij}^T$ is no longer accurate.
+		In this case, the expression~$L(\script{D}_i | \script{M}_j) \propto
+		w_j e^{-\chi^2/2}$ should be replaced with some kernel density
+		estimate of the uncertainty at the point~$\script{M}_j$, but retaining
+		the weight~$w_j$.
 
+		\item \textit{The track is densely sampled.}
+		That is, the spacing between the points on track~\script{M} is small
+		compared to the observational uncertainties in the data.
+		This assumption can be relaxed at the expense of including an
+		additional correction factor~$\beta_{ij}$ given by equation
+		\refp{eq:corrective_beta} which integrates the likelihood between each
+		pair of adjacent points~$\script{M}_j$ and~$\script{M}_{j + 1}$ along
+		the track.
+		If computing the evolutionary track is sufficiently expensive,
+		relaxing the number of points and including this correction factor may
+		be the more computationally efficient option.
+
+		\item \textit{The normalization of the weights is inconsequential.}
+		That is, only the relative values of any two pairs of weights has any
+		impact on the likelihood function.
+		Weights are essential to the accuracy of equation~\refp{eq:likelihood}
+		because the density of predicted observations depends on two key
+		factors:
+		\begin{itemize}
+			\item[\textbf{1.}] The inherent density of objects.
+			In the context of chemical evolution, this is directly related
+			to the SFR.
+			As discussed above, there is no way of knowing~\textit{which}
+			point on the evolutionary track a datum~$\script{D}_i$ is truly
+			associated with.
+			However, if the SFR is high at the point~$\script{M}_j$ then the
+			datum~$\script{D}_i$ is proportionally more likely to be
+			associated with it than some other nearby point in the observed
+			space when the SFR is lower.
+
+			\item[\textbf{2.}] The selection function of the survey.
+			If the survey design is such that different regions of the track
+			are sampled more deeply than others, this will be reflected in the
+			distribution in the observed space, and the most accurate model
+			should take this information into account.
+			In the context of stellar abundances, this can arise by proxy of
+			selection choices in, e.g., stellar age, luminosity, color, etc.
+		\end{itemize}
+		Because of these crucial factors which directly influence the
+		likelihood of observing the datum~$\script{D}_i$ given~$\script{M}_j$,
+		the weights~$w_j$ should scale as the product of the two:
+		\begin{equation}
+		w_j \propto \script{S}(\script{M}_j) \dot{M}_{\star,j},
+		\label{eq:weights}
+		\end{equation}
+		where~$\script{S}$ is the selection function at the point~$\script{M}_j$
+		in the observed space,~$\dot{M}_\star$ is the SFR at that time, and
+		their normalization is set by the requirement that the sum of weights
+		equal 1.
+		\par
+		One-zone models, as we have parameterized them, do not depend on the
+		normalization of the SFH.
+		Models with the same parameters but a larger present-day stellar mass
+		predict proportionally more metal production and proportionally
+		more ISM gas simultaneously.
+		When computing predicted abundances, the normalization cancels.
+		If the model is instead parameterized in a manner such that the
+		normalization~\textit{is} relevant and should influence the likelihood
+		function (e.g. if the authors have incorporated a non-linear relation
+		between the surface densities of gas and starformation
+		$\dot{\Sigma}_\star \propto \Sigma_\text{gas}^k$ which incorporates an
+		absolute scale), then the modification to equation~\refp{eq:likelihood}
+		is simple.
+		The weights, still computed according to equation~\refp{eq:weights}
+		should remain un-normalized, and their sum~$\sum_j w_j$ should instead
+		be subtracted from equation~\refp{eq:likelihood} (for justirication,
+		see discussion in Appendix~\ref{sec:l_derivation}).
 	\end{itemize}
 
-	Because of these factors directly influencing the likelihood function, it
-	is crucial to introduce weights which scale as the product of these two
-	effects:
-	\begin{equation}
-	\label{eq:weights}
-	w_j \propto \script{S}(\script{M}_j) \dot{M}_{\star,j}
-	\end{equation}
-	where~$\script{S}(\script{M}_j)$ is the selection function of the sample
-	at the point~$\script{M}_j$ along the track and~$\dot{M}_{\star,j}$ is the
-	model-predicted SFR at time~$j$.
+	%%%%%%%%%%
 
-	\item If the uncertainties of the datum~$\script{D}_i$ are adequately
-	described by a multivariate Gaussian, then with the proper weighting,
-	$L(\script{D}_i | \script{M}_j)$ can be expressed as a classical
-	$L \propto e^{-\chi^2 / 2}$ expression:
-	\begin{equation}
-	\label{eq:chi_squared}
-	\chi^2 = \Delta_{ij} C_i^{-1} \Delta_{ij}^T
-	\end{equation}
-	where~$C_i^{-1}$ is the inverse covariance matrix associated with the datum
-	$\script{D}_i$ and~$\Delta_{ij} = \script{D}_i - \script{M}_j$ is the
-	vector difference between the datum and a given point along the track.
+	% \item In this context, the goal is to combine the likelihoods for~$N$
+	% discrete observations and compute a single likelihood for a given track.
+	% As long as each datum is independent of the rest of the sample, the total
+	% likelihood can be expressed as the product of the likelihood of each
+	% individual datum~$\script{D}_i$:
+	% \begin{subequations}\begin{align}
+	% L(\script{D} | \script{M}) &= \prod_i L(\script{D}_i | \script{M})
+	% \\
+	% \implies \ln L(\script{D} | \script{M}) &= \sum_i \ln L(\script{D}_i |
+	% \script{M})
+	% \label{eq:l_d_m}
+	% \end{align}\end{subequations}
 
-	\item Combining equations~\refp{eq:l_d_m},~\refp{eq:l_di_m},
-	\refp{eq:weights}, and~\refp{eq:chi_squared} results in the following
-	expression for the likelihood function of the data~\script{D} given the
-	track~\script{M}:
-	\begin{equation}
-	\label{eq:likelihood_func}
-	\ln L(\script{D} | \script{M}) = \sum_i \ln \left(
-	\sum_j w_j \exp\left(\frac{-1}{2}\Delta_{ij} C_i^{-1} \Delta_{ij}^T\right)
-	\right),
-	\end{equation}
-	where the summations are taken over the entirety of the track and the
-	entirety of the data.
+	% \item Computing the likelihood of observing the datum~$\script{D}_i$ given
+	% some model~$M$ is non-trivial because~$\script{D}_i$ came from an unknown
+	% location along the track.
+	% We therefore marginalize~$L(\script{D}_i | M)$ over the entirety
+	% of~\script{M} by integrating the likelihood of a particular observed data
+	% point along the entire track.
+	% In practice, models will sample the track at some set of~$K$ points
+	% $\script{M} = \{\script{M}_1, \script{M}_2, \script{M}_3, ... , 
+	% \script{M}_K\}$, allowing the~$L(\script{D}_i | \script{M})$ to be
+	% expressed as a summation over all model points~$\script{M}_j$:
+	% \begin{equation}
+	% \label{eq:l_di_m}
+	% L(\script{D}_i | \script{M}) = \sum_j L(\script{D}_i | \script{M}_j).
+	% \end{equation}
+	% There are two important factors which additionally influence
+	% $L(\script{D}_i | \script{M}_j)$:
+	% \begin{itemize}
 
-	\item In detail, an IPPP requires the sum of the weights~$\sum_j w_j$ to be
-	subtracted from~$\ln L(\script{D} | \script{M})$.
-	The purpose of this term is such that tracks which go ``too far'' in the
-	observed space are penalized for predicting data in regions where there are
-	none.
-	However, in the context of chemical evolution, the weights are derived from
-	the SFH of the model.
-	For the models we consider here, the normalization of the SFH is
-	inconsequential to the model predictions (i.e. a model with the SFH
-	amplified by~$10^6$ at all times but otherwise the same evolutionary
-	parameters would predict the same evolution in~\feh~and~\afe).
-	For this reason, it is essential that~$\sum_j w_j$ not impact the inferred
-	value of~$\ln L(\script{D} | \script{M})$.
-	We therefore set~$\sum_j w_j = 1$ always, and tracks which extend too far
-	in chemical space are penalized by contributing a~\textit{fractional}
-	weight far from the observed points, thereby increasing~$\chi^2$.
-	However, for applications of this method in which the sum of the weights
-	is~\textit{not} inconsequential to the likelihood function, this additional
-	term in equation~\refp{eq:likelihood_func} must be included.
-	{\color{red}(It may be worthwhile to include an appendix in which we
-	demonstrate the validity of this approach)}.
+	% 	\item[\textbf{1.}] The inherent density of objects at the
+	% 	point~$\script{M}_j$.
+	% 	In the context of chemical evolution, this is directly related to the
+	% 	star formation rate.
+	% 	If the SFR is high at a time~$j$, then it is proprtionally more likely
+	% 	that the datum~$\script{D}_i$ is associated with the model point
+	% 	$\script{M}_j$ than at another point in time when the SFR is lower.
+	% 	In the context of, e.g., stellar isochrones and color-magnitude
+	% 	diagrams, this is related to the IMF.
+
+	% 	\item[\textbf{2.}] The selection function of the sample at the
+	% 	point~$\script{M}_j$.
+	% 	If the survey design is such that different regions of the track are
+	% 	sampled more deeply than others, this will be reflected in the
+	% 	distribution in the observed space.
+	% 	In the context of chemical evolution, this can happen by proxy of
+	% 	selection choices in, e.g., stellar age, luminosity, or color.
+
+	% \end{itemize}
+
+	% Because of these factors directly influencing the likelihood function, it
+	% is crucial to introduce weights which scale as the product of these two
+	% effects:
+	% \begin{equation}
+	% \label{eq:weights}
+	% w_j \propto \script{S}(\script{M}_j) \dot{M}_{\star,j}
+	% \end{equation}
+	% where~$\script{S}(\script{M}_j)$ is the selection function of the sample
+	% at the point~$\script{M}_j$ along the track and~$\dot{M}_{\star,j}$ is the
+	% model-predicted SFR at time~$j$.
+
+	% \item If the uncertainties of the datum~$\script{D}_i$ are adequately
+	% described by a multivariate Gaussian, then with the proper weighting,
+	% $L(\script{D}_i | \script{M}_j)$ can be expressed as a classical
+	% $L \propto e^{-\chi^2 / 2}$ expression:
+	% \begin{equation}
+	% \label{eq:chi_squared}
+	% \chi^2 = \Delta_{ij} C_i^{-1} \Delta_{ij}^T
+	% \end{equation}
+	% where~$C_i^{-1}$ is the inverse covariance matrix associated with the datum
+	% $\script{D}_i$ and~$\Delta_{ij} = \script{D}_i - \script{M}_j$ is the
+	% vector difference between the datum and a given point along the track.
+
+	% \item Combining equations~\refp{eq:l_d_m},~\refp{eq:l_di_m},
+	% \refp{eq:weights}, and~\refp{eq:chi_squared} results in the following
+	% expression for the likelihood function of the data~\script{D} given the
+	% track~\script{M}:
+	% \begin{equation}
+	% \label{eq:likelihood_func}
+	% \ln L(\script{D} | \script{M}) = \sum_i \ln \left(
+	% \sum_j w_j \exp\left(\frac{-1}{2}\Delta_{ij} C_i^{-1} \Delta_{ij}^T\right)
+	% \right),
+	% \end{equation}
+	% where the summations are taken over the entirety of the track and the
+	% entirety of the data.
+
+	% \item In detail, an IPPP requires the sum of the weights~$\sum_j w_j$ to be
+	% subtracted from~$\ln L(\script{D} | \script{M})$.
+	% The purpose of this term is such that tracks which go ``too far'' in the
+	% observed space are penalized for predicting data in regions where there are
+	% none.
+	% However, in the context of chemical evolution, the weights are derived from
+	% the SFH of the model.
+	% For the models we consider here, the normalization of the SFH is
+	% inconsequential to the model predictions (i.e. a model with the SFH
+	% amplified by~$10^6$ at all times but otherwise the same evolutionary
+	% parameters would predict the same evolution in~\feh~and~\afe).
+	% For this reason, it is essential that~$\sum_j w_j$ not impact the inferred
+	% value of~$\ln L(\script{D} | \script{M})$.
+	% We therefore set~$\sum_j w_j = 1$ always, and tracks which extend too far
+	% in chemical space are penalized by contributing a~\textit{fractional}
+	% weight far from the observed points, thereby increasing~$\chi^2$.
+	% However, for applications of this method in which the sum of the weights
+	% is~\textit{not} inconsequential to the likelihood function, this additional
+	% term in equation~\refp{eq:likelihood_func} must be included.
+	% {\color{red}(It may be worthwhile to include an appendix in which we
+	% demonstrate the validity of this approach)}.
 
 	\item Although there are variety of ways in which one could construct the
 	likelihood function~$L(\script{D} | \script{M})$, in the present paper we
@@ -479,7 +605,7 @@
 	At each step in parameter space,~\mc~makes a call to~\vice~to compute the
 	predicted abundances for that selection of parameters.
 	We then compute the likelihood function~$L(\script{D} | \script{M})$
-	according to equation~\refp{eq:likelihood_func} and let~\mc~take care of
+	according to equation~\refp{eq:likelihood} and let~\mc~take care of
 	the rest.
 
 	\item In~\S~\ref{sec:mocks:fiducial_fit}, we apply this method to our
