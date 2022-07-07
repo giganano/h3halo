@@ -35,34 +35,34 @@ The red lines denotes the known relations for the gas-phase.
 \label{fig:fiducialmock}
 \end{figure*}
 
-\begin{table}
-\caption{
-The known parameters of the one-zone model from which we generate our mock
-stellar samples.
-}
-\begin{tabularx}{\columnwidth}{l @{\extracolsep{\fill}} l r}
-\hline
-Parameter & Description & Value
-\\
-\hline
-$\tau_\text{in}$ & e-folding timescale of the infall history & 2 Gyr
-\\
-$\eta$ & Outflow mass-loading factor
-($\eta \equiv \dot{M}_\text{out} / \dot{M}_\star$) & 10
-\\
-$\tau_\star$ & SFE timescale ($\tau_\star \equiv M_\text{g} / \dot{M}_\star$) &
-15 Gyr
-\\
-$\tau_\text{tot}$ & Duration of star formation & 10 Gyr
-\\
-\yfecc & IMF-averaged fractional net Fe yield from CCSNe & 0.0008
-\\
-\yfeia & IMF-averaged fractional net Fe yield from SN Ia & 0.0011
-\\
-\hline
-\end{tabularx}
-\label{tab:fiducial_mock_params}
-\end{table}
+% \begin{table}
+% \caption{
+% The known parameters of the one-zone model from which we generate our mock
+% stellar samples.
+% }
+% \begin{tabularx}{\columnwidth}{l @{\extracolsep{\fill}} l r}
+% \hline
+% Parameter & Description & Value
+% \\
+% \hline
+% $\tau_\text{in}$ & e-folding timescale of the infall history & 2 Gyr
+% \\
+% $\eta$ & Outflow mass-loading factor
+% ($\eta \equiv \dot{M}_\text{out} / \dot{M}_\star$) & 10
+% \\
+% $\tau_\star$ & SFE timescale ($\tau_\star \equiv M_\text{g} / \dot{M}_\star$) &
+% 15 Gyr
+% \\
+% $\tau_\text{tot}$ & Duration of star formation & 10 Gyr
+% \\
+% \yfecc & IMF-averaged fractional net Fe yield from CCSNe & 0.0008
+% \\
+% \yfeia & IMF-averaged fractional net Fe yield from SN Ia & 0.0011
+% \\
+% \hline
+% \end{tabularx}
+% \label{tab:fiducial_mock_params}
+% \end{table}
 
 \begin{itemize}
 
@@ -125,7 +125,8 @@ Below the diagonal, we show the 2-dimensional cross-sections of the
 6-dimensional likelihood function.
 Blue stars mark the element of the Markov Chain with the maximum likelihood.
 Red ``cross-hairs'' denote the true, known values of the parameters which were
-used to generate the mock sample (see Table~\ref{tab:fiducial_mock_params}).
+used to generate the mock sample (see the top row of
+Table~\ref{tab:recovered_values}).
 }
 \label{fig:corner_fiducial}
 \end{figure*}
@@ -142,7 +143,8 @@ used to generate the mock sample (see Table~\ref{tab:fiducial_mock_params}).
 	6-dimensional likelihood function.
 	Blue stars mark the element of the Markov Chain with the highest value
 	of~$\ln L$, and red ``cross-hairs'' denote the true, known values of the
-	parameters from the mock sample (see Table~\ref{tab:fiducial_mock_params}).
+	parameters from the mock sample (see the top row of
+	Table~\ref{tab:recovered_values}).
 
 	\item Our fitting method is able to accurately recover the known
 	evolutionary parameters of the mock sample.
@@ -212,11 +214,14 @@ used to generate the mock sample (see Table~\ref{tab:fiducial_mock_params}).
 		compared to the data, one can simply cut off star formation earlier,
 		thereby increasing the frequency of lower metallicity stars.
 
-		\item[\textbf{6.}] {\color{red}
-		The~$\eta$~\yfeia~degeneracy?
-		It goes in the opposite direction that one would intuitively think:
-		higher~\yfeia~models prefer lower~$\eta$.
-		}
+		\item[\textbf{6.}] There is a degeneracy between the mass-loading
+		factor~$\eta$ and the SN Ia Fe yield~\yfeia.
+		This arises because the two parameters both impact the location of the
+		track in the~\afe-\feh~plane.
+		With all other parameters held fixed, higher (lower) values of~\yfeia
+		lower (raise) the track by increasing the denominator of~\afe.
+		This potential discrepancy with the data can be mitigated by lowering
+		(raising)~$\eta$, which moves the track to the left (right).
 
 	\end{itemize}
 
@@ -241,170 +246,6 @@ Availability of Age Information}
 
 \subfile{mocksamples.tablebody.tex}
 
-% {\renewcommand{\arraystretch}{1.8}
-% \begin{table*}
-% \caption{
-% Known (top row) and recovered best-fit values of the evolutionary parameters
-% used to generated mock data samples (see discussion in~\S~\ref{sec:mocks}).
-% We conduct fits for variations of our fiducial mock data in sample size (top
-% block), measurement uncertainty in~\feh~and~\afe~abundances (top-middle block),
-% measurement uncertainty in~$\log_{10}(\text{age})$ (bottom-middle block), and
-% the fraction of the sample with available age measurements (bottom block).
-% We provide illustrations of the accuracy and precision of these fits in
-% Figs.~\ref{fig:dp_sigma} and~\ref{fig:precision}, respectively.
-% }
-% \begin{tabularx}{\textwidth}{l @{\extracolsep{\fill}} c c c c c c}
-% \hline
-% Mock Sample & $\tau_\text{in}$ & $\eta$ & $\tau_\star$ & $\tau_\text{tot}$ &
-% \yfecc & \yfeia
-% \\
-% \hline
-% \hline
-% \null & 2 Gyr & 10 & 15 Gyr & 10 Gyr & \scinote{8}{-4} & \scinote{1.1}{-3}
-% \\
-% \hline
-% \hline
-% $N = 20$ & $2.55^{+0.75}_{-0.45}$ Gyr & $8.39^{+1.11}_{-1.30}$ &
-% $14.35^{+5.56}_{-3.32}$ Gyr & $10.60^{+1.65}_{-1.09}$ Gyr &
-% $\scinote{7.9^{+1.2}_{-1.9}}{-4}$ & $\scinote{1.36^{+0.32}_{-0.23}}{-3}$
-% \\
-% $N = 50$ & $2.13^{+0.42}_{-0.36}$ Gyr & $10.39^{+0.80}_{-0.76}$ &
-% $13.75^{+2.79}_{-2.38}$ Gyr & $11.25^{+1.37}_{-1.76}$ Gyr &
-% $\scinote{(8.3 \pm 0.6)}{-4}$ & $\scinote{0.96 \pm 0.14}{-3}$
-% \\
-% $N = 100$ & $2.06^{+0.27}_{-0.26}$ Gyr & $9.88^{+0.64}_{-0.62}$ &
-% $15.06^{+2.00}_{-1.79}$ Gyr & $11.52^{+1.06}_{-1.30}$ Gyr &
-% $\scinote{(8.1 \pm 0.4)}{-4}$ & $\scinote{1.08 \pm 0.09}{-3}$
-% \\
-% $N = 200$ & $2.10^{+0.18}_{-0.17}$ Gyr & $10.11^{+0.45}_{-0.43}$ &
-% $14.61^{+1.34}_{-1.18}$ Gyr & $10.60^{+1.07}_{-0.86}$ Gyr &
-% $\scinote{(7.7 \pm 0.3)}{-4}$ & $\scinote{1.14 \pm 0.07}{-3}$
-% \\
-% $\bm{N = 500}$ & $\bm{1.84 \pm 0.11}$ \textbf{Gyr} &
-% $\bm{9.98^{+0.30}_{-0.29}}$ & $\bm{14.01^{+0.86}_{-0.84}} \textbf{Gyr}$ &
-% $\bm{9.41^{+0.63}_{-0.56}}$ \textbf{Gyr} & $\bm{\scinote{(8.3 \pm 0.2)}{-4}}$ &
-% $\bm{\scinote{(1.05 \pm 0.05)}{-3}}$
-% \\
-% $N = 1000$ & $2.05^{+0.09}_{-0.08}$ Gyr & $9.72 \pm 0.20$ &
-% $14.62^{+0.57}_{-0.56}$ Gyr & $9.83^{+0.38}_{-0.39}$ Gyr &
-% $\scinote{(8.1 \pm 0.1)}{-4}$ & $\scinote{(1.14 \pm 0.03)}{-3}$
-% \\
-% $N = 2000$ & $2.00 \pm 0.05$ Gyr & $10.26 \pm 0.15$ &
-% $15.82^{+0.44}_{-0.42}$ Gyr & $10.30^{+0.25}_{-0.32}$ Gyr &
-% $\scinote{(8.0 \pm 0.1)}{-4}$ & $\scinote{(1.09 \pm 0.02)}{-3}$
-% \\
-% \hline
-% \hline
-% $\sigma_\text{[X/Y]} = 0.01$ & $1.89 \pm 0.10$ Gyr & $10.25 \pm 0.28$ &
-% $15.06^{+0.52}_{-0.47}$ Gyr & $9.70^{+0.51}_{-0.59}$ Gyr &
-% $\scinote{(8.0 \pm 0.1)}{-4}$ & $\scinote{(1.08 \pm 0.02)}{-3}$
-% \\
-% $\sigma_{\text{[X/Y]}} = 0.02$ & $1.92^{+0.10}_{-0.09}$ Gyr & $10.10 \pm 0.25$ &
-% $14.71^{+0.56}_{-0.55}$ Gyr & $9.79^{+0.45}_{-0.40}$ Gyr &
-% $\scinote{(8.1 \pm 0.1)}{-4}$ & $\scinote{1.08^{+0.02}_{-0.03}}{-3}$
-% \\
-% $\bm{\sigma_{\textbf{[X/Y]}} = 0.05}$ & $\bm{1.84 \pm 0.11}$ \textbf{Gyr} &
-% $\bm{9.98^{+0.30}_{-0.29}}$ & $\bm{14.01^{+0.86}_{-0.84}}$ \textbf{Gyr} &
-% $\bm{9.41^{+0.63}_{-0.56}}$ \textbf{Gyr} & $\bm{\scinote{(8.3 \pm 0.2)}{-4}}$ &
-% $\bm{\scinote{(1.05 \pm 0.05)}{-3}}$
-% \\
-% $\sigma_\text{[X/Y]} = 0.1$ & $2.00^{+0.13}_{-0.12}$ Gyr &
-% $9.88^{+0.31}_{-0.33}$ & $13.39 \pm 1.02$ Gyr & $11.10^{+1.00}_{-0.84}$ Gyr &
-% $\scinote{8.5^{+0.4}_{-0.3}}{-4}$ & $\scinote{(1.01 \pm 0.07)}{-3}$
-% \\
-% $\sigma_\text{[X/Y]} = 0.2$ & $2.22 \pm 0.21$ Gyr & $9.83^{+0.58}_{-0.67}$ &
-% $18.21^{+2.19}_{-2.02}$ Gyr & $10.32^{+1.05}_{-0.67}$ Gyr &
-% $\scinote{(8.7 \pm 0.7)}{-4}$ & $\scinote{(1.05 \pm 0.14)}{-3}$
-% \\
-% $\sigma_\text{[X/Y]} = 0.5$ & $2.73^{+0.82}_{-0.60}$ Gyr &
-% $10.05^{+1.22}_{-1.26}$ & $12.52^{+3.75}_{-3.35}$ Gyr &
-% $9.00^{+1.26}_{-0.95}$ Gyr & $\scinote{7.5^{+1.8}_{-1.6}}{-4}$ &
-% $\scinote{(1.12 \pm 0.31)}{-3}$
-% \\
-% \hline
-% \hline
-% $\sigma_{\log(\text{age})} = 0.02$ & $2.08^{+0.09}_{-0.08}$ Gyr &
-% $9.84^{+0.24}_{-0.26}$ & $14.69^{+0.50}_{-0.46}$ Gyr &
-% $10.41^{+0.47}_{-0.41}$ Gyr & $\scinote{(8.1 \pm 0.2)}{-4}$ &
-% $\scinote{1.11^{+0.05}_{-0.04}}{-3}$
-% \\
-% $\sigma_{\log(\text{age})} = 0.05$ & $1.96 \pm 0.11$ Gyr &
-% $9.88^{+0.32}_{-0.30}$ & $15.70^{+0.71}_{-0.68}$ Gyr &
-% $9.95^{+0.63}_{-0.53}$ Gyr & $\scinote{(8.0 \pm 0.2)}{-4}$ &
-% $\scinote{1.11^{+0.05}_{-0.04}}{-3}$
-% \\
-% $\bm{\sigma_{\log(\textbf{age})} = 0.1}$ & $\bm{1.84 \pm 0.11}$ \textbf{Gyr} &
-% $\bm{9.98^{+0.30}_{-0.29}}$ & $\bm{14.01^{+0.86}_{-0.84}}$ \textbf{Gyr} &
-% $\bm{9.41^{+0.63}_{-0.56}}$ \textbf{Gyr} & $\bm{\scinote{(8.3 \pm 0.2)}{-4}}$ &
-% $\bm{\scinote{(1.05 \pm 0.05)}{-3}}$
-% \\
-% $\sigma_{\log(\text{age})} = 0.2$ & $2.20^{+0.18}_{-0.17}$ Gyr &
-% $9.83^{+0.28}_{-0.27}$ & $15.19 \pm 1.11$ Gyr & $10.76^{+0.85}_{-0.93}$ Gyr &
-% $\scinote{(8.0 \pm 0.2)}{-4}$ & $\scinote{1.11^{+0.05}_{-0.04}}{-3}$
-% \\
-% $\sigma_{\log(\text{age})} = 0.5$ & $2.25^{+0.20}_{-0.25}$ Gyr &
-% $9.86^{+0.28}_{-0.30}$ & $16.24^{+1.24}_{-1.62}$ Gyr &
-% $11.38^{+1.00}_{-1.34}$ Gyr & $\scinote{(8.0 \pm 0.2)}{-4}$ &
-% $\scinote{(1.10 \pm 0.05)}{-3}$
-% \\
-% $\sigma_{\log(\text{age})} = 1.0$ & $1.69^{+0.35}_{-0.32}$ Gyr &
-% $9.53 \pm 0.29$ & $12.38^{+2.27}_{-2.08}$ Gyr & $8.66^{+1.86}_{-1.74}$ Gyr &
-% $\scinote{(8.3 \pm 0.3)}{-4}$ & $\scinote{(1.15 \pm 0.06)}{-3}$
-% \\
-% \hline
-% \hline
-% $f_\text{age} = 0.0$ & $1.65^{+0.55}_{-0.37}$ Gyr & $9.39^{+0.30}_{-0.29}$ &
-% $11.80^{+3.36}_{-2.44}$ Gyr & $7.35^{+2.62}_{-1.74}$ Gyr &
-% $\scinote{(8.3 \pm 0.4)}{-4}$ & $\scinote{1.19^{+0.08}_{-0.07}}{-3}$
-% \\
-% $f_\text{age} = 0.1$ & $1.75^{+0.16}_{-0.17}$ Gyr & $10.06^{+0.29}_{-0.28}$ &
-% $13.65^{+1.22}_{-1.12}$ Gyr & $8.84 \pm 0.87$ Gyr &
-% $\scinote{(8.4 \pm 0.2)}{-4}$ & $\scinote{(1.06 \pm 0.05)}{-3}$
-% \\
-% $\bm{f_\textbf{age} = 0.2}$ & $\bm{1.84 \pm 0.11}$ \textbf{Gyr} &
-% $\bm{9.98^{+0.30}_{-0.29}}$ & $\bm{14.01^{+0.86}_{-0.84}}$ \textbf{Gyr} &
-% $\bm{9.41^{+0.63}_{-0.56}}$ \textbf{Gyr} & $\bm{\scinote{(8.3 \pm 0.2)}{-4}}$ &
-% $\bm{\scinote{(1.05 \pm 0.05)}{-3}}$
-% \\
-% $f_\text{age} = 0.3$ & $1.94^{+0.11}_{-0.10}$ Gyr & $9.80^{+0.27}_{-0.28}$ &
-% $14.26^{+0.74}_{-0.67}$ Gyr & $9.89^{+0.54}_{-0.48}$ Gyr &
-% $\scinote{(8.0 \pm 0.2)}{-4}$ & $\scinote{(1.10 \pm 0.04)}{-3}$
-% \\
-% $f_\text{age} = 0.4$ & $1.91^{+0.09}_{-0.10}$ Gyr & $10.07^{+0.32}_{-0.30}$ &
-% $16.79^{+0.81}_{-0.83}$ Gyr & $10.34^{+0.61}_{-0.50}$ Gyr &
-% $\scinote{(7.8 \pm 0.2)}{-4}$ & $\scinote{(1.12 \pm 0.05)}{-3}$
-% \\
-% $f_\text{age} = 0.5$ & $2.00 \pm 0.10$ Gyr & $10.16^{+0.30}_{-0.29}$ &
-% $15.46^{+0.70}_{-0.69}$ Gyr & $9.83^{+0.48}_{-0.40}$ Gyr &
-% $\scinote{(7.8 \pm 0.2)}{-4}$ & $\scinote{1.12^{+0.05}_{-0.04}}{-3}$
-% \\
-% $f_\text{age} = 0.6$ & $2.18 \pm 0.09$ Gyr & $9.65^{+0.27}_{-0.25}$ &
-% $14.25^{+0.67}_{-0.64}$ Gyr & $10.49^{+0.44}_{-0.37}$ Gyr &
-% $\scinote{(7.8 \pm 0.2)}{-4}$ & $\scinote{(1.15 \pm 0.04)}{-3}$
-% \\
-% $f_\text{age} = 0.7$ & $1.99 \pm 0.08$ Gyr & $9.81^{+0.28}_{-0.27}$ &
-% $14.92^{+0.68}_{-0.62}$ Gyr & $10.25^{+0.46}_{-0.37}$ Gyr &
-% $\scinote{(8.1 \pm 0.2)}{-4}$ & $\scinote{(1.08 \pm 0.04)}{-3}$
-% \\
-% $f_\text{age} = 0.8$ & $2.06 \pm 0.09$ Gyr & $9.53^{+0.29}_{-0.26}$ &
-% $15.18^{+0.63}_{-0.59}$ Gyr & $9.76^{+0.36}_{-0.33}$ Gyr &
-% $\scinote{(7.9 \pm 0.2)}{-4}$ & $\scinote{(1.15 \pm 0.05)}{-3}$
-% \\
-% $f_\text{age} = 0.9$ & $1.93 \pm 0.08$ Gyr & $10.41 \pm 0.31$ &
-% $16.23^{+0.73}_{-0.70}$ Gyr & $10.03^{+0.39}_{-0.33}$ Gyr &
-% $\scinote{(7.7 \pm 0.2)}{-4}$ & $\scinote{(1.14 \pm 0.04)}{-3}$
-% \\
-% $f_\text{age} = 1.0$ & $2.13 \pm 0.09$ Gyr & $9.44^{+0.28}_{-0.27}$ &
-% $15.67^{+0.64}_{-0.60}$ Gyr & $10.21^{+0.35}_{-0.31}$ Gyr &
-% $\scinote{(8.0 \pm 0.2)}{-4}$ & $\scinote{(1.15 \pm 0.05)}{-3}$
-% \\
-% \hline
-% \hline
-% \end{tabularx}
-% \label{tab:recovered_values}
-% \end{table*}
-% }
-
 \begin{figure*}
 \centering
 \includegraphics[scale = 0.45]{dp_sigma_samplesize.pdf}
@@ -427,45 +268,94 @@ expected value of the mean deviation for a Gaussian random process.
 
 \begin{figure*}
 \centering
-\includegraphics[scale = 0.45]{precision_samplesize.pdf}
-\includegraphics[scale = 0.45]{precision_uncertainty.pdf}
-\includegraphics[scale = 0.45]{precision_agefrac.pdf}
+\includegraphics[scale = 0.52]{precision_samplesize.pdf}
+\includegraphics[scale = 0.52]{precision_abundanceuncertainty.pdf}
+\includegraphics[scale = 0.52]{precision_ageuncertainty.pdf}
+\includegraphics[scale = 0.52]{precision_agefrac.pdf}
 \caption{
-The mean precision of our re-derived mock sample parameters~$\{\theta\} =
+The precision of our re-derived mock sample parameters~$\{\theta\} =
 \{\tau_\text{in},~\eta,~\tau_\star,~\tau_\text{tot},~\yfecc,~\yfeia\}$ as a
-function of the sample size of the mock (left), measurements precision in
-abundances~\feh~and~\afe (middle, black), measurement precision
-in~$\log_{10}(\text{age})$ (middle, red), and the fraction of the sample with
-age information (right).
-Error bars denote the error on the mean precision of the six parameters.
+function of sample size (top left), measurement uncertainty in~\feh~and~\afe
+abundances (top right), measurement uncertainty in~$\log_{10}(\text{age})$
+(bottom left), and the fraction of the sample with age measurements (bottom
+right).
+We highlight the mass-loading factor~$\eta$ (solid black), the total duration
+of the model~$\tau_\text{tot}$ (dashed green), the CCSN Fe yield~\yfecc~(dotted
+red), and the SN Ia Fe yield~\yfeia~(dot-dashed blue).
+The infall timescale~$\tau_\text{in}$ and the SFE timescale~$\tau_\star$ behave
+similarly, so we leave them both as grey lines for visual clarity.
 }
 \label{fig:precision}
 \end{figure*}
 
 \begin{itemize}
 
-	\item Next we explore variations in details surrounding the mock sample
-	itself, such as sample size, measurement precision, and the availability of
-	age information.
+	\item We now explore variations of our fiducial mock sample with respect
+	to sample size, measurement precision, and the availability of age
+	information.
+	These variations retain all of the evolutionary parameters of the fiducial
+	mock, but differ in one of the number of stars in the sample, measurement
+	uncertainty in~\feh~and~\afe~abundances, measurement uncertainty
+	in~$\log_{10}(\text{age})$, or the fraction of the sample with age
+	measurements.
+	The left-hand column of Table~\ref{tab:recovered_values} provides a summary
+	of the values we take as exploratory cases for each mock variation, with
+	the values taken in the fiducial sample highlighted in bold.
+	In the remaining columns, we provide the associated values derived for each
+	GCE parameter~$\theta$ along with their~$1\sigma$ uncertainties; the true
+	values are noted in the top row.
+	Our choices in measurement precision are intended to reflect typical values
+	achieved by modern spectroscopic surveys where robust age information is
+	often available for only a portion of the sample, and may be adopted from
+	another source with a precision that is unrelated to the abundance
+	uncertainties.
+	Our chosen sample sizes are also intended to reflect a typical sample that
+	might accurately be described by a one-zone model; with the requirement
+	that mixing be efficient, it is likely that only dwarf galaxies meet this
+	condition.
+	Much more distant than nearby Galactic stars, dwarf galaxies are less
+	conducive to the large sample sizes achieved by surveys of the Milky Way
+	(e.g. APOGEE and GALAH).
+	In larger systems like the Milky Way, processes such as stellar migration
+	(refs) and radial gas flows (though perhaps less importantly; refs) have
+	been demonstrated to significantly impact the observed abundance
+	distributions as well as their evolution.
+	This demands a more sophisticated parametrization than a one-zone model
+	anyway, prompting a number of authors to explore so-called ``multi-zone''
+	GCE models (refs).
 
-	\item In Fig.~\ref{fig:dp_sigma}, we show the mean deviation between each
-	re-derived parameter~$\theta$ and its known value from the mock sample in
-	units of the precision on~$\theta$.
-	In the left panel, we show this quantity as a function of sample size.
-	We consider samples of~$N = 20$, 50, 100, 200, 500 (fiducial), 1000, and
-	2000.
-	For all sample sizes, the re-derived parameters
-	$\{\theta\} = \{\theta_1, \theta_2, \theta_3, ..., \theta_J\}$ are
-	derived within~$\sim1\sigma$ or slightly better of their known values.
-	This is consistent with a Gaussian random process, because even with
-	infinite data, the most likely deviation from the true value is exactly
-	1$\sigma$.
-	This suggests that our method for deriving the evolutionary parameters of
-	dwarf galaxies accurately described by one-zone GCE models should be
-	accurate even when only~$N \approx 20$ stars are available.
-	We do not explore mock samples smaller than~$N = 20$ because we fit our
-	mock samples with~$J = 6$ free parameters, and below~$N = 20$, the number
-	of degrees of freedom drops rapidly.
+	\item Fig.~\ref{fig:dp_sigma} demonstrates the accuracy of our fitting
+	method with respect to variations in these details surrounding the data.
+	On the y-axis of each panel, we plot the mean deviation between each
+	re-derived parameter~$\theta$ (i.e.~$\tau_\text{in}$,~$\eta$,~$\tau_\star$,
+	etc.) and its known value from the mock sample normalized according to the
+	fit precision on~$\theta$.
+	Under all mock variants that we explore, our method recovers the known
+	values of the parameters to~$\sim1\sigma$ or slightly better.
+	This is exactly as expected when the uncertainties are described by a
+	Gaussian random process, for which the most likely deviation from the true
+	value is exactly~$1\sigma$, even with infinite data.
+
+	\item This suggests that our method should provide accurate best-fit
+	evolutionary parameters even when the sample size is as low
+	as~$N \approx 20$, when the measurement uncertainties are as high
+	as~$\sigma_\text{[X/Y]} \approx 0.5$ and~$\sigma_\text{log(age)} \approx 1$,
+	or even when there is no age information available at all.
+	The precision of the fit will indeed suffer in these cases (see Fig.
+	\ref{fig:precision} and associated discussion below), but it will remain
+	accurate.
+
+	\item We have explored alternate parametrizations of our mock sample's
+	evolutionary history and indeed found that our method accurately recovers
+	the parameters in each case.
+	These ``stress tests'' include a case in which we build in a significant
+	starburst, and our method accurately recovers both the timing and the
+	strength of the burst.
+	We have also explored an infall rate which varies sinusoidally about some
+	mean value, mimicing a series of minor starbursts.
+	Although idealized and potentially unrealistic, our method accurately
+	recovers the amplitude, phase, and frequency in this case as well.
+ 
 
 \end{itemize}
 

@@ -18,30 +18,34 @@ FILENAME = sys.argv[1]
 LABELS = [
 	r"$\tau_\text{in}$ [Gyr]",
 	r"$\eta$",
-	r"$\tau_\star$ [Gyr]",
+	# r"$\tau_\star$ [Gyr]",
+	r"$\tau_{\star,0}$ [Gyr]",
+	r"$\tau_{\star,1}$ [Gyr]",
+	r"$\Delta_0$ [Gyr]",
+	r"$\Delta_1$ [Gyr]",
 	r"$\tau_\text{tot}$ [Gyr]",
 	r"$1000\times y_\text{Fe}^\text{CC}$",
 	r"$1000\times y_\text{Fe}^\text{Ia}$"
 	# r"$1000\times y_\alpha^\text{CC}$"
 ]
-# RANGE = None
-RANGE = [
-	(0.6, 1.5),
-	(6, 12),
-	(13, 22),
-	(4.5, 7.5),
-	(0.6, 0.9),
-	(0.8, 1.6)
-]
-# TICKS = None
-TICKS = [
-	[0.8, 1.0, 1.2, 1.4],
-	[8, 10],
-	[15, 20],
-	[5, 6, 7],
-	[0.7, 0.8],
-	[1.0, 1.2, 1.4]
-]
+RANGE = None
+# RANGE = [
+# 	(0.6, 1.5),
+# 	(6, 12),
+# 	(13, 22),
+# 	(4.5, 7.5),
+# 	(0.6, 0.9),
+# 	(0.8, 1.6)
+# ]
+TICKS = None
+# TICKS = [
+# 	[0.8, 1.0, 1.2, 1.4],
+# 	[8, 10],
+# 	[15, 20],
+# 	[5, 6, 7],
+# 	[0.7, 0.8],
+# 	[1.0, 1.2, 1.4]
+# ]
 MAXLOGP_KWARGS = {
 	"c": named_colors()["deepskyblue"],
 	"marker": markers()["star"],
