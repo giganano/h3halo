@@ -108,7 +108,7 @@ if __name__ == "__main__":
 	log_prob = sgrfit(data)
 	pool = Pool(N_PROC)
 	sampler = EnsembleSampler(N_WALKERS, N_DIM, log_prob, pool = pool)
-	p0 = np.zeros(N_WALKERS, N_DIM)
+	p0 = np.zeros((N_WALKERS, N_DIM))
 	for i in range(len(p0)):
 		p0[i][0] = 10 * np.random.rand()
 		p0[i][1] = 100 * np.random.rand()
