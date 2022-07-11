@@ -25,7 +25,7 @@ N_WALKERS = 256
 N_BURNIN = 400
 N_ITERS = 400
 COSMOLOGICAL_AGE = 13.2
-N_DIM = 9
+N_DIM = 7
 
 # emcee walker parameters
 #
@@ -36,8 +36,8 @@ N_DIM = 9
 # 4. onset of SFE rampup
 # 5. duration of SFE rampup
 # 6. total duration of the model
-# 7. IMF-averaged Fe yield from CCSNe
-# 8. DTD-integrated Fe yield from SNe Ia
+### 7. IMF-averaged Fe yield from CCSNe
+### 8. DTD-integrated Fe yield from SNe Ia
 
 
 class rampup:
@@ -74,9 +74,9 @@ class sgrfit(mcmc):
 		if walker[2] < walker[3]: return -float("inf")
 		if walker[4] > walker[6]: return -float("inf")
 		print("""\
-walker: [%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2e, %.2e]""" % (
+walker: [%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f]""" % (
 			walker[0], walker[1], walker[2], walker[3], walker[4], walker[5],
-			walker[6], walker[7], walker[8]))
+			walker[6]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
 		self.sz.func.timescale = walker[0]
 		self.sz.eta = walker[1]
@@ -85,8 +85,8 @@ walker: [%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2e, %.2e]""" % (
 		self.sz.tau_star.onset = walker[4]
 		self.sz.tau_star.rampup = walker[5]
 		self.sz.dt = walker[6] / N_TIMESTEPS
-		vice.yields.ccsne.settings['fe'] = walker[7]
-		vice.yields.sneia.settings['fe'] = walker[8]
+		# vice.yields.ccsne.settings['fe'] = walker[7]
+		# vice.yields.sneia.settings['fe'] = walker[8]
 		output = self.sz.run(np.linspace(0, walker[6], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
 		model = []
@@ -117,8 +117,8 @@ if __name__ == "__main__":
 		p0[i][4] = 6
 		p0[i][5] = 1
 		p0[i][6] = 8
-		p0[i][7] = 0.0008
-		p0[i][8] = 0.0011
+		# p0[i][7] = 0.0008
+		# p0[i][8] = 0.0011
 		for j in range(len(p0[i])):
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	start = time.time()
