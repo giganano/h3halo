@@ -334,7 +334,7 @@
 	Instead, it is most often quantified in some piece-wise linear form
 	predicted by some numerical code.
 	For a sample~\script{D} with~$N$ individual stars and a predicted track
-	\script{M} with~$K$ points in its piece-wise linear form, the likelihood
+	\script{M} sampled at~$K$ points in the observed space, the likelihood
 	function is given by
 	\begin{equation}
 	\ln L(\script{D} | \{\theta\}) = \sum_i^N \ln \left(
@@ -475,143 +475,36 @@
 		is simple.
 		The weights, still computed according to equation~\refp{eq:weights}
 		should remain un-normalized, and their sum~$\sum_j w_j$ should instead
-		be subtracted from equation~\refp{eq:likelihood} (for justirication,
-		see discussion in Appendix~\ref{sec:l_derivation}).
+		be subtracted from equation~\refp{eq:likelihood} (for mathematical
+		justirication, see discussion in Appendix~\ref{sec:l_derivation}).
+		This requirement can be qualitatively understood as a penalty for
+		models which predict data to exist in regions of the observed space
+		where there are none; it encourages parsimony, rewarding models which
+		explain the data in as few predicted instances as possible.
 	\end{itemize}
 
-	%%%%%%%%%%
-
-	% \item In this context, the goal is to combine the likelihoods for~$N$
-	% discrete observations and compute a single likelihood for a given track.
-	% As long as each datum is independent of the rest of the sample, the total
-	% likelihood can be expressed as the product of the likelihood of each
-	% individual datum~$\script{D}_i$:
-	% \begin{subequations}\begin{align}
-	% L(\script{D} | \script{M}) &= \prod_i L(\script{D}_i | \script{M})
-	% \\
-	% \implies \ln L(\script{D} | \script{M}) &= \sum_i \ln L(\script{D}_i |
-	% \script{M})
-	% \label{eq:l_d_m}
-	% \end{align}\end{subequations}
-
-	% \item Computing the likelihood of observing the datum~$\script{D}_i$ given
-	% some model~$M$ is non-trivial because~$\script{D}_i$ came from an unknown
-	% location along the track.
-	% We therefore marginalize~$L(\script{D}_i | M)$ over the entirety
-	% of~\script{M} by integrating the likelihood of a particular observed data
-	% point along the entire track.
-	% In practice, models will sample the track at some set of~$K$ points
-	% $\script{M} = \{\script{M}_1, \script{M}_2, \script{M}_3, ... , 
-	% \script{M}_K\}$, allowing the~$L(\script{D}_i | \script{M})$ to be
-	% expressed as a summation over all model points~$\script{M}_j$:
-	% \begin{equation}
-	% \label{eq:l_di_m}
-	% L(\script{D}_i | \script{M}) = \sum_j L(\script{D}_i | \script{M}_j).
-	% \end{equation}
-	% There are two important factors which additionally influence
-	% $L(\script{D}_i | \script{M}_j)$:
-	% \begin{itemize}
-
-	% 	\item[\textbf{1.}] The inherent density of objects at the
-	% 	point~$\script{M}_j$.
-	% 	In the context of chemical evolution, this is directly related to the
-	% 	star formation rate.
-	% 	If the SFR is high at a time~$j$, then it is proprtionally more likely
-	% 	that the datum~$\script{D}_i$ is associated with the model point
-	% 	$\script{M}_j$ than at another point in time when the SFR is lower.
-	% 	In the context of, e.g., stellar isochrones and color-magnitude
-	% 	diagrams, this is related to the IMF.
-
-	% 	\item[\textbf{2.}] The selection function of the sample at the
-	% 	point~$\script{M}_j$.
-	% 	If the survey design is such that different regions of the track are
-	% 	sampled more deeply than others, this will be reflected in the
-	% 	distribution in the observed space.
-	% 	In the context of chemical evolution, this can happen by proxy of
-	% 	selection choices in, e.g., stellar age, luminosity, or color.
-
-	% \end{itemize}
-
-	% Because of these factors directly influencing the likelihood function, it
-	% is crucial to introduce weights which scale as the product of these two
-	% effects:
-	% \begin{equation}
-	% \label{eq:weights}
-	% w_j \propto \script{S}(\script{M}_j) \dot{M}_{\star,j}
-	% \end{equation}
-	% where~$\script{S}(\script{M}_j)$ is the selection function of the sample
-	% at the point~$\script{M}_j$ along the track and~$\dot{M}_{\star,j}$ is the
-	% model-predicted SFR at time~$j$.
-
-	% \item If the uncertainties of the datum~$\script{D}_i$ are adequately
-	% described by a multivariate Gaussian, then with the proper weighting,
-	% $L(\script{D}_i | \script{M}_j)$ can be expressed as a classical
-	% $L \propto e^{-\chi^2 / 2}$ expression:
-	% \begin{equation}
-	% \label{eq:chi_squared}
-	% \chi^2 = \Delta_{ij} C_i^{-1} \Delta_{ij}^T
-	% \end{equation}
-	% where~$C_i^{-1}$ is the inverse covariance matrix associated with the datum
-	% $\script{D}_i$ and~$\Delta_{ij} = \script{D}_i - \script{M}_j$ is the
-	% vector difference between the datum and a given point along the track.
-
-	% \item Combining equations~\refp{eq:l_d_m},~\refp{eq:l_di_m},
-	% \refp{eq:weights}, and~\refp{eq:chi_squared} results in the following
-	% expression for the likelihood function of the data~\script{D} given the
-	% track~\script{M}:
-	% \begin{equation}
-	% \label{eq:likelihood_func}
-	% \ln L(\script{D} | \script{M}) = \sum_i \ln \left(
-	% \sum_j w_j \exp\left(\frac{-1}{2}\Delta_{ij} C_i^{-1} \Delta_{ij}^T\right)
-	% \right),
-	% \end{equation}
-	% where the summations are taken over the entirety of the track and the
-	% entirety of the data.
-
-	% \item In detail, an IPPP requires the sum of the weights~$\sum_j w_j$ to be
-	% subtracted from~$\ln L(\script{D} | \script{M})$.
-	% The purpose of this term is such that tracks which go ``too far'' in the
-	% observed space are penalized for predicting data in regions where there are
-	% none.
-	% However, in the context of chemical evolution, the weights are derived from
-	% the SFH of the model.
-	% For the models we consider here, the normalization of the SFH is
-	% inconsequential to the model predictions (i.e. a model with the SFH
-	% amplified by~$10^6$ at all times but otherwise the same evolutionary
-	% parameters would predict the same evolution in~\feh~and~\afe).
-	% For this reason, it is essential that~$\sum_j w_j$ not impact the inferred
-	% value of~$\ln L(\script{D} | \script{M})$.
-	% We therefore set~$\sum_j w_j = 1$ always, and tracks which extend too far
-	% in chemical space are penalized by contributing a~\textit{fractional}
-	% weight far from the observed points, thereby increasing~$\chi^2$.
-	% However, for applications of this method in which the sum of the weights
-	% is~\textit{not} inconsequential to the likelihood function, this additional
-	% term in equation~\refp{eq:likelihood_func} must be included.
-	% {\color{red}(It may be worthwhile to include an appendix in which we
-	% demonstrate the validity of this approach)}.
-
-	\item Although there are variety of ways in which one could construct the
-	likelihood function~$L(\script{D} | \script{M})$, in the present paper we
-	use the Markov Chain Monte Carlo (MCMC) method.
-	Despite being more computationally expensive than, e.g., maximum likelihood
-	estimates, MCMC methods offer a more generic solution than by sampling
-	tails and multiple modes of the likelihood distribution that would
+	\item There are a variety of ways in which one could measure the likelihood
+	function~$L(\script{D} | \{\theta\})$ given by equation
+	\refp{eq:likelihood}.
+	In the present paper we use the Markov Chain Monte Carlo (MCMC) method.
+	Despite being more computationally expensive than, e.g., maximum a posterori
+	(MAP) estimation, MCMC offers a more generic solution than other options by
+	sampling tails and multiple modes of the likelihood distribution that could
 	otherwise be missed by assuming Gaussianity.
-	With this choice, this method should be applicable to additional data sets
-	perhaps described by GCE models with different parametrizations.
+	Our method should nonetheless be extensible to additional data sets
+	described by GCE models with different parametrizations as well as
+	different methods of optimizing the likelihood function, such as MAP
+	estimates.
+	We demonstrate the accuracy of equation~\refp{eq:likelihood}
+	in~\S~\ref{sec:mocks} below by means of tests against mock data samples.
 
-	\item We use the~\mc~software~\citep{Foreman-Mackey2013} to run our MCMC
-	fits.
-	At each step in parameter space,~\mc~makes a call to~\vice~to compute the
-	predicted abundances for that selection of parameters.
-	We then compute the likelihood function~$L(\script{D} | \script{M})$
-	according to equation~\refp{eq:likelihood} and let~\mc~take care of
-	the rest.
-
-	\item In~\S~\ref{sec:mocks:fiducial_fit}, we apply this method to our
-	fiducial mock sample and discuss how the accuracy and precision of the
-	recovered known parameters is affected by sample size, precision, and
-	the availability of age information.
+	\item We make use of the~\mc~\python~package~\citep{Foreman-Mackey2013} to
+	construct our markov chains, additionally using the~\vice~GCE software
+	\citep{Johnson2020} to compute the predicted abundances for a given choice
+	of parameters~$\{\theta\}$ provided by~\mc.
+	The log of the likelihood function~$\ln L(\script{D} | \{\theta\})$, as
+	required by~\mc~to take steps in parameter space, is then given by
+	equation~\refp{eq:likelihood}.
 
 \end{itemize}
 
