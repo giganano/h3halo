@@ -149,7 +149,29 @@ Table~\ref{tab:recovered_values}).
 	\item Our fitting method is able to accurately recover the known
 	evolutionary parameters of the mock sample.
 	Although it may appear that there are a high number of~$\gtrsim1\sigma$
-	discrepancies, we demonstrate in~\S~
+	discrepancies, we demonstrate in~\S~\ref{sec:mocks:variations} that the
+	differences between the known and best-fit values here are consistent with
+	a Gaussian random process associated with measurement uncertainty.
+
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.45]{dp_sigma_samplesize.pdf}
+\includegraphics[scale = 0.45]{dp_sigma_precision.pdf}
+\includegraphics[scale = 0.45]{dp_sigma_agefrac.pdf}
+\caption{
+The mean deviation between the re-derived mock sample parameters~$\{\theta\} =
+\{\tau_\text{in},~\eta,~\tau_\star,~\tau_\text{tot},~\yfecc,~\yfeia\}$ and
+their known values from the mock sample in units of the uncertainty on the
+best-fit values as a function of the sample size of the mock (left),
+measurement precision in abundances~\feh~and~\afe (middle, black),
+measurement precision in~$\log_{10}(\text{age})$ (middle, red),
+and the fraction of the sample with available age information (right).
+Error bars denote the error on the mean deviation in the six parameters.
+Blue dotted lines mark~$\langle\Delta\theta/\sigma\rangle = 1$, the
+expected value of the mean deviation for a Gaussian random process.
+}
+\label{fig:dp_sigma}
+\end{figure*}
 
 	\item We note a handful of degeneracies in the likelihood distributions of
 	the recovered parameters.
@@ -248,26 +270,6 @@ Availability of Age Information}
 
 \begin{figure*}
 \centering
-\includegraphics[scale = 0.45]{dp_sigma_samplesize.pdf}
-\includegraphics[scale = 0.45]{dp_sigma_precision.pdf}
-\includegraphics[scale = 0.45]{dp_sigma_agefrac.pdf}
-\caption{
-The mean deviation between the re-derived mock sample parameters~$\{\theta\} =
-\{\tau_\text{in},~\eta,~\tau_\star,~\tau_\text{tot},~\yfecc,~\yfeia\}$ and
-their known values from the mock sample in units of the uncertainty on the
-best-fit values as a function of the sample size of the mock (left),
-measurement precision in abundances~\feh~and~\afe (middle, black),
-measurement precision in~$\log_{10}(\text{age})$ (middle, red),
-and the fraction of the sample with available age information (right).
-Error bars denote the error on the mean deviation in the six parameters.
-Blue dotted lines mark~$\langle\Delta\theta/\sigma\rangle = 1$, the
-expected value of the mean deviation for a Gaussian random process.
-}
-\label{fig:dp_sigma}
-\end{figure*}
-
-\begin{figure*}
-\centering
 \includegraphics[scale = 0.52]{precision_samplesize.pdf}
 \includegraphics[scale = 0.52]{precision_abundanceuncertainty.pdf}
 \includegraphics[scale = 0.52]{precision_ageuncertainty.pdf}
@@ -279,11 +281,8 @@ function of sample size (top left), measurement uncertainty in~\feh~and~\afe
 abundances (top right), measurement uncertainty in~$\log_{10}(\text{age})$
 (bottom left), and the fraction of the sample with age measurements (bottom
 right).
-We highlight the mass-loading factor~$\eta$ (solid black), the total duration
-of the model~$\tau_\text{tot}$ (dashed green), the CCSN Fe yield~\yfecc~(dotted
-red), and the SN Ia Fe yield~\yfeia~(dot-dashed blue).
-The infall timescale~$\tau_\text{in}$ and the SFE timescale~$\tau_\star$ behave
-similarly, so we leave them both as grey lines for visual clarity.
+We plot timescales in red, Fe yields in blue, and the mass-loading factor~$\eta$
+in black according to the legend in the upper right panel.
 }
 \label{fig:precision}
 \end{figure*}
@@ -355,35 +354,64 @@ similarly, so we leave them both as grey lines for visual clarity.
 	mean value, mimicing a series of minor starbursts.
 	Although idealized and potentially unrealistic, our method accurately
 	recovers the amplitude, phase, and frequency in this case as well.
- 
+
+	\item Fig.~\ref{fig:precision} demonstrates how the precision of our
+	best-fit parameters is affected by these details of the sample.
+	in general, the mass-loading factor~$\eta$ and the Fe yields are
+	constrained more precisely than the timescales.
+	The primary exception to this rule is when the abundance uncertainties are
+	large, in which case the Fe yields are constrained to a similar precision
+	as~$\tau_\text{in}$ and~$\tau_\text{star}$, but~$\tau_\text{tot}$ is
+	determined more precisely.
+
+	\item All parameters are affected similarly by the size of the sample, with
+	the precision scaling approximately as~$\sigma/\theta \propto N^{-0.5}$.
+	In other words, a factor of 10 increase in precision on the best-parameters
+	$\{\theta\}$ would require a factor of 100 increase in sample size if the
+	uncertainties and availability of age information is held fixed.
+	Unsurprisingly, the Fe yields are the parameters most sensitive to the
+	abundance uncertainties.
+	Even with imprecise abundance measurements of~$\sigma_\text{[X/Y]}
+	\approx 0.5$, the mass-loading factor~$\eta$ can still be determined to
+	$\sim$10\% precision.
+	Changes in this parameter shift the observed MDF to higher or lower values,
+	but do not affect its overall shape.
+	This suggests that even with poorly measured abundances, the centroid of
+	the MDF is still robustly determined, allowing a precise measurement of the
+	strength of outflows, a quantity which in principle should contain
+	information on the depth of the galaxy's gravity well.
+
+	\item With both the availability of age information and the uncertainties
+	thereof, only the best-fit precision of timescale parameters are affected.
+	Even with order of magnitude uncertainties on stellar ages, however, the
+	evolutionary timescales of our mock samples are recovered to~$\sim$20\%
+	precision.
+	Interestingly, age information affects the precision of best-fit timescales
+	only up to~$f_\text{age} \approx 30\%$.
+	Above this value, there is only marginal gain in the precision of inferred
+	timescales, suggesting that there is a point beyond which additional age
+	measurements do not add any new information to the fit.
+
+	\item These results suggest that authors seeking to determine best-fit
+	evolutionary parameters for dwarf galaxies using their chemical abundances
+	should focus their efforts on sample size and precise abundance
+	measurements over age information.
+	Thankfully, abundances are considerably easier than stellar ages to measure
+	precisely.
+	We caution that the level of accuracy and precision quantified here in
+	these mock samples is contingent on the galaxy in question being accurately
+	described by a one-zone model of chemical evolution.
+	Furthermore, the model must be parametrized in such a manner that
+	accurately describes the galaxy's evolutionary history.
+	For example, if~$\tau_\star$ or~$\eta$ are assumed to be constant while
+	they in reality were not, or if an exponential infall history is adopted
+	when this is a poor description of the galaxy's evolutionary history, then
+	the accuracy and precision of the fit will suffer, as in any statistical
+	parameter optimization.
+	Standard quality-of-fit diagnostics such as chi-squared per degree of
+	freedom are a useful litmus test for such cases.
 
 \end{itemize}
 
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
