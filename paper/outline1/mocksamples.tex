@@ -35,34 +35,63 @@ The red lines denotes the known relations for the gas-phase.
 \label{fig:fiducialmock}
 \end{figure*}
 
-% \begin{table}
-% \caption{
-% The known parameters of the one-zone model from which we generate our mock
-% stellar samples.
-% }
-% \begin{tabularx}{\columnwidth}{l @{\extracolsep{\fill}} l r}
-% \hline
-% Parameter & Description & Value
-% \\
-% \hline
-% $\tau_\text{in}$ & e-folding timescale of the infall history & 2 Gyr
-% \\
-% $\eta$ & Outflow mass-loading factor
-% ($\eta \equiv \dot{M}_\text{out} / \dot{M}_\star$) & 10
-% \\
-% $\tau_\star$ & SFE timescale ($\tau_\star \equiv M_\text{g} / \dot{M}_\star$) &
-% 15 Gyr
-% \\
-% $\tau_\text{tot}$ & Duration of star formation & 10 Gyr
-% \\
-% \yfecc & IMF-averaged fractional net Fe yield from CCSNe & 0.0008
-% \\
-% \yfeia & IMF-averaged fractional net Fe yield from SN Ia & 0.0011
-% \\
-% \hline
-% \end{tabularx}
-% \label{tab:fiducial_mock_params}
-% \end{table}
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.45]{fiducial_76k8.pdf}
+\caption{
+The ``corner-plot'' showing the results of applying our fitting method to our
+fiducial mock sample (see discussion in~\S\S~\ref{sec:methods:fitting}
+and~\ref{sec:mocks:fiducial}).
+We show the marginalized likelihood distributions in each parameter along with
+their best-fit values and confidence intervals along the diagonal.
+Below the diagonal, we show the 2-dimensional cross-sections of the
+6-dimensional likelihood function.
+Blue stars mark the element of the Markov Chain with the maximum likelihood.
+Red ``cross-hairs'' denote the true, known values of the parameters which were
+used to generate the mock sample (see the top row of
+Table~\ref{tab:recovered_values}).
+}
+\label{fig:corner_fiducial}
+\end{figure*}
+
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.45]{dp_sigma_samplesize.pdf}
+\includegraphics[scale = 0.45]{dp_sigma_precision.pdf}
+\includegraphics[scale = 0.45]{dp_sigma_agefrac.pdf}
+\caption{
+The mean deviation between the re-derived mock sample parameters~$\{\theta\} =
+\{\tau_\text{in},~\eta,~\tau_\star,~\tau_\text{tot},~\yfecc,~\yfeia\}$ and
+their known values from the mock sample in units of the uncertainty on the
+best-fit values as a function of the sample size of the mock (left),
+measurement precision in abundances~\feh~and~\afe (middle, black),
+measurement precision in~$\log_{10}(\text{age})$ (middle, red),
+and the fraction of the sample with available age information (right).
+Error bars denote the error on the mean deviation in the six parameters.
+Blue dotted lines mark~$\langle\Delta\theta/\sigma\rangle = 1$, the
+expected value of the mean deviation for a Gaussian random process.
+}
+\label{fig:dp_sigma}
+\end{figure*}
+
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.52]{precision_samplesize.pdf}
+\includegraphics[scale = 0.52]{precision_abundanceuncertainty.pdf}
+\includegraphics[scale = 0.52]{precision_ageuncertainty.pdf}
+\includegraphics[scale = 0.52]{precision_agefrac.pdf}
+\caption{
+The precision of our re-derived mock sample parameters~$\{\theta\} =
+\{\tau_\text{in},~\eta,~\tau_\star,~\tau_\text{tot},~\yfecc,~\yfeia\}$ as a
+function of sample size (top left), measurement uncertainty in~\feh~and~\afe
+abundances (top right), measurement uncertainty in~$\log_{10}(\text{age})$
+(bottom left), and the fraction of the sample with age measurements (bottom
+right).
+We plot timescales in red, Fe yields in blue, and the mass-loading factor~$\eta$
+in black according to the legend in the upper right panel.
+}
+\label{fig:precision}
+\end{figure*}
 
 \begin{itemize}
 
@@ -112,25 +141,6 @@ The red lines denotes the known relations for the gas-phase.
 \subsection{Recovered Parameters of the Fiducial Mock}
 \label{sec:mocks:fiducial_fit}
 
-\begin{figure*}
-\centering
-\includegraphics[scale = 0.45]{fiducial_76k8.pdf}
-\caption{
-The ``corner-plot'' showing the results of applying our fitting method to our
-fiducial mock sample (see discussion in~\S\S~\ref{sec:methods:fitting}
-and~\ref{sec:mocks:fiducial}).
-We show the marginalized likelihood distributions in each parameter along with
-their best-fit values and confidence intervals along the diagonal.
-Below the diagonal, we show the 2-dimensional cross-sections of the
-6-dimensional likelihood function.
-Blue stars mark the element of the Markov Chain with the maximum likelihood.
-Red ``cross-hairs'' denote the true, known values of the parameters which were
-used to generate the mock sample (see the top row of
-Table~\ref{tab:recovered_values}).
-}
-\label{fig:corner_fiducial}
-\end{figure*}
-
 \begin{itemize}
 
 	\item We apply the method outlined in~\S~\ref{sec:methods:fitting} to the
@@ -153,98 +163,103 @@ Table~\ref{tab:recovered_values}).
 	differences between the known and best-fit values here are consistent with
 	a Gaussian random process associated with measurement uncertainty.
 
-\begin{figure*}
-\centering
-\includegraphics[scale = 0.45]{dp_sigma_samplesize.pdf}
-\includegraphics[scale = 0.45]{dp_sigma_precision.pdf}
-\includegraphics[scale = 0.45]{dp_sigma_agefrac.pdf}
-\caption{
-The mean deviation between the re-derived mock sample parameters~$\{\theta\} =
-\{\tau_\text{in},~\eta,~\tau_\star,~\tau_\text{tot},~\yfecc,~\yfeia\}$ and
-their known values from the mock sample in units of the uncertainty on the
-best-fit values as a function of the sample size of the mock (left),
-measurement precision in abundances~\feh~and~\afe (middle, black),
-measurement precision in~$\log_{10}(\text{age})$ (middle, red),
-and the fraction of the sample with available age information (right).
-Error bars denote the error on the mean deviation in the six parameters.
-Blue dotted lines mark~$\langle\Delta\theta/\sigma\rangle = 1$, the
-expected value of the mean deviation for a Gaussian random process.
-}
-\label{fig:dp_sigma}
-\end{figure*}
-
 	\item We note a handful of degeneracies in the likelihood distributions of
-	the recovered parameters.
-	{\color{red}
-	Because some of these degeneracies arise from similar physics, this
-	discussion can be shortened significantly by motivating items from that
-	perspective rather than going through panel-by-panel.
-	}
+	the recovered parameters which arise as a consequence of having impact on
+	the same observable.
 
 	\begin{itemize}
 
-		\item[\textbf{1.}] There is an inverse relationship between the
-		derived Fe yields from CCSN and SN Ia.
-		This is expected, because for the fixed~$\alpha$ yield of~\yacc~= 0.01,
-		the total yield of Fe is constrained by the~\feh~MDF, and for a high
-		(low) value of~\yfecc, a low (high) value of~\yfeia~is required to
-		make up the difference between the model and the data.
+		\item \textit{The centroid of the MDF.}
+		With a fixed alpha element yield of~$\yacc = 0.01$ as we have adopted
+		here, the strength of outflows~$\eta$ is set by ensuring the centroid
+		of the~\ah~distribution is in agreement with the data.
+		This in turn requires a total Fe yield~$\yfecc + \yfeia$ which
+		corresponds to the centroid of the~\feh~distribution in the data.
+		The total Fe yield, however, can be achieved with different breakdowns
+		between CCSN and SN Ia enrichment.
+		This gives rise to the inverse relationship between~\yfecc~and~\yfeia~as
+		seen in Fig.~\ref{fig:corner_fiducial}.
 
-		\item[\textbf{2.}] There is an inverse relationship between the prompt
-		component of the Fe yield~\yfecc~and the SFE timescale~$\tau_\star$.
-		This arises because~$\tau_\star$ is the parameter which plays the
-		dominant role in establishing the position of the ``knee'' in
-		the~\afe-\feh~diagram by influencing the rate of enrichment at early
-		times~\citep[see discussion in][]{Weinberg2017}.
-		For high (low) values of~\yfecc, a low (high) value of~$\tau_\star$ is
-		required in order to place the knee at a position consistent with the
-		data.
+		\item \textit{The position of the ``knee'' in the evolutionary track.}
+		The ``knee'' in the~\afe-\feh~evolutionary track arises with the onset
+		of SN Ia enrichment, a nucleosynthetic source of Fe but much smaller
+		amounts of alpha elements.
+		For fixed yields,~\citet{Weinberg2017} demonstrate that the SFE
+		timescale~$\tau_\star$ plays the dominant role in establishing the
+		value of~\feh~at which this occurs.
+		With low~$\tau_\star$, star formation and consequently enrichment is
+		fast, allowing the ISM to achieve a higher~\feh~before the onset of
+		SNe Ia.
+		However, with the CCSN Fe yield as a free parameter, agreement with the
+		data can also be achieved with a higher (lower) value of~\yfecc~and
+		slower (faster) star formation.
+		This gives rise to the degeneracy between~\yfecc~and~$\tau_\star$ as
+		seen in Fig.~\ref{fig:corner_fiducial}.
 
-		\item[\textbf{3.}] There is a direct relationship between the infall
-		timescale~$\tau_\text{in}$ and the total duration of star formation
-		$\tau_\text{tot}$.
-		This arises because both affect the high-metallicity tail of the~\feh
-		distribution similarly.
-		With shorter~$\tau_\text{in}$, the gas supply and the SFH drop off more
-		sharply.
-		This increases the~\feh~equilibrium abundance by allowing SNe Ia to
-		enrich a ``gas-starved'' ISM~\citep[see discussion in][]{Weinberg2017},
-		thereby increasing the fraction of high~\feh~stars.
-		To make up this potential difference with the data, the model can shut
-		off star formation earlier, cutting off the high-metallicity end of
-		the~\feh~MDF, giving rise to this direct relationship.
+		\item \textit{The location of the track.}
+		Any viable model which reproduces a galaxy's observed abundances in a
+		self-consistent manner will predict a track that passes through the
+		centroid of the 2-dimensional~\afe-\feh~distribution.
+		With other parameters fixed, adjustments to the SN Ia Fe yield move the
+		track vertically in the~\afe-\feh~plane (there is horizontal movement
+		as well, but the vertical movement is a stronger effect).
+		Conversely, the outflow mass-loading factor~$\eta$ is the most dominant
+		evolutionary parameter in establishing the equilibrium abundance aside
+		from the yields themselves.
+		The tug-of-war between the source term of yields and the sink term of
+		outflows establishing an equilibrium metallicity was demonstrated as
+		early as~\citet{Larson1974} and again more recently
+		by~\citet{Weinberg2017}.
+		Adjusting~$\eta$ shifts the track horizontally in the~\afe-\feh~plane
+		by changing the metal mass retained by the ISM.
+		This gives rise to the degeneracy between~\yfeia~and~$\eta$: a change
+		in parameter choices which shifts the track down and to the right (or
+		up and to the left) may still achieve agreement with the data.
 
-		\item[\textbf{4.}] There is an inverse relationship between the infall
-		timescale and the mass loading factor~$\eta$.
-		This arises because both affect the equilibrium abundance in the same
-		manner.
-		As discussed above, shorter values of~$\tau_\text{in}$ increase the
-		equilibrium Fe abundance slightly by allowing SNe Ia to enrich a
-		``gas-starved'' ISM.
-		To make up for this potential discrepancy with the data, one can
-		strengthen outflows by increasing~$\eta$, decreasing the equilibrium
-		abundance.
-
-		\item[\textbf{5.}] There is a degeneracy between the total duration of
-		star formation~$\tau_\text{tot}$ and the SFE timescale~$\tau_\star$.
-		This arises because both affect the shape of the~\feh~MDF.
-		Fe approaches equilibrium on either the SFE timescale~$\tau_\star$ or
-		the SN Ia DTD characteristic timescale - whichever is longer, which for
-		dwarf galaxies with inefficient star formation, is~$\tau_\star$.
-		As a result, higher~$\tau_\star$ models approach equilibrium faster.
-		To avoid overpredicting the frequency of near-equilibrium stars
-		compared to the data, one can simply cut off star formation earlier,
-		thereby increasing the frequency of lower metallicity stars.
-
-		\item[\textbf{6.}] There is a degeneracy between the mass-loading
-		factor~$\eta$ and the SN Ia Fe yield~\yfeia.
-		This arises because the two parameters both impact the location of the
-		track in the~\afe-\feh~plane.
-		With all other parameters held fixed, higher (lower) values of~\yfeia
-		lower (raise) the track by increasing the denominator of~\afe.
-		This potential discrepancy with the data can be mitigated by lowering
-		(raising)~$\eta$, which moves the track to the left (right).
-
+		\item \textit{The shape of the MDF.}
+		The~\ah~and~\feh~distributions are affected in a handful of ways by
+		these input parameters.
+		For sharp infall histories (i.e. low values of~$\tau_\text{in}$), the
+		predicted MDF is wider.
+		This arises because with a sharp infall history, the gas supply also
+		declines sharply with time, and consequently metals are deposited into
+		a gas reservoir where the hydrogen and helium lost to star formation
+		and outflows is not being replenished (for quantitative justification,
+		see discussion in~\citealp{Weinberg2017}).
+		These ``gas starved'' galaxies reach higher metallicities than what is
+		achieved with a more steadily declining infall history, but a large
+		fraction of their stars form early in their evolution when the
+		abundances are low.
+		As a result, the MDF is wider when~$\tau_\text{in}$ is small.
+		\par
+		While~$\eta$ establishes the equilibrium abundance in a galaxy for a
+		given choice of yields, the SFE timescale describes the spped at which
+		the galaxy reaches equilibrium~\citep{Weinberg2017}.\footnote{
+			When star formation is fast, Fe is instead limited by the
+			timescales associated with the SN Ia DTD, but in the dwarf galaxy
+			regime, star formation is generally slow, and it is known to be so
+			in this mock sample.
+		}
+		As a consequence, for a given duration of star formation, a galaxy
+		spends less time near its equilibrium abundance when its inefficient at
+		forming stars, an effect which increases the weight of low~\feh~stars
+		in the MDF.
+		Lastly, the duration of star formation~$\tau_\text{tot}$ has the effect
+		of cutting off the MDF at some abundance quite literally by stopping
+		star formation.
+		\par
+		Folding all of this together, degeneracies between these parameters
+		arise as a consequence of their effects on the MDF.
+		Between~$\tau_\text{in}$ and~$\tau_\text{tot}$, a sharp infall history
+		can broaden the MDF, but stopping star formation early can cut off the
+		MDF, allowing it to retain a peaked shape if the data suggest it.
+		Between~$\tau_\text{in}$ and~$\eta$, a sharp infall history increases
+		the equilibrium abundance, shifting the centroid of the MDF, but it can
+		be lowered by increasing the strength of outflows.
+		Between~$\tau_\text{tot}$ and~$\tau_\star$, a fast approach to
+		equilibrium can cause the MDF to take on a strong peak, but if star
+		formation is stopped early, the frequency of near-equilibrium stars is
+		truncated, allowing it to retain a broader shape if the data suggest it.
 	\end{itemize}
 
 	\item There are additional, weaker degeneracies which can be understood
@@ -267,25 +282,6 @@ Availability of Age Information}
 \label{sec:mocks:variations}
 
 \subfile{mocksamples.tablebody.tex}
-
-\begin{figure*}
-\centering
-\includegraphics[scale = 0.52]{precision_samplesize.pdf}
-\includegraphics[scale = 0.52]{precision_abundanceuncertainty.pdf}
-\includegraphics[scale = 0.52]{precision_ageuncertainty.pdf}
-\includegraphics[scale = 0.52]{precision_agefrac.pdf}
-\caption{
-The precision of our re-derived mock sample parameters~$\{\theta\} =
-\{\tau_\text{in},~\eta,~\tau_\star,~\tau_\text{tot},~\yfecc,~\yfeia\}$ as a
-function of sample size (top left), measurement uncertainty in~\feh~and~\afe
-abundances (top right), measurement uncertainty in~$\log_{10}(\text{age})$
-(bottom left), and the fraction of the sample with age measurements (bottom
-right).
-We plot timescales in red, Fe yields in blue, and the mass-loading factor~$\eta$
-in black according to the legend in the upper right panel.
-}
-\label{fig:precision}
-\end{figure*}
 
 \begin{itemize}
 

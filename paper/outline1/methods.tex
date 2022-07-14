@@ -363,13 +363,38 @@
 	the evolutionary track is given by a weighted~$e^{-\chi^2/2}$
 	expression.
 	Mathematically, the requirement for this marginalization arises naturally
-	from the application of statistical likelihood to an evolutionary track
-	(see Appendix~\ref{sec:l_derivation}).
+	from the application of statistical likelihood and the IPPP to an
+	evolutionary track (see Appendix~\ref{sec:l_derivation}).
 	Qualitatively, it can be understood from the notion that there is no way
 	of knowing which point on the evolutionary track the datum~$\script{D}_i$
 	is truly associated with, and the only way to properly take this into
 	account is to consider all pair-wise combinations of~\script{D}
 	and~\script{M}.
+
+	\item The requirement for a weighted as opposed to
+	unweighted~$e^{-\chi^2/2}$ likelihood expression also arises naturally out
+	of the application of statistical likelihood and the IPPP to an
+	evolutionary track.
+	While the requirement for marginalization arises because there is no way of
+	knowing which point on the evolutionary track a datum~$\script{D}_i$ arose
+	from, the requirement for weights arises because it is proportionally more
+	likely to be associated with points on the track at which either the SFR is
+	high or the survey selection function is deeper.
+	For a survey selection function~\script{S} and SFR~$\dot{M}_\star$, the
+	weights should scale as their product:
+	\begin{equation}
+	w_j \propto \script{S}(\script{M}_j, \{\theta\}) \dot{M}_\star(t_j |
+	\{\theta\}),
+	\label{eq:weights}
+	\end{equation}
+	where~$t_j$ denotes the time in the GCE model under the selection of
+	parameters~$\{\theta\}$.
+	Because we have parameterized our GCE models in a manner such that the
+	normalization of the SFH is inconsequential to the abundance evolution,
+	the weights must be normalized such that they add up to 1.
+	For parametrizations in which the normalization does impact the abundance
+	evolution, the modification to equation~\refp{eq:likelihood} is simple
+	(see discussion below).
 
 	\item The validity of equation~\refp{eq:likelihood} is contingent on the
 	following assumptions.
@@ -422,71 +447,51 @@
 		relaxing the number of points and including this correction factor may
 		be the more computationally efficient option.
 
-		\item \textit{The normalization of the weights is inconsequential.}
-		That is, only the relative values of any two pairs of weights has any
-		impact on the likelihood function.
-		Weights are essential to the accuracy of equation~\refp{eq:likelihood}
-		because the density of predicted observations depends on two key
-		factors:
-		\begin{itemize}
-			\item[\textbf{1.}] The inherent density of objects.
-			In the context of chemical evolution, this is directly related
-			to the SFR.
-			As discussed above, there is no way of knowing~\textit{which}
-			point on the evolutionary track a datum~$\script{D}_i$ is truly
-			associated with.
-			However, if the SFR is high at the point~$\script{M}_j$ then the
-			datum~$\script{D}_i$ is proportionally more likely to be
-			associated with it than some other nearby point in the observed
-			space when the SFR is lower.
-
-			\item[\textbf{2.}] The selection function of the survey.
-			If the survey design is such that different regions of the track
-			are sampled more deeply than others, this will be reflected in the
-			distribution in the observed space, and the most accurate model
-			should take this information into account.
-			In the context of stellar abundances, this can arise by proxy of
-			selection choices in, e.g., stellar age, luminosity, color, etc.
-		\end{itemize}
-		Because of these crucial factors which directly influence the
-		likelihood of observing the datum~$\script{D}_i$ given~$\script{M}_j$,
-		the weights~$w_j$ should scale as the product of the two:
-		\begin{equation}
-		w_j \propto \script{S}(\script{M}_j) \dot{M}_{\star,j},
-		\label{eq:weights}
-		\end{equation}
-		where~$\script{S}$ is the selection function at the point~$\script{M}_j$
-		in the observed space,~$\dot{M}_\star$ is the SFR at that time, and
-		their normalization is set by the requirement that the sum of weights
-		equal 1.
-		\par
-		One-zone models, as we have parameterized them, do not depend on the
-		normalization of the SFH.
-		Models with the same parameters but a larger present-day stellar mass
-		predict proportionally more metal production and proportionally
-		more ISM gas simultaneously.
-		When computing predicted abundances, the normalization cancels.
-		If the model is instead parameterized in a manner such that the
-		normalization~\textit{is} relevant and should influence the likelihood
-		function (e.g. if the authors have incorporated a non-linear relation
-		between the surface densities of gas and starformation
-		$\dot{\Sigma}_\star \propto \Sigma_\text{gas}^k$ which incorporates an
-		absolute scale), then the modification to equation~\refp{eq:likelihood}
-		is simple.
-		The weights, still computed according to equation~\refp{eq:weights}
-		should remain un-normalized, and their sum~$\sum_j w_j$ should instead
-		be subtracted from equation~\refp{eq:likelihood} (for mathematical
-		justirication, see discussion in Appendix~\ref{sec:l_derivation}).
-		This requirement can be qualitatively understood as a penalty for
-		models which predict data to exist in regions of the observed space
-		where there are none; it encourages parsimony, rewarding models which
-		explain the data in as few predicted instances as possible.
+		\item \textit{The normalization of the SFH is inconsequential.}
+		That is, only the time-dependence of the SFH impacts the abundance
+		evolution predicted by the GCE model.
+		We have parametrized our models in a manner such that the normalization
+		of the SFH is inconsequential to the evolution in the abundances (for
+		details, see discussion in~\S~\ref{sec:methods:onezone}).
+		Because the SFH and the selection function of the survey determine the
+		proper weights to attach to the likelihood of each pair-wise
+		combination between the data and the track (see
+		equation~\ref{eq:weights}), it is essential that the normalization of
+		the weights not impact the inferred likelihood.
+		In this case, we find in our derivation of the likelihood function that
+		the proper manner in which to handle the weights is to normalize them
+		such that they add up to 1 (see Appendix~\ref{sec:l_derivation}).
+		If the GCE model is instead parametrized such that the normalization of
+		the SFH~\textit{does} impact the abundance evolution, then the weights
+		must remain un-normalized, and their sum must be subtracted from
+		equation~\refp{eq:likelihood}.
+		The requirement that their sum be subtracted from the inferred
+		likelihood can be qualitatively understood as a penalty for models
+		which predict data in regions of the observed space where there is
+		none.
+		It is a term which encourages parsimony, rewarding parameter choices
+		which explain the data in as few predicted instances as possible.
+		This penalty is still included in models which normalize the weights;
+		in these cases, tracks which extend too far in the observed space
+		have a higher~\textit{fractional} weight from data at large~$\chi^2$,
+		lowering the total likelihood.
 	\end{itemize}
+
+	\item 
+	We demonstrate the accuracy of equation~\refp{eq:likelihood}
+	in~\S~\ref{sec:mocks} below by means of tests against mock data samples.
+	Although our likelihood function does not include a direct fit to
+	the stellar distributions in age and abundances, weighting the inferred
+	likelihood by the SFR in the model indeed incorporates this information on
+	how many stars should form at which ages and abundances.
+	With this~\textit{implicit} fit, our method accurately characterizes the
+	age and abundance distributions of our mock samples even though they are
+	not explicitly included in the likelihood calculation.
 
 	\item There are a variety of ways in which one could measure the likelihood
 	function~$L(\script{D} | \{\theta\})$ given by equation
-	\refp{eq:likelihood}.
-	In the present paper we use the Markov Chain Monte Carlo (MCMC) method.
+	\refp{eq:likelihood}, and in the present paper we use the Markov Chain
+	Monte Carlo (MCMC) method.
 	Despite being more computationally expensive than, e.g., maximum a posterori
 	(MAP) estimation, MCMC offers a more generic solution than other options by
 	sampling tails and multiple modes of the likelihood distribution that could
@@ -495,16 +500,14 @@
 	described by GCE models with different parametrizations as well as
 	different methods of optimizing the likelihood function, such as MAP
 	estimates.
-	We demonstrate the accuracy of equation~\refp{eq:likelihood}
-	in~\S~\ref{sec:mocks} below by means of tests against mock data samples.
 
 	\item We make use of the~\mc~\python~package~\citep{Foreman-Mackey2013} to
 	construct our markov chains, additionally using the~\vice~GCE software
 	\citep{Johnson2020} to compute the predicted abundances for a given choice
 	of parameters~$\{\theta\}$ provided by~\mc.
-	The log of the likelihood function~$\ln L(\script{D} | \{\theta\})$, as
-	required by~\mc~to take steps in parameter space, is then given by
-	equation~\refp{eq:likelihood}.
+	% The log of the likelihood function~$\ln L(\script{D} | \{\theta\})$, as
+	% required by~\mc~to take steps in parameter space, is then given by
+	% equation~\refp{eq:likelihood}.
 
 \end{itemize}
 
