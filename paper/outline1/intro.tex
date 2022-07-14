@@ -7,33 +7,105 @@
 
 \begin{itemize}
 
-	\item The chemical abundances of stars contain information on the
-	evolutionary history of their host galaxy, but how precisely can this
-	information be derived from abundances?
-	How does this depend on factors like the size of the sample, measurement
-	precision, and the availability (or non-availability) of age information?
+	\item Dwarf galaxies provide a unique window into galaxy formation and
+	evolution.
+	Their intrinsic abundance~\citep{Bell2003, Baldry2012} allows the
+	construction of statistical samples where resolved stars are available, but
+	in practice, their low luminosities limit our scope to the local universe.
+	Furthermore, field dwarfs have more extended star formation histories (SFHs)
+	than more massive galaxies like the Milky Way and Andromeda
+	\citep[e.g.][]{Behroozi2019}, while surviving satellites and stellar
+	streams often have their star formation ``quenched'' by ram pressure
+	stripping from the hot halo of their host
+	\citep*[see discussion in, e.g.,][]{Steyrleithner2020}.
+	As a result, surviving satellites and stellar stream progenitors assembled
+	more of their stellar mass at high redshift and are dominated by old
+	stellar populations.
 
-	\item One-zone models of GCE are computationally cheap, allowing them to be
-	fit to data assuming some parametrization for the galaxy's evolutionary
-	history.
-	This are both simple and complex examples of how one might go about
-	obtaining these measurements.
+	\item Because stellar ages measurements are generally imprecise,
+	particularly for old stars (refs), the SFHs of surviving satellites and
+	stellar streams are difficult to constrain directly with star-by-star age
+	measurements.
+	An accurate SFH can instead be derived by fitting the color-magnitude
+	diagram (CMD) with a composite set of theoretical isochrones for simple
+	stellar populations~\citep[e.g.][]{Dolphin2002}.
+	\citet{Weisz2014} demonstrate that this method is accurate even when the
+	CMD does not extend to the oldest main sequence turnoff stars, but that
+	this is critical for precisely constraining the early epochs of the SFH.
+
+	\item Aside from these CMD-derived SFHs, which can be especially difficult
+	for distant systems, chemical abundances encode additional information on a
+	galaxy's SFH, including the earliest epochs.
+	A star is believed to have the same chemical composition as its natal
+	cloud, and this hypothesis holds up against spectroscopic abundance
+	measurements in open clusters (refs).
+	The chemical composition of a star is therefore a snapshot of the
+	gas-phase composition of its host galaxy at its time of formation, allowing
+	inferences of the galaxy's evolutionary history by comparing a statistical
+	sample of stellar abundances to galactic chemical evolution (GCE) models.
+
+	\item In this paper, we aim to systematically assess the information
+	content of stellar abundances in dwarf galaxies by means of one-zone GCE
+	models (see discussion in~\S~\ref{sec:methods:onezone}).
+	The fundamental assumption of these models is that the mixing of newly
+	produced metals throughout the star forming reservoir is fast compared to
+	the depletion time.
+	Dwarf galaxies are typically gas-rich systems (refs), implying long star
+	formation timescales and consequently long depletion times.
+	It is therefore reasonable to expect that the one-zone approximation would
+	be valid for these systems, but we stress that the accuracy of the methods
+	we outline in this paper are contingent on this condition for any given
+	galaxy.
+	In larger galaxies such as the Milky Way or Andromeda, mixing timescales
+	are long, and processes such as the radial migration of stars
+	(\citealp{Sellwood2002, Schoenrich2009, Minchev2011};~\citealp*{Minchev2013,
+	Minchev2014};~\citealp{Minchev2017, Johnson2021, Chen2022}) and radial gas
+	flows~\citep{Lacey1985, Bilitewski2012, Vincenzo2018} are expected to
+	significantly impact the observed abundance distribution in a given
+	galactic region.
+
+	\item One-zone models are computationally cheap, and with reasonable
+	approximations, even allow analytic solutions to the evolution of the
+	abundances for simple SFHs~\citep*[e.g.][]{Weinberg2017}.
+	This in principle allows them to be fit to data assuming some
+	parametrization of the galaxy's evolutionary history, and there are both
+	simple and complex examples of how one might go about deriving best-fit
+	parameters in the literature.
 	\citet{Kirby2011} measure and fit the MDFs of eight Milky Way dwarf
-	satellite galaxies with the goal being to determine which evolve according
-	to ``leaky box,'' ``pre-enriched,'' or ``extra gas'' analytic models.
-	\citet{Spitoni2020} use MCMC methods for solar neighbourhood stars and
-	base their likelihood function off of the minimum distance between each
-	star in their sample and the evolutionary track in the~\afe-\feh~plane to
-	derive best-fit parameters for the two-infall model of the Milky Way.
+	satellite galaxies with the goal of determining which evolved according to
+	``leaky-box,'' ``pre-enriched,'' or ``extra gas'' analytic models.
+	To derive best-fit parameters for the two-infall model of the Milky
+	Way~\citep[e.g.][]{Chiappini1997},~\citet{Spitoni2020} use Markov chain
+	Monte Carlo (MCMC) methods for solar neighbourhood stars and base their
+	likelihood function off of the minimum distance between each star and the
+	evolution track in the~\afe-\feh~plane.
 
-	\item Here we develop an approach which is universally applicable, requires
-	no binning of the data, and is accurate with as few as~$\sim$20 stars even
-	when there is no age information available.
-	We treat the abundances of stars as a sample from the galaxy's evolutionary
-	history according to an inhomogeneous poisson point process (IPPP).
-	We demonstrate by means of mock data that this method accurately recovers
-	evolutionary parameters provided that the sample is well-described by a
-	one-zone model.
+	\item Here we develop an approach which is widely applicable as long as the
+	one-zone approximation is valid and requires no binning of the data.
+	We demonstrate by means of mock samples that it is accurate with as few
+	as~$\sim$20 stars (our smallest test case; see~\S~\ref{sec:mocks}), even
+	when no age information is available.
+	This method treats the abundances of stars as a sample from the galaxy's
+	evolutionary history according to an inhomogeneous poisson point process
+	(IPPP) and only assumes that the model predicts some infinitely thin track
+	in some observed space.
+	It should therefore be extensible to other astrophysical models which also
+	predict tracks, such as stellar streams in kinematic space and isochrones
+	on CMDs.
+
+	\item We provide an overview of the equations governing one-zone models
+	in~\S~\ref{sec:methods:onezone} and discussion of our fitting method
+	in~\S~\ref{sec:methods:fitting} below, with a detailed derivation of our
+	likelihood function in Appendix~\ref{sec:l_derivation}.
+	In~\S~\ref{sec:mocks} we demonstrate the accuracy of our method with mock
+	data and quantify how the precision of the derived parameters are affected
+	by the sample size, measurement uncertainty in abundances and ages, and
+	what fraction of the sample has available age measurements.
+	In~\S~\ref{sec:h3} we apply this method to two systems which have received
+	considerable attention in the literature over the past few years using data
+	from the H3 survey~\citep{Conroy2019}: the Gaia-Sausage Encelaudus (GSE)
+	and the Sagittarius (Sgr) dwarf Spheroidal (dSph) satellite of the Milky
+	Way.
 
 \end{itemize}
 
