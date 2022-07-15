@@ -261,6 +261,19 @@ class gaussian:
 				type(value)))
 
 
+class double_gaussian:
+
+	def __init__(self, mean1 = 0, mean2 = 0, amplitude1 = 1, amplitude2 = 1,
+		width1 = 1, width2 = 1):
+		self.first = gaussian(mean = mean1, amplitude = amplitude1,
+			width = width1)
+		self.second = gaussian(mean = mean2, amplitude = amplitude2,
+			width = width2)
+
+	def __call__(self, x):
+		return self.first.__call__(x) + self.second.__call__(x)
+
+
 class piecewise_linear:
 
 	def __init__(self, n_knots, norm = 0):

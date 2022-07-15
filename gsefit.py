@@ -2,7 +2,7 @@
 from multiprocessing import Pool
 from emcee import EnsembleSampler
 from src import mcmc
-from src.utils import exponential, savechain
+from src.utils import exponential, savechain, linear_exponential
 import numpy as np
 import math as m
 import vice
@@ -19,15 +19,24 @@ OUTFILE = "./data/gse/gsechem_25k6.out"
 MODEL_BASENAME = "gsefit"
 
 
-N_PROC = 10
+N_PROC = 40
 N_TIMESTEPS = 1000
 N_WALKERS = 256
-N_BURNIN = 100
-N_ITERS = 100
+N_BURNIN = 400
+N_ITERS = 400
 COSMOLOGICAL_AGE = 13.2
 N_DIM = 6
 
-# emcee walker parameters
+# emcee walker parameters (linear-exponential SFH)
+#
+# 0. SFH timescale
+# 1. mass loading factor
+# 2. SFE timescale
+# 3. total duration of the model
+# 4. IMF-averaged Fe yield from CCSNe
+# 5. DTD-integrated Fe yield from SNe Ia
+
+# emcee walker parameters (exponential IFR)
 #
 # 0. infall timescale
 # 1. mass loading factor
@@ -41,15 +50,16 @@ class gsefit(mcmc):
 	def __init__(self, data):
 		super().__init__(data)
 		self.sz.elements = ["fe", "o"]
-		self.sz.func = exponential()
-		self.sz.mode = "ifr"
-		self.sz.Mg0 = 0
-		# self.sz.nthreads = 2
+		self.sz.func = linear_exponential(prefactor = 1000)
+		self.sz.mode = "sfr"
+		# self.sz.func = exponential()
+		# self.sz.mode = "ifr"
+		# self.sz.Mg0 = 0
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		if walker[3] > COSMOLOGICAL_AGE: return -float("inf")
-		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2f, %.2f]" % (walker[0],
+		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2e, %.2e]" % (walker[0],
 			walker[1], walker[2], walker[3], walker[4], walker[5]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
 		self.sz.func.timescale = walker[0]
