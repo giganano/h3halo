@@ -125,10 +125,7 @@ class sgrfit(mcmc):
 		if walker[8] > 1: return -float("inf")
 		# if walker[2] < walker[3]: return -float("inf")
 		# if walker[4] > walker[6]: return -float("inf")
-		print("""\
-walker: [%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f]""" % (
-			walker[0], walker[1], walker[2], walker[3], walker[4], walker[5],
-			walker[6]))
+		print(np.array(walker))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
 
 		# double gaussian SFH with gaussian SFE-burst
