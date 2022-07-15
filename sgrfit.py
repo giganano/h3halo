@@ -22,9 +22,9 @@ MODEL_BASENAME = sys.argv[3]
 
 
 N_PROC = 40
-N_TIMESTEPS = 1000
+N_TIMESTEPS = 500
 N_WALKERS = 256
-N_BURNIN = 400
+N_BURNIN = 200
 N_ITERS = 400
 COSMOLOGICAL_AGE = 13.2
 N_DIM = 12
@@ -120,7 +120,7 @@ class sgrfit(mcmc):
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
-		if walker[6] > COSMOLOGICAL_AGE: return -float("inf")
+		if walker[11] > COSMOLOGICAL_AGE: return -float("inf")
 		# negative tau_star during burst
 		if walker[8] > 1: return -float("inf")
 		# if walker[2] < walker[3]: return -float("inf")
