@@ -15,17 +15,26 @@ import time
 import os
 
 DATA_FILE = "./data/gse/gsechem.dat"
-OUTFILE = "./data/gse/gsechem_25k6.out"
+OUTFILE = "./data/gse/gsechem_constsfh_102k4.out"
 MODEL_BASENAME = "gsefit"
 
 
 N_PROC = 40
-N_TIMESTEPS = 1000
+N_TIMESTEPS = 500
 N_WALKERS = 256
 N_BURNIN = 400
 N_ITERS = 400
 COSMOLOGICAL_AGE = 13.2
-N_DIM = 6
+N_DIM = 5
+
+# emcee walker parameters (constant SFH)
+#
+# 0. mass loading factor
+# 1. SFE timescale
+# 2. total duration of the model
+# 3. IMF-averaged Fe yield from CCSNe
+# 4. DTD-integrated Fe yield from SNe Ia
+
 
 # emcee walker parameters (linear-exponential SFH)
 #
@@ -58,19 +67,19 @@ class gsefit(mcmc):
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
-		if walker[3] > COSMOLOGICAL_AGE: return -float("inf")
-		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2e, %.2e]" % (walker[0],
-			walker[1], walker[2], walker[3], walker[4], walker[5]))
+		if walker[2] > COSMOLOGICAL_AGE: return -float("inf")
+		print("walker: [%.2f, %.2f, %.2f, %.2e, %.2e]" % (walker[0],
+			walker[1], walker[2], walker[3], walker[4]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
-		self.sz.func.timescale = walker[0]
-		self.sz.eta = walker[1]
-		self.sz.tau_star = walker[2]
-		self.sz.dt = walker[3] / N_TIMESTEPS
-		vice.yields.ccsne.settings['fe'] = walker[4]
-		vice.yields.sneia.settings['fe'] = walker[5]
-		output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1),
+		# self.sz.func.timescale = walker[0]
+		self.sz.eta = walker[0]
+		self.sz.tau_star = walker[1]
+		self.sz.dt = walker[2] / N_TIMESTEPS
+		vice.yields.ccsne.settings['fe'] = walker[3]
+		vice.yields.sneia.settings['fe'] = walker[4]
+		output = self.sz.run(np.linspace(0, walker[2], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
-		diff = COSMOLOGICAL_AGE - walker[3]
+		diff = COSMOLOGICAL_AGE - walker[2]
 		model = []
 		for key in self.quantities:
 			if key == "lookback":
