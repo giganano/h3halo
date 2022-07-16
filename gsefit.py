@@ -5,6 +5,7 @@ from src import mcmc
 from src.utils import exponential, savechain, linear_exponential
 import numpy as np
 import math as m
+import numbers
 import vice
 from vice.yields.presets import JW20
 vice.yields.ccsne.settings['o'] = 0.01
@@ -15,7 +16,7 @@ import time
 import os
 
 DATA_FILE = "./data/gse/gsechem.dat"
-OUTFILE = "./data/gse/gsechem_constsfh_102k4.out"
+OUTFILE = "./data/gse/gsechem_constexpifr_102k4.out"
 MODEL_BASENAME = "gsefit"
 
 
@@ -25,15 +26,17 @@ N_WALKERS = 256
 N_BURNIN = 400
 N_ITERS = 400
 COSMOLOGICAL_AGE = 13.2
-N_DIM = 5
+N_DIM = 7
 
-# emcee walker parameters (constant SFH)
+# emcee walker parameters (constant-then-exponential IFR)
 #
-# 0. mass loading factor
-# 1. SFE timescale
-# 2. total duration of the model
-# 3. IMF-averaged Fe yield from CCSNe
-# 4. DTD-integrated Fe yield from SNe Ia
+# 0. Duration of constant infall
+# 1. E-folding timescale of exponential infall phase
+# 2. mass loading factor
+# 3. SFE timescale
+# 4. total duration of the model
+# 5. IMF-averaged Fe yield from CCSNe
+# 6. DTD-integrated Fe yield from SNe Ia
 
 
 # emcee walker parameters (linear-exponential SFH)
@@ -54,32 +57,62 @@ N_DIM = 5
 # 4. IMF-averaged Fe yield from CCSNe
 # 5. DTD-integrated Fe yield from SNe Ia
 
+class constant_then_exponential(exponential):
+
+	def __init__(self, onset = 0, **kwargs):
+		super().__init__(**kwargs)
+		self.onset = onset
+
+	def __call__(self, time):
+		if time < self._onset:
+			return self._prefactor
+		else:
+			return super().__call__(time - self._onset)
+
+	@property
+	def onset(self):
+		return self._onset
+
+	@onset.setter
+	def onset(self, value):
+		if isinstance(value, numbers.Number):
+			if value >= 0:
+				self._onset = float(value)
+			else:
+				raise ValueError("Onset must be positive.")
+		else:
+			raise TypeError("Onset must be a real number.")
+
+
 class gsefit(mcmc):
 
 	def __init__(self, data):
 		super().__init__(data)
 		self.sz.elements = ["fe", "o"]
-		self.sz.func = linear_exponential(prefactor = 1000)
-		self.sz.mode = "sfr"
+		# self.sz.func = linear_exponential(prefactor = 1000)
+		# self.sz.mode = "sfr"
+		self.sz.func = constant_then_exponential(prefactor = 1000)
 		# self.sz.func = exponential()
-		# self.sz.mode = "ifr"
-		# self.sz.Mg0 = 0
+		self.sz.mode = "ifr"
+		self.sz.Mg0 = 0
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
-		if walker[2] > COSMOLOGICAL_AGE: return -float("inf")
-		print("walker: [%.2f, %.2f, %.2f, %.2e, %.2e]" % (walker[0],
-			walker[1], walker[2], walker[3], walker[4]))
+		if walker[4] > COSMOLOGICAL_AGE: return -float("inf")
+		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2e, %.2e]" % (walker[0],
+			walker[1], walker[2], walker[3], walker[4], walker[5], walker[6]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
 		# self.sz.func.timescale = walker[0]
-		self.sz.eta = walker[0]
-		self.sz.tau_star = walker[1]
-		self.sz.dt = walker[2] / N_TIMESTEPS
-		vice.yields.ccsne.settings['fe'] = walker[3]
-		vice.yields.sneia.settings['fe'] = walker[4]
-		output = self.sz.run(np.linspace(0, walker[2], N_TIMESTEPS + 1),
+		self.sz.func.onset = walker[0]
+		self.sz.func.timescale = walker[1]
+		self.sz.eta = walker[2]
+		self.sz.tau_star = walker[3]
+		self.sz.dt = walker[4] / N_TIMESTEPS
+		vice.yields.ccsne.settings['fe'] = walker[5]
+		vice.yields.sneia.settings['fe'] = walker[6]
+		output = self.sz.run(np.linspace(0, walker[4], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
-		diff = COSMOLOGICAL_AGE - walker[2]
+		diff = COSMOLOGICAL_AGE - walker[4]
 		model = []
 		for key in self.quantities:
 			if key == "lookback":
@@ -151,8 +184,8 @@ if __name__ == "__main__":
 	p0 = 10 * np.random.rand(N_WALKERS, N_DIM)
 	# confine the [a/Fe] plateau to the allowed range to begin with
 	for i in range(len(p0)):
-		p0[i][3] /= 1000
-		p0[i][4] /= 1000
+		p0[i][5] /= 1000
+		p0[i][6] /= 1000
 	# 	while p0[i][4] < 0.1 or p0[i][4] > 0.8:
 	# 		p0[i][4] = np.random.rand()
 	start = time.time()
