@@ -27,22 +27,21 @@ N_WALKERS = 256
 N_BURNIN = 200
 N_ITERS = 400
 COSMOLOGICAL_AGE = 13.2
-N_DIM = 12
+N_DIM = 11
 
 # emcee walker parameters (double gaussian SFH plus gaussian SFE-driven burst)
 #
-# 0. amplitude of first SF event
-# 1. center of first SF event
-# 2. width of first SF event
-# 3. amplitude to second SF event
-# 4. center of second SF event
-# 5. width of second SF event
-# 6. mass loading factor
-# 7. maximum SFE timescale
-# 8. fractional tau_star decrease
-# 9. center of tau_star decrease
-# 10. width of tau_star decrease
-# 11. total duration of the model
+# 0. center of first SF event
+# 1. width of first SF event
+# 2. amplitude ratio of second to first SF events
+# 3. center of second SF event
+# 4. width of second SF event
+# 5. mass loading factor
+# 6. maximum SFE timescale
+# 7. fractional tau_star decrease
+# 8. center of tau_star decrease
+# 9. width of tau_star decrease
+# 10. total duration of the model
 
 
 # emcee walker parameters (pure SFE burst)
@@ -109,6 +108,7 @@ class sgrfit(mcmc):
 
 		# double gaussian SFH with gaussian SFE burst
 		self.sz.func = double_gaussian()
+		self.sz.func.first.amplitude = 100
 		self.sz.mode = "sfr"
 		self.sz.tau_star = gaussian_SFE_burst()
 
@@ -120,28 +120,28 @@ class sgrfit(mcmc):
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
-		if walker[11] > COSMOLOGICAL_AGE: return -float("inf")
+		if walker[10] > COSMOLOGICAL_AGE: return -float("inf")
 		# negative tau_star during burst
-		if walker[8] > 1: return -float("inf")
+		if walker[7] > 1: return -float("inf")
 		# if walker[2] < walker[3]: return -float("inf")
 		# if walker[4] > walker[6]: return -float("inf")
 		print(np.array(walker))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
 
 		# double gaussian SFH with gaussian SFE-burst
-		self.sz.func.first.amplitude = walker[0]
-		self.sz.func.first.mean = walker[1]
-		self.sz.func.first.width = walker[2]
-		self.sz.func.second.amplitude = walker[3]
-		self.sz.func.second.mean = walker[4]
-		self.sz.func.second.width = walker[5]
-		self.sz.eta = walker[6]
-		self.sz.tau_star.constant = walker[7]
-		self.sz.tau_star.amplitude = walker[8]
-		self.sz.tau_star.mean = walker[9]
-		self.sz.tau_star.width = walker[10]
-		self.sz.dt = walker[11] / N_TIMESTEPS
-		output = self.sz.run(np.linspace(0, walker[11], N_TIMESTEPS + 1),
+		# self.sz.func.first.amplitude = walker[0]
+		self.sz.func.first.mean = walker[0]
+		self.sz.func.first.width = walker[1]
+		self.sz.func.second.amplitude = 100 * walker[2]
+		self.sz.func.second.mean = walker[3]
+		self.sz.func.second.width = walker[4]
+		self.sz.eta = walker[5]
+		self.sz.tau_star.constant = walker[6]
+		self.sz.tau_star.amplitude = walker[7]
+		self.sz.tau_star.mean = walker[8]
+		self.sz.tau_star.width = walker[9]
+		self.sz.dt = walker[10] / N_TIMESTEPS
+		output = self.sz.run(np.linspace(0, walker[10], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
 
 		# linear-exponential IFR with SFE-driven burst
@@ -177,18 +177,17 @@ if __name__ == "__main__":
 	p0 = np.zeros((N_WALKERS, N_DIM))
 	for i in range(len(p0)):
 		# double gaussian SFH
-		p0[i][0] = 10
-		p0[i][1] = 11
-		p0[i][2] = 3
-		p0[i][3] = 4
-		p0[i][4] = 6
-		p0[i][5] = 2
-		p0[i][6] = 25
-		p0[i][7] = 100
-		p0[i][8] = 0.8
-		p0[i][9] = 7
-		p0[i][10] = 2
-		p0[i][11] = 10
+		p0[i][0] = 11
+		p0[i][1] = 3
+		p0[i][2] = 4
+		p0[i][3] = 6
+		p0[i][4] = 2
+		p0[i][5] = 25
+		p0[i][6] = 100
+		p0[i][7] = 0.8
+		p0[i][8] = 7
+		p0[i][9] = 2
+		p0[i][10] = 10
 
 		# linear-exponential IFR with SFE-driven burst
 		# p0[i][0] = 2

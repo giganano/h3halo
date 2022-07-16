@@ -151,8 +151,8 @@ if __name__ == "__main__":
 	p0 = 10 * np.random.rand(N_WALKERS, N_DIM)
 	# confine the [a/Fe] plateau to the allowed range to begin with
 	for i in range(len(p0)):
+		p0[i][3] /= 1000
 		p0[i][4] /= 1000
-		p0[i][5] /= 1000
 	# 	while p0[i][4] < 0.1 or p0[i][4] > 0.8:
 	# 		p0[i][4] = np.random.rand()
 	start = time.time()
