@@ -24,7 +24,7 @@ MODEL_BASENAME = sys.argv[3]
 N_PROC = 40
 N_TIMESTEPS = 500
 N_WALKERS = 256
-N_BURNIN = 200
+N_BURNIN = 600
 N_ITERS = 400
 COSMOLOGICAL_AGE = 13.2
 N_DIM = 11
@@ -165,12 +165,13 @@ class sgrfit(mcmc):
 
 if __name__ == "__main__":
 	raw = np.genfromtxt(DATA_FILE)
-	data = {
+	data = vice.dataframe({
 		"[fe/h]": np.array([row[0] for row in raw]),
 		"[fe/h]_err": np.array([row[1] for row in raw]),
 		"[o/fe]": np.array([row[2] for row in raw]),
 		"[o/fe]_err": np.array([row[3] for row in raw])
-	}
+	})
+	data = data.filter("[o/fe]", "<=", 0.35).todict()
 	log_prob = sgrfit(data)
 	pool = Pool(N_PROC)
 	sampler = EnsembleSampler(N_WALKERS, N_DIM, log_prob, pool = pool)
