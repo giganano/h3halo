@@ -7,6 +7,7 @@ from src.utils import gaussian, double_gaussian
 import numpy as np
 import math as m
 import numbers
+import random
 import vice
 vice.yields.ccsne.settings['o'] = 0.01
 vice.yields.sneia.settings['o'] = 0
@@ -24,10 +25,10 @@ MODEL_BASENAME = sys.argv[3]
 N_PROC = 40
 N_TIMESTEPS = 500
 N_WALKERS = 256
-N_BURNIN = 600
+N_BURNIN = 400
 N_ITERS = 400
 COSMOLOGICAL_AGE = 13.2
-N_DIM = 11
+N_DIM = 9
 
 # emcee walker parameters (double gaussian SFH plus gaussian SFE-driven burst)
 #
@@ -39,9 +40,7 @@ N_DIM = 11
 # 5. mass loading factor
 # 6. maximum SFE timescale
 # 7. fractional tau_star decrease
-# 8. center of tau_star decrease
-# 9. width of tau_star decrease
-# 10. total duration of the model
+# 8. total duration of the model
 
 
 # emcee walker parameters (pure SFE burst)
@@ -120,7 +119,7 @@ class sgrfit(mcmc):
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
-		if walker[10] > COSMOLOGICAL_AGE: return -float("inf")
+		if walker[8] > COSMOLOGICAL_AGE: return -float("inf")
 		# negative tau_star during burst
 		if walker[7] > 1: return -float("inf")
 		# if walker[2] < walker[3]: return -float("inf")
@@ -138,10 +137,14 @@ class sgrfit(mcmc):
 		self.sz.eta = walker[5]
 		self.sz.tau_star.constant = walker[6]
 		self.sz.tau_star.amplitude = walker[7]
-		self.sz.tau_star.mean = walker[8]
-		self.sz.tau_star.width = walker[9]
-		self.sz.dt = walker[10] / N_TIMESTEPS
-		output = self.sz.run(np.linspace(0, walker[10], N_TIMESTEPS + 1),
+		self.sz.tau_star.mean = walker[3]
+		self.sz.tau_star.width = walker[4]
+		# self.sz.tau_star.constant = walker[6]
+		# self.sz.tau_star.amplitude = walker[7]
+		# self.sz.tau_star.mean = walker[8]
+		# self.sz.tau_star.width = walker[9]
+		self.sz.dt = walker[8] / N_TIMESTEPS
+		output = self.sz.run(np.linspace(0, walker[8], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
 
 		# linear-exponential IFR with SFE-driven burst
@@ -176,6 +179,7 @@ if __name__ == "__main__":
 	pool = Pool(N_PROC)
 	sampler = EnsembleSampler(N_WALKERS, N_DIM, log_prob, pool = pool)
 	p0 = np.zeros((N_WALKERS, N_DIM))
+	# random.seed(a = 0)
 	for i in range(len(p0)):
 		# double gaussian SFH
 		p0[i][0] = 11
@@ -186,9 +190,7 @@ if __name__ == "__main__":
 		p0[i][5] = 25
 		p0[i][6] = 100
 		p0[i][7] = 0.8
-		p0[i][8] = 7
-		p0[i][9] = 2
-		p0[i][10] = 10
+		p0[i][8] = 10
 
 		# linear-exponential IFR with SFE-driven burst
 		# p0[i][0] = 2
@@ -199,7 +201,7 @@ if __name__ == "__main__":
 		# p0[i][5] = 1
 		# p0[i][6] = 8
 		for j in range(len(p0[i])):
-			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
+			p0[i][j] += np.random.normal(scale = 0.3 * p0[i][j])
 	start = time.time()
 	state = sampler.run_mcmc(p0, N_BURNIN)
 	sampler.reset()
