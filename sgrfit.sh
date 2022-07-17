@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --time=7:00:00
+#SBATCH --time=20:00:00
 #SBATCH --ntasks=40
 #SBATCH --exclusive
 #SBATCH --job-name=sgrfit
