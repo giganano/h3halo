@@ -16,15 +16,15 @@ import time
 import os
 
 DATA_FILE = "./data/gse/gsechem.dat"
-OUTFILE = "./data/gse/gsechem_constexpifr_102k4.out"
+OUTFILE = "./data/gse/gsechem_constexpifr_512k.out"
 MODEL_BASENAME = "gsefit"
 
 
 N_PROC = 40
 N_TIMESTEPS = 500
 N_WALKERS = 256
-N_BURNIN = 400
-N_ITERS = 400
+N_BURNIN = 1000
+N_ITERS = 2000
 COSMOLOGICAL_AGE = 13.2
 N_DIM = 7
 
