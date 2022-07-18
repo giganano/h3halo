@@ -122,7 +122,7 @@ class sgrfit(mcmc):
 		if walker[8] > COSMOLOGICAL_AGE: return -float("inf")
 		if walker[0] > COSMOLOGICAL_AGE: return -float("inf")
 		if walker[3] > COSMOLOGICAL_AGE: return -float("inf")
-		if walker[3] > walker[0]: return -float("inf")
+		if walker[3] < walker[0]: return -float("inf")
 		# negative tau_star during burst
 		if walker[7] > 1: return -float("inf")
 		# if walker[2] < walker[3]: return -float("inf")
