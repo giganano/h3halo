@@ -22,5 +22,79 @@ in this paper to set the scale of this degeneracy.
 \label{fig:degeneracy}
 \end{figure*}
 
+\begin{itemize}
+
+	\item As discussed in~\S~\ref{sec:methods:onezone:yields}, there is a
+	degeneracy between the absolute scale of nucleosynthetic yields and the
+	strength of outflows in GCE models.
+	Under the instantaneous recycling approximation, early work in GCE
+	demonstrated that galaxies with ongoing accretion of metal-poor gas
+	reached an equilibrium metal abundance in which the newly produced metal
+	mass is balanced by losses to star formtion and, if present, outflows
+	(e.g.~\citealp{Larson1972}, and more recently~\citealp{Weinberg2017}).
+	These ``open-box'' models offered a simple solution to the G-dwarf problem
+	which plagued the ``closed-box'' models of GCE, whereby the frequency of
+	super-solar metallicity stars was severely over-predicted (see the review
+	in, e.g.,~\citealp{Tinsley1980}).
+
+	\item These results were corroborated by~\citet{Dalcanton2007}, who argued
+	that metal-enriched outflows are the only mechanism which can
+	significantly reduce effective yields from SNe.
+	However, recent theoretical explorations of SN explosions propose that
+	many massive stars collapse directly to form black holes at the end of
+	their lives as opposed to exploding as CCSNe (e.g.~\citealp{Ertl2016,
+	Sukhbold2016}; see also discussion in~\citealp{Griffith2021}).
+	This challenges the interpretation of~\citet{Dalcanton2007}, instead
+	suggesting that SN yields are perhaps~\textit{intrinsically} lower and
+	consequently may not require adjusting with metal-enriched outflows to
+	alter effective yields.
+	Observationally, it is feasible to constrain relative but not absolute
+	yields.
+	For example, the two-process model explores by~\citet{Weinberg2019,
+	Weinberg2021} in APOGEE~\citep{Majewski2017} and by~\citet*{Griffith2019},
+	\citet{Griffith2022} in GALAH~\citep{DeSilva2015, Martell2017} quantifies
+	the median trends in abundance ratio relative to Mg along the high- and
+	low-alpha sequences to disentangle the relative contribution of SNe Ia
+	to various elements.
+	Abundance ratios can also be derived from supernova remnants as in, e.g.,
+	\citet*{Holland-Ashford2020}.
+
+	\item We quantify the strength of this degeneracy by introducing the alpha
+	yield~\yacc~as an additional free parameter in our fit to our fiducial
+	mock sample.
+	Otherwise, we follow the exact same procedure to recover the known
+	evolutionary parameters of the mock as discussed
+	in~\S\S~\ref{sec:methods:fitting} and~\ref{sec:mocks:fiducial}.
+	% In the main body of this paper, we have fixed the~\yacc~at a value of 0.01
+	% in order to set an overall scale
+	Fig.~\ref{fig:degeneracy} illustrates the results of this procedure in the
+	form of the ``corner-plot'' with the marginalized likelihood distributions
+	along the diagonal and the 2-dimensional cross-sections of the likelihood
+	function below the diagonal.
+	As expected, there are extremely strong degeneracies in all yields with
+	one another and with the outflow parameter~$\eta$.
+	Additionally, there is a degeneracy between the SFE timescale~$\tau_\star$
+	and the yields which arises because the position of the ``knee'' in
+	the~\afe-\feh~plane can be fit with either a high-yield and slow star
+	formation or a low yield and high star formation.
+
+	\item In detail, this degeneracy arises whenever a parameter influences
+	the position or shape of the evolutionary track in the~\afe-\feh~diagram
+	or the centroid of the MDF.
+	The infall timescale~$\tau_\text{in}$ and the total duration of star
+	formation~$\tau_\text{tot}$ are unaffected by this degeneracy because they
+	effect only the shape of the MDF (see discussion
+	in~\S~\ref{sec:mocks:fiducial}).
+	Regardless of the choice of yields and of the parameters~$\eta$ and
+	$\tau_\star$, the shape of the MDF is constrained by a sufficiently large
+	sample, allowing precise derivations of these timescales from our fitting
+	method.
+	By determining the duration of star formation in this manner, this may
+	open a new pathway to deriving quenching times for now quiescent dwarf
+	galaxies and stellar streams orbiting local group spirals such as the
+	Milky Way and Andromeda.
+
+\end{itemize}
+
 \end{document}
 

@@ -16,27 +16,38 @@ load_mpl_presets()
 
 FILENAME = sys.argv[1]
 LABELS = [
-	r"$\tau_\text{in}$ [Gyr]",
+	r"$t_1$",
+	r"$\sigma_1$",
+	r"$A_2 / A_1$",
+	r"$t_2$",
+	r"$\sigma_2$",
 	r"$\eta$",
+	r"$\tau_{\star,0}$",
+	r"$f_\text{burst}$",
+	r"$\tau_\text{tot}$"
+	# r"$\tau_\text{const}$ [Gyr]",
+	# r"$\tau_\text{in}$ [Gyr]",
+	# r"$\eta$",
 	# r"$\tau_\star$ [Gyr]",
-	r"$\tau_{\star,0}$ [Gyr]",
-	r"$\tau_{\star,1}$ [Gyr]",
-	r"$\Delta_0$ [Gyr]",
-	r"$\Delta_1$ [Gyr]",
-	r"$\tau_\text{tot}$ [Gyr]",
+	# r"$\tau_\text{tot}$ [Gyr]",
 	# r"$1000\times y_\text{Fe}^\text{CC}$",
-	# r"$1000\times y_\text{Fe}^\text{Ia}$",
-	# r"$1000\times y_\alpha^\text{CC}$"
+	# r"$1000\times y_\text{Fe}^\text{Ia}$"
 ]
 RANGE = None
 # RANGE = [
-# 	(1.4, 2.3),
-# 	(0, 500),
-# 	(0, 700),
-# 	(7, 12),
-# 	(0, 50),
-# 	(0, 50),
-# 	(0, 70)
+	# (1, 3),
+	# (0, 1.5),
+	# (5, 12),
+	# (8, 22),
+	# (4, 7),
+	# (0.6, 0.9),
+	# (0.9, 1.7)
+	###
+	# (9, 15),
+	# (10, 20),
+	# (3, 8),
+	# (0.7, 0.95),
+	# (0.8, 1.3)
 # ]
 TICKS = None
 # TICKS = [
@@ -71,7 +82,7 @@ kwargs = {
 	"quantiles": [0.16, 0.50, 0.84],
 	"show_titles": True,
 	"color": named_colors()["black"],
-	"truths": mcmc_chain[idxmax],
+	# "truths": mcmc_chain[idxmax],
 	# "truths": [2, 10, 15, 10, 0.8, 1.1],
 	# "truths": [2, 10, 15, 10, 0.8, 1.1, 10],
 	"truth_color": named_colors()["crimson"]
