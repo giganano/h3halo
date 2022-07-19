@@ -123,6 +123,7 @@ class sgrfit(mcmc):
 		if walker[0] > COSMOLOGICAL_AGE: return -float("inf")
 		if walker[3] > COSMOLOGICAL_AGE: return -float("inf")
 		if walker[3] < walker[0]: return -float("inf")
+		if walker[2] > 1: return -float("inf")
 		# negative tau_star during burst
 		if walker[7] > 1: return -float("inf")
 		# if walker[2] < walker[3]: return -float("inf")
@@ -185,15 +186,15 @@ if __name__ == "__main__":
 	# random.seed(a = 0)
 	for i in range(len(p0)):
 		# double gaussian SFH
-		p0[i][0] = 11
-		p0[i][1] = 3
-		p0[i][2] = 4
-		p0[i][3] = 6
-		p0[i][4] = 2
-		p0[i][5] = 25
-		p0[i][6] = 100
-		p0[i][7] = 0.8
-		p0[i][8] = 10
+		p0[i][0] = 13.2 * random.random()
+		p0[i][1] = 5 * random.random()
+		p0[i][2] = random.random()
+		p0[i][3] = 6 * random.random()
+		p0[i][4] = 3 * random.random()
+		p0[i][5] = 50 * random.random()
+		p0[i][6] = 100 * random.random()
+		p0[i][7] = random.random()
+		p0[i][8] = 13.2 * random.random()
 
 		# linear-exponential IFR with SFE-driven burst
 		# p0[i][0] = 2
@@ -203,8 +204,8 @@ if __name__ == "__main__":
 		# p0[i][4] = 6
 		# p0[i][5] = 1
 		# p0[i][6] = 8
-		for j in range(len(p0[i])):
-			p0[i][j] += np.random.normal(scale = 0.3 * p0[i][j])
+		# for j in range(len(p0[i])):
+		# 	p0[i][j] += np.random.normal(scale = 0.3 * p0[i][j])
 	start = time.time()
 	state = sampler.run_mcmc(p0, N_BURNIN)
 	sampler.reset()
