@@ -16,7 +16,7 @@ import time
 import os
 
 DATA_FILE = "./data/gse/gsechem.dat"
-OUTFILE = "./data/gse/gsechem_constexpifr_512k.out"
+OUTFILE = "./data/gse/gsechem_512k.out"
 MODEL_BASENAME = "gsefit"
 
 
@@ -26,7 +26,7 @@ N_WALKERS = 256
 N_BURNIN = 1000
 N_ITERS = 2000
 COSMOLOGICAL_AGE = 13.2
-N_DIM = 7
+N_DIM = 6
 
 # emcee walker parameters (constant-then-exponential IFR)
 #
@@ -48,7 +48,7 @@ N_DIM = 7
 # 4. IMF-averaged Fe yield from CCSNe
 # 5. DTD-integrated Fe yield from SNe Ia
 
-# emcee walker parameters (exponential IFR)
+# emcee walker parameters ((linear-)exponential IFR)
 #
 # 0. infall timescale
 # 1. mass loading factor
@@ -57,31 +57,31 @@ N_DIM = 7
 # 4. IMF-averaged Fe yield from CCSNe
 # 5. DTD-integrated Fe yield from SNe Ia
 
-class constant_then_exponential(exponential):
+# class constant_then_exponential(exponential):
 
-	def __init__(self, onset = 0, **kwargs):
-		super().__init__(**kwargs)
-		self.onset = onset
+# 	def __init__(self, onset = 0, **kwargs):
+# 		super().__init__(**kwargs)
+# 		self.onset = onset
 
-	def __call__(self, time):
-		if time < self._onset:
-			return self._prefactor
-		else:
-			return super().__call__(time - self._onset)
+# 	def __call__(self, time):
+# 		if time < self._onset:
+# 			return self._prefactor
+# 		else:
+# 			return super().__call__(time - self._onset)
 
-	@property
-	def onset(self):
-		return self._onset
+# 	@property
+# 	def onset(self):
+# 		return self._onset
 
-	@onset.setter
-	def onset(self, value):
-		if isinstance(value, numbers.Number):
-			if value >= 0:
-				self._onset = float(value)
-			else:
-				raise ValueError("Onset must be positive.")
-		else:
-			raise TypeError("Onset must be a real number.")
+# 	@onset.setter
+# 	def onset(self, value):
+# 		if isinstance(value, numbers.Number):
+# 			if value >= 0:
+# 				self._onset = float(value)
+# 			else:
+# 				raise ValueError("Onset must be positive.")
+# 		else:
+# 			raise TypeError("Onset must be a real number.")
 
 
 class gsefit(mcmc):
@@ -91,28 +91,28 @@ class gsefit(mcmc):
 		self.sz.elements = ["fe", "o"]
 		# self.sz.func = linear_exponential(prefactor = 1000)
 		# self.sz.mode = "sfr"
-		self.sz.func = constant_then_exponential(prefactor = 1000)
-		# self.sz.func = exponential()
+		# self.sz.func = constant_then_exponential(prefactor = 1000)
+		self.sz.func = exponential(prefactor = 1000)
 		self.sz.mode = "ifr"
 		self.sz.Mg0 = 0
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
-		if walker[4] > COSMOLOGICAL_AGE: return -float("inf")
-		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2f, %.2e, %.2e]" % (walker[0],
-			walker[1], walker[2], walker[3], walker[4], walker[5], walker[6]))
+		if walker[3] > COSMOLOGICAL_AGE: return -float("inf")
+		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2e, %.2e]" % (walker[0],
+			walker[1], walker[2], walker[3], walker[4], walker[5]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
-		# self.sz.func.timescale = walker[0]
-		self.sz.func.onset = walker[0]
-		self.sz.func.timescale = walker[1]
-		self.sz.eta = walker[2]
-		self.sz.tau_star = walker[3]
-		self.sz.dt = walker[4] / N_TIMESTEPS
-		vice.yields.ccsne.settings['fe'] = walker[5]
-		vice.yields.sneia.settings['fe'] = walker[6]
-		output = self.sz.run(np.linspace(0, walker[4], N_TIMESTEPS + 1),
+		self.sz.func.timescale = walker[0]
+		# self.sz.func.onset = walker[0]
+		# self.sz.func.timescale = walker[1]
+		self.sz.eta = walker[1]
+		self.sz.tau_star = walker[2]
+		self.sz.dt = walker[3] / N_TIMESTEPS
+		vice.yields.ccsne.settings['fe'] = walker[4]
+		vice.yields.sneia.settings['fe'] = walker[5]
+		output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
-		diff = COSMOLOGICAL_AGE - walker[4]
+		diff = COSMOLOGICAL_AGE - walker[3]
 		model = []
 		for key in self.quantities:
 			if key == "lookback":
@@ -168,6 +168,7 @@ class gsefit(mcmc):
 
 if __name__ == "__main__":
 	raw = np.genfromtxt(DATA_FILE)
+	raw = np.array(list(filter(lambda x: x[4] >= 0.8 or np.isnan(x[4]), raw)))
 	data = {
 		"[fe/h]": np.array([row[0] for row in raw]),
 		"[fe/h]_err": np.array([row[1] for row in raw]),
@@ -184,8 +185,8 @@ if __name__ == "__main__":
 	p0 = 10 * np.random.rand(N_WALKERS, N_DIM)
 	# confine the [a/Fe] plateau to the allowed range to begin with
 	for i in range(len(p0)):
+		p0[i][4] /= 1000
 		p0[i][5] /= 1000
-		p0[i][6] /= 1000
 	# 	while p0[i][4] < 0.1 or p0[i][4] > 0.8:
 	# 		p0[i][4] = np.random.rand()
 	start = time.time()
