@@ -2,55 +2,67 @@
 \documentclass[ms.tex]{subfiles}
 \begin{document}
 
-\section{Methods}
-\label{sec:methods}
+% \section{Methods}
+% \label{sec:methods}
+
+% \begin{itemize}
+
+% 	\item We are interested in applying one-zone GCE models to dwarf galaxies
+% 	and determining best-fit parameters.
+% 	We begin by providing background on one-zone models, and then we select
+% 	a parametrization from which we draw a fiducial mock stellar sample.
+% 	We then use these data to introduce our fitting method.
+
+% \end{itemize}
+
+\section{One-Zone Models of Galactic Chemical Evolution}
+\label{sec:onezone}
 
 \begin{itemize}
 
-	\item We are interested in applying one-zone GCE models to dwarf galaxies
-	and determining best-fit parameters.
-	We begin by providing background on one-zone models, and then we select
-	a parametrization from which we draw a fiducial mock stellar sample.
-	We then use these data to introduce our fitting method.
-
-\end{itemize}
-
-\subsection{One-Zone Models of Galactic Chemical Evolution}
-\label{sec:methods:onezone}
-
-\begin{itemize}
+	\item GCE bridges the gap between nuclear physics and astrophysics.
+	By combining galactic processes such as star formation, one can estimate
+	the production rates of various nuclear species by stars and derive their
+	abundances in the interstellar medium (ISM).
+	This field has its roots in the early works assessing the astrophysical
+	sites and conditions which give rise to nuclear reactions, a review of
+	which can be found in the famous ``B2FH'' paper~\citep{Burbidge1957}.
+	Here we provide a brief overview of the GCE formalismof one-zone models,
+	historical reviews of which can be found in works such as
+	\citet{Tinsley1980},~\citet{Pagel2009} and~\citet{Matteucci2012,
+	Matteucci2021}.
+	We then select a parametrization from which we draw a fiducial mock stellar
+	sample, and we use these synthetic data to introduce our fitting method
+	in~\S~\ref{sec:fitting}.
 
 	\item The fundamental assumption of one-zone models is that newly produced
 	metals mix instantaneously throughout the star forming gas reservoir.
-	This approximation is valid as long as the mixing time-scale is negligible
-	compared to the depletion time-scale (i.e. the average time an fluid
-	element remains in the ISM before getting incorporated into new stars or
-	ejected in an outflow).
+	In real galaxies, this assumption is valid as long as the mixing time-scale
+	is short compared to the depletion time-scale (i.e. the average time a
+	fluid element remains in the ISM before getting incorporated into new
+	stars or ejected in an outflow, if present).
 	Based on the observations of~\citet{Leroy2008},~\citet*{Weinberg2017}
 	calculate that characteristic depletion times can range from~$\sim$500 Myr
 	up to~$\sim$10 Gyr for conditions in typical star forming disc galaxies.
-	With the short length-scales and turbulent velocities of dwarf galaxies,
-	instantaneous mixing should be a good approximation.
-
-	\begin{itemize}
-		\item {\color{red}
-		If there's an observational reference of metal-mixing in the dwarf
-		galaxy regime - specifically if the scatter in the~\afe-\feh~plane is
-		dominated by observational uncertainty - Evan Kirby would probably be
-		the one to know about it.
-		If not, this would be a good thing to call out as a good observational
-		test of the validity of the one-zone approximation.
-		}
-	\end{itemize}
-
-	\item The assumption of instantaneous mixing eliminates the need for
-	spacial information, reducing GCE to a system of coupled
-	integro-differential equations which can be solved numerically.
+	In the dwarf galaxy regime, the length scales are short, star formation
+	is slow~\citep{Hudson2015}, and the ISM velocities are turbulent
+	\citep{Dutta2009, Stilp2013, Schleicher2016}.
+	With this combination, instantaneous mixing should be a good approximation.
+	We are unaware of any studies in the literature which address this
+	observationally, though in principle it should be feasible on a
+	galaxy-by-galaxy basis by assessing the sources of scatter in chemical
+	space (e.g. the~\afe-\feh~plane).
+	If instantaneous mixing is a valid approximation, then intrinsic scatter
+	about some evolutionary track should be negligible and the observed scatter
+	should be dominated by measurement uncertainty.
+	This assumption eliminates the need for spatial information, reducing GCE
+	to a system of coupled integro-differential equations which can be solved
+	numerically; we discuss them below.
 
 \end{itemize}
 
-\subsubsection{Inflows, Outflows, Star Formation, and Recycling}
-\label{sec:methods:onezone:gas}
+\subsection{Inflows, Outflows, Star Formation, and Recycling}
+\label{sec:onezone:gas}
 
 \begin{itemize}
 
@@ -169,8 +181,8 @@
 
 \end{itemize}
 
-\subsubsection{Core Collapse Supernovae}
-\label{sec:methods:onezone:ccsne}
+\subsection{Core Collapse Supernovae}
+\label{sec:onezone:ccsne}
 
 \begin{itemize}
 
@@ -194,8 +206,8 @@
 
 \end{itemize}
 
-\subsubsection{Type Ia Supernovae}
-\label{sec:methods:onezone:sneia}
+\subsection{Type Ia Supernovae}
+\label{sec:onezone:sneia}
 
 \begin{itemize}
 
@@ -236,8 +248,8 @@
 
 \end{itemize}
 
-\subsubsection{Nucleosynthetic Yields}
-\label{sec:methods:onezone:yields}
+\subsection{Nucleosynthetic Yields}
+\label{sec:onezone:yields}
 
 \begin{itemize}
 
@@ -269,7 +281,7 @@
 	whose AGB star yields are negligible compared to their SN yields
 	\citep[e.g.][]{Johnson2019}.
 	We therefore omit discussion of AGB star nucleosynthesis here, but we note
-	that our fitting method described in~\S~\ref{sec:methods:fitting} is easily
+	that our fitting method described in~\S~\ref{sec:fitting} is easily
 	extensible to include an AGB star enrichment channel.
 	Mathematical details of how this is implemented in~\vice~can be found in
 	\citet{Johnson2020},~\citet{Johnson2022}, and in the~\vice~science
@@ -280,8 +292,8 @@
 \end{itemize}
 
 
-\subsection{The Fitting Method}
-\label{sec:methods:fitting}
+\section{The Fitting Method}
+\label{sec:fitting}
 
 \begin{itemize}
 
@@ -402,7 +414,7 @@
 		\item \textit{The track is infinitely thin.}
 		In the absence of measurement errors, all of the data would fall
 		perfectly on a line in the observed space.
-		As discussed at the beginning of~\S~\ref{sec:methods:onezone}, the
+		As discussed at the beginning of~\S~\ref{sec:onezone}, the
 		fundamental assumption of one-zone GCE models is instantaneous
 		diffusion and, consequently, chemical homogeneity.
 		They sacrifice this spatial information in exchange for a drastic
@@ -452,7 +464,7 @@
 		evolution predicted by the GCE model.
 		We have parametrized our models in a manner such that the normalization
 		of the SFH is inconsequential to the evolution in the abundances (for
-		details, see discussion in~\S~\ref{sec:methods:onezone}).
+		details, see discussion in~\S~\ref{sec:onezone}).
 		Because the SFH and the selection function of the survey determine the
 		proper weights to attach to the likelihood of each pair-wise
 		combination between the data and the track (see
