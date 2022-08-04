@@ -275,6 +275,27 @@ in black according to the legend in the upper right panel.
 	the yield-outflow degeneracy.
 	We quantify this in detail in Appendix X.
 
+	\item To quantify the quality of the fit, we take the point along the track
+	$\script{M}_j$ for each datum~$\script{D}_i$ with the highest statistical
+	likelihood~$\ln L(\script{D}_i | \script{M}_j)$ by maximizing the term
+	inside both summations in equation (\ref{eq:likelihood}; i.e.,
+	$\{\script{M}_j~|~w_j \chi^2 = \max(w_j \chi^2)\}$ where
+	$\chi^2 = \exp(-\Delta_{ij}C_i^{-1}\Delta_{ij}^T/2)$ for each
+	datum~$\script{D}_i$.
+	We then take~$\chi_\text{dof}^2$ to be the sum of the individual
+	chi-squared values divided by the total number of individual age and
+	abundance measurements minus the six parameters in the fit.
+	Although we find that marginalizing over the track~\script{M}~is necessary
+	to derive accurate best-fit parameters (see discussion
+	in~\S~\ref{sec:fitting}), here we are simply assessing the quality of the
+	fit.
+	As noted in the middle panel of Fig.~\ref{fig:fiducialmock}, this fit
+	achieves~$\chi_\text{dof}^2 = 0.55$, indicating that we have perhaps
+	over-fit the mock data.
+	This is rather unsurprising, however, given that we have fit the mock data
+	with the exact, known parametrization of its evolutionary history in the
+	interest of demonstrating its accuracy.
+
 \end{itemize}
 
 \subsection{Variations in Sample Size, Measurement Precision, and the

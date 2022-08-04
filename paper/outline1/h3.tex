@@ -61,7 +61,7 @@ in the observed space.
 \end{figure*}
 
 \begin{figure*}
-\includegraphics[scale = 0.45]{gsechem_102k4.pdf}
+\includegraphics[scale = 0.45]{gsechem_512k.pdf}
 \caption{
 The ``corner-plot'' showing the results of our fitting method applied to GSE
 stars observed by the H3 survey.
@@ -111,6 +111,10 @@ element of the Markov chain with the maximum statistical likelihood.
 	This is expected for a dwarf galaxy progenitor where star formation is
 	typically slow~\citep[e.g.][]{Hudson2015} and the gravitational potential
 	well is shallow due to low stellar and halo masses.
+	Furthermore, the alpha-enhanced nature of the MDF is indicative of an SFH
+	which was truncated early in the GSE's history before SN Ia enrichment
+	could produce enough Fe to reach solar~\afe, a result which also expected
+	given that the GSE is known to host old stellar populations (refs).
 
 	\item In the middle and right panels, we show the age distribution,
 	age-\feh~relation, and age-\afe~relation.
@@ -143,8 +147,83 @@ element of the Markov chain with the maximum statistical likelihood.
 	a decline back toward the pre-burst value due to the temporarily perturbed
 	ratio of CCSN and SN Ia rates~\citep{Johnson2020}.
 	We therefore fit the GSE with a smooth evolutionary model, adopting the
-	same exponential infall history as our mock samples explored
-	in~\S~\ref{sec:mocks}.
+	same exponential infall history as our mock samples described
+	in~\S~\ref{sec:mocks:fiducial}.
+
+	\item Fig.~\ref{fig:gse_corner} shows the likelihood distribution we obtain
+	for the GSE by applying our fitting method.
+	We indeed find that the best-fit evolutionary model implies slow star
+	formation ($\tau_\star \approx 16$ Gyr) and strong outflows
+	($\eta \approx 9$), qualitatively similar to our mock samples.
+	Our fit additionally suggests that the Fe yields are
+	$\yfecc = \scinote{7.78^{+0.37}_{-0.38}}{-4}$ and
+	$\yfeia = \scinote{1.23^{+0.11}_{-0.10}}{-3}$ on the scale where the alpha
+	element yield is fixed at~$\yacc = 0.01$.
+	With these Fe yields, our fit to the GSE data suggests that CCSNe account
+	for~$\yfecc / (\yfecc + \yfeia) \approx$ 40\% of the Fe in the universe.
+	As discussed in~\S~\ref{sec:onezone:yields} and quantified in Appendix
+	\ref{sec:yield_outflow_degeneracy}, these yields are subject to the
+	yield-outflow degeneracy along with~$\eta$ and~$\tau_\star$, and our
+	adopted value of~$\yacc = 0.01$ is only intended to set some overall scale
+	to these values which can be adjusted as necessary.
+	Consequently, only relative rather than absolute values carry any meaning.
+	In the absence of winds (i.e.~$\eta = 0$) but with otherwise the same
+	evolutionary parameters, the MDF is predicted to have a peak
+	near~$\feh \approx -0.5$ with a tail toward low metallicities and a
+	sharp cutoff at higher metallicities, indicating that star formation in the
+	GSE was slow enough that it would have only achieved~$\sim$one-third solar
+	metallicity within 5.4 Gyr of star formation even with the largest sink
+	term in the enrichment rates removed.
+	If star formation instead sped up to~$\tau_\star = 1$ Gyr, corresponding
+	approximately to the expected value if the GSE were composed entirely of
+	molecular hydrogen while forming stars at~$z \gtrsim 1$~\citep{Tacconi2018},
+	then the MDF is still peaked near~$\feh \approx -1$ but is more symmetric
+	and less skewed toward lower~\feh~as in the GSE data (see
+	Fig.~\ref{fig:gse_bestfit}).
+	In order to predict an MDF dominated by solar metallicity stars, this model
+	requires~\textit{both} weaker outflows and more efficient star formation.
+
+	\item The infall timescale~$\tau_\text{in}$ and the total duration of
+	star formation~$\tau_\text{tot}$, however, are orthogonal to the
+	yield-outflow degeneracy (see Appendix~\ref{sec:yield_outflow_degeneracy}),
+	indicating that these absolute values do carry meaning.
+	The infall history is sharp ($\tau_\text{in} \approx 1$ Gyr), as expected
+	given the alpha-enhanced mode of the MDF.
+	Star formation lasted~$5.40^{+0.32}_{-0.31}$ Gyr after an onset assumed to
+	occur at a lookback time of 13.2 Gyr based on the~\textsc{UniverseMachine}
+	semi-analytic model~\citep[][see discussion
+	in~\S~\ref{sec:mocks:fiducial}]{Behroozi2019}.
+	This corresponds to the GSE's last episode of star formation occurring
+	$7.80^{+0.31}_{-0.32}$ Gyr ago, consistent with direct age constraints on
+	the GSE (refs).
+
+	\item We plot the predictions of our best-fit model over the GSE data in
+	Fig.~\ref{fig:gse_bestfit}, along with 200 additional parameter choices
+	selected from the Markov chain plotted as high transparency lines to
+	provide a visual sense of the fit uncertainty.
+	Overall, this is a reasonable fit to the
+	2-dimensional~\afe-\feh~distribution as well as the age-\feh~and the
+	age-\afe~relations.
+	We quantify the quality of the fit in the same manner described in the
+	final paragraph of~\S~\ref{sec:mocks:fiducial_fit}, finding
+	$\chi_\text{dof}^2 = 1.34$.
+	This suggests that although the fit describes the data reasonably well,
+	there is some slight room for improvement, perhaps in the age distribution
+	which our best-fit model predicts to be slightly more peaked than the data.
+	To again demonstrate the intrinsic age distribution is more peaked than the
+	observed age distribution due to the log-normal nature of age uncertainties,
+	we sample our best-fit age distribution with~$10^4$ stars and perturb them
+	with an uncertainty of~$\sigma(\log_{10}(\text{age})) = 0.05$, our adopted
+	age uncertainty to account for systematics (see discussion above).
+	We maintain the same prior as the H3 pipeline requireing all age sto be
+	below 14 Gyr and plot the result in the middle panel of
+	Fig.~\ref{fig:gse_bestfit}.
+	Although age uncertainties can account for some of the differences between
+	the intrinsic and observed age distributions, it is still somewhat more
+	peaked.
+	This suggests that the SFH of the GSE may differ from what would be implied
+	by an exponential infall history, though only slightly as the fit does
+	reasonably well anyway.
 
 \end{itemize}
 
