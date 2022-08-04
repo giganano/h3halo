@@ -61,7 +61,7 @@ class wukongfit(mcmc):
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
-		if walker[3] > COSMOLOGICAL_AGE: return -float("inf")
+		if walker[2] > COSMOLOGICAL_AGE: return -float("inf")
 		print("walker: [%.2f, %.2f, %.2f, %.2e, %.2e]" % (walker[0],
 			walker[1], walker[2], walker[3], walker[4]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
