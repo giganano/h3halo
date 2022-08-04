@@ -10,6 +10,8 @@ import vice
 from vice.yields.presets import JW20
 vice.yields.ccsne.settings['o'] = 0.01
 vice.yields.sneia.settings['o'] = 0
+vice.yields.ccsne.settings['fe'] = 7.78e-4
+vice.yields.sneia.settings['fe'] = 1.23e-3
 import time
 import os
 
@@ -24,7 +26,7 @@ N_WALKERS = 256
 N_BURNIN = 200
 N_ITERS = 400
 COSMOLOGICAL_AGE = 13.2
-N_DIM = 5
+N_DIM = 3
 
 # emcee walker parameters (exponential IFR)
 #
@@ -40,8 +42,8 @@ N_DIM = 5
 # 0. mass loading factor
 # 1. SFE timescale
 # 2. total duration of the model
-# 3. IMF-averaged Fe yield from CCSNe
-# 4. DTD-integrated Fe yield from SNe Ia
+### 3. IMF-averaged Fe yield from CCSNe
+### 4. DTD-integrated Fe yield from SNe Ia
 
 
 def constantsfr(t):
@@ -62,18 +64,16 @@ class wukongfit(mcmc):
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		if walker[2] > COSMOLOGICAL_AGE: return -float("inf")
-		print("walker: [%.2f, %.2f, %.2f, %.2e, %.2e]" % (walker[0],
-			walker[1], walker[2], walker[3], walker[4]))
+		print("walker: [%.2f, %.2f, %.2f]" % (walker[0], walker[1], walker[2]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
 		# self.sz.func.timescale = walker[0]
 		self.sz.eta = walker[0]
 		self.sz.tau_star = walker[1]
 		self.sz.dt = walker[2] / N_TIMESTEPS
-		vice.yields.ccsne.settings['fe'] = walker[3]
-		vice.yields.sneia.settings['fe'] = walker[4]
+		# vice.yields.ccsne.settings['fe'] = walker[3]
+		# vice.yields.sneia.settings['fe'] = walker[4]
 		output = self.sz.run(np.linspace(0, walker[2], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
-		diff = COSMOLOGICAL_AGE - walker[3]
 		model = []
 		for key in self.quantities:
 				model.append(output.history[key][1:])
@@ -96,9 +96,9 @@ if __name__ == "__main__":
 	sampler = EnsembleSampler(N_WALKERS, N_DIM, log_prob, pool = pool)
 	p0 = 10 * np.random.rand(N_WALKERS, N_DIM)
 	# confine the [a/Fe] plateau to the allowed range to begin with
-	for i in range(len(p0)):
-		p0[i][3] /= 1000
-		p0[i][4] /= 1000
+	# for i in range(len(p0)):
+	# 	p0[i][3] /= 1000
+	# 	p0[i][4] /= 1000
 	start = time.time()
 	state = sampler.run_mcmc(p0, N_BURNIN)
 	sampler.reset()
