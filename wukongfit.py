@@ -14,17 +14,17 @@ import time
 import os
 
 DATA_FILE = "./data/wukong/wukong.dat"
-OUTFILE = "./data/wukong/wukong_102k4.out"
+OUTFILE = "./data/wukong/wukong_constantsfr_102k4.out"
 MODEL_BASENAME = "wukongfit"
 
 
-N_PROC = 40
+N_PROC = 10
 N_TIMESTEPS = 500
 N_WALKERS = 256
 N_BURNIN = 200
 N_ITERS = 400
 COSMOLOGICAL_AGE = 13.2
-N_DIM = 6
+N_DIM = 5
 
 # emcee walker parameters (exponential IFR)
 #
@@ -35,29 +35,43 @@ N_DIM = 6
 # 4. IMF-averaged Fe yield from CCSNe
 # 5. DTD-integrated Fe yield from SNe Ia
 
+# emcee walker parameters (constant SFR)
+#
+# 0. mass loading factor
+# 1. SFE timescale
+# 2. total duration of the model
+# 3. IMF-averaged Fe yield from CCSNe
+# 4. DTD-integrated Fe yield from SNe Ia
+
+
+def constantsfr(t):
+	return 1000
+
 
 class wukongfit(mcmc):
 
 	def __init__(self, data):
 		super().__init__(data)
 		self.sz.elements = ["fe", "o"]
-		self.sz.func = exponential(prefactor = 1000)
-		self.sz.mode = "ifr"
+		# self.sz.func = exponential(prefactor = 1000)
+		# self.sz.mode = "ifr"
+		self.sz.func = constantsfr
+		self.sz.mode = "sfr"
 		self.sz.Mg0 = 0
 
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		if walker[3] > COSMOLOGICAL_AGE: return -float("inf")
-		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2e, %.2e]" % (walker[0],
-			walker[1], walker[2], walker[3], walker[4], walker[5]))
+		print("walker: [%.2f, %.2f, %.2f, %.2e, %.2e]" % (walker[0],
+			walker[1], walker[2], walker[3], walker[4]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
-		self.sz.func.timescale = walker[0]
-		self.sz.eta = walker[1]
-		self.sz.tau_star = walker[2]
-		self.sz.dt = walker[3] / N_TIMESTEPS
-		vice.yields.ccsne.settings['fe'] = walker[4]
-		vice.yields.sneia.settings['fe'] = walker[5]
-		output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1),
+		# self.sz.func.timescale = walker[0]
+		self.sz.eta = walker[0]
+		self.sz.tau_star = walker[1]
+		self.sz.dt = walker[2] / N_TIMESTEPS
+		vice.yields.ccsne.settings['fe'] = walker[3]
+		vice.yields.sneia.settings['fe'] = walker[4]
+		output = self.sz.run(np.linspace(0, walker[2], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
 		diff = COSMOLOGICAL_AGE - walker[3]
 		model = []
@@ -83,8 +97,8 @@ if __name__ == "__main__":
 	p0 = 10 * np.random.rand(N_WALKERS, N_DIM)
 	# confine the [a/Fe] plateau to the allowed range to begin with
 	for i in range(len(p0)):
+		p0[i][3] /= 1000
 		p0[i][4] /= 1000
-		p0[i][5] /= 1000
 	start = time.time()
 	state = sampler.run_mcmc(p0, N_BURNIN)
 	sampler.reset()
