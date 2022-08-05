@@ -19,12 +19,12 @@
 	stripping from the hot halo of their host
 	\citep*[see discussion in, e.g.,][]{Steyrleithner2020}.
 	As a result, surviving satellites and stellar stream progenitors assembled
-	more of their stellar mass at high redshift and are dominated by old
-	stellar populations.
+	much of their stellar mass at high redshift, making it difficult to
+	constrain this process observationally.
 
 	\item Because stellar age measurements are generally imprecise,
 	particularly for old stars (refs), the SFHs of surviving satellites and
-	stellar streams are difficult to constrain directly with star-by-star age
+	stellar streams are difficult to measure directly with star-by-star age
 	measurements.
 	An accurate SFH can instead be derived by fitting the color-magnitude
 	diagram (CMD) with a composite set of theoretical isochrones for simple
@@ -44,41 +44,57 @@
 	inferences of the galaxy's evolutionary history by comparing a statistical
 	sample of stellar abundances to galactic chemical evolution (GCE) models.
 
-	\item In this paper, we aim to systematically assess the information
-	content of stellar abundances in dwarf galaxies by means of one-zone GCE
-	models (see discussion in~\S~\ref{sec:onezone}).
-	The fundamental assumption of these models is that the mixing of newly
-	produced metals throughout the star forming reservoir is fast compared to
-	the depletion time.
-	Dwarf galaxies are typically gas-rich systems (refs), implying long star
-	formation timescales and consequently long depletion times.
-	It is therefore reasonable to expect that the one-zone approximation would
-	be valid for these systems, but we stress that the accuracy of the methods
-	we outline in this paper are contingent on this condition for any given
-	galaxy.
-	In larger galaxies such as the Milky Way or Andromeda, mixing timescales
-	are long, and processes such as the radial migration of stars
-	(\citealp{Sellwood2002, Schoenrich2009, Minchev2011};~\citealp*{Minchev2013,
-	Minchev2014};~\citealp{Minchev2017, Johnson2021, Chen2022}) and radial gas
-	flows~\citep{Lacey1985, Bilitewski2012, Vincenzo2018} are expected to
-	significantly impact the observed abundance distribution in a given
-	galactic region.
+	\item GCE bridges the gap between nuclear physics and astrophysics,
+	combining galactic processes such as star formation with nuclear reaction
+	networks, one can estimate the production rates of various nuclear species
+	by stars and derive their abundance in the interstellar medium (ISM).
+	This field has its roots in the early works assessing the astrophysical
+	sites and conditions which give rise to nuclear reactions, a review of
+	which can be found in the famous ``B2FH'' paper~\citep{Burbidge1957}.
+	The simplest and most well-studied GCE models are called ``one-zone''
+	models, reviews of which can be found in works such as~\citet{Tinsley1980},
+	\citet{Pagel2009}, and~\citet{Matteucci2012, Matteucci2021}.
 
-	\item One-zone models are computationally cheap, and with reasonable
+	\item In this paper, we systematically assess the information that can be
+	extracted from stellar abundances in dwarf galaxies by modeling the data
+	within this framework.
+	% The fundamental assumption of these models is that the mixing of newly
+	% produced metals throughout the star forming reservoir is fast compared to
+	% the depletion time.
+	% Dwarf galaxies are typically gas-rich systems (refs), implying long star
+	% formation timescales and consequently long depletion times.
+	% It is therefore reasonable to expect that the one-zone approximation would
+	% be valid for these systems, but we stress that the accuracy of the methods
+	% we outline in this paper are contingent on this condition for any given
+	% galaxy.
+	% In larger galaxies such as the Milky Way or Andromeda, mixing timescales
+	% are long, and processes such as the radial migration of stars
+	% (\citealp{Sellwood2002, Schoenrich2009, Minchev2011};~\citealp*{Minchev2013,
+	% Minchev2014};~\citealp{Minchev2017, Johnson2021, Chen2022}) and radial gas
+	% flows~\citep{Lacey1985, Bilitewski2012, Vincenzo2018} are expected to
+	% significantly impact the observed abundance distribution in a given
+	% galactic region.
+	One-zone models are computationally cheap, and with reasonable
 	approximations, even allow analytic solutions to the evolution of the
 	abundances for simple SFHs~\citep*[e.g.][]{Weinberg2017}.
-	This in principle allows them to be fit to data assuming some
-	parametrization of the galaxy's evolutionary history, and there are both
-	simple and complex examples of how one might go about deriving best-fit
-	parameters in the literature.
-	\citet{Kirby2011} measure and fit the MDFs of eight Milky Way dwarf
-	satellite galaxies with the goal of determining which evolved according to
-	``leaky-box,'' ``pre-enriched,'' or ``extra gas'' analytic models.
+	This in principle allows the application of statistical likelihoodm
+	estimates to derive best-fit parameters for some set of assumptions
+	regarding the galaxy's evolutionary history.
+	There are both simple and complex examples in the literature of how one
+	might go about this.
+	To name a few,~\citet{Kirby2011} measure and fit the MDFs of eight Milky
+	Way dwarf satellite galaxies with the goal of determining which evolved
+	according to ``leaky-box,'' ``pre-enriched,'' or ``extra gas'' analytic
+	models.
 	To derive best-fit parameters for the two-infall model of the Milky
 	Way~\citep[e.g.][]{Chiappini1997},~\citet{Spitoni2020} use Markov chain
 	Monte Carlo (MCMC) methods for solar neighbourhood stars and base their
 	likelihood function off of the minimum distance between each star and the
-	evolution track in the~\afe-\feh~plane.
+	evolutionary track in the~\afe-\feh~plane.
+	\citet{Hasselquist2021} used similar methods to derive evolutionary
+	parameters for the Milky Way's most massive satellites with the
+	\textsc{FlexCE}~\citep{Andrews2017} and~\citet{Lian2018, Lian2020} chemical
+	evolution codes.
 
 	\item Here we develop an approach which is widely applicable as long as the
 	one-zone approximation is valid and requires no binning of the data.

@@ -15,28 +15,14 @@
 
 % \end{itemize}
 
-\section{One-Zone Models of Galactic Chemical Evolution}
+\section{Galactic Chemical Evolution}
 \label{sec:onezone}
 
-\begin{itemize}
-
-	\item GCE bridges the gap between nuclear physics and astrophysics.
-	By combining galactic processes such as star formation, one can estimate
-	the production rates of various nuclear species by stars and derive their
-	abundances in the interstellar medium (ISM).
-	This field has its roots in the early works assessing the astrophysical
-	sites and conditions which give rise to nuclear reactions, a review of
-	which can be found in the famous ``B2FH'' paper~\citep{Burbidge1957}.
-	Here we provide a brief overview of the GCE formalism of one-zone models,
-	reviews of which can be found in works such as~\citet{Tinsley1980},
-	\citet{Pagel2009} and~\citet{Matteucci2012, Matteucci2021}.
-	We then select a parametrization from which we draw a fiducial mock stellar
-	sample, and we use these synthetic data to introduce our fitting method
-	in~\S~\ref{sec:fitting}.
+\begin{itemize}	
 
 	\item The fundamental assumption of one-zone models is that newly produced
 	metals mix instantaneously throughout the star forming gas reservoir.
-	In real galaxies, this assumption is valid as long as the mixing time-scale
+	In detail, this assumption is valid as long as the mixing time-scale
 	is short compared to the depletion time-scale (i.e. the average time a
 	fluid element remains in the ISM before getting incorporated into new
 	stars or ejected in an outflow, if present).
@@ -51,12 +37,41 @@
 	observationally, though in principle it should be feasible on a
 	galaxy-by-galaxy basis by assessing the sources of scatter in chemical
 	space (e.g. the~\afe-\feh~plane).
-	If instantaneous mixing is a valid approximation, then intrinsic scatter
-	about some evolutionary track should be negligible and the observed scatter
-	should be dominated by measurement uncertainty.
-	This assumption eliminates the need for spatial information, reducing GCE
-	to a system of coupled integro-differential equations which can be solved
-	numerically; we discuss them below.
+	If instantaneous mixing is a valid approximation, then the intrinsic
+	scatter about some evolutionary track should be negligible, and the
+	observed scatter should be dominated by measurement uncertainty.
+
+	\item In larger systems such as the Milky Way or Andromeda, the
+	instantaneous mixing approximation breaks down.
+	Observationally, the presence of gas-phase abundance gradients in
+	star-forming disk galaxies~\citep*[see, e.g., recent reviews
+	by][]{Kewley2019, Maiolino2019, Sanchez2020} indicates that metal diffusion
+	in the radial direction is inefficient.
+	Furthermore, processes such as the radial migration of stars
+	(\citealp{Sellwood2002, Roskar2008a, Roskar2008b, Loebman2011, Minchev2011};
+	\citealp*{Bird2012};~\citealp{Bird2013};~\citealp*{Grand2012a, Grand2012b,
+	Kubryk2013}) and radial gas flows~\citep{Lacey1985, Bilitewski2012,
+	Vincenzo2020, Sharda2021} are expected to significantly impact chemical
+	enrichment and the observed abundance distributions in a given galactic
+	region.
+	This has prompted the development of a number of so-called ``multi-zone''
+	models (\citealp*{Minchev2013, Minchev2014};~\citealp{Minchev2017,
+	Johnson2021, Chen2022}) where the core motivation is to add some of the
+	spatial information lost by one-zone models back into the framework by
+	allowing the exchange of gas and stars between zones.
+
+	\item With the goal of assessing the information content of stellar
+	abundances in dwarf galaxies where the instantaneous mixing approximation
+	is more likely to be valid, we do not explore multi-zone models here.
+	The increased computational expense of multi-zone models also makes them
+	less conducive to best-fit parameter determination, which is of central
+	interest to this paper.
+	Instantaneous mixing eliminates the need for spatial information, reducing
+	GCE to a system of coupled integro-differential equations which we discuss
+	below.
+	We emphasize that the accuracy of the methods we outline in this paper are
+	contingent on the validity of the instantaneous mixing approximation for a
+	given galaxy.
 
 \end{itemize}
 

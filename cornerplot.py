@@ -20,8 +20,8 @@ LABELS = [
 	r"$\eta$",
 	r"$\tau_\star$ [Gyr]",
 	r"$\tau_\text{tot}$ [Gyr]",
-	r"$10^4\times y_\text{Fe}^\text{CC}$",
-	r"$10^3\times y_\text{Fe}^\text{Ia}$"
+	# r"$10^4\times y_\text{Fe}^\text{CC}$",
+	# r"$10^3\times y_\text{Fe}^\text{Ia}$"
 ]
 RANGE = None
 # RANGE = [
@@ -51,12 +51,12 @@ MAXLOGP_KWARGS = {
 raw = np.genfromtxt(FILENAME)
 raw = np.array(list(filter(lambda _: not np.isinf(_[-1]), raw)))
 # raw = np.array(list(filter(lambda _: RANGE[0][0] <= _[0] <= RANGE[0][1], raw)))
-raw = np.array(list(filter(lambda _: _[-3] < 12e-4, raw)))
+# raw = np.array(list(filter(lambda _: _[-3] < 12e-4, raw)))
 print(len(raw))
 mcmc_chain = np.array([row[:-1] for row in raw])
-for i in range(len(mcmc_chain)):
-	mcmc_chain[i][-1] *= 1000
-	mcmc_chain[i][-2] *= 10000
+# for i in range(len(mcmc_chain)):
+# 	mcmc_chain[i][-1] *= 1000
+# 	mcmc_chain[i][-2] *= 10000
 # 	mcmc_chain[i][-3] *= 1000
 logp = [row[-1] for row in raw]
 idxmax = logp.index(max(logp))
