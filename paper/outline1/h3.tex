@@ -8,18 +8,20 @@
 \begin{itemize}
 
 	\item Next we apply our fitting method to two dwarf satellite remnants
-	observed in the Milky Way halo: the Gaia-Sausage Enceladus (GSE) and the
-	Sagittarius (Sgr) dwarf Spheroidal (dSph).
-	We choose these systems because they probe two qualitatively different SFHs.
-	The GSE exhibits smooth, monotonic trends of~\afe~with~\feh~(see
-	Fig.~\ref{fig:gse_bestfit} and discussion in~\S~\ref{sec:h3:gse} below),
-	an empirical result which does not demand a sudden event such as a
-	starburst in its explanation.
-	The Sgr dSph, on the other hand, exhibits an increase in~\afe~which is
-	accompanied by an increase in the observed density of stars (see
-	Fig. X and discussion in~\S~\ref{sec:h3:sgr} below).
-	This result, contrary to the GSE data, is naturally explained by a burst in
-	star formation.
+	observed in the Milky Way halo by the H3 survey~\citep{Conroy2019}.
+	The first is a relatively well-studied system: the Gaia-Sausage Enceladus
+	\citep[GSE;][]{Belokurov2018, Helmi2018}, believed to be responsible for
+	a major merger event early in the Milky Way's history~\citep{Chaplin2020}
+	responsible~$10^9 - 10^{10} \msun$ of total stellar mass
+	\citep{Deason2019, Fattahi2019, Mackereth2019, Vincenzo2019}, including
+	eight globular clusters in the stellar halo~\citep{Myeong2018}.
+	The second is a less well-studied system: the Wukong stellar stream,
+	a prograde structure chemically distinct from the GSE which sits between it
+	and the Helmi Streams~\citep{Helmi1999} in energy--angular momentum
+	space~\citep{Naidu2020, Naidu2022}.
+	We provide an overview of the H3 survey below and discuss our GCE model
+	fits to the GSE and Wukong progenitors in~\S\S~\ref{sec:h3:gse}
+	and~\ref{sec:h3:wukong} below.
 
 \end{itemize}
 
@@ -97,6 +99,14 @@ element of the Markov chain with the maximum statistical likelihood.
 	account for any systematic errors that may be present.
 	This consequently applies to the whole subset of our sample that has age
 	measurements.
+
+	\item Because H3 is an untargeted survey {\color{red} (right?)}, the
+	selection function in chemical space should be un-biased (i.e.
+	$\script{S}(\script{M}_j,\{\theta\}) = 1$ for all points along the
+	evolutionary track~$\script{M}_j$).
+	We therefore take the weights appearing in our likelihood function to be
+	proportional to the SFH alone (equations~\ref{eq:likelihood}
+	and~\ref{eq:weights}; see discussion in~\S~\ref{sec:fitting}).
 
 	\item The left panel of Fig.~\ref{fig:gse_bestfit} shows our sample in
 	the~\afe-\feh~plane along with the associated marginalized distributions.
@@ -227,8 +237,23 @@ element of the Markov chain with the maximum statistical likelihood.
 
 \end{itemize}
 
-\subsection{The Sagittarius Dwarf Spheroidal}
-\label{sec:h3:sgr}
+\subsection{The Wukong Stream}
+\label{sec:h3:wukong}
+
+\begin{figure}
+\centering
+\includegraphics[scale = 0.55]{wukong_bestfit.pdf}
+\caption{Wukong best-fit.}
+\label{fig:wukong_bestfit}
+\end{figure}
+
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.50]{wukong_expifr_102k4.pdf}
+\includegraphics[scale = 0.52]{wukong_agedist_amr.pdf}
+\caption{Wukong corner-plot.}
+\label{fig:wukong_corner}
+\end{figure*}
 
 \end{document}
 

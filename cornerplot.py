@@ -16,31 +16,41 @@ load_mpl_presets()
 
 FILENAME = sys.argv[1]
 LABELS = [
-	# r"$\tau_\text{in}$ [Gyr]",
+	r"$\tau_\text{in}$ [Gyr]",
 	r"$\eta$",
 	r"$\tau_\star$ [Gyr]",
 	r"$\tau_\text{tot}$ [Gyr]",
 	# r"$10^4\times y_\text{Fe}^\text{CC}$",
 	# r"$10^3\times y_\text{Fe}^\text{Ia}$"
 ]
-RANGE = None
-# RANGE = [
+# RANGE = None
+RANGE = [
 # 	(0.4, 1.6),
 # 	(4, 13),
 # 	(11, 22),
 # 	(4, 7),
 # 	(6.2, 9.6),
 # 	(0.8, 1.7)
-# ]
+###
+	(0, 12),
+	(30, 70),
+	(20, 70),
+	(2, 5)
+]
 TICKS = None
-# TICKS = [
+TICKS = [
 # 	[0.5, 1, 1.5],
 # 	[6, 8, 10, 12],
 # 	[15, 20],
 # 	[5, 6],
 # 	[7, 8, 9],
 # 	[1.0, 1.5]
-# ]
+###
+	[2, 4, 6, 8, 10],
+	[40, 50, 60],
+	[30, 40, 50, 60],
+	[3, 4]
+]
 MAXLOGP_KWARGS = {
 	"c": named_colors()["deepskyblue"],
 	"marker": markers()["star"],
@@ -50,8 +60,11 @@ MAXLOGP_KWARGS = {
 
 raw = np.genfromtxt(FILENAME)
 raw = np.array(list(filter(lambda _: not np.isinf(_[-1]), raw)))
+raw = np.array(list(filter(lambda _: _[0] <= 100, raw)))
+raw = np.array(list(filter(lambda _: _[-2] <= 6, raw)))
 # raw = np.array(list(filter(lambda _: RANGE[0][0] <= _[0] <= RANGE[0][1], raw)))
 # raw = np.array(list(filter(lambda _: _[-3] < 12e-4, raw)))
+# raw = np.array(list(filter(lambda _: RANGE[1][0] <= _[1] <= RANGE[1][1], raw)))
 print(len(raw))
 mcmc_chain = np.array([row[:-1] for row in raw])
 # for i in range(len(mcmc_chain)):
