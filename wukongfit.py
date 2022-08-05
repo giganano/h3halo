@@ -16,7 +16,7 @@ import time
 import os
 
 DATA_FILE = "./data/wukong/wukong.dat"
-OUTFILE = "./data/wukong/wukong_linexpsfr_102k4.out"
+OUTFILE = "./data/wukong/wukong_expifr_102k4.out"
 MODEL_BASENAME = "wukongfit"
 
 
@@ -28,7 +28,7 @@ N_ITERS = 400
 COSMOLOGICAL_AGE = 13.2
 N_DIM = 4
 
-# emcee walker parameters (linear-exponential SFR)
+# emcee walker parameters (exponential IFR)
 #
 # 0. star formation timescale
 # 1. mass loading factor
@@ -53,11 +53,11 @@ class wukongfit(mcmc):
 	def __init__(self, data):
 		super().__init__(data)
 		self.sz.elements = ["fe", "o"]
-		# self.sz.func = exponential(prefactor = 1000)
-		# self.sz.mode = "ifr"
+		self.sz.func = exponential(prefactor = 1000)
+		self.sz.mode = "ifr"
 		# self.sz.func = constantsfr
-		self.sz.func = linear_exponential(prefactor = 1000)
-		self.sz.mode = "sfr"
+		# self.sz.func = linear_exponential(prefactor = 1000)
+		# self.sz.mode = "sfr"
 		self.sz.Mg0 = 0
 
 	def __call__(self, walker):
