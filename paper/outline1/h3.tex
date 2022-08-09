@@ -10,7 +10,8 @@
 \includegraphics[scale = 0.42]{gsefit_agedist.pdf}
 \includegraphics[scale = 0.42]{gsefit_amr.pdf}
 \caption{
-\textbf{Left}: The~\afe-\feh~plane and associated marginalized distributions.
+\textbf{Left}: Our GSE sample in the~\afe-\feh~plane and the associated
+marginalized distributions.
 Stars are colour-coded according to their age where available and are otherwise
 plotted in black.
 The best-fit chemical evolution track and distributions in~\afe~and~\feh~are
@@ -80,7 +81,17 @@ element of the Markov chain with the maximum statistical likelihood.
 \begin{figure}
 \centering
 \includegraphics[scale = 0.55]{wukong_bestfit.pdf}
-\caption{Wukong best-fit.}
+\caption{
+Our Wukong sample in the~\afe-\feh~plane and the associated marginalized
+distributions.
+Error-bars in the central panel denote the measurement uncertainty on
+individual stars' abundance measurements, and error-bars in the top and right
+panels indicate the uncertainty in the abundance distributions assuming
+$\sigma = \sqrt{N}$ from sampling noise.
+We plot our best-fit chemical evolution model in red (see discussion
+in~\S~\ref{sec:h3:wukong}, with 200 additional sets of parameter choices
+subsampled from our likelihood function to give a sense of the fit precision.
+}
 \label{fig:wukong_bestfit}
 \end{figure}
 
@@ -88,10 +99,18 @@ element of the Markov chain with the maximum statistical likelihood.
 \centering
 \includegraphics[scale = 0.50]{wukong_expifr_102k4.pdf}
 \includegraphics[scale = 0.52]{wukong_agedist_amr.pdf}
-\caption{Wukong corner-plot.}
+\caption{
+\textbf{Left}: The ``corner-plot'' showing the results of our fitting method
+applied to the Wukong stream, as in Fig.~\ref{fig:gse_corner}, but with fixed
+SN yields.
+\textbf{Right}: The predicted age distribution (top), age-\feh~relation
+(middle), and age-\afe~relation (bottom).
+We subsample 200 parameter choices from our likelihood distribution in the
+left hand panels and plot the resultant predictions as high-transparency lines
+to give a sense of the fit precision.
+}
 \label{fig:wukong_corner}
 \end{figure*}
-
 
 \begin{itemize}
 
@@ -323,9 +342,13 @@ element of the Markov chain with the maximum statistical likelihood.
 	associated with random sampling.
 	Although our model doesn't predict any stars in the two highset~\afe~bins,
 	this is a consequence of the SN yields we adopted from our fit to the GSE.
-	We also include the predicted age distribution along with the predicted
-	age-\feh~and age-\afe~relations on the right hand side of
+	
+	\item We also include the predicted age distribution along with the
+	predicted age-\feh~and age-\afe~relations on the right hand side of
 	Fig.~\ref{fig:wukong_corner}.
+	Our method achieves high precision in the fits to the age-\feh~and
+	age-\afe~relations, but significantly lower precision in the age
+	distribution owing to the lack of age information.
 
 \end{itemize}
 
