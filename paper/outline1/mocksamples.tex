@@ -258,26 +258,29 @@ expected value of the mean deviation for a Gaussian random process.
 	the yield-outflow degeneracy.
 	We quantify this in detail in Appendix X.
 
-	\item To quantify the quality of the fit, we take the point along the track
-	$\script{M}_j$ for each datum~$\script{D}_i$ with the highest statistical
-	likelihood~$\ln L(\script{D}_i | \script{M}_j)$ by maximizing the term
-	inside both summations in equation (\ref{eq:likelihood}; i.e.,
-	$\{\script{M}_j~|~w_j \chi^2 = \max(w_j \chi^2)\}$ where
-	$\chi^2 = \exp(-\Delta_{ij}C_i^{-1}\Delta_{ij}^T/2)$ for each
-	datum~$\script{D}_i$.
-	We then take~$\chi_\text{dof}^2$ to be the sum of the individual
-	chi-squared values divided by the total number of individual age and
-	abundance measurements minus the six parameters in the fit.
+	\item To quantify the quality of the fit, for each datum~$\script{D}_i$
+	we find the point along the track~$\script{M}_j$ with the maximum
+	likelihood of observing the datum (i.e.~$\{\script{D}_i, \script{M}_j |
+	\ln L(\script{D}_i | \script{M}_j) = \max\left(\{
+	\ln \left(\script{D}_i | \script{M}\right)\}\right)\}$).
+	We then base our value of~$\chi^2$ off of the vector differences
+	$\Delta_{ij} \equiv \script{D}_i - \script{M}_j$ between the two according
+	to $\chi^2 = \sum_{i,j} \Delta_{ij}C_i^{-1}\Delta_{ij}^T$ where~$C_i^{-1}$
+	is the inverse covariance matrix~$C_i$ of the~$i$'th datum.
+	We divide~$\chi^2$ by the sample size minus 6 (the number of free
+	parameters in the GCE model) to estimate the~$\chi^2_\text{dof}$ statistic
+	to assess the quality of the fit.
 	Although we find that marginalizing over the track~\script{M}~is necessary
 	to derive accurate best-fit parameters (see discussion
-	in~\S~\ref{sec:fitting}), here we are simply assessing the quality of the
-	fit.
-	As noted in the middle panel of Fig.~\ref{fig:fiducialmock}, this fit
+	in~\S~\ref{sec:fitting}), pairing each datum with a point on the track
+	should be a safe estimate of the quality of the fit.
+	As noted in the middle panel of Fig.~\ref{fig:fiducialmock}, our method
 	achieves~$\chi_\text{dof}^2 = 0.55$, indicating that we have perhaps
-	over-fit the mock data.
-	This is rather unsurprising, however, given that we have fit the mock data
-	with the exact, known parametrization of its evolutionary history in the
-	interest of demonstrating its accuracy.
+	over-parametrized the mock data.
+	This is unsurprising, because in the interest of demonstrating its
+	reliability we have fit the mock data with the exact, known parametrization
+	of its evolutionary history and nucleosynthetic yields with accurate
+	estimates of the uncertainties.
 
 \end{itemize}
 
