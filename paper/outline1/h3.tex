@@ -45,7 +45,7 @@ in the observed space.
 	The first is a relatively well-studied system: the Gaia-Sausage Enceladus
 	\citep[GSE;][]{Belokurov2018, Helmi2018}, believed to be responsible for
 	a major merger event early in the Milky Way's history~\citep{Chaplin2020}
-	responsible~$10^9 - 10^{10} \msun$ of total stellar mass
+	which contributed~$10^9 - 10^{10} \msun$ of total stellar mass
 	\citep{Deason2019, Fattahi2019, Mackereth2019, Vincenzo2019}, including
 	eight globular clusters in the stellar halo~\citep{Myeong2018}.
 	The second is a less well-studied system: the Wukong stellar stream,
@@ -99,7 +99,7 @@ subsampled from our likelihood function to give a sense of the fit precision.
 \begin{figure*}
 \centering
 \includegraphics[scale = 0.50]{wukong_expifr_102k4.pdf}
-\includegraphics[scale = 0.52]{wukong_agedist_amr.pdf}
+% \includegraphics[scale = 0.52]{wukong_agedist_amr.pdf}
 \caption{
 \textbf{Left}: The ``corner-plot'' showing the results of our fitting method
 applied to the Wukong stream, as in Fig.~\ref{fig:gse_corner}, but with fixed
@@ -111,6 +111,15 @@ left hand panels and plot the resultant predictions as high-transparency lines
 to give a sense of the fit precision.
 }
 \label{fig:wukong_corner}
+\end{figure*}
+
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.50]{gse_wukong_comparison.pdf}
+\caption{
+Comparison between GSE and Wukong best-fits.
+}
+\label{fig:gse_wukong_comp}
 \end{figure*}
 
 \begin{itemize}
@@ -325,10 +334,26 @@ to give a sense of the fit precision.
 	Our fit indicates that the Wukong progenitor experienced considerably
 	stronger winds ($\sim$5 times) and slower star formation ($\sim$3 times)
 	than the GSE.
-	Star formation however significantly more extended in Wukong, with an
-	accretion timescale of~$\tau_\text{in} \approx 3.5$ Gyr compared to~$\sim$1
-	Gyr, although it experienced quenching~$\sim$2 Gyr before the GSE, at a
-	lookback time consistent with 10 Gyr ago.
+	% The accretion of the Wukong stream did not decline as sharply as in the
+	% GSE, with an accretion timescale of~$\tau_\text{in} \approx 3.5$ Gyr
+	% compared to~$\sim$1 Gyr.
+	Stronger outflows and slower star formation indicate that the Wukong
+	progenitor was significantly less massive than the GSE, which is expected
+	since the GSE is perhaps the most massive satellite to have merged with
+	the Milky Way~\citep{Deason2019, Fattahi2019, Mackereth2019, Vincenzo2019}.
+	In qualitative agreement with the variations in SFHs as a function of
+	stellar mass predicted by semi-analytic models of galaxy formation
+	(e.g.~\citealp{Baugh2005, Bower2006, Benson2012};
+	\citealp*{Somerville2015b}; \citealp{Croton2016, Behroozi2019}; see also
+	the reviews of \citealt{Baugh2006} and~\citealt{Somerville2015a}), our fit
+	indicates that the Wukong progenitor experienced a more extended infall
+	history, with an accretion timescale of~$\tau_\text{in} \approx 3.5$ Gyr
+	compared to~$\sim$1 Gyr.
+	The Wukong progenitor, however, experienced quenching approximately~$\sim$2
+	Gyr earlier than the GSE ($\sim$ 10 Gyr ago).
+	This is likely unrelated to the stellar mass of the two systems, instead
+	coinciding with their first pericentric passages shortly after infalling
+	into the Milky Way halo.
 
 	\item We plot the evolution of our best-fit GCE model in the~\afe-\feh~plane
 	and the marginalized distributions on top of the data in
