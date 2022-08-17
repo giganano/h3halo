@@ -106,14 +106,14 @@
 	This parametrization is appropriate for models in which massive stars are
 	the dominant source of energy for outflow-driving winds.
 	Empirically, the strength of outflows (i.e. the value of~$\eta$) is
-	strongly degenerate with the absolute scale of effective nucleosynthetic
-	yields.
+	strongly degenerate with the absolute scale of nucleosynthetic yields.
 	This ``yield-outflow degeneracy'' arises because the yields themselves are
 	the primary source term in describing the enrichment rates in galaxies
 	while outflows are the primary sink term.
 	We quantify the strength of this degeneracy in more detail in Appendix
-	\ref{sec:yield_outflow_degeneracy} and discuss our adopted nucleosynthetic
-	yields in~\S~\ref{sec:onezone:yields} below.
+	\ref{sec:yield_outflow_degeneracy}.
+	We discuss our adopted nucleosynthetic yields in~\S~\ref{sec:onezone:yields}
+	below, which are intended to address this degeneracy at least in part.
 	% This parametrization, appropriate for models in which massive stars are
 	% the dominant source of energy for outflow-driving winds, is only one of
 	% many prescriptions for outflows in the literature.
@@ -315,10 +315,30 @@
 
 \end{itemize}
 
-\subsection{Core Collapse Supernovae}
-\label{sec:onezone:ccsne}
+\subsection{Enrichment}
+\label{sec:onezone:enrichment}
+
+% \subsection{Core Collapse Supernovae}
+% \label{sec:onezone:ccsne}
 
 \begin{itemize}
+
+	\item In the present paper, we focus on th eenrichment of the so-called
+	``alpha'' (e.g. O, Ne, Mg, Si) and ``iron-peak'' (e.g. Cr, Fe, Ni, Zn)
+	elements, with the distribution of stars in the~\afe-\feh~plane being our
+	primary observational diagnostic to distinguish between GCE models.
+	Alpha elements are so-named because they are produced by alpha capture
+	reactions in massive stars, and for the lighter ones like O and Mg, this
+	is the only dominant enrichment source (see, e.g., the review in
+	\citealp{Johnson2019}).
+	Iron-peak elements are also produced in massive stars, but also owe a
+	portion of their abundance to white dwarf SNe occurring on longer delay
+	times.
+	Heavier nuclei (specifically Sr and up) are also produced by neutron
+	capture processes.
+	Although we do not treat these elements here, our fitting method (see
+	discussion in~\S~\ref{sec:fitting}) is easily extensible to GCE models
+	which do, provided that the data contain such measurements.
 
 	\item Massive stars, their winds, and their supernovae enrich the ISM on
 	short timescales due to their short lifetimes.
@@ -338,12 +358,8 @@
 	that the stellar mass is sufficiently high such that stochastic sampling of
 	the IMF is an insignificant effect.
 
-\end{itemize}
-
-\subsection{Type Ia Supernovae}
-\label{sec:onezone:sneia}
-
-\begin{itemize}
+% \subsection{Type Ia Supernovae}
+% \label{sec:onezone:sneia}
 
 	\item Unlike CCSN enrichment, SN Ia enrichment can occur on delay
 	timescales of a Gyr or more.
