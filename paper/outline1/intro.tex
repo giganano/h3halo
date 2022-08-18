@@ -22,62 +22,93 @@
 	much of their stellar mass at high redshift, making it difficult to
 	constrain this process observationally.
 
-	\item Because stellar age measurements are generally imprecise,
-	particularly for old stars (refs), the SFHs of surviving satellites and
-	stellar streams are difficult to measure directly with star-by-star age
-	measurements.
-	An accurate SFH can instead be derived by fitting the color-magnitude
-	diagram (CMD) with a composite set of theoretical isochrones for simple
-	stellar populations~\citep[e.g.][]{Dolphin2002}.
+	\item Furthermore, stellar age measurements are generally imprecise, and no
+	single method is applicable to all ranges of spectral types across the full
+	range of ages (see, e.g., the reviews in~\citealp{Soderblom2010} and
+	\citealp{Chaplin2013} as well as the discussion in~\citealp{Angus2019}).
+	Consequently, the SFHs of surviving satellites and stellar streams are
+	difficult to measure even with star-by-star age measurements.
+	Accurate SFHs can instead be derived by fitting the observed
+	color-magnitude diagram (CMD) with a composite set of theoretical
+	isochrones for simple stellar populations~\citep[e.g.][]{Dolphin2002}.
 	\citet{Weisz2014} demonstrate that this method is accurate even when the
-	CMD does not extend to the oldest main sequence turnoff stars, but that
-	this is critical for precisely constraining the early epochs of the SFH.
+	CMD does not extend to oldest main sequence turnoff stars, but that those
+	populations are critical for precisely constraining the earliest epochs of
+	the SFH.
+	Nonetheless, CMD-derived SFHs can be especially difficult for distant
+	systems as the observational uncertainties increase and the main sequence
+	turnoff of progressively younger populations are found below the magnitude
+	limit of the survey.
 
-	\item Aside from these CMD-derived SFHs, which can be especially difficult
-	for distant systems, chemical abundances encode additional information on a
-	galaxy's SFH, including the earliest epochs.
-	A star is believed to have the same chemical composition as its natal
-	cloud, and this hypothesis holds up against spectroscopic abundance
-	measurements in open clusters (refs).
-	The chemical composition of a star is therefore a snapshot of the
-	gas-phase composition of its host galaxy at its time of formation, allowing
-	inferences of the galaxy's evolutionary history by comparing a statistical
-	sample of stellar abundances to galactic chemical evolution (GCE) models.
+	\item Alternatively, chemical abundances can offer independent constraints
+	on the evolutionary histories of dwarf galaxies, including the earliest
+	epochs of star formation.
+	Stars are believed to be born with the same chemical composition of their
+	natal molecular clouds, and this hypothesis holds up against spectroscopic
+	abundance measurements in open clusters which have demonstrated that FGK
+	main-sequence and red giant stars exhibit chemical homogeneities within
+	$\sim0.02 - 0.03$ dex~\citep{DeSilva2006, Liu2016b, Bovy2016,
+	Casamiquela2020} while inhomogeneities at the~$\sim0.1 - 0.2$ dex level can
+	be attributed to diffusion~\citep{BertelliMotta2018, Souto2019, Liu2019}
+	or planet formation~\citep{Melendez2009, Liu2016a, Spina2018}.
+	A star's detailed metal abundance is therefore a snapshot of the gas-phase
+	composition of the galactic environment it was born from, encoding
+	information on the nuclear reactions -- and by proxy the stars and
+	supernovae which facilitated those reactions -- that polluted the gas since
+	big bang nucleosynthesis.
 
-	\item GCE bridges the gap between nuclear physics and astrophysics,
-	combining galactic processes such as star formation with nuclear reaction
-	networks, one can estimate the production rates of various nuclear species
-	by stars and derive their abundance in the interstellar medium (ISM).
-	This field has its roots in the early works assessing the astrophysical
-	sites and conditions which give rise to nuclear reactions, a review of
-	which can be found in the famous ``B2FH'' paper~\citep{Burbidge1957}.
+	\item This is the basis of galactic chemical evolution (GCE), which bridges
+	the gap between nuclear physics and astrophysics by combining galactic
+	processes such as star formation with nuclear reaction networks to estimate
+	the production rates of various nuclear species by stars and derive their
+	abundances in the interstellar medium (ISM).
+	GCE has its roots in the early works assessing the astrophysical sites and
+	conditions which give rise to nuclear reactions, a review of which can be
+	found in~\citet[][the famous ``B2FH'' paper]{Burbidge1957}.
 	The simplest and most well-studied GCE models are called ``one-zone''
-	models, reviews of which can be found in works such as~\citet{Tinsley1980},
+	models, reviews of which ca nbe found in works such as~\citet{Tinsley1980},
 	\citet{Pagel2009}, and~\citet{Matteucci2012, Matteucci2021}.
+
+	% \item Because stellar age measurements are generally imprecise,
+	% particularly for old stars (refs), the SFHs of surviving satellites and
+	% stellar streams are difficult to measure directly with star-by-star age
+	% measurements.
+	% An accurate SFH can instead be derived by fitting the color-magnitude
+	% diagram (CMD) with a composite set of theoretical isochrones for simple
+	% stellar populations~\citep[e.g.][]{Dolphin2002}.
+	% \citet{Weisz2014} demonstrate that this method is accurate even when the
+	% CMD does not extend to the oldest main sequence turnoff stars, but that
+	% this is critical for precisely constraining the early epochs of the SFH.
+
+	% \item Aside from these CMD-derived SFHs, which can be especially difficult
+	% for distant systems, chemical abundances encode additional information on a
+	% galaxy's SFH, including the earliest epochs.
+	% A star is believed to have the same chemical composition as its natal
+	% cloud, and this hypothesis holds up against spectroscopic abundance
+	% measurements in open clusters (refs).
+	% The chemical composition of a star is therefore a snapshot of the
+	% gas-phase composition of its host galaxy at its time of formation, allowing
+	% inferences of the galaxy's evolutionary history by comparing a statistical
+	% sample of stellar abundances to galactic chemical evolution (GCE) models.
+
+	% \item GCE bridges the gap between nuclear physics and astrophysics,
+	% combining galactic processes such as star formation with nuclear reaction
+	% networks, one can estimate the production rates of various nuclear species
+	% by stars and derive their abundance in the interstellar medium (ISM).
+	% This field has its roots in the early works assessing the astrophysical
+	% sites and conditions which give rise to nuclear reactions, a review of
+	% which can be found in the famous ``B2FH'' paper~\citep{Burbidge1957}.
+	% The simplest and most well-studied GCE models are called ``one-zone''
+	% models, reviews of which can be found in works such as~\citet{Tinsley1980},
+	% \citet{Pagel2009}, and~\citet{Matteucci2012, Matteucci2021}.
 
 	\item In this paper, we systematically assess the information that can be
 	extracted from stellar abundances in dwarf galaxies by modeling the data
 	within this framework.
-	% The fundamental assumption of these models is that the mixing of newly
-	% produced metals throughout the star forming reservoir is fast compared to
-	% the depletion time.
-	% Dwarf galaxies are typically gas-rich systems (refs), implying long star
-	% formation timescales and consequently long depletion times.
-	% It is therefore reasonable to expect that the one-zone approximation would
-	% be valid for these systems, but we stress that the accuracy of the methods
-	% we outline in this paper are contingent on this condition for any given
-	% galaxy.
-	% In larger galaxies such as the Milky Way or Andromeda, mixing timescales
-	% are long, and processes such as the radial migration of stars
-	% (\citealp{Sellwood2002, Schoenrich2009, Minchev2011};~\citealp*{Minchev2013,
-	% Minchev2014};~\citealp{Minchev2017, Johnson2021, Chen2022}) and radial gas
-	% flows~\citep{Lacey1985, Bilitewski2012, Vincenzo2018} are expected to
-	% significantly impact the observed abundance distribution in a given
-	% galactic region.
 	One-zone models are computationally cheap, and with reasonable
 	approximations, even allow analytic solutions to the evolution of the
 	abundances for simple SFHs~\citep*[e.g.][]{Weinberg2017}.
-	This in principle allows the application of statistical likelihoodm
+	This in principle allows the application of statistical likelihood
 	estimates to derive best-fit parameters for some set of assumptions
 	regarding the galaxy's evolutionary history.
 	There are both simple and complex examples in the literature of how one
@@ -96,32 +127,69 @@
 	\textsc{FlexCE}~\citep{Andrews2017} and~\citet{Lian2018, Lian2020} chemical
 	evolution codes.
 
-	\item Here we develop an approach which is widely applicable as long as the
-	one-zone approximation is valid and requires no binning of the data.
-	We demonstrate by means of mock samples that it is accurate with as few
-	as~$\sim$20 stars (our smallest test case; see~\S~\ref{sec:mocks}), even
-	when no age information is available.
-	This method treats the abundances of stars as a sample from the galaxy's
-	evolutionary history according to an inhomogeneous poisson point process
-	(IPPP) and only assumes that the model predicts some infinitely thin track
-	in some observed space.
-	It should therefore be extensible to other astrophysical models which also
-	predict tracks, such as stellar streams in kinematic space and isochrones
-	on CMDs.
+	\item While these studies have employed various methods to estimate the
+	relative likelihood of different parameter choices, to our knowledge there
+	is no demonstration of the statistical validity of these estimates in the
+	literature.
+	The distribution of stars in abundance space is generally non-uniform, and
+	the probability of randomly sampling a star from a given epoch of some
+	galaxy's evolution scales with the star formation rate (SFR) at that time
+	(modulo the selection function of the survey).
+	Therefore, to model the enrichment history of a galaxy in a statistically
+	robust manner, GCE models by nature demand an explanation according to an
+	inhomogeneous poisson point process (IPPP).
+	To this end, we apply the principles of an IPPP to models which predict
+	``tracks'' in some observed space as in GCE models to derive a likelihood
+	function which requires no binning of the data and should be applicable as
+	long as the one-zone approximation is valid.
+	We present a detailed derivation of this likelihood function in Appendix
+	\ref{sec:l_derivation} and present qualitative discussion
+	in~\S~\ref{sec:fitting}.
+	Because this derivation assumes only that the model predicts an
+	evolutionary track in some observed space, it should therefore be
+	extensible to other astrophysical models which also predict evolutionary
+	tracks, such as stellar streams in kinematic space and isochrones on CMDs,
+	though we limit our discussion in the present paper to our use case of
+	one-zone GCE models.
 
-	\item We provide an overview of the equations governing one-zone models
-	in~\S~\ref{sec:onezone} and discussion of our fitting method
-	in~\S~\ref{sec:fitting} below, with a detailed derivation of our
-	likelihood function in Appendix~\ref{sec:l_derivation}.
-	In~\S~\ref{sec:mocks} we demonstrate the accuracy of our method with mock
-	data and quantify how the precision of the derived parameters are affected
-	by the sample size, measurement uncertainty in abundances and ages, and
-	what fraction of the sample has available age measurements.
-	In~\S~\ref{sec:h3} we apply this method to two systems which have received
-	considerable attention in the literature over the past few years using data
-	from the H3 survey~\citep{Conroy2019}: the Gaia-Sausage Encelaudus (GSE)
-	and the Sagittarius (Sgr) dwarf Spheroidal (dSph) satellite of the Milky
-	Way.
+	\item This procedure results in a single~\textit{exact} form of the
+	likelihood function.
+	We demonstrate by means of mock samples that this likelihood function is
+	accurate with as few as~$\sim$20 stars (our smallest test case;
+	see~\S~\ref{sec:mocks}) even when no age information is available.
+	We then apply this method to two stellar streams observed in the Milky Way
+	halo using data from the H3 survey~\citep{Conroy2019}.
+	One has received a considerable amount of attention in the literature: the
+	Gaia-Sausage Enceladus~\citep[GSE;][]{Belokurov2018, Helmi2018}, and
+	the other, discovered more recently, is a less well-studied system: the
+	Wukong stream~\citep{Naidu2020, Naidu2022}.
+
+	% \item Here we develop an approach which is widely applicable as long as the
+	% one-zone approximation is valid and requires no binning of the data.
+	% We demonstrate by means of mock samples that it is accurate with as few
+	% as~$\sim$20 stars (our smallest test case; see~\S~\ref{sec:mocks}), even
+	% when no age information is available.
+	% This method treats the abundances of stars as a sample from the galaxy's
+	% evolutionary history according to an inhomogeneous poisson point process
+	% (IPPP) and only assumes that the model predicts some infinitely thin track
+	% in some observed space.
+	% It should therefore be extensible to other astrophysical models which also
+	% predict tracks, such as stellar streams in kinematic space and isochrones
+	% on CMDs.
+
+	% \item We provide an overview of the equations governing one-zone models
+	% in~\S~\ref{sec:onezone} and discussion of our fitting method
+	% in~\S~\ref{sec:fitting} below, with a detailed derivation of our
+	% likelihood function in Appendix~\ref{sec:l_derivation}.
+	% In~\S~\ref{sec:mocks} we demonstrate the accuracy of our method with mock
+	% data and quantify how the precision of the derived parameters are affected
+	% by the sample size, measurement uncertainty in abundances and ages, and
+	% what fraction of the sample has available age measurements.
+	% In~\S~\ref{sec:h3} we apply this method to two systems which have received
+	% considerable attention in the literature over the past few years using data
+	% from the H3 survey~\citep{Conroy2019}: the Gaia-Sausage Encelaudus (GSE)
+	% and the Sagittarius (Sgr) dwarf Spheroidal (dSph) satellite of the Milky
+	% Way.
 
 \end{itemize}
 

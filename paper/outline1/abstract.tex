@@ -3,28 +3,41 @@
 \begin{document}
 
 \begin{abstract}
+% We develop a Bayesian method for fitting one-zone models of galactic chemical
+% evolution to observed stellar abundances and ages.
+% We demonstrate the accuracy of this method by means of mock data samples, for
+% which we are able to recover the known values of evolutionary parameters with
+% accuracy and precision consistent with random processes.
+% Our tests indicate the measrement precision and sample size are of comparable
+% importance in establishing the precision of best-fit parameters, while stellar
+% age information plays a significantly weaker role.
+% We find that known parameters of a mock sample's evolutionary history,
+% including the infall timescale and the duration of star formation, are
+% accurately recovered even in the absence of age information.
+% We apply this method to the Gaia-Sausage-Enceladus and the Sagitarrius dwarf
+% Spheroidal using data observed with the H3 survey.
+% Our characterization of the Gaia-Sausage-Enceladus achieves
+% $\chi^2_\text{dof} = 1.2$, and the duration of star formation that we derive
+% from chemistry alone is consistent with directage constraints.
+% This method is based on the treatment of stellar abundances in as a one-zone
+% model of galactic chemical evolution sampled according to an inhomogeneous
+% poisson point process.
+% It requires no binning of the data, and should be extensible to other models
+% which predict evolutionary tracks in some observed space (e.g. stellar
+% isochrones and stellar streams).
 We develop a Bayesian method for fitting one-zone models of galactic chemical
-evolution to observed stellar abundances and ages.
-We demonstrate the accuracy of this method by means of mock data samples, for
-which we are able to recover the known values of evolutionary parameters with
-accuracy and precision consistent with random processes.
-Our tests indicate the measrement precision and sample size are of comparable
-importance in establishing the precision of best-fit parameters, while stellar
-age information plays a significantly weaker role.
-We find that known parameters of a mock sample's evolutionary history,
-including the infall timescale and the duration of star formation, are
-accurately recovered even in the absence of age information.
-We apply this method to the Gaia-Sausage-Enceladus and the Sagitarrius dwarf
-Spheroidal using data observed with the H3 survey.
-Our characterization of the Gaia-Sausage-Enceladus achieves
-$\chi^2_\text{dof} = 1.2$, and the duration of star formation that we derive
-from chemistry alone is consistent with directage constraints.
-This method is based on the treatment of stellar abundances in as a one-zone
-model of galactic chemical evolution sampled according to an inhomogeneous
-poisson point process.
-It requires no binning of the data, and should be extensible to other models
-which predict evolutionary tracks in some observed space (e.g. stellar
-isochrones and stellar streams).
+evolution (GCE) to observed stellar abundances and ages, where available.
+This method is based on the application of an inhomogeneous poisson point
+process (IPPP) to an arbitrary evolutionary track in some observed space.
+It should therefore be extensible to other astrophysical models which also
+predict tracks (e.g. stellar streams and isochrones), and it requires no
+binning of the data.
+We demonstrate that this resuts in the derivation of a single exact form of
+the likelihood function for determining best-fit parameters.
+By means of mock data samples, we demonstrate that this likelihood function
+yields best-fit parameters where the fit precision scales with sample size
+approximately as~$\sigma / \theta \sim N^{-0.5}$ and that it remains accurate
+with as few as~$\sim$20 stars in the sample.
 \end{abstract}
 
 \end{document}
