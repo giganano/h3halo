@@ -62,13 +62,8 @@
 	model which generated the mock samples in all cases (see Fig.
 	\ref{fig:dp_sigma}).
 	The mean deviation from the known parameters is at the~$\sim1\sigma$ level,
-	exactly as expected for a Gaussian random process.\footnote{
-		The most likely value drawn from a normal distribution is exactly
-		$1\sigma$ from the mean.
-		The recovered values should also be consistent within~$1\sigma$ only
-		68.2\% of the time and discrepant at the~$>1\sigma$ level the remaining
-		31.8\% of the time.
-	}
+	exactly as expected for a Gaussian random process (see discussion
+	in~\S~\ref{sec:mocks:variations}).
 	We conduct further ``stress tests'' of this method by fitting models with
 	complicated evolutionary histories which we elect not to illustrate in this
 	paper.
@@ -78,45 +73,50 @@
 	takes the model-predicted track as input and is independent of the details
 	of the model from which it was computed.
 
-	\item Interestingly, we are able to derive accurate fits for evolutionary
+	\item Intriguingly, we are able to derive accurate fits for evolutionary
 	timescales even in the~\textit{absence} of age information.
+	This arises through their impact on the normalization and shape of the
+	observed MDF, and this information can be extracted with a fit to a sample
+	of sufficient size and/or measurement precision.
 	While age information does improve the precision of the fit, the inferred
-	values remain accurate nonetheless even without such measurements, and
-	the total duration of star formation (along with the infall timescale)
-	appears to be independent of the yield-outflow degeneracy
-	(see Appendix~\ref{sec:yield_outflow_degeneracy}).
-	This could be of particular interest to authors interested in deriving
-	quenching times for dwarf galaxies (i.e. the lookback time to when star
-	formation stopped).
+	values remain accurate nonetheless even without such measurements.
+	The duration of star formation in particular is independent of the
+	yield-outflow degeneracy (see discussion in~\S~\ref{sec:mocks:fiducial_fit}
+	and Appendix~\ref{sec:yield_outflow_degeneracy}), allowing precise values
+	to be inferred regardless of the assumed absolute scale of nucleosynthetic
+	yields and galactic outflows.
+	This is of notable interest to authors interested in deriving quenching
+	times (i.e. the lookback time to when star formation stopped) for dwarf
+	galaxies
 	At present, the most robust method for empirically measuring a galaxy's
 	quenching time is to directly measure its SFH by some means, such as
 	analysing its CMD~\citep[e.g.][]{Sohn2013, Weisz2015}.
 	However, there are only a handful of well-constrained SFHs for quenched
 	galaxies outside of the Milky Way subgroup (Andromeda II and Andromeda XVI:
-	\citealp{Weisz2014a}; Ceuts:~\citealp{Monelli2010a}; Tucana:
+	\citealp{Weisz2014a}; Cetus:~\citealp{Monelli2010a}; Tucana:
 	\citealp{Monelli2010b}).
-	There has been some attention in the literature to constraining quenching
-	times in N-body simulations (e.g.~\citealp{Phillips2014, Phillips2015};
-	\citealp*{Rocha2012};~\citealp{Slater2013, Slater2014, Wheeler2014}), but
-	this is a relatively new technique and the simulation outcomes are strongly
-	dependent on the details of the adopted subgrid models
-	\citep[see discussion in, e.g.,][]{Li2020}.
-
-	\item Provided that the one-zone approximation is valid for a given galaxy
-	and that a reasonable fit to its abundances can be obtained, our results
-	suggest that the duration of star formation, and consequently the quenching
-	time, can instead be inferred from the abundances of alpha and iron-peak
-	elemental abundances alone.
-	These ``chemical quenching times'' could offer new and independent
+	By inferring the duration of star formation from stellar abundances and
+	ages, these ``chemical quenching times'' could offer new and independent
 	constraints on when star formation shuts off in the low stellar mass
-	regime.
-	With the precision of the fit in our mock samples scaling with sample size
-	approximately as~$N^{-0.5}$ and our~$f_\text{age} = 0$ variant re-deriving
-	the duration of star formation with~$\sim$30\% precision, this suggests
-	that with abundance uncertainties of~$\sigma_\text{[X/Y]} \approx 0.05$,
-	a sample size of~$N = 180$ is required to derive the quenching time with
-	$\sim$50\% precision, while precision on the order of unity requires only
-	$\sim$45 stars.
+	regime (see discussion in~\S~\ref{sec:mocks:variations} for discussion of
+	the required sample size and measurement uncertainties for a given fit
+	precision).
+
+	% \item Provided that the one-zone approximation is valid for a given galaxy
+	% and that a reasonable fit to its abundances can be obtained, our results
+	% suggest that the duration of star formation, and consequently the quenching
+	% time, can instead be inferred from the abundances of alpha and iron-peak
+	% elemental abundances alone.
+	% These ``chemical quenching times'' could offer new and independent
+	% constraints on when star formation shuts off in the low stellar mass
+	% regime.
+	% With the precision of the fit in our mock samples scaling with sample size
+	% approximately as~$N^{-0.5}$ and our~$f_\text{age} = 0$ variant re-deriving
+	% the duration of star formation with~$\sim$30\% precision, this suggests
+	% that with abundance uncertainties of~$\sigma_\text{[X/Y]} \approx 0.05$,
+	% a sample size of~$N = 180$ is required to derive the quenching time with
+	% $\sim$50\% precision, while precision on the order of unity requires only
+	% $\sim$45 stars.
 
 	\item We apply our fitting method to the GSE~\citep{Belokurov2018,
 	Helmi2018} and Wukong~\citep{Naidu2020, Naidu2022} stellar streams using
