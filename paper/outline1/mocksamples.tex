@@ -327,10 +327,10 @@ Table~\ref{tab:recovered_values}).
 		truncated, allowing it to retain a broader shape if the data suggest it.
 	\end{itemize}
 
-	\item There are additional, weaker degeneracies which can be understood
-	by confounding variables.
-	For example, the degeneracy between~$\tau_\star$ and~\yfeia~arises because
-	both are degenerate with~\yfecc.
+	% \item There are additional, weaker degeneracies which can be understood
+	% by confounding variables.
+	% For example, the degeneracy between~$\tau_\star$ and~\yfeia~arises because
+	% both are degenerate with~\yfecc.
 
 	\item We remind the reader that our fits achieve such a precision by
 	selecting a scale on which the~$\alpha$ element yield~\yacc~is defined to
@@ -338,7 +338,13 @@ Table~\ref{tab:recovered_values}).
 	Aside from the infall timescale~$\tau_\text{in}$ and the total duration of
 	star formation~$\tau_\text{tot}$, each parameter in this fit is affected by
 	the yield-outflow degeneracy.
-	We quantify this in detail in Appendix X.
+	When~\yacc~is introduced as an additional free parameter, the likelihood
+	function becomes extremely degenerate (see discussion in Appendix
+	\ref{sec:yield_outflow_degeneracy}).
+	The infall timescale and duration of star formation are not affected by
+	this degeneracy because they affect only the shape of the MDF, an
+	observational diagnostic which is constrained by a sufficiently large
+	sample.
 
 	\item To quantify the quality of the fit, for each datum~$\script{D}_i$
 	we find the point along the track~$\script{M}_j$ with the maximum
@@ -363,6 +369,18 @@ Table~\ref{tab:recovered_values}).
 	reliability we have fit the mock data with the exact, known parametrization
 	of its evolutionary history and nucleosynthetic yields with accurate
 	estimates of the uncertainties.
+
+	\item These tests against mock samples demonstrate the importance of
+	the two central features of our method -- weighting the likelihood by the
+	SFH and marginalizing over the track for each datum (see discussion
+	in~\S~\ref{sec:fitting}).
+	When either the weights or the marginalization are excluded from the fit
+	procedure, the method fails to recover the evolutionary parameters with
+	discrepancies at the many-$\sigma$ level between the best-fit and known
+	values.
+	For this reason, we caution against the accuracy of GCE parameters which
+	are inferred from simpler likelihood estimates, such as matching each datum
+	with the nearest point on the track.
 
 \end{itemize}
 

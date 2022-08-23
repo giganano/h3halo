@@ -73,9 +73,9 @@
 	equations which we discuss below.
 	Throughout this paper, we solve these equations using the publicly
 	available~\textsc{Versatile Integrator for Chemical Evolution}
-	(\vice;~\citealp{Johnson2020}).\footnote{
+	(\vice\footnote{
 		\url{https://pypi.org/project/vice}
-	}
+	};~\citealp{Johnson2020}).
 
 \end{itemize}
 
@@ -646,12 +646,18 @@
 	% evolution, the modification to equation~\refp{eq:likelihood} is simple
 	% (see discussion below).
 
-	\item The validity of equation~\refp{eq:likelihood} is contingent on a
-	handful of assumptions regarding the data~\script{D} and predicted
-	track~\script{M}.
-	We discuss them individually below, noting how equation~\refp{eq:likelihood}
-	may change in form as necessary, and we refer to Appendix
-	\ref{sec:l_derivation} for detailed justification.
+	\item The marginalization over the track and the weighted likelihood are
+	of the utmost importance to the accuracy of the fit.
+	In our tests against mock samples (see~\S~\ref{sec:mocks} below), we are
+	unable to recover the known evolutionary parameters of the mock with
+	discrepancies at the many-$\sigma$ level if either is neglected.
+	% For this reason, we caution against the validity of evolutionary parameters
+	% which are inferred from simple likelihood estimates, such as matching each
+	% datum with the nearest point on the track.
+	Equation~\refp{eq:likelihood} can however change slightly in form if one of
+	a handful of conditions are met.
+	We discuss them individually below, noting the necessary changes in form,
+	and we refer to Appendix~\ref{sec:l_derivation} for detailed justification.
 	\begin{itemize}
 		\item \textit{The track is infinitely thin.}
 		In the absence of measurement errors, all of the data would fall

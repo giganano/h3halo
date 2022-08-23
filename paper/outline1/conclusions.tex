@@ -10,44 +10,69 @@
 	\item Starting from first principles with an IPPP and an arbitrary
 	astrophysical model which predicts an arbitrary evolutionary track in some
 	observed space, we have developed a Bayesian method for fitting one-zone
-	GCE models to observed stellar abundances and ages (where available).
+	GCE models to observed stellar abundances and ages, where available (see
+	discussion in~\S~\ref{sec:fitting} and derivation in Appendix
+	\ref{sec:l_derivation}).
 	This derivation does not assume that the evolutionary track is predicted by
 	a GCE model or that the observational benchmarks are stellar ages and
-	abundances.
-	It should therefore be easily extensible to other astrophysical models in
-	which the chief prediction is a track of some form (e.g. stellar streams
-	in kinematic space and isochrones in CMDs).
-	
-	\item The result of this process is a single exact form for the likelihood
-	function given by equation~\refp{eq:likelihood}.
-	Although there are a number of examples in the literature already in which
-	the authors apply statistical likelihood calculations with GCE models to
-	observed samples of stars~\citep[e.g.][]{Spitoni2020, Spitoni2021,
-	Hasselquist2021}, to our knowledge this is the first of such instances in
-	which the statistical validity of the likelihood function has been robustly
-	demonstrated.
-	There are two central features of this likelihood function which are of
-	particular importance to ensure accuracy in the inferred best-fit
-	parameters (see discussion in~\S~\ref{sec:fitting}).
+	abundances, and should therefore be easily extensible to other
+	astrophysical models in which the chief prediction is a track of some form
+	(e.g. stellar streams in kinematic space and isochrones in CMDs).
+
+	\item The result of this process is a likelihood function whose detailed
+	form can change slightly depending on a handful of conditions regarding the
+	data and how the model is parametrized and computed.
+	Although there are a handful of examples in the literature already in which
+	the authors derive best-fit parameters for GCE models
+	\citep[e.g.][]{Kirby2011, Spitoni2020, Spitoni2021, Hasselquist2021}, to
+	our knowledge this is the first of such instances in which the statistical
+	validity of the method has been robustly demonstrated.
+	There are two central features to our likelihood function which appear in
+	all of its forms.
 	First, the likelihood of observing some datum~$\script{D}_i$ must be
 	marginalized over the entire evolutionary track~\script{M}.
-	This arises due to observational uncertainties: there is now way of knowing
-	which point on the track~$\script{M}_j$ that~$\script{D}_i$ arose from,
-	and to take this into account, one must consider all pair-wise combinations.
-	Second, the likelihood of observing a datum~$\script{D}_i$ given a point
-	on the track~$\script{M}_j$ must be weighted by the SFR at that time in
-	the model, also incorporating any selection effects of the survey.
+	This arises due to observational uncertainties: for any given datum, there
+	is no way of knowing where on the track it truly arose from, and to
+	properly take this into account, one must consider all pair-wise
+	combinations of~\script{D} and~\script{M}.
+	Second, the likelihood of observing a datum~$\script{D}_i$ given a point on
+	the track~$\script{M}_j$ must be weighted by the SFR at that time in the
+	model, simultaneously folding in any selection effects introduced by the
+	survey.
 	This arises because an observed star is proportionally more likely to have
-	been sampled from an epoch of a galaxy's history in which the SFR was large.
-	Although it may be tempting to simply associate each datum~$\script{D}_i$
-	with the closest point on the evolutionary track, the detailed form of the
-	SFH means that this is not necessarily the most likely point from which
-	$\script{D}_i$ arose.
-	Unless both of these conditions discussed above are met, we are unable
-	to recover the known parameters of our mock samples with inaccuracies
-	at the many~$\sigma$ level.
-	We therefore caution against the accuracy of GCE model fits which do not
-	satisfy both criteria.
+	been sampled from an epoch of a galaxy's history in which the SFR was
+	large and/or if the survey design is biased toward those epochs.
+
+	% \item The result of this process is a single exact form for the likelihood
+	% function given by equation~\refp{eq:likelihood}.
+	% Although there are a number of examples in the literature already in which
+	% the authors apply statistical likelihood calculations with GCE models to
+	% observed samples of stars~\citep[e.g.][]{Spitoni2020, Spitoni2021,
+	% Hasselquist2021}, to our knowledge this is the first of such instances in
+	% which the statistical validity of the likelihood function has been robustly
+	% demonstrated.
+	% There are two central features of this likelihood function which are of
+	% particular importance to ensure accuracy in the inferred best-fit
+	% parameters (see discussion in~\S~\ref{sec:fitting}).
+	% First, the likelihood of observing some datum~$\script{D}_i$ must be
+	% marginalized over the entire evolutionary track~\script{M}.
+	% This arises due to observational uncertainties: there is now way of knowing
+	% which point on the track~$\script{M}_j$ that~$\script{D}_i$ arose from,
+	% and to take this into account, one must consider all pair-wise combinations.
+	% Second, the likelihood of observing a datum~$\script{D}_i$ given a point
+	% on the track~$\script{M}_j$ must be weighted by the SFR at that time in
+	% the model, also incorporating any selection effects of the survey.
+	% This arises because an observed star is proportionally more likely to have
+	% been sampled from an epoch of a galaxy's history in which the SFR was large.
+	% Although it may be tempting to simply associate each datum~$\script{D}_i$
+	% with the closest point on the evolutionary track, the detailed form of the
+	% SFH means that this is not necessarily the most likely point from which
+	% $\script{D}_i$ arose.
+	% Unless both of these conditions discussed above are met, we are unable
+	% to recover the known parameters of our mock samples with inaccuracies
+	% at the many~$\sigma$ level.
+	% We therefore caution against the accuracy of GCE model fits which do not
+	% satisfy both criteria.
 
 	\item We test the accuracy of this fitting method by means of mock data
 	samples.
@@ -73,8 +98,23 @@
 	takes the model-predicted track as input and is independent of the details
 	of the model from which it was computed.
 
-	\item Intriguingly, we are able to derive accurate fits for evolutionary
-	timescales even in the~\textit{absence} of age information.
+	\item Our tests against mock samples fail if either the marginalization
+	over the track or an SFR-weighted likelihood are excluded from the
+	likelihood estimation.
+	We emphasize that it is not that the marginalization and the weights each
+	individually improve the accuracy of the fit; it is that they are both
+	\textit{essential} to the accuracy of the inferred parameters.
+	Unless both are included, we find discrepancies at the many-$\sigma$ level
+	between the known evolutionary parameters of the underlying model and the
+	inferred best-fit values.
+	Although it may be tempting to simply, e.g., associate each datum
+	$\script{D}_i$ with the closest point on the evolutionary track, these
+	methods fail this litmus test against mock data.
+	Existing GCE parameter estimates in the literature derived through such
+	methods may require revision.
+
+	\item Intriguingly, this method is able to derive accurate fits for
+	evolutionary timescales even in the~\textit{absence} of age information.
 	This arises through their impact on the normalization and shape of the
 	observed MDF, and this information can be extracted with a fit to a sample
 	of sufficient size and/or measurement precision.

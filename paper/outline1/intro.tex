@@ -133,36 +133,52 @@
 	estimates.
 	The distribution of stars in abundance space is generally non-uniform, and
 	the probability of randomly sampling a star from a given epoch of some
-	galaxy's evolution scales with the star formation rate (SFR) at that time
-	(modulo the selection function of the survey).
+	galaxy's evolution scales with the star formation rate (SFR) at that time,
+	modulo the selection function of the survey.
 	Therefore, to model the enrichment history of a galaxy in a statistically
 	robust manner, GCE models by nature demand an explanation according to an
 	inhomogeneous poisson point process (IPPP; see, e.g.,~\citealp{Press2007}).
-	To this end, we apply the principles of an IPPP to models which predict
-	``tracks'' in some observed space as in GCE models to derive a likelihood
-	function which requires no binning of the data and should be applicable as
-	long as the one-zone approximation is valid.
-	We present a detailed derivation of this likelihood function in Appendix
-	\ref{sec:l_derivation} and present qualitative discussion
-	in~\S~\ref{sec:fitting}.
-	Because this derivation assumes only that the model predicts an
-	evolutionary track in some observed space, it should therefore be
-	extensible to other astrophysical models which also predict evolutionary
-	tracks, such as stellar streams in kinematic space and isochrones on CMDs,
-	though we limit our discussion in the present paper to our use case of
-	one-zone GCE models.
-
-	\item This procedure results in a single~\textit{exact} form of the
+	To this end, in this paper we apply the principles of an IPPP to an
+	arbitrary model-predicted track in some observed space to derive a
 	likelihood function.
-	We demonstrate by means of mock samples that this likelihood function is
-	accurate with as few as~$\sim$20 stars (our smallest test case;
-	see~\S~\ref{sec:mocks}) even when no age information is available.
-	We then apply this method to two stellar streams observed in the Milky Way
-	halo using data from the H3 survey~\citep{Conroy2019}.
+	This derivation does not assume that the track was predicted by a GCE model,
+	and it should therefore be easily extensible to other astrophysical models
+	which predict evolutionary tracks such as stellar streams in kinematic
+	space of isochrones on CMDs, though here we limit our discussion to our use
+	case of one-zone GCE models.
+	We then demonstrate this method in application to two stellar streams in
+	the Milky Way halo using data from the H3 survey (Hectochelle in the Halo
+	at High resolution;~\citealp{Conroy2019}).
 	One has received a considerable amount of attention in the literature: the
 	Gaia-Sausage Enceladus~\citep[GSE;][]{Belokurov2018, Helmi2018}, and
-	the other, discovered more recently, is a less well-studied system: the
+	the other, discovered more recently, is a less deeply studied system: the
 	Wukong stream~\citep{Naidu2020, Naidu2022}.
+
+	% models
+	% which predict ``tracks'' in some observed space as in GCE models to derive a likelihood
+	% function which requires no binning of the data and should be applicable as
+	% long as the one-zone approximation is valid.
+	% We present a detailed derivation of this likelihood function in Appendix
+	% \ref{sec:l_derivation} and present qualitative discussion
+	% in~\S~\ref{sec:fitting}.
+	% Because this derivation assumes only that the model predicts an
+	% evolutionary track in some observed space, it should therefore be
+	% extensible to other astrophysical models which also predict evolutionary
+	% tracks, such as stellar streams in kinematic space and isochrones on CMDs,
+	% though we limit our discussion in the present paper to our use case of
+	% one-zone GCE models.
+
+	% \item This procedure results in a single~\textit{exact} form of the
+	% likelihood function.
+	% We demonstrate by means of mock samples that this likelihood function is
+	% accurate with as few as~$\sim$20 stars (our smallest test case;
+	% see~\S~\ref{sec:mocks}) even when no age information is available.
+	% We then apply this method to two stellar streams observed in the Milky Way
+	% halo using data from the H3 survey~\citep{Conroy2019}.
+	% One has received a considerable amount of attention in the literature: the
+	% Gaia-Sausage Enceladus~\citep[GSE;][]{Belokurov2018, Helmi2018}, and
+	% the other, discovered more recently, is a less well-studied system: the
+	% Wukong stream~\citep{Naidu2020, Naidu2022}.
 
 	% \item Here we develop an approach which is widely applicable as long as the
 	% one-zone approximation is valid and requires no binning of the data.
