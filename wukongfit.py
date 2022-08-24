@@ -16,7 +16,7 @@ import time
 import os
 
 DATA_FILE = "./data/wukong/wukong.dat"
-OUTFILE = "./data/wukong/wukong_noages_512k.out"
+OUTFILE = "./data/wukong/wukong_withyields_512k.out"
 MODEL_BASENAME = "wukongfit"
 
 
