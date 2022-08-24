@@ -16,7 +16,7 @@ import time
 import os
 
 DATA_FILE = "./data/gse/gsechem.dat"
-OUTFILE = "./data/gse/gsechem_512k.out"
+OUTFILE = "./data/gse/gsechem_noages_512k.out"
 MODEL_BASENAME = "gsefit"
 
 
@@ -176,8 +176,8 @@ if __name__ == "__main__":
 		# "[mg/fe]_err": np.array([row[3] for row in raw]),
 		"[o/fe]": np.array([row[2] for row in raw]),
 		"[o/fe]_err": np.array([row[3] for row in raw]),
-		"lookback": np.array([row[4] for row in raw]),
-		"lookback_err": np.array([row[5] for row in raw])
+		# "lookback": np.array([row[4] for row in raw]),
+		# "lookback_err": np.array([row[5] for row in raw])
 	}
 	log_prob = gsefit(data)
 	pool = Pool(N_PROC)

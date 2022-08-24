@@ -16,17 +16,17 @@ import time
 import os
 
 DATA_FILE = "./data/wukong/wukong.dat"
-OUTFILE = "./data/wukong/wukong_expifr_102k4.out"
+OUTFILE = "./data/wukong/wukong_noages_512k.out"
 MODEL_BASENAME = "wukongfit"
 
 
-N_PROC = 10
+N_PROC = 40
 N_TIMESTEPS = 500
 N_WALKERS = 256
-N_BURNIN = 200
-N_ITERS = 400
+N_BURNIN = 1000
+N_ITERS = 2000
 COSMOLOGICAL_AGE = 13.2
-N_DIM = 4
+N_DIM = 6
 
 # emcee walker parameters (exponential IFR)
 #
@@ -34,18 +34,8 @@ N_DIM = 4
 # 1. mass loading factor
 # 2. SFE timescale
 # 3. total duration of the model
-
-# emcee walker parameters (constant SFR)
-#
-# 0. mass loading factor
-# 1. SFE timescale
-# 2. total duration of the model
-### 3. IMF-averaged Fe yield from CCSNe
-### 4. DTD-integrated Fe yield from SNe Ia
-
-
-def constantsfr(t):
-	return 1000
+### 4. IMF-averaged Fe yield from CCSNe
+### 5. DTD-integrated Fe yield from SNe Ia
 
 
 class wukongfit(mcmc):
@@ -63,15 +53,15 @@ class wukongfit(mcmc):
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		if walker[3] > COSMOLOGICAL_AGE: return -float("inf")
-		print("walker: [%.2f, %.2f, %.2f, %.2f]" % (walker[0], walker[1],
-			walker[2], walker[3]))
+		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2e, %.2e]" % (walker[0],
+			walker[1], walker[2], walker[3], walker[4], walker[5]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
 		self.sz.func.timescale = walker[0]
 		self.sz.eta = walker[1]
 		self.sz.tau_star = walker[2]
 		self.sz.dt = walker[3] / N_TIMESTEPS
-		# vice.yields.ccsne.settings['fe'] = walker[3]
-		# vice.yields.sneia.settings['fe'] = walker[4]
+		vice.yields.ccsne.settings['fe'] = walker[4]
+		vice.yields.sneia.settings['fe'] = walker[5]
 		output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1),
 			overwrite = True, capture = True)
 		model = []
