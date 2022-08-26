@@ -16,15 +16,15 @@ import time
 import os
 
 DATA_FILE = "./data/wukong/wukong.dat"
-OUTFILE = "./data/wukong/wukong_withyields_512k.out"
+OUTFILE = "./data/wukong/wukong_withyields_102k4.out"
 MODEL_BASENAME = "wukongfit"
 
 
-N_PROC = 40
+N_PROC = 10
 N_TIMESTEPS = 500
 N_WALKERS = 256
-N_BURNIN = 1000
-N_ITERS = 2000
+N_BURNIN = 200
+N_ITERS = 400
 COSMOLOGICAL_AGE = 13.2
 N_DIM = 6
 
@@ -89,6 +89,10 @@ if __name__ == "__main__":
 	# for i in range(len(p0)):
 	# 	p0[i][3] /= 1000
 	# 	p0[i][4] /= 1000
+	# Confine the yields to a plausible range to begin with
+	for i in range(len(p0)):
+		p0[i][4] /= 100
+		p0[i][5] /= 100
 	start = time.time()
 	state = sampler.run_mcmc(p0, N_BURNIN)
 	sampler.reset()
