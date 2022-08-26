@@ -13,6 +13,7 @@ vice.yields.sneia.settings['o'] = 0
 vice.yields.ccsne.settings['fe'] = 7.78e-4
 vice.yields.sneia.settings['fe'] = 1.23e-3
 import time
+import sys
 import os
 
 DATA_FILE = "./data/wukong/wukong.dat"
@@ -100,4 +101,7 @@ if __name__ == "__main__":
 	stop = time.time()
 	print("MCMC time: ", stop - start)
 	savechain(sampler, OUTFILE)
+	sys.stdout.flush()
+	time.sleep(5)
+
 
