@@ -20,11 +20,11 @@ LABELS = [
 	r"$\eta$",
 	r"$\tau_\star$ [Gyr]",
 	r"$\tau_\text{tot}$ [Gyr]",
-	# r"$10^4\times y_\text{Fe}^\text{CC}$",
-	# r"$10^3\times y_\text{Fe}^\text{Ia}$"
+	r"$10^4\times y_\text{Fe}^\text{CC}$",
+	r"$10^3\times y_\text{Fe}^\text{Ia}$"
 ]
-# RANGE = None
-RANGE = [
+RANGE = None
+# RANGE = [
 # 	(0.4, 1.6),
 # 	(4, 13),
 # 	(11, 22),
@@ -32,13 +32,13 @@ RANGE = [
 # 	(6.2, 9.6),
 # 	(0.8, 1.7)
 ###
-	(0, 12),
-	(30, 70),
-	(20, 70),
-	(2, 5)
-]
+# 	(0, 12),
+# 	(30, 70),
+# 	(20, 70),
+# 	(2, 5)
+# ]
 TICKS = None
-TICKS = [
+# TICKS = [
 # 	[0.5, 1, 1.5],
 # 	[6, 8, 10, 12],
 # 	[15, 20],
@@ -46,11 +46,11 @@ TICKS = [
 # 	[7, 8, 9],
 # 	[1.0, 1.5]
 ###
-	[2, 4, 6, 8, 10],
-	[40, 50, 60],
-	[30, 40, 50, 60],
-	[3, 4]
-]
+# 	[2, 4, 6, 8, 10],
+# 	[40, 50, 60],
+# 	[30, 40, 50, 60],
+# 	[3, 4]
+# ]
 MAXLOGP_KWARGS = {
 	"c": named_colors()["deepskyblue"],
 	"marker": markers()["star"],
@@ -60,16 +60,18 @@ MAXLOGP_KWARGS = {
 
 raw = np.genfromtxt(FILENAME)
 raw = np.array(list(filter(lambda _: not np.isinf(_[-1]), raw)))
-raw = np.array(list(filter(lambda _: _[0] <= 100, raw)))
-raw = np.array(list(filter(lambda _: _[-2] <= 6, raw)))
+# raw = np.array(list(filter(lambda _: _[0] <= 10, raw)))
+# raw = np.array(list(filter(lambda _: _[-2] <= 0.002, raw)))
+# raw = np.array(list(filter(lambda _: _[-3] <= 1e-3, raw)))
+# raw = np.array(list(filter(lambda _: _[-2] <= 6, raw)))
 # raw = np.array(list(filter(lambda _: RANGE[0][0] <= _[0] <= RANGE[0][1], raw)))
 # raw = np.array(list(filter(lambda _: _[-3] < 12e-4, raw)))
 # raw = np.array(list(filter(lambda _: RANGE[1][0] <= _[1] <= RANGE[1][1], raw)))
 print(len(raw))
 mcmc_chain = np.array([row[:-1] for row in raw])
-# for i in range(len(mcmc_chain)):
-# 	mcmc_chain[i][-1] *= 1000
-# 	mcmc_chain[i][-2] *= 10000
+for i in range(len(mcmc_chain)):
+	mcmc_chain[i][-1] *= 1000
+	mcmc_chain[i][-2] *= 10000
 # 	mcmc_chain[i][-3] *= 1000
 logp = [row[-1] for row in raw]
 idxmax = logp.index(max(logp))
