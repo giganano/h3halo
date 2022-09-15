@@ -17,15 +17,15 @@ import sys
 import os
 
 DATA_FILE = "./data/wukong/wukong.dat"
-OUTFILE = "./data/wukong/wukong_withyields_512k.out"
+OUTFILE = "./data/wukong/wukong_withyields_102k4.out"
 MODEL_BASENAME = "wukongfit"
 
 
-N_PROC = 40
+N_PROC = 10
 N_TIMESTEPS = 500
 N_WALKERS = 256
-N_BURNIN = 1000
-N_ITERS = 2000
+N_BURNIN = 200
+N_ITERS = 400
 COSMOLOGICAL_AGE = 13.2
 N_DIM = 6
 
@@ -54,6 +54,8 @@ class wukongfit(mcmc):
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		if walker[3] > COSMOLOGICAL_AGE: return -float("inf")
+		if walker[4] > 0.01: return -float("inf")
+		if walker[5] > 0.01: return -float("inf")
 		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2e, %.2e]" % (walker[0],
 			walker[1], walker[2], walker[3], walker[4], walker[5]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
@@ -92,8 +94,8 @@ if __name__ == "__main__":
 	# 	p0[i][4] /= 1000
 	# Confine the yields to a plausible range to begin with
 	for i in range(len(p0)):
-		p0[i][4] /= 100
-		p0[i][5] /= 100
+		p0[i][4] /= 1000
+		p0[i][5] /= 1000
 	start = time.time()
 	state = sampler.run_mcmc(p0, N_BURNIN)
 	sampler.reset()
