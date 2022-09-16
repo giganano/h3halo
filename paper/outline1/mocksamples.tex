@@ -568,79 +568,91 @@ in black according to the legend in the upper right panel.
 	Wheeler2014}), but unfortunately simulation outcomes are strongly dependent
 	on the details of the adopted sub-grid models~\citep[e.g.][]{Li2020} as
 	well as how feedback and the grid itself are implemented~\citep{Hu2022}.
-
-	\item Our results suggest that the duration of star formation can instead
-	be inferred from the abundances of alpha and iron-peak elements alone,
-	though having~\textit{some} age information can significantly improve the
+	Our results suggest that the duration of star formation can instead be
+	inferred from the abundances of alpha and iron-peak elements alone, though
+	having~\textit{some} age information can significantly improve the
 	precision of the fit.
-	To benchmark the requirements for deriving these ``chemical quenching
-	times,'' we note from Table~\ref{tab:recovered_values} that our method
-	recovers the duration of star formation with~$\sim$30\% precision with
-	$f_\text{age} = 0$ and with~$\sim$5\% precision with $f_\text{age} = 0.3$
-	for an~$N = 500$ sample, and that this precision scales with the age
-	uncertainties approximately as~$\sigma_{\tau_\text{tot}} / \tau_\text{tot}
-	\propto \sigma_{\log_{10}(\text{age})}^{0.4}$.
-	Furthermore, Fig.~\ref{fig:precision} suggests that the precision of each
-	inferred parameter is affected similarly by sample size, scaling
-	approximately as~$\sigma / \theta \propto N^{-0.5}$.
-	This suggests that deriving the duration of star formation with no age
-	information whatsoever would require~$N \approx 4500$ stars for 10\%
-	precision, but only~$N \approx 180$ for 50\% precision and~$N \approx 45$
-	for order unity precision.
-	However, if only~$\sim$30\% of the sample has age information with
-	$\sim$23\% measurement uncertainty as in our fiducial mock sample (i.e.
-	$\sigma_{\log_{10}(\text{age})} = 0.1$), these scalings suggest that only
-	$N \approx 125$ stars are required to determine the duration of star
-	formation with~$\sim$10\% precision and only~$N \approx 5$ for~$\sim$50\%
-	precision, although the number of degrees of freedom in the model is
-	considerably limited with only~$\sim$5 stars.
-	If the age measurements are instead much more uncertain with only order
-	of magnitude precision (i.e.~$\sigma_{\log_{10}(\text{age})} = 1$), then
-	these scalings suggest that still only~$N \approx 315$ stars are required
-	to derive the duration of star formation with~$\sim$10\% precision and
-	$N \approx 15$ for 50\% precision, though the latter case is again in the
-	regime where the number of degrees of freedom is limited.
+	However, we demonstrate in~\S~\ref{sec:h3:gse} that there are issues that
+	arise in practice when comparing to observed data where the functional form
+	of the evolutionary history and systematics impacting the data are not
+	known exactly.
 
-	% All parameters are affected similarly by the size of the sample, with
-	% the precision scaling approximately as~$\sigma/\theta \propto N^{-0.5}$.
-	% In other words, a factor of 10 increase in precision for each inferred
-	% parameter~$\theta$ would require a factor of 100 increase in sample size 
-	% assuming similar measurement uncertainties and availability of age
-	% information.
+	% \item Our results suggest that the duration of star formation can instead
+	% be inferred from the abundances of alpha and iron-peak elements alone,
+	% though having~\textit{some} age information can significantly improve the
+	% precision of the fit.
+	% However, not only do we fit our mock samples with the exact underlying
+	% GCE model, we also use the same numerical code from which the data were
+	% drawn to do so.
+	% This places the exact same systematic effects on the data as in the model.
+	% In~\S~\ref{sec:h3:gse} below, we demonstrate that the age distribution of
+	% the GSE is accurately described by our fitting method only when including
+	% age information in the fit.
+	% Although ages bring little to the table when the exact functional form of
+	% the evolutionary history and the systematics impacting the data are known,
+	% in practice they bring 
 
-	\item Deriving the quenching time as it is traditionally defined -- the
-	lookback time to the cessation of star formation -- then requires some
-	assumption or knowledge of the lookback time to its beginning.
-	Inspection of the average SFHs predicted by the~\textsc{UniverseMachine}
-	semi-analytic model for galaxy formation~\citep{Behroozi2019} suggests that
-	this generally occurs a little over~$\sim$13 Gyr ago across many decades in
-	stellar mass.
-	The durations of star formation inferred by this method should also
-	be independent of the yield-outflow degeneracy (see discussion
-	in~\S~\ref{sec:mocks:fiducial_fit} and in Appendix
-	\ref{sec:yield_outflow_degeneracy}), meaning that they should be the same
-	regardless of the assumed absolute scale of nucleosynthetic yields and
-	outflows.
-	The feasibility of determining the duration of star formation with minimal
-	or no age information as well as its independence from the yield-outflow
-	degeneracy both arise from the fact that this parameter does not impact the
-	normalization of the MDF, affecting only the shape by cutting it off when
-	star formation stops.
-	With a sample which is sufficient in some combination of size and/or
-	measurement precision, this information can be extracted from the observed
-	MDF.
-	We however caution that the accuracy of this method is contingent on
-	the galaxy in question being accurately described by a one-zone model of
-	chemical evolution.
-	Furthermore, the inferred timescales will be model-dependent and could be
-	inaccurate if the parametrization is a poor description of the galaxy's
-	evolutionary history.
-	% For example, if an exponential infall history is not a sufficiently
-	% accurate assumption but is adopted nonetheless, then the accuracy and
-	% precision of the fit will suffer, as in any statistical parameter
-	% optimization.
-	Standard quality-of-fit diagnostics such as chi-squared per degree of
-	freedom are a useful litmus test for such cases.
+	% \item Our results suggest that the duration of star formation can instead
+	% be inferred from the abundances of alpha and iron-peak elements alone,
+	% though having~\textit{some} age information can significantly improve the
+	% precision of the fit.
+	% To benchmark the requirements for deriving these ``chemical quenching
+	% times,'' we note from Table~\ref{tab:recovered_values} that our method
+	% recovers the duration of star formation with~$\sim$30\% precision with
+	% $f_\text{age} = 0$ and with~$\sim$5\% precision with $f_\text{age} = 0.3$
+	% for an~$N = 500$ sample, and that this precision scales with the age
+	% uncertainties approximately as~$\sigma_{\tau_\text{tot}} / \tau_\text{tot}
+	% \propto \sigma_{\log_{10}(\text{age})}^{0.4}$.
+	% Furthermore, Fig.~\ref{fig:precision} suggests that the precision of each
+	% inferred parameter is affected similarly by sample size, scaling
+	% approximately as~$\sigma / \theta \propto N^{-0.5}$.
+	% This suggests that deriving the duration of star formation with no age
+	% information whatsoever would require~$N \approx 4500$ stars for 10\%
+	% precision, but only~$N \approx 180$ for 50\% precision and~$N \approx 45$
+	% for order unity precision.
+	% However, if only~$\sim$30\% of the sample has age information with
+	% $\sim$23\% measurement uncertainty as in our fiducial mock sample (i.e.
+	% $\sigma_{\log_{10}(\text{age})} = 0.1$), these scalings suggest that only
+	% $N \approx 125$ stars are required to determine the duration of star
+	% formation with~$\sim$10\% precision and only~$N \approx 5$ for~$\sim$50\%
+	% precision, although the number of degrees of freedom in the model is
+	% considerably limited with only~$\sim$5 stars.
+	% If the age measurements are instead much more uncertain with only order
+	% of magnitude precision (i.e.~$\sigma_{\log_{10}(\text{age})} = 1$), then
+	% these scalings suggest that still only~$N \approx 315$ stars are required
+	% to derive the duration of star formation with~$\sim$10\% precision and
+	% $N \approx 15$ for 50\% precision, though the latter case is again in the
+	% regime where the number of degrees of freedom is limited.
+
+	% \item Deriving the quenching time as it is traditionally defined -- the
+	% lookback time to the cessation of star formation -- then requires some
+	% assumption or knowledge of the lookback time to its beginning.
+	% Inspection of the average SFHs predicted by the~\textsc{UniverseMachine}
+	% semi-analytic model for galaxy formation~\citep{Behroozi2019} suggests that
+	% this generally occurs a little over~$\sim$13 Gyr ago across many decades in
+	% stellar mass.
+	% The durations of star formation inferred by this method should also
+	% be independent of the yield-outflow degeneracy (see discussion
+	% in~\S~\ref{sec:mocks:fiducial_fit} and in Appendix
+	% \ref{sec:yield_outflow_degeneracy}), meaning that they should be the same
+	% regardless of the assumed absolute scale of nucleosynthetic yields and
+	% outflows.
+	% The feasibility of determining the duration of star formation with minimal
+	% or no age information as well as its independence from the yield-outflow
+	% degeneracy both arise from the fact that this parameter does not impact the
+	% normalization of the MDF, affecting only the shape by cutting it off when
+	% star formation stops.
+	% With a sample which is sufficient in some combination of size and/or
+	% measurement precision, this information can be extracted from the observed
+	% MDF.
+	% We however caution that the accuracy of this method is contingent on
+	% the galaxy in question being accurately described by a one-zone model of
+	% chemical evolution.
+	% Furthermore, the inferred timescales will be model-dependent and could be
+	% inaccurate if the parametrization is a poor description of the galaxy's
+	% evolutionary history.
+	% Standard quality-of-fit diagnostics such as chi-squared per degree of
+	% freedom are a useful litmus test for such cases.
 
 \end{itemize}
 

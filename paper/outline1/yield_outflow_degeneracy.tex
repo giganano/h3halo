@@ -74,8 +74,8 @@ in this paper to set the scale of this degeneracy.
 	\citealp{Spitoni2019, Spitoni2021}, and the recently released publicly
 	available GCE code~\textsc{GalCEM}; Gjergo et al. 2022, in prep).
 	This argument is, however, at odds with the empirical result that
-	multi-phase galaxy-scale outflows are ubiquitous (see, e.g., the
-	recent review in~\citealp{Veilleux2020}).
+	multi-phase galaxy-scale outflows are ubiquitous around galaxies of a broad
+	range of masses (see, e.g., the recent review in~\citealp{Veilleux2020}).
 	Furthermore, mesaurements of the deuterium abundance (\citealp{Linsky2006};
 	~\citealp*{Prodanovic2010}) and the~$^3$He/$^4$He ratio~\citep{Balser2018}
 	in the local ISM indicate near-primordial values.
@@ -89,7 +89,7 @@ in this paper to set the scale of this degeneracy.
 
 	\item Suffice it to say that the community has settled on neither the
 	proper parametrization nor the importance of outflows in GCE models.
-	As discussed in~\S\S~\ref{sec:onezone:gas} and~\ref{sec:onezone:yields},
+	As discussed in~\S~\ref{sec:onezone},
 	the strength of outflows (i.e. the value of~$\eta$ in this work) is
 	strongly degnerate with the absolute scale of effective nucleosynthetic
 	yields because the latter is the primary source term in describing the
@@ -98,14 +98,30 @@ in this paper to set the scale of this degeneracy.
 	\item In this paper, we have applied our fitting method on an assumed scale
 	in which the alpha-element yield from massive stars is defined to
 	be~$\yacc \equiv 0.1$.
-	We quantify the strength of the yield-outflow degeneracy by instead
+	As mentioned in~\S~\ref{sec:onezone}, this value is somewhat informed by
+	nucleosynthesis theory in that massive star evolutionar models
+	\citep{Nomoto2013, Sukhbold2016, Limongi2018} typically predict
+	IMF-averaged O yields of~$y_\text{O}^\text{CC} = 0.005 - 0.015$.
+	While massive star explodability and the black hole landscape
+	\citep[e.g.][]{OConnor2011, Pejcha2015, Ertl2016, Sukhbold2016} can produce
+	lower values of~\yacc~by factors of~$\sim2 - 3$~\citep{Griffith2021},
+	values lower by an order of magnitude or more can be achieved if a
+	significant fraction of SN ejecta are immediately lost to a hot outflow.
+	This is a necessary addition to models which assume~$\eta = 0$ as otherwise
+	unphysically high metal abundances will arise.
+	There is some observational support for this scenario in that galactic
+	outflows have been seen to be significantly more metal-rich than the ISM of
+	the host galaxy (\citealp*{Chisholm2018};~\citealp{Cameron2021}), but the
+	metallicities are not as high as the SN ejecta themselves and cold-phase
+	material is generally observed in outflows as well (e.g., in M82,
+	\citealp{Lopez2020}; see also the recent review by~\citealp{Veilleux2020}).
+
+	\item We now quantify the strength of the yield-outflow degeneracy by
 	introducing~\yacc~as an additional free parameter in our fit to our
 	fiducial mock sample described in~\S~\ref{sec:mocks:fiducial}.
 	Otherwise, we follow the exact same procedure to recover the known
 	evolutionary parameters of the mock as discussed
 	in~\S\S~\ref{sec:fitting} and~\ref{sec:mocks:fiducial_fit}.
-	% In the main body of this paper, we have fixed the~\yacc~at a value of 0.01
-	% in order to set an overall scale
 	Fig.~\ref{fig:degeneracy} illustrates the results of this procedure in the
 	form of the ``corner-plot'' with the marginalized likelihood distributions
 	along the diagonal and the 2-dimensional cross-sections of the likelihood

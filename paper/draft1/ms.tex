@@ -1,0 +1,95 @@
+
+\documentclass[fleqn, usenatbib]{mnras}
+\usepackage{newtxtext, newtxmath} 	% Required for MNRAS
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{pdflscape}
+\usepackage{natbib}
+\usepackage[section]{placeins}
+\usepackage{lipsum}
+\usepackage{etoolbox}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage[toc, page]{appendix}
+\usepackage{subfiles}
+\usepackage{geometry}
+\setlength{\parskip}{0pt}
+% \linespread{1.8}
+\hypersetup{ % all blue links
+	colorlinks		= true,
+	urlcolor 		= blue,
+	linkcolor 		= blue,
+	citecolor 		= blue
+}
+
+\newcommand{\mc}{\textsc{emcee}}
+\newcommand{\vice}{\textsc{VICE}}
+\newcommand{\ah}{\ensuremath{\text{[}\alpha\text{/H]}}}
+\newcommand{\feh}{\ensuremath{\text{[Fe/H]}}}
+\newcommand{\afe}{\ensuremath{\text{[$\alpha$/Fe]}}}
+\newcommand{\logage}{\ensuremath{\log_{10}\text{(age)}}}
+\newcommand{\ddfrac}[2]{\frac{\displaystyle{#1}}{\displaystyle{#2}}}
+\newcommand{\refp}[1]{(\ref{#1})}
+\newcommand{\yacc}{\ensuremath{y_\alpha^\text{CC}}}
+\newcommand{\yfecc}{\ensuremath{y_\text{Fe}^\text{CC}}}
+\newcommand{\yfeia}{\ensuremath{y_\text{Fe}^\text{Ia}}}
+\newcommand{\script}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\scinote}[2]{\ensuremath{#1\times10^{#2}}}
+\newcommand{\erf}{\ensuremath{\text{erf}}}
+\newcommand{\python}{\textsc{python}}
+\newcommand{\msun}{\ensuremath{\text{M}_\odot}}
+
+% control over bibtex's alphabetizing
+\providecommand{\noopsort}[1]{}
+
+\title[One-Zone Models of Dwarf Galaxies]{Constraints on Dwarf Galaxy Evolution
+from Chemical Abundances}
+
+\author[J.W. Johnson et al.]{James W. Johnson,$^{1, 2}$\thanks{
+	Contact e-mail:~\href{mailto:johnson.7419@osu.edu}{johnson.7419@osu.edu}}
+	et al.
+	\\ \null \\
+	$^{1}$ Department of Astronomy, The Ohio State University,
+	140 W. 18th Ave., Columbus, OH, 43210, USA
+	\\
+	$^{2}$ Center for Cosmology and Astroparticle Physics (CCAPP),
+	The Ohio State University, 191 W. Woodruff Ave., Columbus, OH, 43210, USA
+}
+
+\date{Accepted XXX; Received YYY; in original form ZZZ}
+\pubyear{2022}
+
+\begin{document}
+\label{firstpage}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\maketitle
+
+\subfile{abstract.tex}
+
+\begin{keywords}
+methods: numerical -- galaxies: abundances -- galaxies: evolution --
+galaxies: star formation -- galaxies: stellar content
+\end{keywords}
+
+\subfile{intro.tex}
+\subfile{onezone.tex}
+\subfile{fitting.tex}
+\subfile{mocksamples.tex}
+\subfile{h3.tex}
+\subfile{conclusions.tex}
+
+\bibliographystyle{mnras}
+\bibliography{ms}
+
+\begin{appendices}
+\subfile{likelihood.tex}
+\subfile{yield_outflow_degeneracy.tex}
+\end{appendices}
+
+\label{lastpage}
+\end{document}
+

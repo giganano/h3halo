@@ -1,0 +1,123 @@
+
+\documentclass[ms.tex]{subfiles}
+\begin{document}
+
+\section{Galactic Chemical Evolution}
+\label{sec:onezone}
+
+The fundamental assumption of one-zone models is that newly produced metals mix
+instantaneously throughout the star-forming gas reservoir.
+In detail, this assumption is valid as long as the mixing timescale is short
+compared to the depletion timescale (i.e. the average time a fluid element
+remains in the ISM before getting incorporated into new stars or ejected in an
+outflow).
+Based on the observations of~\citet{Leroy2008},~\citet{Weinberg2017} calculate
+that characteristic depletion times can range from~$\sim500$ Myr up to~$\sim10$
+Gyr for conditions in typical star forming disc galaxies.
+In the dwarf galaxy regime, the length scales are short, star formation is slow
+\citep[e.g.][]{Hudson2015}, and the ISM velocities are turbulent
+\citep{Dutta2009, Stilp2013, Schleicher2016}.
+With this combination, instantaneous mixing should be a good approximation,
+though we are unaware of any studies which address this observationally.
+As long as the approximation is valid, then there should exist an evolutionary
+track in chemical space (e.g. the~\afe-\feh~plane) about which the intrinsic
+scatter is negligible compared to the measurement uncertainty.
+This empirical test should be feasible on a galaxy-by-galaxy basis.
+\par
+With the goal of assessing the information content of one-zone GCE models
+applied to dwarf galaxies, we emphasize that the accuracy of the methods we
+outline in this paper are contingent on the validity of the instantaneous
+mixing approximation.
+This assumption reduces GCE to a system of coupled integro-differential
+equations which we solve using the publicly available~\textsc{Versatile
+Integrator for Chemical Evolution} (\vice\footnote{
+	\url{https://pypi.org/project/vice}
+};~\citealp{Johnson2020}).
+We provide an overview of the model framework below and refer to
+\citet{Johnson2020} and the~\vice~science documentation\footnote{
+	\url{https://vice-astro.readthedocs.io/en/latest/science_documentation}
+} for further details.
+\par
+At a given moment in time, gas is added to the ISM via inflows and recycled
+stellar envelopes and is removed from the ISM by star formation and outflows,
+if present.
+This gives rise to the following differential equation describing the evolution
+of the gas supply:
+\begin{equation}
+\dot{M}_\text{g} = \dot{M}_\text{in} - \dot{M}_\star - \dot{M}_\text{out}
++ \dot{M}_\text{r},
+\label{eq:mdotgas}
+\end{equation}
+where~$\dot{M}_\text{in}$ is the infall rate,~$\dot{M}_\star$ is the SFR,
+$\dot{M}_\text{out}$ is the outflow rate, and~$\dot{M}_\text{r}$ describes
+the return of stellar envelopes from previous generations of stars.
+\par
+\vice~implements the same characterization of outflows as the~\textsc{FlexCE}
+\citep{Andrews2017} and~\textsc{OMEGA}~\citep{Cote2017} chemical evolution
+codes in which a ``mass-loading factor''~$\eta$ describes a linear relationship
+between the outflow rate itself and the SFR:
+\begin{equation}
+\eta \equiv \frac{\dot{M}_\text{out}}{\dot{M}_\star}.
+\end{equation}
+This parametrization is appropriate for models in which massive stars are the
+dominant source of energy for outflow-driving winds.
+Empirically, the strength of outflows (i.e. the value of~$\eta$) is strongly
+degenerate with the absolute scale of nucleosynthetic yields.
+This ``yield-outflow degeneracy'' arises because the yields themselves are the
+primary source term in describing enrichment rates in galaxies while outflows,
+if present, are the primary sink term.
+We discuss this further below and quantify the strength of the degeneracy in
+more detail in Appendix~\ref{sec:degeneracy}.
+\par
+The SFR and the mass of the ISM are related by the star formation efficiency
+(SFE) timescale~$\tau_\star$, defined as the ratio of the two:
+\begin{equation}
+\tau_\star \equiv \frac{M_\text{g}}{\dot{M}_\star}.
+\end{equation}
+The inverse~$\tau_\star^{-1}$ is the SFE itself, quantifying the
+\textit{fractional} rate at which some ISM fluid element is forming stars.
+Some authors refer to~$\tau_\star$ as the ``depletion time''
+\citep[e.g.][]{Tacconi2018} because it describes the e-folding decay timescale
+of the ISM mass due to star formation if no additional gas is added.
+Our nomenclature is based off of~\citet{Weinberg2017}, who demonstrate that
+depletion times in GCE models can shorten significantly in the presence of
+outflows.
+\par
+The recycling rate~$\dot{M}_\text{r}$ is a complicated function which depends
+on the stellar initial mass function~\citep[IMF; e.g.][]{Salpeter1955,
+Miller1979, Kroupa2001, Chabrier2003}, the initial-final remnant mass relation
+\citep[e.g.][]{Kalirai2008}, and the mass-lifetime relation\footnote{
+	We assume a~\citet{Kroupa2001} IMF and the~\citet{Larson1974} mass-lifetime
+	relation throughout this paper.
+	These choices, however, do not significantly impact our conclusions as
+	$\eta$ and~$\tau_\star$ play a much more significant role in establish the
+	evolutionary histories of our GCE models.
+	Our fitting method is nonetheless easily extensible to models which relax
+	these assumptions.
+}~\citep*[e.g.][]{Larson1974, Maeder1989, Hurley2000}, all of which must then
+be convolved with the SFH.
+However, the detailed rate of return of stellar envelopes has only a
+second-order effect on the gas-phase evolutionary track in the~\afe-\feh~plane.
+The first-order details are instead determined by the SFE timescale~$\tau_\star$
+and the mass-loading factor~$\eta$~\citep{Weinberg2017}.
+With low~$\tau_\star$, nucleosynthesis is fast due to fast star formation, and
+a higher metallicity can be attained before the onset of SNe Ia than in lower
+SFE models.
+For this reason,~$\tau_\star$ plays the dominant role in establishing the
+position of the ``knee'' in the~\afe-\feh~plane.
+As the galaxy evolves, it approaches a chemical equilibrium in which newly
+produced metals are balanced by losses to outflows and new stars.
+Controlling the strength of an important sink term,~$\eta$ plays the dominant
+role in shaping the late-time equilibrium abundance of the model, with high
+outflow models (i.e. high~$\eta$) predicting lower equilibrium abundances
+than their weak outflow counterparts.
+For observed data, the shape of the track itself directly constrains these
+parameters (see discussion in~\S~\ref{sec:mocks:recovered}) below).
+The detailed form of the SFH has minimum impact on the shape of the tracks,
+provided that there are no sudden events such as a burst of star formation
+\citep{Weinberg2017, Johnson2020}.
+Instead, that information is encoded in the stellar metallicity distribution
+functions (MDFs; i.e. the density of stars along the evolutionary track).
+
+\end{document}
+

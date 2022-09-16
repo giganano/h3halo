@@ -18,7 +18,7 @@
 \section{Galactic Chemical Evolution}
 \label{sec:onezone}
 
-\begin{itemize}	
+\begin{itemize}
 
 	\item The fundamental assumption of one-zone models is that newly produced
 	metals mix instantaneously throughout the star forming gas reservoir.
@@ -32,57 +32,69 @@
 	In the dwarf galaxy regime, the length scales are short, star formation
 	is slow~\citep[e.g.][]{Hudson2015}, and the ISM velocities are turbulent
 	\citep{Dutta2009, Stilp2013, Schleicher2016}.
-	With this combination, instantaneous mixing should be a good approximation.
-	We are unaware of any studies in the literature which address this
-	observationally, though in principle it should be feasible on a
-	galaxy-by-galaxy basis by assessing the sources of scatter in chemical
-	space (e.g. the~\afe-\feh~plane).
-	If instantaneous mixing is a valid approximation, then the intrinsic
-	scatter about some evolutionary track should be negligible, and the
-	observed scatter should be dominated by measurement uncertainty.
+	With this combination, instantaneous mixing should be a good approximation,
+	though we are unaware of any studies which address this observationally.
+	If this approximation is valid, then there should exist some evolutionary
+	track in chemical space (e.g. the~\afe-\feh~plane) about which the
+	intrinsic scatter is negligible compared to the measurement uncertainty.
+	This empirical test should be feasible on a galaxy-by-galaxy basis.
 
-	\item In larger systems such as the Milky Way or Andromeda, the
-	instantaneous mixing approximation breaks down.
-	Observationally, the presence of gas-phase abundance gradients in
-	star-forming disk galaxies~\citep*[see, e.g., recent reviews
-	by][]{Kewley2019, Maiolino2019, Sanchez2020} indicates that metal diffusion
-	in the radial direction is inefficient.
-	Furthermore, processes such as radial gas flows~\citep{Lacey1985,
-	Bilitewski2012, Vincenzo2020, Sharda2021} and the radial migration of stars
-	(\citealp{Sellwood2002, Roskar2008a, Roskar2008b, Loebman2011, Minchev2011};
-	\citealp*{Bird2012};~\citealp{Bird2013};~\citealp*{Grand2012a, Grand2012b,
-	Kubryk2013};~\citealp{Okalidis2022}) are expected to significantly
-	impact chemical enrichment and the observed abundance distributions in a
-	given galactic region.
-	This has prompted the development of a number of so-called ``multi-zone''
-	models (\citealp*{Minchev2013, Minchev2014};~\citealp{Minchev2017,
-	Johnson2021, Chen2022}) where the core motivation is to add some of the
-	spatial information lost by one-zone models back into the framework by
-	allowing the exchange of gas and stars between zones.
-
-	\item With the goal of assessing the information content of stellar
-	abundances in dwarf galaxies where the instantaneous mixing approximation
-	is more likely to be valid, we do not explore multi-zone models here.
-	The increased computational expense of multi-zone models also makes them
-	less conducive to best-fit parameter determination, which is of central
-	interest to this paper.
-	When applied to any given galaxy, we emphasize that the accuracy of the
+	\item With the goal of assessing the information content of one-zone GCE
+	models applied to dwarf galaxies, we emphasize that the accuracy of the
 	methods we outline in this paper are contingent on the validity of the
 	instantaneous mixing approximation.
 	This assumption reduces GCE to a system of coupled integro-differential
-	equations which we discuss below.
-	Throughout this paper, we solve these equations using the publicly
-	available~\textsc{Versatile Integrator for Chemical Evolution}
-	(\vice\footnote{
+	equations which we solve using the publicly available
+	\textsc{Versatile Integrator for Chemical Evolution} (\vice\footnote{
 		\url{https://pypi.org/project/vice}
 	};~\citealp{Johnson2020}).
+	We provide an overview of these equations below and refer to
+	\citet{Johnson2020} and the~\vice~science documentation\footnote{
+		\url{https://vice-astro.readthedocs.io/en/latest/science_documentation}
+	} for futher details.
 
-\end{itemize}
+	% \item In larger systems such as the Milky Way or Andromeda, the
+	% instantaneous mixing approximation breaks down.
+	% Observationally, the presence of gas-phase abundance gradients in
+	% star-forming disk galaxies~\citep*[see, e.g., recent reviews
+	% by][]{Kewley2019, Maiolino2019, Sanchez2020} indicates that metal diffusion
+	% in the radial direction is inefficient.
+	% Furthermore, processes such as radial gas flows~\citep{Lacey1985,
+	% Bilitewski2012, Vincenzo2020, Sharda2021} and the radial migration of stars
+	% (\citealp{Sellwood2002, Roskar2008a, Roskar2008b, Loebman2011, Minchev2011};
+	% \citealp*{Bird2012};~\citealp{Bird2013};~\citealp*{Grand2012a, Grand2012b,
+	% Kubryk2013};~\citealp{Okalidis2022}) are expected to significantly
+	% impact chemical enrichment and the observed abundance distributions in a
+	% given galactic region.
+	% This has prompted the development of a number of so-called ``multi-zone''
+	% models (\citealp*{Minchev2013, Minchev2014};~\citealp{Minchev2017,
+	% Johnson2021, Chen2022}) where the core motivation is to add some of the
+	% spatial information lost by one-zone models back into the framework by
+	% allowing the exchange of gas and stars between zones.
 
-\subsection{Inflows, Outflows, Star Formation, and Recycling}
-\label{sec:onezone:gas}
+	% \item With the goal of assessing the information content of stellar
+	% abundances in dwarf galaxies where the instantaneous mixing approximation
+	% is more likely to be valid, we do not explore multi-zone models here.
+	% The increased computational expense of multi-zone models also makes them
+	% less conducive to best-fit parameter determination, which is of central
+	% interest to this paper.
+	% When applied to any given galaxy, we emphasize that the accuracy of the
+	% methods we outline in this paper are contingent on the validity of the
+	% instantaneous mixing approximation.
+	% This assumption reduces GCE to a system of coupled integro-differential
+	% equations which we discuss below.
+	% Throughout this paper, we solve these equations using the publicly
+	% available~\textsc{Versatile Integrator for Chemical Evolution}
+	% (\vice\footnote{
+	% 	\url{https://pypi.org/project/vice}
+	% };~\citealp{Johnson2020}).
 
-\begin{itemize}
+% \end{itemize}
+
+% \subsection{Inflows, Outflows, Star Formation, and Recycling}
+% \label{sec:onezone:gas}
+
+% \begin{itemize}
 
 	\item At a given moment in time, gas is added to the interstellar medium
 	(ISM) via inflows and recycled stellar envelopes and is removed from the
@@ -119,48 +131,6 @@
 	\ref{sec:yield_outflow_degeneracy}.
 	We discuss our adopted nucleosynthetic yields in~\S~\ref{sec:onezone:yields}
 	below, which are intended to address this degeneracy at least in part.
-	% This parametrization, appropriate for models in which massive stars are
-	% the dominant source of energy for outflow-driving winds, is only one of
-	% many prescriptions for outflows in the literature.
-	% \begin{itemize}
-	% 	\item Recently,~\citet{delosReyes2022} modelled the evolution of the
-	% 	Sculptor dwarf spheroidal by letting the outflow rate instead be
-	% 	linearly proportional to the SN
-	% 	rate~$\dot{N}_\text{II} + \dot{N}_\text{Ia}$.
-	% 	\citet*{Kobayashi2020} constructed a model for the Milky Way in which
-	% 	outflow-driving winds develop in the early phases of evolution, but die
-	% 	out as the Galaxy grows.
-	% 	Based on theoretical models suggesting that the re-accretion timescales
-	% 	of metals ejected from the Milky Way disk are short ($\sim$100 Myr;
-	% 	\citealp{Melioli2008, Melioli2009, Spitoni2008, Spitoni2009}), some
-	% 	authors even neglect outflows when modelling the Milky Way (e.g.
-	% 	\citealp{Spitoni2019, Spitoni2021}, and the recently released publicly
-	% 	available GCE code~\textsc{GalCEM}; Gjergo et al. 2022, in prep).
-	% 	This argument is, however, at odds with measurements of the deuterium
-	% 	abundance (\citealp{Linsky2006};~\citealp*{Prodanovic2010}) and the
-	% 	$^3$He/$^4$He ratio~\citep{Balser2018} in the local ISM, both of which
-	% 	are near their primordial values.
-	% 	This indicates that much of the gas in the Galaxy has not been
-	% 	processed by stars, further suggesting that nuclear products are
-	% 	readily removed from the star forming reservoir by outflows and are
-	% 	replaced by ongoing accretion of unprocessed
-	% 	baryons~\citep{Weinberg2017b, Cooke2022}.
-	% 	Although it is possible that much of the deuterium could be depleted
-	% 	onto dust grains (\citealp{Romano2006};~\citealp*{Steigman2007}), the
-	% 	same cannot be said of~$^3$He or~$^4$He.
-
-	% 	\item Suffice it to say that the community has settled on neither the
-	% 	proper parametrization nor the importance of outflows in GCE models.
-	% 	Empirically, the strength of outflows (i.e. the value of~$\eta$) is
-	% 	strongly degenerate with the absolute scale of effective
-	% 	nucleosynthetic yields.
-	% 	This ``yield-outflow degeneracy'' arises because the yields themselves
-	% 	are the primary ``source term'' in describing the enrichment rates in
-	% 	galaxies while outflows, when present, are the primary ``sink term.''
-	% 	We quantify the strength of this degeneracy in more detail in Appendix
-	% 	\ref{sec:yield_outflow_degeneracy}.
-
-	% \end{itemize}
 
 	\item The SFR and the mass of the ISM are related by the timescale
 	$\tau_\star$, defined as the ratio of the two:
@@ -182,128 +152,65 @@
 	$\tau_\text{dep} = \tau_\star / (1 + \eta - r)$ where~$r$ is a corrective
 	term for recycled stellar envelopes; see discussion below).
 
-	% \begin{itemize}
-		% \item We relate the SFR to the gas supply by introducing the ``star
-		% formation efficiency (SFE) timescale'':
-		% \begin{equation}
-		% \tau_\star \equiv \frac{M_\text{g}}{\dot{M}_\star},
-		% \end{equation}
-		% This quantity is often referred to as the ``depletion time'' in the
-		% observational literature~\citep[e.g.][]{Tacconi2018}.
-		% This nomenclature, taken from~\citet{Weinberg2017}, is based on its
-		% inverse~$\tau_\star^{-1}$ often being referred to as the SFE itself
-		% because it describes the~\textit{fractional} rate at which some ISM
-		% fluid element is forming stars.
+	% \item The recycling\footnote{
+	% 	Here, recycling refers only to ejected stellar envelopes returning
+	% 	baryons to the ISM.
+	% 	We do not implement the ``instantaneous recycling approximation'' as
+	% 	originally formulated, which assumes that stellar populations eject
+	% 	their entire nucleosynthetic yields instantaneously
+	% 	\citep[see, e.g., the review in][]{Tinsley1980}.
+	% } rate~$\dot{M}_\text{r}$ can be expressed as an integral over the SFH
+	% according to
+	% \begin{equation}
+	% \dot{M}_\text{r} = \int_0^T \dot{M}_\star(t)\dot{r}(T - t)dt,
+	% \label{eq:mdot_recycled}
+	% \end{equation}
+	% where~$T$ is the current time in a GCE model and~$r(\tau)$ is the
+	% ``cumulative return fraction,'' which describes the fraction of a single
+	% stellar population's mass that has been returned to the ISM via ejected
+	% stellar envelopes at an age of~$\tau$.
+	% In detail,~$r$ is a complicated function which depends on the stellar
+	% IMF~\citep[e.g.][]{Salpeter1955, Miller1979, Kroupa2001, Chabrier2003},
+	% the initial-final remnant mass relation~\citep[e.g.][]{Kalirai2008},
+	% and the mass-lifetime relation\footnote{
+	% 	We assume a~\citet{Kroupa2001} IMF and the~\citet{Larson1974}
+	% 	mass-lifetime relation throughout this paper.
+	% 	These parameters, however, do not significantly impact our conclusions
+	% 	because to first-order the enrichment history of our models is
+	% 	set by the parameters~$\tau_\star$ and~$\eta$.
+	% 	Our fitting method (see discussion in~\S~\ref{sec:fitting}) is
+	% 	however easily extensible to models which relax these assumptions.
+	% } (e.g.~\citealp{Larson1974, Maeder1989};~\citealp*{Hurley2000}).
+	% We provide only qualitative discussion here; further details can be found
+	% in~\citet{Weinberg2017} and in the VICE science documentation.\footnote{
+	% 	\url{https://vice-astro.readthedocs.io/en/latest/science_documentation}
+	% }
+	% The recycling rate is initially high but declines rapidly as stellar
+	% populations age due to the steep nature of the mass-lifetime relation.
+	% \citet{Weinberg2017} demonstrate that it is therefore sufficiently accurate
+	% in one-zone models to assume that some fraction~$r_\text{inst}$ of a
+	% stellar population's initial mass is returned to the ISM instantaneously
+	% (see their Fig. 7; they recommend~$r_\text{inst} = 0.4$ for a
+	% \citealt{Kroupa2001} IMF, and~$r_\text{inst} = 0.2$ for
+	% a~\citealt{Salpeter1955} IMF).
+	% Although it is simpler to assume~$\dot{M}_\text{r} =
+	% r_\text{inst}\dot{M}_\star$, this numerical integration is computationally
+	% cheap and is already implemented in~\vice.
 
-		% \item There are various prescriptions for outflows in the literature.
-		% Some authors~\citep[e.g.][]{Andrews2017, Weinberg2017} assume a linear
-		% proportionality between the two:
-		% \begin{equation}
-		% \label{eq:eta}
-		% \dot{M}_\text{out} \equiv \eta\dot{M}_\star.
-		% \end{equation}
-		% Recently,~\citet{delosReyes2022} constrained the evolution of the
-		% Sculptor dwarf spheroidal galaxy with a linear proportionality between
-		% the SFR and the SN rate~$\dot{N}_\text{II} + \dot{N}_\text{Ia}$.
-		% \citet*{Kobayashi2020} developed a model in which outflow-driving winds
-		% develop in the early phases of the Milky Way's evolution, but die out
-		% on some timescale as the Galaxy grows.
-		% For modelling the Milky Way, some authors neglect outflows, arguing
-		% that they do not signicantly alter the chemical evolution of the
-		% disc~\citep[e.g.][]{Spitoni2019, Spitoni2021}.
-		% In our mock sample and in our fits to the GSE and the Sagitarrius dSph,
-		% we assume the linear proportionality given by equation~\refp{eq:eta}.
-		% Our fitting routine, however, is easily extended to the parametrization
-		% of~\citet{delosReyes2022}, and if outflows are to be neglected, one can
-		% simply take~$\eta = 0$ in their fit.
-
-	\item The recycling\footnote{
-		Here, recycling refers only to ejected stellar envelopes returning
-		baryons to the ISM.
-		We do not implement the ``instantaneous recycling approximation'' as
-		originally formulated, which assumes that stellar populations eject
-		their entire nucleosynthetic yields instantaneously
-		\citep[see, e.g., the review in][]{Tinsley1980}.
-	} rate~$\dot{M}_\text{r}$ can be expressed as an integral over the SFH
-	according to
-	\begin{equation}
-	\dot{M}_\text{r} = \int_0^T \dot{M}_\star(t)\dot{r}(T - t)dt,
-	\label{eq:mdot_recycled}
-	\end{equation}
-	where~$T$ is the current time in a GCE model and~$r(\tau)$ is the
-	``cumulative return fraction,'' which describes the fraction of a single
-	stellar population's mass that has been returned to the ISM via ejected
-	stellar envelopes at an age of~$\tau$.
-	In detail,~$r$ is a complicated function which depends on the stellar
-	IMF~\citep[e.g.][]{Salpeter1955, Miller1979, Kroupa2001, Chabrier2003},
-	the initial-final remnant mass relation~\citep[e.g.][]{Kalirai2008},
-	and the mass-lifetime relation\footnote{
+	\item The recycling rate is a complicated function which depends on the
+	stellar IMF~\citep[e.g.][]{Salpeter1955, Miller1979, Kroupa2001,
+	Chabrier2003}, the initial-final remnant mass relation
+	\citep[e.g.][]{Kalirai2008}, and the mass-lifetime relation\footnote{
 		We assume a~\citet{Kroupa2001} IMF and the~\citet{Larson1974}
 		mass-lifetime relation throughout this paper.
-		These parameters, however, do not significantly impact our conclusions
-		because to first-order the enrichment history of our models is
-		set by the parameters~$\tau_\star$ and~$\eta$.
-		Our fitting method (see discussion in~\S~\ref{sec:fitting}) is
-		however easily extensible to models which relax these assumptions.
+		These choices, however, do not significantly impact our conclusions,
+		and our fitting method is easily extensible to modeils which relax
+		these assumptions.
 	} (e.g.~\citealp{Larson1974, Maeder1989};~\citealp*{Hurley2000}).
-	We provide only qualitative discussion here; further details can be found
-	in~\citet{Weinberg2017} and in the VICE science documentation.\footnote{
-		\url{https://vice-astro.readthedocs.io/en/latest/science_documentation}
-	}
-	The recycling rate is initially high but declines rapidly as stellar
-	populations age due to the steep nature of the mass-lifetime relation.
-	\citet{Weinberg2017} demonstrate that it is therefore sufficiently accurate
-	in one-zone models to assume that some fraction~$r_\text{inst}$ of a
-	stellar population's initial mass is returned to the ISM instantaneously
-	(see their Fig. 7; they recommend~$r_\text{inst} = 0.4$ for a
-	\citealt{Kroupa2001} IMF, and~$r_\text{inst} = 0.2$ for
-	a~\citealt{Salpeter1955} IMF).
-	Although it is simpler to assume~$\dot{M}_\text{r} =
-	r_\text{inst}\dot{M}_\star$, this numerical integration is computationally
-	cheap and is already implemented in~\vice.
-
-	% \item The recycling rate~$\dot{M}_\text{r}$, in general, depends on the
-	% stellar IMF~\citep[e.g.][]{Salpeter1955, Miller1979, Kroupa2001,
-	% Chabrier2003}, the initial-final remnant mass relation
-	% \citep[e.g.][]{Kalirai2008}, and mass-lifetime relation
-	% (e.g.~\citealp{Larson1974, Maeder1989};~\citealp*{Hurley2000}).
-	% A single stellar population returns some fraction of its initial
-	% mass~$r$ back to the ISM according to:
-	% \begin{equation}
-	% \label{eq:crf}
-	% r(\tau) = \ddfrac{
-	% 	\int_{m_\text{to}(\tau)}^u (m - m_\text{rem})\frac{dN}{dm} dm
-	% }{
-	% 	\int_l^u m \frac{dN}{dm} dm
-	% }
-	% \end{equation}
-	% where~$l$ and~$u$ are the lower and upper mass limits of star formation,
-	% respectively,~$m_\text{to}(\tau)$ is the turnoff mass of a stellar
-	% population of age~$\tau$,~$m_\text{rem}$ is the mass of a remnant left
-	% behind by a star of initial mass~$m$, and~$dN/dm$ is the adopted IMF.
-	% Under this prescription, the recycling rate from~\textit{many} stellar
-	% populations, taking into account the full SFH, is given by:
-	% \begin{equation}
-	% \label{eq:mdot_recycled}
-	% \dot{M}_\text{r} = \int_0^T \dot{M}_\star(t) \dot{r}(T - t) dt
-	% \end{equation}
-	% where~$T$ is the time in the model.
-	% Due to the steep nature of the mass-lifetime relation, the recycling
-	% rate is dominated by young stellar populations.
-	% \citet{Weinberg2017} demonstrate that it is sufficiently accurate in
-	% one-zone models to assume that some fraction~$r_\text{inst}$ of a
-	% stellar population's initial mass is returned to the ISM immediately
-	% (see their Fig. 7; they recommend~$r_\text{inst} = 0.4$ for a
-	% \citealt{Kroupa2001} IMF, and~$r_\text{inst} = 0.2$ for a
-	% \citealt{Salpeter1955} IMF).
-	% Although it is simpler to assume~$\dot{M}_\text{r} =
-	% r_\text{inst}\dot{M}_\star$, numerical integration of equations
-	% \refp{eq:crf} and~\refp{eq:mdot_recycled} is easy, and~\vice~already
-	% does it, so we stick with that.
-
-	\item The first-order details of the gas-phase evolutionary track in
-	the~\afe-\feh~plane are determined by the SFE timescales~$\tau_\star$ and
-	the mass loading factor~$\eta$~\citep{Weinberg2017}.
+	However, the detailed recycling rate has only a second-order effect on
+	the gas-phase evolutionary track in the~\afe-\feh~plane.
+	The first-order details are instead determined by the SFE timescale
+	$\tau_\star$ and the mass-loading factor~$\eta$~\citep{Weinberg2017}.
 	With low~$\tau_\star$ (i.e. high SFE), nucleosynthesis is fast because
 	star formation is fast, and a higher metallicity can be obtained before
 	the onset of SN Ia than in lower SFE models.
@@ -321,48 +228,67 @@
 	The detailed form of the SFH has minimal impact on the shape of the
 	tracks, provided that there are no sudden events such as a burst of
 	star formation~\citep{Weinberg2017, Johnson2020}.
-	Instead, that information is encoded in the density of stars along the
-	evolutionary track and in the stellar metallicity distribution functions
-	(MDFs).
+	Instead, that information is encoded in the stellar metallicity
+	distribution functions (MDFs; i.e. the density of stars along the
+	evolutionary track).
+	% Instead, that information is encoded in the density of stars along the
+	% evolutionary track and in the stellar metallicity distribution functions
+	% (MDFs).
 
 	% \end{itemize}
 
-\end{itemize}
+% \end{itemize}
 
-\subsection{Enrichment}
-\label{sec:onezone:enrichment}
+% \subsection{Enrichment}
+% \label{sec:onezone:enrichment}
 
 % \subsection{Core Collapse Supernovae}
 % \label{sec:onezone:ccsne}
 
-\begin{itemize}
+% \begin{itemize}
 
-	\item In the present paper, we focus on th eenrichment of the so-called
-	``alpha'' (e.g. O, Ne, Mg, Si) and ``iron-peak'' (e.g. Cr, Fe, Ni, Zn)
-	elements, with the distribution of stars in the~\afe-\feh~plane being our
+	% \item In the present paper, we focus on th eenrichment of the so-called
+	% ``alpha'' (e.g. O, Ne, Mg, Si) and ``iron-peak'' (e.g. Cr, Fe, Ni, Zn)
+	% elements, with the distribution of stars in the~\afe-\feh~plane being our
+	% primary observational diagnostic to distinguish between GCE models.
+	% Alpha elements are so-named because they are produced by alpha capture
+	% reactions in massive stars, and for the lighter ones like O and Mg, this
+	% is the only dominant enrichment source (see, e.g., the review in
+	% \citealp{Johnson2019}).
+	% Iron-peak elements are also produced in massive stars, but also owe a
+	% portion of their abundance to white dwarf SNe occurring on longer delay
+	% times.
+	% Heavier nuclei (specifically Sr and up) are also produced by neutron
+	% capture processes.
+	% Although we do not treat these elements here, our fitting method (see
+	% discussion in~\S~\ref{sec:fitting}) is easily extensible to GCE models
+	% which do, provided that the data contain such measurements.
+
+	\item In the present paper, we focus on the enrichment of the so-called
+	``alpha'' (e.g. O, Ne, Mg) and ``iron-peak'' elements (e.g. Cr, Fe,
+	Ni, Zn), with the distribution of stars in the~\afe-\feh~plane being our
 	primary observational diagnostic to distinguish between GCE models.
-	Alpha elements are so-named because they are produced by alpha capture
-	reactions in massive stars, and for the lighter ones like O and Mg, this
-	is the only dominant enrichment source (see, e.g., the review in
-	\citealp{Johnson2019}).
-	Iron-peak elements are also produced in massive stars, but also owe a
-	portion of their abundance to white dwarf SNe occurring on longer delay
-	times.
-	Heavier nuclei (specifically Sr and up) are also produced by neutron
-	capture processes.
-	Although we do not treat these elements here, our fitting method (see
-	discussion in~\S~\ref{sec:fitting}) is easily extensible to GCE models
-	which do, provided that the data contain such measurements.
+	Massive stars and their SNe are the dominant enrichment source of alpha
+	elements in the universe, while iron-peak elements are produced in
+	significant amounts by massive stars and SNe Ia~\citep[e.g.][]{Johnson2019}.
+	In detail, alpha and iron-peak elements are also produced by slow neutron
+	capture nucleosynthesis, an enrichment pathway responsible for much of the
+	abundances of yet heavier nuclei (specifically Sr and up).
+	Because the neutron capture yields of alpha and iron-peak elements are
+	negligible compared to their SN yields, we do not discuss this process
+	further.
+	Our fitting method is nonetheless easily extensible to GCE models which do,
+	provided that the data contain such measurements.
 
 	\item Due to the steep nature of the stellar mass-lifetime relation
 	\citep[e.g.][]{Larson1974, Maeder1989, Hurley2000}, massive stars, their
 	winds, and their supernovae enrich the ISM on~$\sim$few Myr timescales.
 	As long as this is shorter than the relevant timescales for a given
-	galaxy's evolution, and the present-day stellar mass is sufficiently high
+	galaxy's evolution and the present-day stellar mass is sufficiently high
 	such that stochastic sampling of the IMF does not significantly impact the
 	yields, then it is adequate to approximate this nucleosynthetic material as
-	being ejected instantaneously following a single stellar population's
-	formation.
+	some average yield ejected instantaneously following a single stellar
+	population's formation.
 	This implies a linear relationship between the CCSN enrichment rate and
 	the SFR:
 	\begin{equation}
@@ -374,20 +300,21 @@
 	That is, for a fiducial value of~$y_\text{x}^\text{CC} = 0.01$, 100~\msun~of
 	star formation would produce 1~\msun~of~\textit{newly produced} mass of
 	element x (we implement the return of previously produced metals separately;
-	see discussion below).
+	see~\citealt{Johnson2020} or the~\vice~science documentation for details).
 
 % \subsection{Type Ia Supernovae}
 % \label{sec:onezone:sneia}
 
-	\item Unlike CCSN enrichment, SN Ia enrichment occurs on a significantly
-	extended delay time distribution (DTD).
+	\item Unlike CCSNe, SNe Ia occur on a significantly extended delay time
+	distribution (DTD).
 	The details of the DTD are a topic of active inquiry
 	\citep[e.g.][]{Greggio2005, Strolger2020, Freundlich2021}, and at least a
 	portion of the uncertainty can be traced to uncertainties in both galactic
-	and cosmic star formation histories.
-	Comparisons of the cosmic SFH~\citep[e.g.][]{Madau2014, Madau2017} with
-	volumetric SN Ia rates as a function of redshift, the cosmic DTD appears
-	broadly consistent with a uniform~$\tau^{-1}$ power-law (e.g.
+	and cosmic SFHs.
+	Comparisons of the cosmic SFH~\citep[e.g.][]{Hopkins2006, Madau2014,
+	Davies2016, Madau2017, Driver2018} with
+	volumetric SN Ia rates as a function of redshift indicate that the cosmic
+	DTD is broadly consistent with a uniform~$\tau^{-1}$ power-law (e.g.
 	\citealp*{Maoz2012a, Maoz2012b, Graur2013};~\citealp{Graur2014}).
 	Following~\citet{Weinberg2017}, we take a~$\tau^{-1.1}$ power-law DTD with a
 	minimum delay-time of~$t_\text{D} = 150$ Myr, though in principle this
@@ -411,117 +338,65 @@
 	\label{eq:enrichment_eq}
 	\dot{M}_\text{x} = \dot{M}_\text{x}^\text{CC} + \dot{M}_\text{x}^\text{Ia}
 	- Z_\text{x}\dot{M}_\star - Z_\text{x}\dot{M}_\text{out} +
-	\dot{M}_\text{x,r},
+	\dot{M}_\text{x,r}.
 	\end{equation}
-	where the rate of return of the element x from recycled stellar envelopes
-	can be computed by weighting the integral in equation~\refp{eq:mdot_recycled}
-	by~$Z_\text{x}(t)$.
 	If there is metal-rich infall, this equation picks up the additional term
 	$Z_\text{x,in}\dot{M}_\text{in}$ quantifying that, although here we assume
 	that infall is pristine.
-	If additional enrichment sources such as slow neutron capture in asymptotic
-	giant branch stars~\citep[e.g.][]{Cristallo2011, Cristallo2015, Ventura2013,
-	Ventura2014, Ventura2018, Ventura2020, Karakas2016, Karakas2018} are to be
-	included, then they contribute additional source terms to
-	equation~\refp{eq:enrichment_eq} as well.
-	Since we focus this paper on alpha and iron-peak elements whose yields are
-	dominated by SNe~\citep[e.g.][]{Johnson2019}, we do not discuss these
-	processes here.
+	% If additional enrichment sources such as slow neutron capture in asymptotic
+	% giant branch stars~\citep[e.g.][]{Cristallo2011, Cristallo2015, Ventura2013,
+	% Ventura2014, Ventura2018, Ventura2020, Karakas2016, Karakas2018} are to be
+	% included, then they contribute additional source terms to
+	% equation~\refp{eq:enrichment_eq} as well.
+	% Since we focus this paper on alpha and iron-peak elements whose yields are
+	% dominated by SNe~\citep[e.g.][]{Johnson2019}, we do not discuss these
+	% processes here.
 
-\end{itemize}
+% \end{itemize}
 
-\subsection{Nucleosynthetic Yields}
-\label{sec:onezone:yields}
+% \subsection{Nucleosynthetic Yields}
+% \label{sec:onezone:yields}
 
-\begin{itemize}
+% \begin{itemize}
 
-	\item Empirically, nucleosynthetic yields are degenerate with the strength
-	of outflows (i.e. the value of the mass loading factor~$\eta$).
-	This degeneracy is quite strong, and we quantify its strength in more
-	detail in Appendix~\ref{sec:yield_outflow_degeneracy}.
-	This arises because yields and outflows are the dominant source and sink
-	terms in equation~\refp{eq:enrichment_eq} above.
-	Consequently, high-yield and high-outflow outflow models have a low-yield
-	and low-outflow counterpart that predicts a similar enrichment history.
+	\item Empirically, the absolute scale of nucleosynthetic yields is
+	degenerate with the strength of outflows (i.e. the value of the
+	mass-loading factor~$\eta$).
+	This degeneracy is remarkably strong, arising because yields and outflows
+	are the dominant source and sink terms in equation~\refp{eq:enrichment_eq}
+	above.
+	As a consequence, high-yield and high-outflow outflow models generally have
+	a low-yield and low-outflow counterpart that predicts a similar enrichment
+	history.
 	Some authors~\citep[e.g.][]{Minchev2013, Minchev2014, Minchev2017,
 	Spitoni2020, Spitoni2021} even assume that outflows do not sweep up ambient
-	ISM (i.e.~$\eta = 0$) , while others~\citep[e.g.][]{Andrews2017,
+	ISM at all (i.e.~$\eta = 0$) , while others~\citep[e.g.][]{Andrews2017,
 	Weinberg2017, Cote2017, Trueman2022} instead argue that this is an
 	important ingredient in GCE models.
-
-	\item In order to break this degeneracy, only a single number setting the
+	In order to break this degeneracy, only a single number setting the
 	absolute scale is required.
-	Throughout this paper (with the exception of
-	Appendix~\ref{sec:yield_outflow_degeneracy} where the lack of an absolute
-	scale is directly relevant), we set the alpha element yield from massive
-	stars to be exactly~$\yacc = 0.01$ and otherwise let our Fe yields be
-	free parameters.
+	Throughout this paper (with the exception of Appendix
+	\ref{sec:yield_outflow_degeneracy} where the lack of an absolute scale is
+	directly relevant), we set the alpha element yield from massive stars to
+	be exactly~$\yacc = 0.01$ and let our Fe yields be free parameters.
 	This value is somewhat informed by nucleosynthesis theory in that massive
 	star evolutionary models (e.g.~\citealp*{Nomoto2013};~\citealp{Sukhbold2016,
-	Limongi2018}) typically predict~$y_\text{O}^\text{CC} = 0.005 - 0.015$
-	(see discussion in, e.g.,~\citealp{Weinberg2017, Johnson2020}).
+	Limongi2018}) typically predict~$y_\text{O}^\text{CC} = 0.005 - 0.015$ (see
+	discussion in, e.g.,~\citealp{Weinberg2017} and~\citealp{Johnson2020}).
 	The primary motivation behind this choice, however, is to select a round
 	number from which our best-fit values affected by this degeneracy can
 	simply be scaled up or down to accommodate alternate parameter choices.
-	Some authors argue that ambient ISM swept up in an outflow can be neglected
-	\citep[e.g.][]{Spitoni2019, Spitoni2021}; in these cases,~\yacc~can
-	be included as a free parameter and the overall scale is instead set by
-	the assumption that~$\eta = 0$.
-	This assumption is generally made for the Milky Way, however, while
-	ejecting ambient ISM in an outflow should in principle be easier in a dwarf
-	galaxy where the gravity well is intrinsically shallower, implying
-	$\eta > 0$.
-	While massive star explodability and the black hole landscape
-	\citep[e.g.][]{Pejcha2015, Ertl2016, Sukhbold2016} can produce factor
-	of~$\sim2 - 3$ fluctuations in the value of~\yacc~\citep{Griffith2021},
-	values lower by an order of magnitude or more can be achieved if a
-	significant fraction of SN ejecta are immediately lost to a hot outflow.
-	This is a necessary addition to models which assume~$\eta = 0$ as otherwise
-	unphysically high metal abundances will arise.
-	There is some observational support for this scenario in that galactic
-	outflows have been seen to be significantly more metal-rich than the ISM of
-	the host galaxy (\citealp*{Chisholm2018};~\citealp{Cameron2021}).
-	However, the outflow metallicities are not as high as the SN ejecta
-	themselves and cold-phase material is observed in galaxy-scale outflows as
-	well (e.g. in M82,~\citealp{Lopez2020}; see also the recent review by
-	\citealp{Veilleux2020}).
-
-	% \item In general, nucleosynthetic yields are degenerate with the outflow
-	% mass loading factor~$\eta$.
-	% We quantify this is in more detail in Appendix X, simply noting there that
-	% the two are simply the dominant source and sink terms, and as such,
-	% high-yield high-outflow models generally have a low-yield low-outflow
-	% counterpart that predicts a similar chemical evolution.
-	% In order to break this degeneracy, only one number setting the absolute
-	% scale is required.
-	% Here, we simply set the alpha element yield to~\yacc~= 0.01.
-	% This value is somewhat informed by nucleosynthesis theory in that
-	% massive star evolutionary models (e.g.~\citealp{Sukhbold2016,
-	% Limongi2018};~\citealp*{Nomoto2013}) typically predict
-	% $y_\text{O}^\text{CC} = 0.005 - 0.015$ (see discussion in, e.g.,
-	% \citealp{Weinberg2017, Johnson2020}), but is otherwise intended to be a
-	% round number from which our best-fit values affected by this degeneracy can
-	% simply be scaled up or down.
-
-	% \item We let our Fe yields~\yfecc~and~\yfeia~be free parameters.
-	% With this approach, we implicitly fit the height of the [$\alpha$/Fe]
-	% plateau as well as the Fe yield ratio~\yfecc/\yfeia.
-
-	% \item In general, nucleosynthetic material is also expelled by asymptotic
-	% giant branch (AGB) stars~\citep[e.g.][]{Cristallo2011, Cristallo2015,
-	% Ventura2013, Ventura2014, Ventura2018, Ventura2020, Karakas2016,
-	% Karakas2018}.
-	% Here we are interested primarily in~$\alpha$ and Fe-peak elements, elements
-	% whose AGB star yields are negligible compared to their SN yields
-	% \citep[e.g.][]{Johnson2019}.
-	% We therefore omit discussion of AGB star nucleosynthesis here, but we note
-	% that our fitting method described in~\S~\ref{sec:fitting} is easily
-	% extensible to include an AGB star enrichment channel.
-	% Mathematical details of how this is implemented in~\vice~can be found in
-	% \citet{Johnson2020},~\citet{Johnson2022}, and in the~\vice~science
-	% documentation.\footnote{
-	% 	\url{https://vice-astro.readthedocs.io/en/latest/science_documentation/index.html}
-	% }
+	In models which assume that ambient ISM is not ejected in
+	outflows,~\yacc~can be included as a free parameter and the overall scale
+	is instead set by the assumption that~$\eta = 0$.
+	However, the arguments supporting this assumption have generally been made
+	in the context of the Milky Way, while ejecting ambient ISM in an outflow
+	should in principle be easier in a dwarf galaxy where the gravity well
+	is intrinsically shallower, potentially implying~$\eta > 0$.
+	We reserve further discussion of this uncertainty in GCE models and the
+	various prescriptions of outflows in GCE models in the literature for
+	Appendix~\ref{sec:yield_outflow_degeneracy}, where we additionally quantify
+	its considerable strength in more detail.
 
 \end{itemize}
 
@@ -596,19 +471,31 @@
 	between the~$i$th datum and the~$j$th point on the predicted track,
 	$C_i^{-1}$ is the inverse covariance matrix of the~$i$th datum, and~$w_j$
 	is a weight to be attached to~$\script{M}_j$.
+	This functional form is appropriate for GCE models in which the
+	normalization of the SFH is inconsequential to the evolution of the
+	abundances; in the opposing case where the normalization does impact the
+	predicted abundances evolution, one additional term subtracting the sum of
+	the weights is required (see discussion below).
 
-	\item This functional form arises from marginalizing the likelihood of
-	observing each datum over the entire evolutionary track and has the more
-	general form of
-	\begin{equation}
-	\ln L(\script{D} | \{\theta\}) = \sum_i^N \ln \left(
+	\item Equation~\refp{eq:likelihood} arises from marginalizing the
+	likelihood of observing each datum over the entire evolutionary track and
+	has the more general form of
+	\begin{subequations}\begin{align}
+	\ln L(\script{D} | \{\theta\}) &= \sum_i^N \ln \left(
+	\int_\script{M} L(\script{D}_i | \script{M}) d\script{M}
+	\right)
+	\label{eq:likelihood_general_integral}
+	\\
+	&\approx \sum_i^N \ln \left(
 	\sum_j^K L\left(\script{D}_i | \script{M}_j
 	\right)\right).
 	\label{eq:likelihood_general}
-	\end{equation}
-	Equation~\refp{eq:likelihood} follows from
-	equation~\refp{eq:likelihood_general} when the likelihood of observing the
-	$i$th datum~$\script{D}_i$ is given by a weighted~$e^{-\chi^2/2}$
+	\end{align}\end{subequations}
+	Equation~\refp{eq:likelihood_general} follows from equation
+	\refp{eq:likelihood_general_integral} when the track is densely sampled by
+	the numerical integrator (see discussion below), and equation
+	\refp{eq:likelihood} follows thereafter when the likelihood of observing
+	the~$i$th datum~$\script{D}_i$ is given by a weighted~$e^{-\chi^2/2}$
 	expression.
 	Mathematically, the requirement for this marginalization arises naturally
 	from the application of statistical likelihood and an IPPP to an
