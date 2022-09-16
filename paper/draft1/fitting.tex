@@ -5,4 +5,126 @@
 \section{The Fitting Method}
 \label{sec:fitting}
 
+Our fitting method uses the abundances and ages (where available) of an
+ensemble of stars and, with no binning of the data, accurately constructs the
+\textit{likelihood function}~$L(\script{D} | \{\theta\})$ describing the
+probabiliy of observing the data~$\script{D}$ gien a set of model parameters
+$\{\theta\}$.
+This is related to the~\textit{posterior probability}
+$\L(\{\theta\} | \script{D})$ according to Bayes' Theorem:
+\begin{equation}
+L(\{\theta\} | \script{D}) = \frac{
+	L(\script{D} | \{\theta\}) L(\{\theta\})
+}{
+	L(\script{D})
+},
+\label{eq:bayes}
+\end{equation}
+where~$L(\{\theta\})$ is the likelihood of the parameters themselves (known as
+the~\textit{prior}) and~$L(\script{D})$ is the likelihood of the data (known as
+the~\textit{evidence}).
+Although it is more desirable to measure the posterior probability, in practice
+only the likelihood function can be robustly determined because the prior is
+not directly quantifiable.
+The prior requires quantitative information independent of the data on the
+accuracy of a chosen set of parameters~$\{\theta\}$.
+With no additional information on what the parameters should be, the best
+practice is to assume a ``flat'' or ``uniform'' prior in which~$L(\{\theta\})$
+is a constant, and therefore~$L(\{\theta\} | \script{D}) \approx
+L(\script{D} | \{\theta\})$; we retain this convention here.
+\par
+As mentioned in~\S~\ref{sec:intro}, the sampling of stars from an underlying
+evolutionary track in abundance space proceeds according to an IPPP
+\citep[e.g.][]{Press2007}.
+Due to its detailed nature, we reserve a full derivation of our likelihood
+function for Appendix~\ref{sec:likelihood} and provide qualitative discussion
+of its form here.
+Though our use case in the present paper is in the context of one-zone GCE
+models, our derivation assumes only that the chief prediction of the model is
+a track of some arbitrary form in the observed space.
+It is therefore highly generic and should be easily extensible to other
+astrophysical models which predict tracks of some form (e.g. stellar streams
+in kinematic space and stellar isochrones on CMDs).
+\par
+In practice, the evolutionary track predicted by a one-zone GCE model is
+generally not known in some analytic functional form (unless specific
+approximations are made as in, e.g.,~\citealp{Weinberg2017}).
+Instead, it is most often quantified in a piece-wise linear form predicted by
+some numerical code (in our case,~\vice).
+For a sample~$\script{D} = \{\script{D}_1, \script{D}_2, \script{D}_3, ...,
+\script{D}_N\}$ containing~$N$ abundance and age (where available) measurements
+of individual stars and a track~$\script{M} = \{\script{M}_1, \script{M}_2,
+\script{M}_3, ..., \script{M}_K\}$ sampled at~$K$ points in abundance space,
+the likelihood function is given by
+\begin{equation}
+\ln L(\script{D} | \{\theta\}) = \sum_i^N \ln \left(
+\sum_j^K w_j \exp\left(
+\frac{-1}{2}\Delta_{ij}C_i^{-1}\Delta_{ij}^T
+\right)
+\right),
+\label{eq:likelihood}
+\end{equation}
+where~$\Delta_{ij} = \script{D}_i - \script{M}_j$ is the vector difference
+between the~$i$th datum and the~$j$th point on the predicted track,~$C_i^{-1}$
+is the inverse covariance matrix of the~$i$th datum, and~$w_j$ is a weight to
+be attached to~$\script{M}_j$.
+This functional form is appropriate for GCE models in which the normalization
+of the SFH is inconsequential to the evolution of the abundances; in the
+opposingcase where the normalization does impact the predicted abundances,
+one additional term subtracting the sum of the weights is required (see
+discussion below).
+\par
+Equation~\refp{eq:likelihood} arises from marginalizing the likelihood of
+observing each datum over the entire evolutionary track and has the more
+general form of
+\begin{subequations}\begin{align}
+\ln L(\script{D} | \{\theta\}) &= \sum_i^N \left(
+\int_\script{M} L(\script{D}_i | \script{M}) d\script{M}
+\right)
+\label{eq:likelihood_general_int}
+\\
+&\approx \sum_i^N \ln \left(
+\sum_j^K L(\script{D}_i | \script{M}_j)\right). 
+\label{eq:likelihood_general}
+\end{align}\end{subequations}
+Equation~\refp{eq:likelihood_general} follows from equation
+\refp{eq:likelihood_general_int} when the track is densely sampled by the
+numerical integrator (see discussion below), and equation~\refp{eq:likelihood}
+follows thereafter when the likelihood $L(\script{D}_i | \script{M}_j)$ of
+observing the~$i$'th datum given the~$j$th point on the evolutionary track is
+given by a weighted~$e^{-\chi^2/2}$ expression.
+Mathematically, the requirement for this marginalization arises naturally from
+the application of statistical likelihood and an IPPP to an evolutionary track
+(see Appendix~\ref{sec:likelihood}).
+Qualitatively, it arises due to observational uncertainties -- there is no way
+of knowing which point on the evolutionary track the datum~$\script{D}_i$ is
+truly associated with, and the only way to properly take this into account is
+to consider all pair-wise combinations of~\script{D}~and~\script{M}.
+\par
+The mathematical requirement for a weighted as opposed to unweighted
+$e^{-\chi^2/2}$ likelihood expression also arises naturally in our derivation.
+Qualitatively, the weights arise because the likelihood of observing the datum
+$\script{D}_i$ is proportionally higher for points on the evolutionary track
+when the SFR is high or if the survey selection function is deeper.
+For a selection function~\script{S}~and SFR~$\dot{M}_\star$, the weights should
+scale as their product:
+\begin{equation}
+w_j \propto \script{S}(\script{M}_j | \{\theta\})
+\dot{M}_\star(\script{M}_j | \{\theta\}).
+\end{equation}
+Whether or not the weights require an overall normalization is related to the
+parametrization of the GCE model -- in particular, if the normalization of the
+SFH impacts the abundances or not (see discussion below).
+\par
+The marginalization over the track and the weighted likelihood are of the
+utmost importance to ensure accurate best-fit parameters.
+In our tests against mock samples (see~\S~\ref{sec:mocks} below), we are unable
+to recover the known evolutionary parameters of input models with discrepancies
+at the many-$\sigma$ level if either are neglected.
+While these details always remain a part of the likelihood function, equation
+\refp{eq:likelihood} can change in form slightly if any one of a handful of
+conditions are not met.
+We discuss these conditions and the necessary modifications below, referring to
+Appendix~\ref{sec:likelihood} for mathematical justification.
+
 \end{document}
