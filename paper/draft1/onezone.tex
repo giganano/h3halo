@@ -63,9 +63,9 @@ This parametrization is appropriate for models in which massive stars are the
 dominant source of energy for outflow-driving winds.
 Empirically, the strength of outflows (i.e. the value of~$\eta$) is strongly
 degenerate with the absolute scale of nucleosynthetic yields.
-This ``yield-outflow degeneracy'' arises because the yields themselves are the
-primary source term in describing enrichment rates in galaxies while outflows,
-if present, are the primary sink term.
+% This ``yield-outflow degeneracy'' arises because the yields themselves are the
+% primary source term in describing enrichment rates in galaxies while outflows,
+% if present, are the primary sink term.
 We discuss this further below and quantify the strength of the degeneracy in
 more detail in Appendix~\ref{sec:degeneracy}.
 \par
@@ -118,6 +118,97 @@ provided that there are no sudden events such as a burst of star formation
 \citep{Weinberg2017, Johnson2020}.
 Instead, that information is encoded in the stellar metallicity distribution
 functions (MDFs; i.e. the density of stars along the evolutionary track).
+\par
+In the present paper, we focus on the enrichment of the so-called ``alpha''
+(e.g. O, Ne, Mg) and ``iron-peak'' elements (e.g. Cr, Fe, Ni, Zn), with the
+distribution of stars in the~\afe-\feh~plane being our primary observational
+diagnostic to distinguish between GCE models.
+Massive stars and their SNe are the dominant enrichment source of alpha
+elements in the universe, while iron-peak elements are produced in significant
+amounts by both massive stars and SNe Ia~\citep[e.g.][]{Johnson2019}.
+In detail, alpha and iron-peak elements are also produced by slow neutron
+capture nucleosynthesis, an enrichment patyway responsible for much of the
+abundances of yet heavier nuclei (specifically Sr and up).
+Because the neutron capture yields of alpha and iron-peak elements are
+negligible compared to their SN yields, we do not discuss this process further.
+Our fitting method is nonetheless easily extensible to GCE models which do,
+provided that the data contain such measurements.
+\par
+Due to the steep nature of the stellar mass-lifetime relation
+\citep[e.g.][]{Larson1974, Maeder1989, Hurley2000}, massive stars, their winds,
+and their SNe enrich the ISM on~$\sim$few Myr timescales.
+As long as this is shorter than the relevant timescales for a galaxy's
+evolution and the present-day stellar mass is sufficiently high such that
+stochastic sampling of the IMF does not significantly impact the yields, then
+it is adequate to approximate this nucleosynthetic material as some
+population-averaged yield ejected instantaneously following a single stellar
+population's formation.
+This implies a linear relationship between the CCSN enrichment rate and the
+SFR:
+\begin{equation}
+\dot{M}_\text{x}^\text{CC} = y_\text{x}^\text{CC} \dot{M}_\star,
+\end{equation}
+where~$y_\text{x}^\text{CC}$ is the IMF-averaged fractional net yield from
+massive stars of some element x.
+That is, for a fiducial value of~$y_\text{x}^\text{CC} = 0.01$, 100~\msun~of
+star formation would produce 1~\msun~of~\textit{newly produced} element x (the
+return of previously produced metals is implemented as a separate term
+in~\vice; see~\citealt{Johnson2020} or the~\vice~science documentation for
+details).
+\par
+Unlike CCSNe, SNe Ia occur on a significantly extended delay time distribution
+(DTD).
+The details of the DTD are a topic of active inquiry~\citep[e.g.][]{Greggio2005,
+Strolger2020, Freundlich2021}, and at least a portion of the uncertainty can be
+traced to uncertainties in both galactic and cosmic SFHs.
+Comparisons of the cosmic SFH~\citep[e.g.][]{Hopkins2006, Madau2014, Davies2016,
+Madau2017, Driver2018} with volumetric SN Ia rates as a function of redshift
+indicate that the cosmic DTD is broadly consistent with a uniform~$\tau^{-1}$
+power-law (\citealp{Maoz2012a};~\citealp*{Maoz2012b};~\citealp{Graur2013,
+Graur2014}).
+Following~\citet{Weinberg2017}, we take a~$\tau^{-1.1}$ power-law DTD with a
+minimum delay-time of~$t_\text{D} = 150$ Myr, though in principle this
+delay-time can be as short as~$t_\text{D} \approx 40$ Myr due to the lifetimes
+of the most massive white dwarf progenitors.
+For any selected DTD~$R_\text{Ia}(\tau)$, the SN Ia enrichment rate can be
+expressed as an integral over the SFH weighted by the DTD:
+\begin{equation}
+\dot{M}_\text{x}^\text{Ia} = y_\text{x}^\text{Ia}\ddfrac{
+	\int_0^{T - t_\text{D}} \dot{M}_\star(t) R_\text{Ia}(T - t) dt
+}{
+	\int_0^\infty R_\text{Ia}(t) dt
+}.
+\end{equation}
+In general, the mass of some element x in the ISM is also affected by outflows,
+recycling and star formation.
+The total enrichment rate can be computed by simply adding up all of the source
+terms and subtracting the sink terms:
+\begin{equation}
+\dot{M}_\text{x} = \dot{M}_\text{x}^\text{CC} + \dot{M}_\text{x}^\text{Ia} -
+Z_\text{x}\dot{M}_\star - Z_\text{x}\dot{M}_\text{out} + \dot{M}_{\text{x,r}}.
+\label{eq:enrichment}
+\end{equation}
+This equation as written assumes that the outflowing material is of the same
+composition as the ISM, but in principle, the various nuclear species of
+interest may be some factor above or below the ISM abundance.
+In the present paper we assume all accreting material to be zero metallicity
+gas; when this assumption is relaxed, this equation simply picks up an
+additional term~$Z_\text{x,in}\dot{M}_\text{in}$.
+\par
+As mentioned above, the strength of outflows are degenerate with the absolute
+scale of nucleosynthetic yields.
+This ``yield-outflow degeneracy'' is remarkably strong, and it arises because
+yields and outflows are the dominant source and sink terms in equation
+\refp{eq:enrichment} above.
+As a consequence, high-yield and high-outflow models generally have a
+low-yield and low-outflow counterpart that predicts a similar enrichment
+history.
+Some authors (e.g.~\citealp*{Minchev2013, Minchev2014};~\citealp{Minchev2017,
+Spitoni2020, Spitoni2021}) even assume that outflows do not sweep up ambient
+ISM at all (i.e.~$\eta = 0$), while others~\citep[e.g.][]{Andrews2017,
+Weinberg2017, Cote2017, Trueman2022} instead argue that this is an important
+ingredient in GCE models.
+Many of these
 
 \end{document}
 
