@@ -9,4 +9,323 @@
 \section{Derivation of the Likelihood Function}
 \label{sec:likelihood}
 
+Here we provide a detailed derivation of our likelihood function (equation
+\ref{eq:likelihood}) incorporating the principles of an IPPP.
+We make no assumptions about the underlying model other than that it predicts
+a track in some observed space.
+In our use case, this corresponds to the~\afe-\feh-age space, though it could
+be extended to higher dimensional data.
+This approach should also be easily extensible to other astrophysical models
+which predict tracks in some observed space, such as stellar streams and
+isochrones.
+\par
+Given some expression, whether analytic or numerical, for the model predicted
+track in the observable space~\script{M}, the likelihood of observing the data
+given some set of model parameters~$\{\theta\}$ can be expressed as the
+integrated differential likelihood along the track:
+\begin{equation}
+L(\script{D} | \{\theta\}) = \int_\script{M} dL =
+\int_\script{M} L(\script{D} | \script{M}) P(\script{M} | \{\theta\})
+d\script{M},
+\end{equation}
+where~$P(\script{M} | \{\theta\})$ describes the probability that a singular
+datum will be drawn from the model at a given point along the track.
+The defining characteristic of the IPPP is that~$P(\script{M} | \{\theta\})$
+follows a Poisson distribution and can be related to the~\textit{intensity
+function}~$\lambda$ quantifying the density of points according to
+\begin{equation}
+P(\script{M}_j | \{\theta\}) =
+e^{-N_\lambda} \prod_i^N \lambda(\script{M}_j | \{\theta\}),
+\end{equation}
+where~$\script{M}_j$ denotes a specific position on the track and the product
+is taken over the~$N$ points in the sample~\script{D}.
+$N_\lambda$ quantifies the expected number of instances in the data, which can
+be expressed as the line integral of the intensity function along the track
+as
+\begin{equation}
+N_\lambda = \int_\script{M} \lambda(\script{M} | \{\theta\}) d\script{M}.
+\end{equation}
+The intensity function~$\lambda(\script{M} | \{\theta\})$ describes the
+predicted~\textit{observed} density and should therefore incorporate any
+selection effects present in the data.
+It can be expressed as the product of the selection function~\script{S}~and
+the~\textit{intrinsic} density~$\Lambda$ according to
+\begin{equation}
+\lambda(\script{M}_j | \{\theta\}) = \script{S}(\script{M}_j | \{\theta\})
+\Lambda(\script{M}_j | \{\theta\}).
+\end{equation}
+Plugging this into our expression for the likelihood function, we obtain
+\begin{subequations}\begin{align}
+L(\script{D} | \{\theta\}) &= \int_\script{M}
+\left(\prod_i^N L(\script{D}_i | \script{M})\right)
+\left(e^{-N_\lambda} \prod_i^N \lambda(\script{M} | \{\theta\})\right)
+d\script{M}
+\\
+&= e^{-N_\lambda} \prod_i^N \int_\script{M} L(\script{D}_i | \script{M})
+\lambda(\script{M} | \{\theta\}) d\script{M},
+\end{align}\end{subequations}
+where we have exploited the conditional independence of each datum, allowing us
+to substitute~$L(\script{D} | \script{M}) = \prod L(\script{D}_i |
+\script{M})$.
+We have also dropped the subscript~$j$ in~$\lambda(\script{M}_j | \{\theta\})$
+because we are computing the line integral along the track~\script{M}, so a
+specific location~$\script{M}_j$ is implicit.
+\par
+Now taking the logarithm of the likelihood function produces the following
+expression for~$\ln L$:
+\begin{equation}
+\ln L(\script{D} | \{\theta\}) = -N_\lambda + \sum_i^N \ln \left(
+\int_\script{M} L(\script{D}_i | \script{M})\lambda(\script{M} | \{\theta\})
+d\script{M}
+\right).
+\label{eq:lnL_with_integral}
+\end{equation}
+The next step is to assess the likelihood~$L(\script{D}_i | \script{M})$ of
+observing each datum given the predicted track.
+The integral in this equation as written indicates that the most general
+solution is to marginalize the likelihood over the entire evolutionary track.
+Due to observational uncertainties, there is no way of knowing~\textit{a priori}
+from which point on the track any individual datum is truly associated with.
+If this were the case, it would reduce~$L(\script{D}_i | \script{M})$ to a
+delta function at the known position on the track.
+As discussed in~\S\S~\ref{sec:fitting},~\ref{sec:mocks} and
+\ref{sec:conclusions}, our tests against mock samples indicates that this
+marginalization is essential to ensuring the accuracy of the best-fit
+parameters.
+\par
+In practice, the track may be complicated in shape and is generally not known
+as a smooth and continuous function, instead in some piece-wise linear
+approximation computed by a numerical code.
+The line segment connecting the points~$\script{M}_j$ and~$\script{M}_{j + 1}$
+on the track can be expressed as
+\begin{equation}
+\Delta\script{M}_{j,j + 1} = \script{M}_j + q(\script{M}_{j + 1} -
+\script{M}_j) \qquad (0 \leq q \leq 1).
+\end{equation}
+If the errors associated with the observed datum~$\script{D}_i$ are accurately
+described by a multivariate Gaussian, then the likelihood of observing
+$\script{D}_i$ given a point along this line segment can be expressed in terms
+of its covariance matrix~$C_i$ according to
+\begin{subequations}\begin{align}
+L(\script{D}_i | \script{M}_j, q) &=
+\frac{1}{\sqrt{2\pi \det{(C_i)}}}
+\exp\left(\frac{-1}{2} \delta_{ij} C_i^{-1} \delta_{ij}^T\right)
+\label{eq:l_di_mj_q}
+\\
+\delta_{ij} &= \script{D}_i - \Delta \script{M}_{j,j + 1}(q)
+\\
+&= \script{D}_i - \script{M}_j - q(\script{M}_{j + 1} - \script{M}_j)
+\\
+&= \Delta_{ij} - qm_j,
+\label{eq:delta_minus_qmj}
+\end{align}\end{subequations}
+where~$\delta_{ij}$ is the vector difference between~$\script{D}_i$ and the
+point along the track~$\script{M}_{j,j + 1}(q)$ in the observed space and the
+superscript~$T$ denotes the transposed vector.
+For notational convenience, we have made the substitutions
+$\Delta_{ij} = \script{D}_i - \script{M}_j$ and~$m_j = \script{M}_{j + 1} -
+\script{M}_j$.
+If the observational uncertainties on any one datum~$\script{D}_i$ are not
+sufficiently described by a multivariate Gaussian, then
+equation~\refp{eq:l_di_mj_q} must be replaced with some alternative
+characterization of the uncertainty in the observed space, such as a kernel
+density estimate evaluated at the point~$\Delta\script{M}_{j,j + 1}(q)$.
+\par
+To marginalize over the full length of the line segment, we integrate this
+likelihood from~$q = 0$ to~$1$.
+Retaining the assumption that a multivariate Gaussian is an accurate
+description of the measurement errors, we first compute the square in the
+exponent and isolate the terms which depend on~$q$:
+\begin{equation}
+\delta_{ij} C_i^{-1} \delta_{ij}^T = \Delta_{ij} C_i^{-1} \Delta_{ij}^T -
+2q\Delta_{ij}C_i^{-1}m_j^T + q^2m_jC_i^{-1}m_j^T.
+\label{eq:chisquared}
+\end{equation}
+% Equation~\refp{eq:delta_minus_qmj} suggests that whenever the spacing between
+% track points~$m_j$ is small compared to the observational uncertainties, then
+% $qm_j \ll \Delta_{ij}$ and~$\delta_{ij} \approx \Delta_{ij}$, indicating that
+% the second and third terms in equation \refp{eq:chisquared} are negligible.
+% If we consider the full line segment, integrating from~$q = 0$ to~$1$:
+To marginalize over the full line segment, we integaate from~$q = 0$ to~$1$:
+\begin{subequations}\begin{align}
+L(\script{D}_i | \script{M}_j) &= \int_0^1 L(\script{D}_i | \script{M}_j, q) dq
+\\
+&= \frac{1}{\sqrt{2\pi\det{(C_i)}}} \int_0^1 \exp \left(
+\frac{-1}{2}\delta_{ij}C_i^{-1}\delta_{ij}^T
+\right) dq.
+\end{align}\end{subequations}
+Substituting equation~\refp{eq:chisquared} for the argument inside the
+exponential and making the substitutions~$a = m_j C_i^{-1} m_j^T$ and
+$b = \Delta_{ij} C_i^{-1} m_j^T$ yields
+\begin{subequations}\begin{align}
+\begin{split}
+L(\script{D}_i | \script{M}_j) &= \frac{1}{\sqrt{2\pi \det{(C_i)}}}
+\exp\left(\frac{-1}{2}\Delta_{ij} C_i^{-1} \Delta_{ij}^T\right)
+\\
+&\qquad \int_0^1 \exp\left(\frac{-1}{2}(aq^2 - 2bq)\right)dq
+\end{split}
+\\
+\begin{split}
+&= \frac{1}{\sqrt{2\pi\det{(C_i)}}}
+\exp\left(\frac{-1}{2}\Delta_{ij}C_i^{-1}\Delta_{ij}^T\right)
+\sqrt{\frac{\pi}{2a}}
+\\
+&\qquad \exp\left(\frac{b^2}{2a}\right)
+\left[\erf\left(\frac{a - b}{\sqrt{2a}}\right) - \erf\left(\frac{b}{\sqrt{2a}}
+\right)\right].
+\end{split}
+\end{align}\end{subequations}
+For notational simplicity, we introduce the corrective term~$\beta_{ij}$ given
+by
+\begin{equation}
+\beta_{ij} = \sqrt{\frac{\pi}{2a}} \exp\left(\frac{b^2}{2a}\right)
+\left[\erf\left(\frac{a - b}{\sqrt{2a}}\right) - \erf\left(\frac{b}{\sqrt{2a}}
+\right)\right]
+\label{eq:corrective_beta}
+\end{equation}
+such that~$L(\script{D}_i | \script{M}_j)$ is given by
+\begin{equation}
+L(\script{D}_i | \script{M}_j) = \frac{\beta_{ij}}{\sqrt{2\pi \det{(C_i)}}}
+\exp\left(\frac{-1}{2}\Delta_{ij} C_i^{-1} \Delta_{ij}^T\right).
+\end{equation}
+We can now express the the likelihood function as written in equation
+\refp{eq:lnL_with_integral} as a summation over the points
+$\script{M} = \{\script{M}_1, \script{M}_2, \script{M}_3, ..., \script{M}_K\}$
+at which the track is sampled:
+\begin{equation}\begin{split}
+&\ln L(\script{D} | \{\theta\}) = -N_\lambda
+- \sum_i^N \ln \left(\sqrt{2\pi \det{(C_i)}}\right) +
+\\
+&\qquad \sum_i^N \ln \left(
+\sum_j^K \beta_{ij}
+\exp\left(\frac{-1}{2}\Delta_{ij}C_i^{-1}\Delta_{ij}^T\right)
+\lambda(\script{M}_j | \{\theta\})
+\right).
+\end{split}\end{equation}
+Equation~\refp{eq:delta_minus_qmj} indicates that whenever the spacing between
+track points~$m_j$ is small compared to the observational uncertainties, then
+$qm_j \ll \Delta_{ij}$ and~$\delta_{ij} \approx \Delta_{ij}$.
+As a consequence,~$\beta_{ij} \approx 1$ and this corrective term can be safely
+neglected.
+In some cases, however, computing the evolutionary track~\script{M}~may be
+computationally expensive, making it potentially advantageous to reduce the
+the number of computed points~$K$ in exchange for a slightly more complicated
+likelihood calculation.
+\par
+As discussed above, the intensity function~$\lambda$ quantifies the observed
+density of points, incorporating any selection effects present in the data into
+the predicted intrinsic density~$\Lambda$.
+In a one-zone GCE model,~$\Lambda$ is given by the SFH, modulo the small effect
+of mass loss from recycled stellar envelopes (see discussion in, e.g.,
+\citealt{Weinberg2017}).
+This multiplicative factor on the likelihood~$L$ can be incorporated by simply
+letting the pair-wise component of the datum~$\script{D}_i$ and the point along
+the track~$\script{M}_j$ take on a weight
+$w_j \equiv \script{S}(\script{M}_j | \{\theta\}) \dot{M}_\star(\script{M}_j |
+\{\theta\})$ determined by the survey selection function~\script{S}~and the
+SFR~$\dot{M}_\star$ at the point~$\script{M}_j$.
+The predicted number of instances~$N_\lambda$, originally expressed as the
+line integral of the intensity function~$\lambda$, can now be expressed as the
+sum of the weights~$w_j$.
+This gives rise to the following likelihood function:
+\begin{equation}
+\ln L(\script{D} | \{\theta\}) \propto
+\sum_i^N \ln \left(\sum_j^K
+\beta_{ij} w_j \exp\left(\frac{-1}{2}\Delta_{ij} C_i^{-1} \Delta_{ij}^T\right)
+\right) - \sum_j^K w_j,
+\label{eq:lnL_minus_weights}
+\end{equation}
+where we have omitted the term~$\sum \ln \left(\sqrt{2\pi \det{(C_i)}}\right)$
+because it is a constant which can safely be neglected in the interest of
+optimization.
+This likelihood function considers each pair-wise combination of the data and
+model, weighting the likelihood according to the predicted density of
+observations and penalizing models by the sum of their weights.
+This penalty encourages parsimony, lowering the inferred likelihood when data
+are predicted to exist in regions of the observed space where there are none
+and rewarding models which explain the observations in as few predicted
+instances as possible.
+\par
+In many one-zone GCE models, however, the normalization of the SFH is
+irrelevant to the evolution of the abundances.
+Because the metallicity is given by the metal mass~\textit{relative} to the ISM
+mass, the normalization often cancels.
+Because the SFH determines the weights, it is essential in these cases to
+ensure that the sum of the weights has no impact on the inferred likelihood.
+To this end, we consider a density~$\rho$ with some unknown overall
+normalization defined relative to the intensity function according to
+\begin{subequations}\begin{align}
+\lambda(\script{M} | \{\theta\}) &= N_\lambda \rho(\script{M} | \{\theta\})
+\\
+\int_\script{M} \rho(\script{M} | \{\theta\}) d\script{M} &= 1.
+\end{align}\end{subequations}
+Plugging this into equation~\refp{eq:lnL_with_integral} and pulling~$N_\lambda$
+out of the natural logarithm yields the following expression for the likelihood
+function:
+\begin{equation}\begin{split}
+\ln L(\script{D} | \{\theta\}) &= -N_\lambda + N \ln N_\lambda +
+\sum_i^N \ln \left(\sqrt{2\pi \det{(C_i)}}\right) +
+\\
+&\qquad \sum_i^N \ln \left(
+\int_\script{M} L(\script{D}_i | \script{M}) \rho(\script{M} | \{\theta\})
+d\script{M} \right).
+\end{split}\end{equation}
+Reducing this equation proceeds in the exact same manner as above except with
+$\rho$ in place of~$\lambda$ and the extra term~$N \ln N_\lambda$, which
+yields
+\begin{equation}\begin{split}
+\ln L(\script{D} | \{\theta\}) &= -N_\lambda + N \ln N_\lambda +
+\sum_i^N \ln \left(\sqrt{2\pi \det{(C_i)}}\right) +
+\\
+&\qquad \sum_i^N \ln \left(
+\sum_j^K \beta_{ij} w_j
+\exp\left(\frac{-1}{2}\Delta_{ij} C_i^{-1} \Delta_{ij}^T\right)\right).
+\end{split}\end{equation}
+For notational convenience, we have left the normalization of the weights
+written as~$N_\lambda$.
+In the interest of optimizing the likelihood function, we take the partial
+derivative of~$\ln L$ with respect to~$N_\lambda$ and find that it is equal to
+zero when~$N_\lambda = N$.
+Because~$\rho$ is by definition un-normalized, we can simply choose this
+overall scale.
+The first two terms in the above expression for~$\ln L$ then become
+$-N + N \ln N$, a constant for a given sample which can safely be neglected
+for optimzation along with the term involving the determinants of the
+covariance matrices.
+We arrive at the following expression for the likelihood function in cases
+where the normalization of the SFH does not impact the evolution of the
+abundances:
+\begin{subequations}\begin{align}
+\ln L(\script{D} | \{\theta\}) &= \sum_i^N \left( \sum_j^K \beta_{ij} w_j
+\exp\left(\frac{-1}{2}\Delta_{ij} C_i^{-1} \Delta_{ij}^T\right) \right)
+\label{eq:lnL_fracweight}
+\\
+\sum_j^K w_j &= 1,
+\label{eq:lnL_fracweightsum}
+\end{align}\end{subequations}
+where the second expression arises from the requirement that the line integral
+of the un-normalized density~$\rho$ along the track equal 1.
+\par
+In summary, when inferring best-fit parameters for one-zone GCE models in which
+the normalization of the SFH is irrelevant to the evolution of the abundances,
+authors should adopt equations~\refp{eq:lnL_fracweight} and
+\refp{eq:lnL_fracweightsum}.
+If the model is instead parametrized in such a manner that the normalization
+does indeed impact the abundance evolution, then authors should adopt
+equation~\refp{eq:lnL_minus_weights}.
+Such models can arise, e.g., when evolutionary parameters depend to the surface
+density of gas or star formation, such as a non-linear scaling between the
+surface densities of gas and star formation (i.e. the so-called
+Kennicutt-Schmidt relation,~$\dot{\Sigma}_\star \propto \Sigma_\text{g}^N$;
+\citealp{Kennicutt1998, delosReyes2019, Kennicutt2021}), or a mass-loading
+factor~$\eta$ which grows with the stellar mass to mimic the deepending of
+the potential well~\citep[e.g.][]{Conroy2022}.
+In either case, the corrective term~$\beta_{ij}$ given by equation
+\refp{eq:corrective_beta} is approximately 1 and can be safely neglected when
+the track is densely sampled relative to the observational uncertainties.
+In this paper, we assume a linear relation between the SFR and the ISM mass and
+a constant mass-loading factor, which makes the normalization of the SFH
+irrelevant; we therefore use equations~\refp{eq:lnL_fracweight} and
+\refp{eq:lnL_fracweightsum} as our likelihood function.
+
 \end{document}

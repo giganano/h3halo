@@ -126,5 +126,114 @@ While these details always remain a part of the likelihood function, equation
 conditions are not met.
 We discuss these conditions and the necessary modifications below, referring to
 Appendix~\ref{sec:likelihood} for mathematical justification.
+\par
+\textit{The track is infinitely thin.}
+In the absence of measurement uncertainties, all of the data would fall
+perfectly on a line in the observed space.
+As discussed in the beginning of~\S~\ref{sec:onezone}, the fundamental
+assumption of one-zone GCE models is instantaneous mixing of the various
+nuclear species throughout the star forming reservoir.
+Consequently, the ISM is chemically homogeneous and the model predicts a single
+exactabundance for each element or isotope at any given time.
+If the model in question instead predicts a track of some finite width, then
+the likelihood function will have a fundamentally different form.
+\par
+\textit{Each observation is independent.}
+When this condition is met, the total likelihood of observing the
+data~\script{D}~can be expressed as the product of the likelihood of observing
+each individual datum:
+\begin{subequations}\begin{align}
+L(\script{D} | \{\theta\}) &= \prod_i^N L(\script{D}_i | \script{M})
+\\
+\implies \ln L(\script{D} | \{\theta\}) &= \sum_i^N \ln
+L(\script{D}_i | \script{M}).
+\end{align}\end{subequations}
+This condition plays an integral role in giving rise to the functional form of
+equation~\refp{eq:likelihood}, and if violated, the likelihood function will
+also have a fundamentally different form.
+\par
+\textit{The observational uncertainties are described by a multivariate
+Gaussian.}
+If this condition fails, the weighted~$\chi^2 = \Delta_{ij}C_i^{-1}\Delta_{ij}^T$
+expression is no longer an accurate parametrization of~$L(\script{D}_i |
+\script{M}_j)$ and it should be replaced with the more general form of
+equation~\refp{eq:likelihood_general}.
+In these cases, a common alternative would be to replace~$e^{-\chi^2 / 2}$ with
+some kernel density estimate of the uncertainty at the point~$\script{M}_j$
+while retaining the weight~$w_j$, but this is only necessary for the subset
+of~\script{D}~whose uncertainties are not adequately described by a
+multivariate Gaussian.
+\par
+\textit{The track is densely sampled.}
+That is, the spacing between the points on the track~\script{M}~is small
+compared to the observational uncertainties in the data.
+This assumption can be relaxed at the expense of including an additional
+correction factor~$\beta_{ij}$ given by equation~(X) which integrates the
+likelihood between each pair of adjacent points~$\script{M}_j$ and
+$\script{M}_{j + 1}$ along the track.
+If computing the evolutionary track is sufficiently expensive, relaxing the
+number of points and including this correction factor may be the more
+computationally efficient option.
+\par
+\textit{The normalization of the SFH is inconsequential.}
+Only the time-dependence of the SFH impacts the abundance evolution predicted
+by the GCE model.
+As mentioned above, the model-predicted SFH and the selection function of the
+survey determine the weights to attach to each point~$\script{M}_j$ along the
+track, and if the normalization of the SFH does not impact the abundance
+evolution, then it must not impact the inferred likelihood either.
+In our detailed derivation of equation~\refp{eq:likelihood}, we find that the
+proper manner in which to assign the weights is to normalize then such that
+they add up to 1 (see Appendix~\ref{sec:likelihood}).
+Some GCE models, however, are parametrized such that the normalization of the
+SFH~\textit{does} impact the abundance evolution.
+One such example would be if the SFE timescale~$\tau_\star$ (see equation
+\ref{eq:taustar} and discussion in~\S~\ref{sec:onezone}) depends on the gas
+supply~$M_\text{g}$ in order to implement some version of a non-linear
+Kennicutt-Schmidt relation\footnote{
+	$\dot{\Sigma}_\star \propto \Sigma_\text{g}^N \implies \tau_\star \propto
+	\Sigma_\text{g}^{1 - N}$ where~$N \neq 1$.
+	\citet{Kennicutt1998} measured~$N = 1.4 \pm 0.15$ from the global gas
+	densities and SFRs in star-forming spiral galaxies, althoug there have
+	been recent advancements in this field suggesting more sophisticated forms
+	than a single power-law (see discussion in~\S~2.6 of~\citealt{Johnson2021}
+	and references therein).
+} where the normalization of the SFH and size of the galaxy are taken into
+account.
+In these cases, the likelihood function is given by equation (X) where the
+weights remain un-normalized and their sum must be subtracted from
+equation~\refp{eq:likelihood}.
+This requirement can be qualitatively understood as a penalty for models which
+predict data in regions of the observed space where there are none -- a term
+which encourages parsimony, rewarding parameter choices which explain the data
+in as few predicted instances as possible.
+This penalty is still included in models which normalize the weights, with the
+tracks that extend too far in abundance space instead having a higher
+\textit{fractional} weight from data at large~$\chi^2$, lowering the total
+likelihood (see discussion near the end of Appendix~\ref{sec:likelihood}).
+\par
+We demonstrate the accuracy of our likelihood function in~\S~\ref{sec:mocks}
+below by means of tests against mock data samples.
+Although our likelihood function does not include a direct fit to the
+stellar distributions in age and abundances, weighting the inferred likelihood
+by the SFR in the model indeed incorporates this information on how many stars
+should form at which ages and abundances.
+This results in an~\textit{implicit} fit to the age and abundance distributions,
+even though this information is not directly included in the likelihood
+calculation.
+\par
+There are a variety of ways to construct the likelihood distribution in
+parameter space.
+In the present paper, we employ the MCMC method, making use of
+the~\mc~\python~package~\citep{Foreman-Mackey2013} to construct our Markov
+chains.
+Despite being more computationally expensive than other methods (e.g.
+maximum a posteriori estimation), MCMC offers a more generic solution by
+sampling tails and multiple modes of the likelihood distribution which could
+otherwise be missed or inaccurately characterized by the assumption of
+Gaussianity.
+Our method should nonetheless be extensible to additional data sets described
+by GCE models with different parametrizations as well as different methods of
+optimizing the likelihood distribution, such as maximum a posteriori estimates.
 
 \end{document}
