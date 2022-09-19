@@ -54,6 +54,7 @@ class wukongfit(mcmc):
 	def __call__(self, walker):
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		if walker[3] > COSMOLOGICAL_AGE: return -float("inf")
+		if walker[0] > 50: return -float("inf")
 		# if walker[4] > 0.01: return -float("inf")
 		# if walker[5] > 0.01: return -float("inf")
 		print("walker: [%.2f, %.2f, %.2f, %.2f]" % (walker[0],

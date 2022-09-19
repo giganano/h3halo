@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --time=24:00:00
+#SBATCH --time=10:00:00
 #SBATCH --ntasks=40
 #SBATCH --exclusive
 #SBATCH --job-name=wukongfit
