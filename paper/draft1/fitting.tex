@@ -70,7 +70,7 @@ is the inverse covariance matrix of the~$i$th datum, and~$w_j$ is a weight to
 be attached to~$\script{M}_j$.
 This functional form is appropriate for GCE models in which the normalization
 of the SFH is inconsequential to the evolution of the abundances; in the
-opposingcase where the normalization does impact the predicted abundances,
+opposing case where the normalization does impact the predicted abundances,
 one additional term subtracting the sum of the weights is required (see
 discussion below).
 \par
@@ -111,6 +111,7 @@ scale as their product:
 \begin{equation}
 w_j \propto \script{S}(\script{M}_j | \{\theta\})
 \dot{M}_\star(\script{M}_j | \{\theta\}).
+\label{eq:weights}
 \end{equation}
 Whether or not the weights require an overall normalization is related to the
 parametrization of the GCE model -- in particular, if the normalization of the
