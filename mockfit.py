@@ -29,8 +29,8 @@ MODEL_BASENAME = sys.argv[3]
 N_PROC = 40
 N_TIMESTEPS = 1000
 N_WALKERS = 256
-N_BURNIN = 100
-N_ITERS = 100
+N_BURNIN = 1000
+N_ITERS = 2000
 COSMOLOGICAL_AGE = 13.2
 N_DIM = 7
 
@@ -133,6 +133,8 @@ if __name__ == "__main__":
 	sampler.reset()
 	state = sampler.run_mcmc(state, N_ITERS)
 	stop = time.time()
+	pool.close()
+	pool.join()
 	print("MCMC time: ", stop - start)
 	savechain(sampler, OUTFILE)
 

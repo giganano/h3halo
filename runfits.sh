@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --time=1:30:00
+#SBATCH --time=24:00:00
 #SBATCH --ntasks=40
 #SBATCH --exclusive
-#SBATCH --job-name=agefrac_1p0
+#SBATCH --job-name=degeneracy
 #SBATCH --account=PCON0003
 
 # start and end the program by echoing the date and time
@@ -44,7 +44,7 @@ date
 # python mockfit.py ./mocksamples/agefrac_1p0.dat ./mocksamples/agefrac_1p0_25k6.out agefrac_1p0_
 
 # example fit with all yields as free parameters
-python mockfit.py ./mocksamples/fiducial.dat ./mocksamples/degeneracy_25k6.out degeneracy_
+python mockfit.py ./mocksamples/fiducial.dat ./mocksamples/degeneracy_512k.out degeneracy_
 
 date
 
