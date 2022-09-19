@@ -32,7 +32,7 @@ N_WALKERS = 256
 N_BURNIN = 1000
 N_ITERS = 2000
 COSMOLOGICAL_AGE = 13.2
-N_DIM = 7
+N_DIM = 6
 
 # emcee walker parameters
 #
@@ -68,7 +68,7 @@ class expifr_mcmc(mcmc):
 		self.sz.dt = walker[3] / N_TIMESTEPS
 		vice.yields.ccsne.settings['fe'] = walker[4]
 		vice.yields.sneia.settings['fe'] = walker[5]
-		vice.yields.ccsne.settings['o'] = walker[6]
+		# vice.yields.ccsne.settings['o'] = walker[6]
 		output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1), 
 			overwrite = True, capture = True)
 		diff = COSMOLOGICAL_AGE - walker[3]
@@ -123,8 +123,8 @@ if __name__ == "__main__":
 	# start initial at known position anyway since this is a mock
 	p0 = N_WALKERS * [None]
 	for i in range(len(p0)):
-		# p0[i] = [2, 10, 15, 10, 0.0008, 0.0011]
-		p0[i] = [2, 10, 15, 10, 0.0008, 0.0011, 0.01]
+		p0[i] = [2, 10, 15, 10, 0.0008, 0.0011]
+		# p0[i] = [2, 10, 15, 10, 0.0008, 0.0011, 0.01]
 		for j in range(len(p0[i])):
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	p0 = np.array(p0)
