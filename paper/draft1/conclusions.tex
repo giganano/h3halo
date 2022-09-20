@@ -112,38 +112,39 @@ so they offer no constraints the normalization of the SFH.
 \par
 Although these models are statistically good descriptions of our GSE and Wukong
 data, they are simplified in nature.
-For example, we have assumed a linear relation between the gas supply and the
-star formation rate while observational results would suggest a non-linear
-relation~\citep[e.g.][]{Kennicutt1998, Kennicutt2012, delosReyes2019,
-Kennicutt2021}.
-The primary motivation of this paper is to provide proof of concept for this
-fitting method with an example application to observations consistent with
-simple evolutionary histories.
-We reserve more careful modelling of galaxies with complex evolutionary
-histories for future work.
-\par
-The methods outlined in this paper are only as accurate as the instantaneous
-mixing approximation on a galaxy-by-galaxy basis, which likely limits the
-most reliable application to the dwarf galaxy regime (see discussion
-in~\S~\ref{sec:onezone}).
-In larger galaxies such as the Milky Way, processes such as radial gas flows
-\citep[e.g.][]{Lacey1985, Bilitewski2012} and the radial migration of stars
-\citep[e.g.][]{Sellwood2002, Loebman2011, Okalidis2022} are expected to
-significantly impact the observed abundance distributions in a given Galactic
-region.
-These results have prompted the development of a number of so-called
-``multi-zone'' GCE models~\citep[e.g.][]{Schoenrich2009, Johnson2021, Chen2022}
-which stitch together multiple one-zone models via the exchange of gas and
-stars.
-Though we do not consider these models here, it is an interesting potential
-direction for future work to properly compute statistical likelihood in the
-presence of multiple evolutionary tracks.
-Such models could provide valuable insight into the evolution of higher mass
-galaxies with data from next-generation spectroscopic surveys like Milky
-Way Mapper~\citep{Kollmeier2017}.
-As increasingly sensitive instruments come online, statistically robust methods
-such as this will be essential to extract the lessons that can be learned
-about galaxies of all stellar masses.
+In particular, we have assumed a linear relation between the gas supply and the
+SFR while empirical results would suggest a non-linear relation
+\citep[e.g.][]{Kennicutt1998, Kennicutt2012, delosReyes2019, Kennicutt2021}.
+We have also taken a constant outflow mass-loading factor~$\eta$ when in
+principle, the strength of outflows could vary with time as the potential well
+of the galaxy deepens.
+The primary motivation of these choices, however, is to provide proof of
+concept for this fitting method with an example application to observations.
+We reserve more detailed modelling of galaxies with both simple and complex
+evolutionary histories for future work.
+% \par
+% The methods outlined in this paper are only as accurate as the instantaneous
+% mixing approximation on a galaxy-by-galaxy basis, which likely limits the
+% most reliable application to the dwarf galaxy regime (see discussion
+% in~\S~\ref{sec:onezone}).
+% In larger galaxies such as the Milky Way, processes such as radial gas flows
+% \citep[e.g.][]{Lacey1985, Bilitewski2012} and the radial migration of stars
+% \citep[e.g.][]{Sellwood2002, Loebman2011, Okalidis2022} are expected to
+% significantly impact the observed abundance distributions in a given Galactic
+% region.
+% These results have prompted the development of a number of so-called
+% ``multi-zone'' GCE models~\citep[e.g.][]{Schoenrich2009, Johnson2021, Chen2022}
+% which stitch together multiple one-zone models via the exchange of gas and
+% stars.
+% Though we do not consider these models here, it is an interesting potential
+% direction for future work to properly compute statistical likelihood in the
+% presence of multiple evolutionary tracks.
+% Such models could provide valuable insight into the evolution of higher mass
+% galaxies with data from next-generation spectroscopic surveys like Milky
+% Way Mapper~\citep{Kollmeier2017}.
+% As increasingly sensitive instruments come online, statistically robust methods
+% such as this will be essential to extract the lessons that can be learned
+% about galaxies of all stellar masses.
 
 \end{document}
 
