@@ -10,19 +10,50 @@
 \label{sec:likelihood}
 
 Here we provide a detailed derivation of our likelihood function (equation
-\ref{eq:likelihood}) incorporating the principles of an IPPP.
-We make no assumptions about the underlying model other than that it predicts
-a track in some observed space.
-In our use case, this corresponds to the~\afe-\feh-age space, though it could
-be extended to higher dimensional data.
-This approach should also be easily extensible to other astrophysical models
-which predict tracks in some observed space, such as stellar streams and
-isochrones.
+\ref{eq:likelihood}).
+This problem in its most general form is to treat some set of data as a
+stochasitc sample from an evolutionary track in some observed space (e.g.
+the~\afe-\feh-age space in our use case).
+According to this assumption, in the absence of measurement uncertainties, all
+of the data would fall perfectly on some infinitely thin line or curve.
+We make no assumptions about the underlying model which computes the track, so
+this approach should be universally applicable to one-zone GCE models of any
+parametrization.
+Evolutionary tracks also arise in the context of, e.g., stellar streams and
+isochrones, indicating that our likelihood function should be easily extensible
+to these models as well.
+We however phrase our discussion here under the assumption that the observed
+quantities are the abundances and ages of stars and that the underlying
+framework is a one-zone GCE model.
 \par
-Given some expression, whether analytic or numerical, for the model predicted
-track in the observable space~\script{M}, the likelihood of observing the data
-given some set of model parameters~$\{\theta\}$ can be expressed as the
-integrated differential likelihood along the track:
+First, we define the key variables:
+\begin{itemize}
+
+	\item $\script{D} = \{\script{D}_1, \script{D}_2, \script{D}_3, ...,
+	\script{D}_N\}$ is the data containing~$N$ individual stars with
+	measurement uncertainties described by the covariance matrices of each
+	datum~$C = \{C_1, C_2, C_3, ..., C_N\}$.
+	The quantities associated with each star are not necessarily the same --
+	that is, only some of the stars may have age measurements, or the abundance
+	of some nuclear species may not be reliably measured for the whole sample.
+
+	\item \script{M}~is the evolutionary track in chemical and age space.
+	Although~\script{M} is a smooth and continuous curve in principle, in
+	practice it is approximated in a piece-wise linear form computed by some
+	numerical code.
+	It can therefore also be expressed as a discrete set of~$K$ points
+	$\script{M} = \{\script{M}_1, \script{M}_2, \script{M}_3, ...,
+	\script{M}_K\}$ in the observed space connected by line segments.
+
+	\item $\{\theta\}$ is a chosen set of one-zone model parameters.
+	These values impact the detailed form of the track~\script{M}~and otherwise
+	affect the inferred best-fit values only if there is an assumed prior
+	$L(\{\theta\})$ (see equation~\ref{eq:bayes}).
+
+\end{itemize}
+Given the track~\script{M}, the likelihood~$L(\script{D} | \{\theta\})$ of
+observing the data can be expressed as the line integral of the differential
+likelihood along the track:
 \begin{equation}
 L(\script{D} | \{\theta\}) = \int_\script{M} dL =
 \int_\script{M} L(\script{D} | \script{M}) P(\script{M} | \{\theta\})
@@ -31,23 +62,21 @@ d\script{M},
 where~$P(\script{M} | \{\theta\})$ describes the probability that a singular
 datum will be drawn from the model at a given point along the track.
 The defining characteristic of the IPPP is that~$P(\script{M} | \{\theta\})$
-follows a Poisson distribution and can be related to the~\textit{intensity
-function}~$\lambda$ quantifying the density of points according to
+follows a Poisson distribution:
 \begin{equation}
-P(\script{M}_j | \{\theta\}) =
-e^{-N_\lambda} \prod_i^N \lambda(\script{M}_j | \{\theta\}),
+P(\script{M}_j | \{\theta\}) = e^{-N_\lambda}
+\prod_i^N \lambda (\script{M}_j | \{\theta\}),
 \end{equation}
-where~$\script{M}_j$ denotes a specific position on the track and the product
-is taken over the~$N$ points in the sample~\script{D}.
-$N_\lambda$ quantifies the expected number of instances in the data, which can
-be expressed as the line integral of the intensity function along the track
-as
+where the product is taken over the~$N$ points in the sample and~$\lambda$ is
+the~\textit{intensity function} describing the expected number of stars at
+the point~$\script{M}_j$ along the track.
+$N_\lambda$ denotes the expected~\textit{total} number of stars and can be
+expressed as the line integral of the intensity function along the track:
 \begin{equation}
 N_\lambda = \int_\script{M} \lambda(\script{M} | \{\theta\}) d\script{M}.
 \end{equation}
-The intensity function~$\lambda(\script{M} | \{\theta\})$ describes the
-predicted~\textit{observed} density and should therefore incorporate any
-selection effects present in the data.
+$\lambda$ describes the predicted~\textit{observed} distribution of stars in
+chemical space and should therefore incorporate any selection effects.
 It can be expressed as the product of the selection function~\script{S}~and
 the~\textit{intrinsic} density~$\Lambda$ according to
 \begin{equation}
@@ -82,17 +111,53 @@ d\script{M}
 \end{equation}
 The next step is to assess the likelihood~$L(\script{D}_i | \script{M})$ of
 observing each datum given the predicted track.
+We demonstrate this procedure visually with the schematic in
+Fig.~\ref{fig:marginalization} where we have exaggerated the finite spacing
+between the points~$\script{M}_j$ and~$\script{M}_{j + 1}$ along the track for
+illustrative purposes (see discussion below).
+The integral in equation~\refp{eq:lnL_with_integral} above indicates that the
+most general solution is to marginalize the likelihood over the entire track.
+This requirement arises due to observational uncertainties -- there is no way
+of knowing~\textit{a priori} from which point on the track any individual
+datum~$\script{D}_i$ truly arose from
+
 The integral in this equation as written indicates that the most general
 solution is to marginalize the likelihood over the entire evolutionary track.
-Due to observational uncertainties, there is no way of knowing~\textit{a priori}
-from which point on the track any individual datum is truly associated with.
-If this were the case, it would reduce~$L(\script{D}_i | \script{M})$ to a
-delta function at the known position on the track.
-As discussed in~\S\S~\ref{sec:fitting},~\ref{sec:mocks} and
-\ref{sec:conclusions}, our tests against mock samples indicates that this
-marginalization is essential to ensuring the accuracy of the best-fit
-parameters.
-\par
+% Due to observational uncertainties, there is no way of knowing~\textit{a priori}
+% from which point on the track any individual datum is truly associated with.
+% If this were the case, it would reduce~$L(\script{D}_i | \script{M})$ to a
+% delta function at the known position on the track.
+% As discussed in~\S\S~\ref{sec:fitting},~\ref{sec:mocks} and
+% \ref{sec:conclusions}, our tests against mock samples indicates that this
+% marginalization is essential to ensuring the accuracy of the best-fit
+% parameters.
+
+\begin{figure}
+\centering
+\includegraphics[scale = 0.6]{derivation_cartoon.pdf}
+\caption{
+A schematic of our derivation and the quantities involved.
+The goal is to determine the likelihood of observing the datum~$\script{D}_i$
+given the model-predicted evolutionary track~\script{M}~by integrating the
+likelihood along its length and incorporating the measurement uncertainties
+(shown by the dotted red contours).
+In practice,~\script{M}~is computed in a piece-wise linear form by some
+numerical code -- here we exaggerate the spacing between points for
+illustrative purposes.
+The variable~$\Delta_\text{ij} = \script{D}_i - \script{M}_j$ denotes the
+vector difference between the~$i$th datum and the~$j$th sampled point on the
+track.
+$A$ connects the datum to an arbitrary point along the line segment defined by
+$\script{M}_j$ and~$\script{M}_{j + 1}$.
+When the spacing between the sampled points~$\script{M}_j$ and
+$\script{M}_{j + 1}$ on the track is large, the finite length of the line
+segment becomes an important correction, but this is negligible when the
+spacing is small compared to observational uncertainties.
+}
+\label{fig:marginalization}
+\end{figure}
+
+
 In practice, the track may be complicated in shape and is generally not known
 as a smooth and continuous function, instead in some piece-wise linear
 approximation computed by a numerical code.
