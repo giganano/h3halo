@@ -59,6 +59,9 @@ class expifr_mcmc(mcmc):
 		# strict bound because of physics
 		if any([_ < 0 for _ in walker]): return -float("inf")
 		if walker[3] > COSMOLOGICAL_AGE: return -float("inf")
+		if walker[4] > 0.1: return -float("inf")
+		if walker[5] > 0.1: return -float("inf")
+		# if walker[6] > 0.1: return -float("inf")
 		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2e, %.2e]" % (
 			walker[0], walker[1], walker[2], walker[3], walker[4], walker[5]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
