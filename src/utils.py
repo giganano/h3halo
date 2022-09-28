@@ -29,6 +29,15 @@ def savechain(sampler, filename):
 		header = "acceptance fraction: %.5e" % (af))
 
 
+def savestate(state, outstream):
+	coords = state.coords
+	logprob = state.log_prob
+	for i in range(len(coords)):
+		for j in range(len(coords[i])): outstream.write("%.5e\t" % (
+			coords[i][j]))
+		outstream.write("%.5e\n" % (logprob[i]))
+
+
 def invcov(errors):
 	r"""
 	Compute the inverse covariance matrices given the errors on measurements

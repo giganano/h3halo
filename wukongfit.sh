@@ -3,7 +3,7 @@
 #SBATCH --ntasks=40
 #SBATCH --exclusive
 #SBATCH --job-name=wukongfit
-#SBATCH --account=PCON0003
+#SBATCH --account=PAS1140
 
 date
 python wukongfit.py

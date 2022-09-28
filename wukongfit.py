@@ -2,7 +2,7 @@
 from multiprocessing import Pool
 from emcee import EnsembleSampler
 from src import mcmc
-from src.utils import exponential, savechain, linear_exponential
+from src.utils import exponential, savechain, linear_exponential, savestate
 import numpy as np
 import math as m
 import numbers
@@ -101,6 +101,12 @@ if __name__ == "__main__":
 	start = time.time()
 	state = sampler.run_mcmc(p0, N_BURNIN)
 	sampler.reset()
+	# with open(OUTFILE, 'w') as out:
+	# 	n = 0
+	# 	while n < N_ITERS:
+	# 		state = sampler.run_mcmc(state, 1)
+	# 		savestate(state, out)
+	# 		n += 1
 	state = sampler.run_mcmc(state, N_ITERS)
 	stop = time.time()
 	pool.close()
