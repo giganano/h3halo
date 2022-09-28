@@ -2,7 +2,7 @@
 #SBATCH --time=24:00:00
 #SBATCH --ntasks=40
 #SBATCH --exclusive
-#SBATCH --job-name=fiducial
+#SBATCH --job-name=degeneracy
 #SBATCH --account=PAS1140
 
 # start and end the program by echoing the date and time
