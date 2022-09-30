@@ -21,10 +21,18 @@ LABELS = [
 	r"$\tau_\star$ [Gyr]",
 	r"$\tau_\text{tot}$ [Gyr]",
 	r"$10^4\times y_\text{Fe}^\text{CC}$",
-	r"$10^3\times y_\text{Fe}^\text{Ia}$"
+	r"$10^3\times y_\text{Fe}^\text{Ia}$",
+	r"$10^2\times y_\alpha^\text{CC}$"
 ]
-# RANGE = None
-RANGE = [
+RANGE = None
+# RANGE = [
+# 	(1.3, 2.4),
+# 	(8.5, 11.5),
+# 	(10, 18),
+# 	(6.5, 12.5),
+# 	(7.2, 9.4),
+# 	(0.85, 1.25)
+###
 	# (0.4, 1.6),
 	# (4, 13),
 	# (11, 22),
@@ -33,30 +41,41 @@ RANGE = [
 	# (0.8, 1.7)
 ###
 	# (0, 12),
-	# (30, 70),
 	# (20, 70),
-	# (2, 5)
+	# (10, 90),
+	# (1, 6)
 ###
-	(0, 3000),
-	(0, 60),
-	(0, 80),
-	(0, 6),
-	(4, 9),
-	(1, 8)
-]
+# 	(1.4, 2.4),
+# 	(10, 120),
+# 	(30, 180),
+# 	(7, 13),
+# 	(10, 90),
+# 	(1, 12),
+# 	(1, 10)
+# ]
 TICKS = None
 # TICKS = [
-# 	[0.5, 1, 1.5],
+# 	[1.5, 2.0],
+# 	[9, 10, 11],
+# 	[12, 14, 16],
+# 	[8, 10, 12],
+# 	[7.5, 8, 8.5, 9],
+# 	[0.9, 1, 1.1, 1.2]
+###
+#	[0.5, 1, 1.5],
 # 	[6, 8, 10, 12],
 # 	[15, 20],
 # 	[5, 6],
 # 	[7, 8, 9],
 # 	[1.0, 1.5]
 ###
-# 	[2, 4, 6, 8, 10],
-# 	[40, 50, 60],
-# 	[30, 40, 50, 60],
-# 	[3, 4]
+# 	[1.5, 2.0],
+# 	[50, 100],
+# 	[50, 100, 150],
+# 	[8, 10, 12],
+# 	[20, 40, 60, 80],
+# 	[5, 10],
+# 	[2, 4, 6, 8]
 # ]
 MAXLOGP_KWARGS = {
 	"c": named_colors()["deepskyblue"],
@@ -79,7 +98,7 @@ mcmc_chain = np.array([row[:-1] for row in raw])
 for i in range(len(mcmc_chain)):
 	mcmc_chain[i][-1] *= 1000
 	mcmc_chain[i][-2] *= 10000
-# 	mcmc_chain[i][-3] *= 1000
+	# mcmc_chain[i][-3] *= 10000
 logp = [row[-1] for row in raw]
 idxmax = logp.index(max(logp))
 DIM = len(mcmc_chain[0])
@@ -91,8 +110,8 @@ kwargs = {
 	"show_titles": True,
 	"color": named_colors()["black"],
 	"truths": mcmc_chain[idxmax],
-	# "truths": [2, 10, 15, 10, 0.8, 1.1],
-	# "truths": [2, 10, 15, 10, 0.8, 1.1, 10],
+	# "truths": [2, 10, 15, 10, 8, 1.1],
+	# "truths": [2, 10, 15, 10, 0.8, 1.1, 1],
 	"truth_color": named_colors()["crimson"]
 }
 if RANGE is not None: kwargs["range"] = RANGE
