@@ -5,11 +5,11 @@
 \section{The Fitting Method}
 \label{sec:fitting}
 
-Our fitting method uses the abundances and ages (where available) of an
-ensemble of stars and, with no binning of the data, accurately constructs the
-\textit{likelihood function}~$L(\script{D} | \{\theta\})$ describing the
-probabiliy of observing the data~$\script{D}$ gien a set of model parameters
-$\{\theta\}$.
+Our fitting method uses the abundances of an ensemble of stars, incorporating
+age measurements as additional data where available, and without any binning,
+accurately constructs the~\textit{likelihood function}
+$L(\script{D} | \{\theta\})$ describing the probabiliy of observing the
+data~$\script{D}$ given a set of model parameters $\{\theta\}$.
 This is related to the~\textit{posterior probability}
 $\L(\{\theta\} | \script{D})$ according to Bayes' Theorem:
 \begin{equation}
@@ -31,7 +31,8 @@ accuracy of a chosen set of parameters~$\{\theta\}$.
 With no additional information on what the parameters should be, the best
 practice is to assume a ``flat'' or ``uniform'' prior in which~$L(\{\theta\})$
 is a constant, and therefore~$L(\{\theta\} | \script{D}) \approx
-L(\script{D} | \{\theta\})$; we retain this convention here.
+L(\script{D} | \{\theta\})$; we retain this convention here unless otherwise
+stated.
 \par
 As mentioned in~\S~\ref{sec:intro}, the sampling of stars from an underlying
 evolutionary track in abundance space proceeds according to an IPPP
@@ -181,7 +182,7 @@ If computing the evolutionary track is sufficiently expensive, relaxing the
 number of points and including this correction factor may be the more
 computationally efficient option.
 \par
-\textit{The normalization of the SFH is inconsequential.}
+\textit{The normalization of the SFH does not impact the predicted abundances.}
 Only the time-dependence of the SFH impacts the abundance evolution predicted
 by the GCE model.
 As mentioned above, the model-predicted SFH and the selection function of the

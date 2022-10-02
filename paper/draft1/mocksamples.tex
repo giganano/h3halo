@@ -324,9 +324,9 @@ Availability of Age Information}
 % fig 3
 \begin{figure*}
 \centering
-\includegraphics[scale = 0.45]{dp_sigma_samplesize.pdf}
-\includegraphics[scale = 0.45]{dp_sigma_precision.pdf}
-\includegraphics[scale = 0.45]{dp_sigma_agefrac.pdf}
+\includegraphics[scale = 0.42]{dp_sigma_samplesize.pdf}
+\includegraphics[scale = 0.42]{dp_sigma_precision.pdf}
+\includegraphics[scale = 0.42]{dp_sigma_agefrac.pdf}
 \caption{
 The mean deviation between the re-derived parameters
 $\{\theta\} = \{\tau_\text{in}, \eta, \tau_\star, \tau_\text{tot}, \yfecc,
@@ -341,6 +341,26 @@ Blue dotted lines mark~$\langle \Delta \theta / \sigma \rangle = 1$, the
 expected mean offset due to randomly sampling from a Gaussian distribution.
 }
 \label{fig:accuracy}
+\end{figure*}
+
+% fig 4
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.55]{precision_samplesize.pdf}
+\includegraphics[scale = 0.55]{precision_agefrac.pdf}
+\includegraphics[scale = 0.55]{precision_abundanceuncertainty.pdf}
+\includegraphics[scale = 0.55]{precision_ageuncertainty.pdf}
+\caption{
+The precision (i.e. $\left|\Delta \theta\right| / \sigma$) of our re-derived
+mock sample parameters~$\{\theta\} = \{\tau_\text{in}, \eta, \tau_\star,
+\tau_\text{tot}, \yfecc, \yfeia\}$ as a function of sample size (top left),
+the fraction of the sample with age measurements (top right), measurement
+uncertainty in~\feh~and~\afe~(bottom left), and measurement uncertainty
+in~$\log_{10}(\text{age})$ (bottom right).
+We plot timescales in red, Fe yields in blue, and the mass-loading
+factor~$\eta$ in black in all panels according to the legend.
+}
+\label{fig:precision}
 \end{figure*}
 
 We now explore variations of our fiducial mock sample.
@@ -358,7 +378,6 @@ following:
 	\item The fraction of the sample that has age measurements.
 
 \end{itemize}
-
 The left-hand column of Table~\ref{tab:recovered_values} provides a summary of
 the values we take as exploratory cases with the fiducial mock marked in bold.
 In the remaining columns, we provide the associated values derived for each
@@ -417,27 +436,7 @@ value, mimicking natural fluctuations in the accretion history or a series of
 minor starbursts.
 Although idealized and potentially unrealistic, our likelihood function
 accurately recovers the amplitude, phase and frequency in this case as well.
-
-% fig 4
-\begin{figure*}
-\centering
-\includegraphics[scale = 0.6]{precision_samplesize.pdf}
-\includegraphics[scale = 0.6]{precision_agefrac.pdf}
-\includegraphics[scale = 0.6]{precision_abundanceuncertainty.pdf}
-\includegraphics[scale = 0.6]{precision_ageuncertainty.pdf}
-\caption{
-The precision (i.e. $\left|\Delta \theta\right| / \sigma$) of our re-derived
-mock sample parameters~$\{\theta\} = \{\tau_\text{in}, \eta, \tau_\star,
-\tau_\text{tot}, \yfecc, \yfeia\}$ as a function of sample size (top left),
-the fraction of the sample with age measurements (top right), measurement
-uncertainty in~\feh~and~\afe~(bottom left), and measurement uncertainty
-in~$\log_{10}(\text{age})$ (bottom right).
-We plot timescales in red, Fe yields in blue, and the mass-loading
-factor~$\eta$ in black in all panels according to the legend.
-}
-\label{fig:precision}
-\end{figure*}
-
+\par
 Fig.~\ref{fig:precision} demonstrates how the uncertainty of each best-fit
 parameter is affected by these details of the sample.
 With differences in the normalization, the precision of each inferred parameter
@@ -493,14 +492,19 @@ itself are implemented~\citep{Hu2022}.
 Our results suggest that the duration of star formation can instead be inferred
 from elemental abundance alone, though having~\textit{some} age information can
 significantly improve the precision of the fit.
-While this is theoretically possible, this proof of concept assumes the same
-evolutionary history of the mock data and even fits them with the same
-numerical code which which we integrated the input model.
-The model and data are therefore affected by the exact same systematics, while
-in practice the systematics affecting observed data and a one-zone GCE model
-are different.
-In~\S~\ref{sec:h3:gse} below, we demonstrate that the exclusion of age
-information from the fit to our GSE sample produces different results for
-evolutionary timescales.
+While this is theoretically possible, we demonstrate in~\S~\ref{sec:h3:gse}
+below that the exclusion of age information from the fit to our GSE sample
+produces significantly different results for evolutionary timescales.
+These discrepancies indicate that age information in some form is more
+important in practice than this proof of concept would suggest.
+% While this is theoretically possible, this proof of concept assumes the same
+% evolutionary history of the mock data and even fits them with the same
+% numerical code which which we integrated the input model.
+% The model and data are therefore affected by the exact same systematics, while
+% in practice the systematics affecting observed data and a one-zone GCE model
+% are different.
+% In~\S~\ref{sec:h3:gse} below, we demonstrate that the exclusion of age
+% information from the fit to our GSE sample produces different results for
+% evolutionary timescales.
 
 \end{document}

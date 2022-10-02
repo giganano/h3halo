@@ -64,9 +64,6 @@ This parametrization is appropriate for models in which massive stars are the
 dominant source of energy for outflow-driving winds.
 Empirically, the strength of outflows (i.e. the value of~$\eta$) is strongly
 degenerate with the absolute scale of nucleosynthetic yields.
-% This ``yield-outflow degeneracy'' arises because the yields themselves are the
-% primary source term in describing enrichment rates in galaxies while outflows,
-% if present, are the primary sink term.
 We discuss this further below and quantify the strength of the degeneracy in
 more detail in Appendix~\ref{sec:degeneracy}.
 \par
@@ -91,8 +88,8 @@ Miller1979, Kroupa2001, Chabrier2003}, the initial-final remnant mass relation
 \citep[e.g.][]{Kalirai2008}, and the mass-lifetime relation\footnote{
 	We assume a~\citet{Kroupa2001} IMF and the~\citet{Larson1974} mass-lifetime
 	relation throughout this paper.
-	These choices, however, do not significantly impact our conclusions as
-	$\eta$ and~$\tau_\star$ play a much more significant role in establish the
+	These choices do not significantly impact our conclusions as~$\eta$
+	and~$\tau_\star$ play a much more significant role in establish the
 	evolutionary histories of our GCE models.
 	Our fitting method is nonetheless easily extensible to models which relax
 	these assumptions.
@@ -101,25 +98,30 @@ be convolved with the SFH.
 However, the detailed rate of return of stellar envelopes has only a
 second-order effect on the gas-phase evolutionary track in the~\afe-\feh~plane.
 The first-order details are instead determined by the SFE timescale~$\tau_\star$
-and the mass-loading factor~$\eta$~\citep{Weinberg2017}.
-With low~$\tau_\star$, nucleosynthesis is fast due to fast star formation, and
-a higher metallicity can be attained before the onset of SNe Ia than in lower
-SFE models.
-For this reason,~$\tau_\star$ plays the dominant role in establishing the
-position of the ``knee'' in the~\afe-\feh~plane.
-As the galaxy evolves, it approaches a chemical equilibrium in which newly
-produced metals are balanced by losses to outflows and new stars.
-Controlling the strength of an important sink term,~$\eta$ plays the dominant
-role in shaping the late-time equilibrium abundance of the model, with high
-outflow models (i.e. high~$\eta$) predicting lower equilibrium abundances
-than their weak outflow counterparts.
-For observed data, the shape of the track itself directly constrains these
-parameters (see discussion in~\S~\ref{sec:mocks:recovered}) below).
-The detailed form of the SFH has minimum impact on the shape of the tracks,
-provided that there are no sudden events such as a burst of star formation
+and the mass-loading factor~$\eta$ (see discussion in~\citealt{Weinberg2017}).
+In the absence of sudden events such as a burst of star formation, the detailed
+form of the SFH actually has minimal impact of the shape of the track
 \citep{Weinberg2017, Johnson2020}.
-Instead, that information is encoded in the stellar metallicity distribution
-functions (MDFs; i.e. the density of stars along the evolutionary track).
+That information is instead encoded inthe stellar MDFs (i.e., the density of
+stars along the track).
+% With low~$\tau_\star$, nucleosynthesis is fast due to fast star formation, and
+% a higher metallicity can be attained before the onset of SNe Ia than in lower
+% SFE models.
+% For this reason,~$\tau_\star$ plays the dominant role in establishing the
+% position of the ``knee'' in the~\afe-\feh~plane.
+% As the galaxy evolves, it approaches a chemical equilibrium in which newly
+% produced metals are balanced by losses to outflows and new stars.
+% Controlling the strength of an important sink term,~$\eta$ plays the dominant
+% role in shaping the late-time equilibrium abundance of the model, with high
+% outflow models (i.e. high~$\eta$) predicting lower equilibrium abundances
+% than their weak outflow counterparts.
+% For observed data, the shape of the track itself directly constrains these
+% parameters (see discussion in~\S~\ref{sec:mocks:recovered}) below).
+% The detailed form of the SFH has minimum impact on the shape of the tracks,
+% provided that there are no sudden events such as a burst of star formation
+% \citep{Weinberg2017, Johnson2020}.
+% Instead, that information is encoded in the stellar metallicity distribution
+% functions (MDFs; i.e. the density of stars along the evolutionary track).
 \par
 In the present paper, we focus on the enrichment of the so-called ``alpha''
 (e.g. O, Ne, Mg) and ``iron-peak'' elements (e.g. Cr, Fe, Ni, Zn), with the
@@ -207,32 +209,53 @@ low-yield and low-outflow counterpart that predicts a similar enrichment
 history.
 In order to break this degeneracy, only a single parameter setting the absolute
 scale is required.
-Throughout this paper, with the exception of Appendix~\ref{sec:degeneracy},
-we therefore set the alpha element yield from massive stars to be exactly
+To this end, we set the alpha element yield from massive stars to be exactly
 $\yacc = 0.01$ and let our Fe yields be free parameters.
-This value is somewhat informed by nucleosynthesis theory in that massive star
-evolutionary models (e.g.~\citealp*{Nomoto2013};~\citealp{Sukhbold2016,
-Limongi2018}) typically predict~$y_\text{O}^\text{CC} = 0.005 - 0.015$ (see
-discussion in, e.g.,~\citealp{Weinberg2017} and~\citealp{Johnson2020}).
-The primary motivation behind this choice, however, is to selected a round
-number from which our best-fit values affected by this degeneracy can simply be
-scaled up or down to accommodate alternate parameter choices.
-This degeneracy is sufficiently strong such that some authors
-(e.g.~\citealp*{Minchev2013, Minchev2014};~\citealp{Minchev2017,
-Spitoni2020, Spitoni2021}) assume that outflows do not sweep up ambient ISM at
-all (i.e.~$\eta = 0$), while others~\citep[e.g.][]{Andrews2017, Weinberg2017,
-Cote2017, Trueman2022} instead argue that this is an important ingredient in
-GCE models.
-In these cases,~\yacc~can instead be included as a free parameter and the
-overall scale of yields and outflows is instead set by the assumption
-that~$\eta = 0$.
-However, the arguments in favor of neglecting outflows have generally been made
-in the context of the Milky Way, whereas ejecting ambient ISM in an outflow
-should in principle be easier in a dwarf galaxy where the gravity well is
-intrinsically shallower, potentially implying~$\eta > 0$.
-We reserve further discussion of this topic to Appendix~\ref{sec:degeneracy}
-where we also quantify the considerable strength of the yield-outflow
+Appropriate for O, this value is loosely motivated by nucleosynthesis theory in
+that massive star evolutionary models (e.g.,~\citealp*{Nomoto2013};
+\citealp{Sukhbold2016, Limongi2018}) typically predict
+$y_\text{O}^\text{CC} = 0.005 - 0.015$ (see discussion in, e.g.,
+\citealp{Weinberg2017} and~\citealp{Johnson2020}).
+This value is~$\sim$1.75 times the solar O abundance of~$\sim$0.57\%
+\citep{Asplund2009}, and if we had chosen a different alpha element (e.g., Mg),
+then we would need to adjust accordingly to account for the intrinsically lower
+abundance (e.g., $\yacc = 1.75 Z_{\text{Mg},\odot} \approx
+\scinote{1.2}{-4}$).\footnote{
+	The lighter alpha elements like O and Mg evolve similarly in GCE models due
+	to metallicity-independent yields dominated by massive stars, so it is
+	mathematically convenient to treat them as a single nuclear species
+	under the assertion that [O/Mg]~$\approx 0$ (this is indeed supported by
+	empirical measurements in APOGEE; see, e.g., Fig. 8 of
+	\citealt{Weinberg2019}).
+	In practice, however, we use the~$\yacc = 0.01$ value for O and a solar
+	abundance of~$Z_{\text{O},\odot} = 0.00572$~\citep{Asplund2009}.
+}
+The primary motivation behind this choice is to select a round number that
+allows our best-fit values affected by this degeneracy to be scaled up or down
+under different assumptions regarding the scale of effective yields.
+We reserve further discussion of this topic for Appendix~\ref{sec:degeneracy}
+where we also quantify the considerably strength of the yield-outflow
 degeneracy in more detail.
+% \par
+% The primary motivation behind this choice, however, is to selected a round
+% number from which our best-fit values affected by this degeneracy can simply be
+% scaled up or down to accommodate alternate parameter choices.
+% This degeneracy is sufficiently strong such that some authors
+% (e.g.~\citealp*{Minchev2013, Minchev2014};~\citealp{Minchev2017,
+% Spitoni2020, Spitoni2021}) assume that outflows do not sweep up ambient ISM at
+% all (i.e.~$\eta = 0$), while others~\citep[e.g.][]{Andrews2017, Weinberg2017,
+% Cote2017, Trueman2022} instead argue that this is an important ingredient in
+% GCE models.
+% In these cases,~\yacc~can instead be included as a free parameter and the
+% overall scale of yields and outflows is instead set by the assumption
+% that~$\eta = 0$.
+% However, the arguments in favor of neglecting outflows have generally been made
+% in the context of the Milky Way, whereas ejecting ambient ISM in an outflow
+% should in principle be easier in a dwarf galaxy where the gravity well is
+% intrinsically shallower, potentially implying~$\eta > 0$.
+% We reserve further discussion of this topic to Appendix~\ref{sec:degeneracy}
+% where we also quantify the considerable strength of the yield-outflow
+% degeneracy in more detail.
 
 \end{document}
 
