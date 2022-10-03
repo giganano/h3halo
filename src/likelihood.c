@@ -12,8 +12,8 @@ static double **multiply_matrices(double **matrix1, double **matrix2,
 static double **transpose(double **matrix, unsigned short m, unsigned short n);
 static double chi_squared(FIT_DRIVER fd, unsigned long model_idx,
 	unsigned long sample_idx);
-static double likelihood_best_trackpoint(FIT_DRIVER fd,
-	const unsigned long datum_idx);
+// static double likelihood_best_trackpoint(FIT_DRIVER fd,
+// 	const unsigned long datum_idx);
 
 
 extern FIT_DRIVER *fit_driver_initialize(void) {
@@ -81,11 +81,12 @@ extern double loglikelihood(FIT_DRIVER fd) {
 	unsigned long i, j;
 
 	for (i = 0ul; i < fd.n_sample; i++) {
-		// double s = 0;
-		// for (j = 0ul; j < fd.n_model; j++) {
-		// 	s += fd.weights[j] * exp(-0.5 * chi_squared(fd, j, i));
-		// }
-		result += log(likelihood_best_trackpoint(fd, i));
+		double s = 0;
+		for (j = 0ul; j < fd.n_model; j++) {
+			s += fd.weights[j] * exp(-0.5 * chi_squared(fd, j, i));
+		}
+		// result += log(likelihood_best_trackpoint(fd, i));
+		result += log(s);
 	}
 
 	return result;
@@ -93,6 +94,7 @@ extern double loglikelihood(FIT_DRIVER fd) {
 }
 
 
+#if 0
 static double likelihood_best_trackpoint(FIT_DRIVER fd,
 	const unsigned long datum_idx) {
 
@@ -112,6 +114,7 @@ static double likelihood_best_trackpoint(FIT_DRIVER fd,
 	return result;
 
 }
+#endif
 
 
 static double chi_squared(FIT_DRIVER fd, unsigned long model_idx,
