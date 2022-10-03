@@ -21,18 +21,21 @@ import os
 # DATA_FILE = "./mocksamples/n20.dat"
 # OUTFILE = "./mocksamples/n20_5000.out"
 # MODEL_BASENAME = "n20_"
-DATA_FILE = sys.argv[1]
-OUTFILE = sys.argv[2]
-MODEL_BASENAME = sys.argv[3]
+# DATA_FILE = sys.argv[1]
+# OUTFILE = sys.argv[2]
+# MODEL_BASENAME = sys.argv[3]
+DATA_FILE = "./mocksamples/fiducial.dat"
+OUTFILE = "./mocksamples/no_marginalization_test_102k4.out"
+MODEL_BASENAME = "no_marginalization_"
 
 
-N_PROC = 40
+N_PROC = 10
 N_TIMESTEPS = 500
 N_WALKERS = 256
-N_BURNIN = 1000
-N_ITERS = 2000
+N_BURNIN = 100
+N_ITERS = 400
 COSMOLOGICAL_AGE = 13.2
-N_DIM = 7
+N_DIM = 6
 
 # emcee walker parameters
 #
@@ -61,7 +64,7 @@ class expifr_mcmc(mcmc):
 		if walker[3] > COSMOLOGICAL_AGE: return -float("inf")
 		if walker[4] > 0.1: return -float("inf")
 		if walker[5] > 0.1: return -float("inf")
-		if walker[6] > 0.1: return -float("inf")
+		# if walker[6] > 0.1: return -float("inf")
 		print("walker: [%.2f, %.2f, %.2f, %.2f, %.2e, %.2e]" % (
 			walker[0], walker[1], walker[2], walker[3], walker[4], walker[5]))
 		self.sz.name = "%s%s" % (MODEL_BASENAME, os.getpid())
@@ -71,7 +74,7 @@ class expifr_mcmc(mcmc):
 		self.sz.dt = walker[3] / N_TIMESTEPS
 		vice.yields.ccsne.settings['fe'] = walker[4]
 		vice.yields.sneia.settings['fe'] = walker[5]
-		vice.yields.ccsne.settings['o'] = walker[6]
+		# vice.yields.ccsne.settings['o'] = walker[6]
 		output = self.sz.run(np.linspace(0, walker[3], N_TIMESTEPS + 1), 
 			overwrite = True, capture = True)
 		diff = COSMOLOGICAL_AGE - walker[3]
@@ -126,8 +129,8 @@ if __name__ == "__main__":
 	# start initial at known position anyway since this is a mock
 	p0 = N_WALKERS * [None]
 	for i in range(len(p0)):
-		# p0[i] = [2, 10, 15, 10, 0.0008, 0.0011]
-		p0[i] = [2, 10, 15, 10, 0.0008, 0.0011, 0.01]
+		p0[i] = [2, 10, 15, 10, 0.0008, 0.0011]
+		# p0[i] = [2, 10, 15, 10, 0.0008, 0.0011, 0.01]
 		for j in range(len(p0[i])):
 			p0[i][j] += np.random.normal(scale = 0.1 * p0[i][j])
 	p0 = np.array(p0)
