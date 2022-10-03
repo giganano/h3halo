@@ -37,7 +37,7 @@ bottom of each panel.
 Using our parametrization of one-zone GCE models described
 in~\S~\ref{sec:onezone}, here we define a set of parameter choices from which
 mock samples of stars can be drawn.
-We then demonstrate the validity of our likelihood function (equation
+We then demonstrate the validity of our likelihood function (Eq.
 \ref{eq:likelihood}) in~\S~\ref{sec:mocks:recovered} by applying it to a
 fiducial mock sample and comparing the best-fit values to the known parameters
 of the input model.
@@ -103,9 +103,9 @@ surviving dwarf galaxies and stellar streams often have their star formation
 quenched (e.g.,~\citealp{Monelli2010a, Monelli2010b, Sohn2013, Weisz2014a,
 Weisz2014b, Weisz2015}).
 These choices are not intended to resemble any one galaxy, but instead to
-qualitatively resemble some dwarf galaxy whose evolutionary parameters can
-be re-derived using our likelihood function as a check that it produces
-accurate best-fit parameters.
+qualitatively resemble some disrupted dwarf galaxy whose evolutionary
+parameters can be re-derived using our likelihood function as a check that it
+produces accurate best-fit parameters.
 \par
 As discussed in~\S~\ref{sec:onezone}, thoughout this paper we assume that the
 IMF-averaged alpha element yield is exactly~$\yacc = 0.01$ and
@@ -155,13 +155,15 @@ $\sigma_{\log_{10}(\text{age})} = 0.1$ (i.e.,~$\sim$23\% precision).
 \subsection{Recovered Parameters of the Fiducial Mock}
 \label{sec:mocks:recovered}
 
-We now apply the method outline in~\S~\ref{sec:fitting} to the mock sample
-detailed in~\S~\ref{sec:mocks:fiducial}.
-Fig.~\ref{fig:fiducial_mock_corner} shows the posterior distributions derived
-from this procedure with the marginalized likelihood distributions along the
-diagonal and 2-dimensional cross sections below the diagonal comparing the
-best-fit values with their known values.
-Our likelihood function accurately recovers each of the model parameters.
+Fig.~\ref{fig:fiducial_mock} shows our fiducial mock in the observed space.
+As intended by our parameter choices (see discussion
+in~\S~\ref{sec:mocks:fiducial}), this sample qualitatively resembles a typical
+disrupted dwarf galaxy -- dominated by old stars with metal-poor
+($\feh \approx -1$) and alpha-enhanced ($\afe \approx +0.2$) modes in the MDF.
+We now apply the method outline in~\S~\ref{sec:fitting} to recover the known
+parameters of the input model.
+Fig.~\ref{fig:fiducial_mock_corner} shows the resulting posterior distributions,
+demonstrating that our likelihood function accurately recovers each parameter.
 We include the predictions of the best-fit model in Fig.~\ref{fig:fiducial_mock},
 finding excellent agreement with the input model.
 To quantify the quality of the fit, for each datum~$\script{D}_i$ we find the
@@ -200,6 +202,8 @@ Although most cross sections of the posterior distribution are sufficiently
 described by a multivariate Gaussian, there is some subtructure in the
 likelihood distribution of~$\tau_\text{in}$, most noticeable in the
 $\yfecc - \tau_\text{in}$ plane.
+The MCMC algorithm naturally catches this structure, but it would be missed
+under the assumption of Gaussianity as in, e.g., maximum a posteriori estimates.
 There are a handful of degeneracies in the likelihood distribution of the
 recovered parameters, which arise as a consequence of having an impact on the
 same observable.
@@ -272,7 +276,7 @@ between these parameters (see Appendix~\ref{sec:degeneracy}).
 % similar agreement with the data.
 \par
 \textit{The shape of the MDF.}
-The~\ah~and~\feh~distributions are affected in a handful of ways by the
+The~\afe~and~\feh~distributions are affected in a handful of ways by the
 parameters of this input model.
 The duration of star formation has the simplest effect of cutting off the MDF
 at some abundance.
@@ -324,13 +328,13 @@ due to their impact on the MDF shape.
 % We discuss the implications of these results applied to observed data
 % in~\S~\ref{sec:mocks:variations} below.
 \par
-These tests against mock samples demonstrate the importance of the two central
-features of this method -- weighting the likelihood of observation by the SFH
-in the model and marginalizing over the evolutionary track for each datum.
-When either the weights or the marginalization are excluded from equation
-\refp{eq:likelihood}, the fit fails to recover the parameters of the input
-model with discrepancies at the many-$\sigma$ level between the best-fit and
-known values.
+In conducting these tests against mock samples, we find that the two central
+features of this method are essential to ensuring the accuracy of the best-fit
+parameters.
+When either the weighted likelihood or the marginalization over the track
+(see discussion in~\S~\ref{sec:fitting}) are omitted, the fit fails to recover
+the parameters of the input model with discrepancies at the many-$\sigma$ level
+between the best-fit and known values.
 For this reason, we caution against the reliability of GCE parameters inferred
 from simplified likelihood estimates, such as matching each datum with the
 nearest point on the track.
@@ -408,7 +412,8 @@ the values we take as exploratory cases with the fiducial mock marked in bold.
 In the remaining columns, we provide the associated values derived for each
 GCE parameter~$\theta$ along with their~$1\sigma$ confidence intervals.
 The sample sizes we consider are intended to reflect the range that is
-typically achieved in dwarf galaxies.
+typically achieved in disrupted dwarf galaxies where the proximity might
+allow individual age estimates for main sequence turnoff stars.
 Because of their distance and low stellar mass, dwarf galaxies are considerably
 less conducive to the large sample sizes achieved by Milky Way surveys like
 APOGEE~\citep{Majewski2017} and GALAH~\citep{DeSilva2015, Martell2017}.
@@ -419,9 +424,12 @@ problem known to be affected by systematics~\citep[e.g.,][]{Anguino2018},
 stellar age measurements
 are generally the more difficult of the two~\citep{Soderblom2010, Chaplin2013}.
 The age measurements may therefore be available for only a small portion of the
-sample and are often less precise than the abundances ($f_\text{age} = 30$\%
+sample and are often less precise than the abundances ($f_\text{age} = 20$\%
 and~$\sigma_\feh = \sigma_\afe = 0.05$ versus
 $\sigma_{\log_{10}(\text{age})} = 0.1$ in our fiducial mock).
+In practice, however, uncertainties vary with stellar mass; for example, hot
+main sequence turnoff stars have precise ages but poorly constrained
+abundances due to the lack of lines in their spectra.
 \par
 Fig.~\ref{fig:accuracy} demonstrates the accuracy of our fitting method with
 respect to variations in these details surrounding the data.
@@ -448,9 +456,9 @@ parameters will remain accurate nonetheless.
 We have explored alternate parametrizations of our mock sample's evolutionary
 history and indeed found that our method accurately recovers the parameters
 in all cases.
-To name a couple of these ``stress tests,'' one is a case in which we build in
-a significant starburst, finding that we accurately recover both the timing and
-the strength of the burst.
+For example, one is a case in which we build in a significant starburst,
+finding that we accurately recover both the timing and the strength of the
+burst.
 We have also explored an infall rate that varies sinusoidally about some mean
 value, mimicking natural fluctuations in the accretion history or a series of
 minor starbursts.
@@ -493,40 +501,31 @@ on sample size and precise abundance measurements with age information being
 a secondary consideration.
 Thankfully, abundances are generally easier than ages to measure on a
 star-by-star basis~\citep{Soderblom2010, Chaplin2013}.
-\par
-These results are of particular interest to authors seeking to derive quenching
-times for dwarf galaxies (i.e., the lookback time to when their star formation
-stopped).
-At present, the most reliable method to empirically determine a dwarf galaxy's
-quenching time is via a direct reconstruction of its SFH through some method,
-such as analysing its CMD~\citep[e.g.,][]{Sohn2013, Weisz2015}.
-Consequently, the most precise SFH measurements are for nearby systems with
-resolved stars, a considerable limitation even with modern instrumentation.
-To our knowledge, there are only four quenched galaxies outside of the Milky
-Way subgroup with well-constrained SFHs: Andromeda II, Andromeda XIV
-\citep{Weisz2014a}, Cetus~\citep{Monelli2010a} and Tucana~\citep{Monelli2010b}.
-Some authors have connected quenching timescales to observed galaxy properties
-in N-body simulations (e.g.,~\citealp*{Rocha2012};~\citealp{Slater2013,
-Slater2014, Phillips2014, Phillips2015, Wheeler2014}), but unfortunately
-simulation outcomes are strongly dependent on the details of the adopted
-sub-grid models~\citep[e.g.,][]{Li2020} as well as how feedback and the grid
-itself are implemented~\citep{Hu2022}.
-Our results suggest that the duration of star formation can instead be inferred
-from elemental abundance alone, though having~\textit{some} age information can
-significantly improve the precision of the fit.
-While this is theoretically possible, we demonstrate in~\S~\ref{sec:h3:gse}
-below that the exclusion of age information from the fit to our GSE sample
-produces significantly different results for evolutionary timescales.
-These discrepancies indicate that age information in some form is more
-important in practice than our proof of concept would suggest.
-% While this is theoretically possible, this proof of concept assumes the same
-% evolutionary history of the mock data and even fits them with the same
-% numerical code which which we integrated the input model.
-% The model and data are therefore affected by the exact same systematics, while
-% in practice the systematics affecting observed data and a one-zone GCE model
-% are different.
-% In~\S~\ref{sec:h3:gse} below, we demonstrate that the exclusion of age
-% information from the fit to our GSE sample produces different results for
-% evolutionary timescales.
+% \par
+% These results are of particular interest to authors seeking to derive quenching
+% times for dwarf galaxies (i.e., the lookback time to when their star formation
+% stopped).
+% At present, the most reliable method to empirically determine a dwarf galaxy's
+% quenching time is via a direct reconstruction of its SFH through some method,
+% such as analysing its CMD~\citep[e.g.,][]{Sohn2013, Weisz2015}.
+% Consequently, the most precise SFH measurements are for nearby systems with
+% resolved stars, a considerable limitation even with modern instrumentation.
+% To our knowledge, there are only four quenched galaxies outside of the Milky
+% Way subgroup with well-constrained SFHs: Andromeda II, Andromeda XIV
+% \citep{Weisz2014a}, Cetus~\citep{Monelli2010a} and Tucana~\citep{Monelli2010b}.
+% Some authors have connected quenching timescales to observed galaxy properties
+% in N-body simulations (e.g.,~\citealp*{Rocha2012};~\citealp{Slater2013,
+% Slater2014, Phillips2014, Phillips2015, Wheeler2014}), but unfortunately
+% simulation outcomes are strongly dependent on the details of the adopted
+% sub-grid models~\citep[e.g.,][]{Li2020} as well as how feedback and the grid
+% itself are implemented~\citep{Hu2022}.
+% Our results suggest that the duration of star formation can instead be inferred
+% from elemental abundance alone, though having~\textit{some} age information can
+% significantly improve the precision of the fit.
+% While this is theoretically possible, we demonstrate in~\S~\ref{sec:h3:gse}
+% below that the exclusion of age information from the fit to our GSE sample
+% produces significantly different results for evolutionary timescales.
+% These discrepancies indicate that age information in some form is more
+% important in practice than our proof of concept would suggest.
 
 \end{document}

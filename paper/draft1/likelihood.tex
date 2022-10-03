@@ -9,7 +9,7 @@
 \section{Derivation of the Likelihood Function}
 \label{sec:likelihood}
 
-Here we provide a detailed derivation of our likelihood function (equation
+Here we provide a detailed derivation of our likelihood function (Eq.
 \ref{eq:likelihood}).
 In its most general form, the problem at hand is to treat some set of data as a
 stochasitc sample from an evolutionary track in some observed space.
@@ -68,12 +68,14 @@ d\script{M},
 where~$P(\script{M} | \{\theta\})$ describes the probability that a singular
 datum will be drawn from the model at a given point along the track.
 The defining characteristic of the IPPP is that~$P(\script{M} | \{\theta\})$
-follows a Poisson distribution:
+follows a Poisson distribution~\citep{Press2007}:
 \begin{equation}
 P(\script{M}_j | \{\theta\}) = e^{-N_\lambda}
 \prod_i^N \lambda (\script{M}_j | \{\theta\}),
 \end{equation}
-where~$\lambda$ is the~\textit{intensity function} describing the expected
+where for notational convenience below we leave the expression written as a
+product over the~$N$ stars in the sample as opposed to~$\lambda^N$.
+$\lambda$ is the~\textit{intensity function} describing the expected
 number of stars at a specific point along the track~$\script{M}_j$.
 $N_\lambda$ denotes the expected~\textit{total} number of stars in the sample
 and can be expressed as the line integral of the intensity function along the
@@ -86,7 +88,7 @@ chemical space and should therefore incorporate any selection effects in the
 data.
 It can be expressed as the product of the selection function~\script{S}~(see
 discussion in~\S~\ref{sec:fitting}) and the~\textit{intrinsic}
-density~$\Lambda$ according to
+distribution~$\Lambda$ according to
 \begin{equation}
 \lambda(\script{M}_j | \{\theta\}) = \script{S}(\script{M}_j | \{\theta\})
 \Lambda(\script{M}_j | \{\theta\}).
@@ -282,8 +284,8 @@ As discussed above, the intensity function~$\lambda$ quantifies the observed
 density of points, incorporating any selection effects present in the data into
 the predicted intrinsic density~$\Lambda$.
 In a one-zone GCE model,~$\Lambda$ is given by the SFR at the point
-$\script{M}_j$ (modulo the small effect of mass loss from recycled stellar
-envelopes; see discussion in, e.g.,~\citealt{Weinberg2017}).
+$\script{M}_j$ (to incorporate the effects dying stars or stars at a given
+evolutionary stage, one can modify the selection function~\script{S}).
 This multiplicative factor on the likelihood~$L$ can be incorporated by simply
 letting the pair-wise component of the datum~$\script{D}_i$ and the point along
 the track~$\script{M}_j$ take on a weight
@@ -307,10 +309,8 @@ optimization.
 This likelihood function considers each pair-wise combination of the data and
 model, weighting the likelihood according to the predicted density of
 observations and penalizing models by the sum of their weights.
-This penalty encourages parsimony, rewarding models that explain the
-observations in as few predicted instances as possible, simultaneously lowering
-the inferred likelihood when data are predicted to exist in regions of the
-observed space where there are none.
+This term can also be described as a reward for models that explain the
+observations in as few predicted instances as possible.
 \par
 In many one-zone GCE models, however, the normalization of the SFH is
 irrelevant to the evolution of the abundances.

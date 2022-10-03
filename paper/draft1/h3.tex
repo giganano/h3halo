@@ -66,14 +66,14 @@ not appear in other panels when zoomed in on the peak.
 
 \subfile{results.tablebody.tex}
 
-We now apply our likelihood function (equation~\ref{eq:likelihood}) to two
+We now apply our likelihood function (Eq.~\ref{eq:likelihood}) to two
 disrupted dwarf galaxies in the Milky Way stellar halo.
 The first is a relatively well-studied system: GSE~\citep{Belokurov2018,
 Helmi2018}, believed to be responsible for a major merger event early in the
-Milky Way's history~\citep{Chaplin2020} which contributed~$10^9 - 10^{10}~\msun$
+Milky Way's history~\citep{Chaplin2020} which contributed~$\sim$$10^{10}~\msun$
 of total stellar mass to the Galaxy~\citep{Deason2019, Fattahi2019,
-Mackereth2019, Vincenzo2019}, including eight globular clusters in the stellar
-halo~\citep{Myeong2018}.
+Mackereth2019, Vincenzo2019, Han2022}, including eight globular clusters in the
+stellar halo~\citep{Myeong2018}.
 GSE is a good test case for this method both because it is the dominant
 structure in the Milky Way's inner halo~\citep{Helmi2018} and because we can
 compare to independent constraints thanks to the amount of attention it has
@@ -167,7 +167,8 @@ statistical likelihood.
 \label{fig:wukong_corner}
 \end{figure*}
 
-Our GSE sample consists of 189 stars, 95 of which have age measurements.
+Our GSE sample consists of 189 stars, 95 of which are main sequence turnoff
+stars with age measurements.
 Abundance uncertainties range from~$\sim$0.02 to 0.12 dex in
 both~\feh~and~\afe~with median values near~$\sim$0.05.
 Every age measurement has a statistical uncertainty
@@ -300,7 +301,7 @@ timescales~$\tau_\star$ for GSE are smaller than the point.
 % fig 10
 \begin{figure}
 \centering
-\includegraphics[scale = 0.65]{gse_wukong_eta.pdf}
+\includegraphics[scale = 0.6]{gse_wukong_eta.pdf}
 \caption{
 Our best-fit mass-loading factors~$\eta$ for Wukong (blue) and GSE (red) as
 a function of their stellar mass (taken from~\citealt{Naidu2022}; values are
@@ -414,8 +415,7 @@ constrained the duration of star formation in Wukong and GSE to 15.2\% and
 However, our Wukong sample has no age measurements, and we have not derived
 an SFH from its CMD here.
 The failure of our fit to GSE omitting all ages (see Table~\ref{tab:results})
-suggests that these best-fit parameters may need revised if some form of age
-information is added to the fit.
+suggests that these best-fit parameters may be biased to high values.
 \par
 As expected given Wukong's shallower gravity well, it experienced stronger
 mass-loading than GSE.

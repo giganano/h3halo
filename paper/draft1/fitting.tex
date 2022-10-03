@@ -50,7 +50,7 @@ in kinematic space and stellar isochrones on CMDs).
 In practice, the evolutionary track predicted by a one-zone GCE model is
 generally not known in some analytic functional form (unless specific
 approximations are made as in, e.g.,~\citealp{Weinberg2017}).
-Instead, it is most often quantified in a piece-wise linear form predicted by
+Instead, it is most often quantified as a piece-wise linear form predicted by
 some numerical code (in our case,~\vice).
 For a sample~$\script{D} = \{\script{D}_1, \script{D}_2, \script{D}_3, ...,
 \script{D}_N\}$ containing~$N$ abundance and age (where available) measurements
@@ -180,7 +180,8 @@ compared to the observational uncertainties in the data.
 This assumption can be relaxed at the expense of including an additional
 correction factor~$\beta_{ij}$ given by equation~\refp{eq:corrective_beta}
 that integrates the likelihood between each pair of adjacent
-points~$\script{M}_j$ and~$\script{M}_{j + 1}$ along the track.
+points~$\script{M}_j$ and~$\script{M}_{j + 1}$ along the track (see discussion
+in Appendix~\ref{sec:likelihood}).
 If computing the evolutionary track is sufficiently expensive, relaxing the
 number of points and including this correction factor may be the more
 computationally efficient option.
@@ -205,7 +206,7 @@ Kennicutt-Schmidt relation\footnote{
 	\Sigma_\text{g}^{1 - N}$ where~$N \neq 1$.
 	\citet{Kennicutt1998} measured~$N = 1.4 \pm 0.15$ from the global gas
 	densities and SFRs in star-forming spiral galaxies, although recent
-	advancement suggest more sophisticated forms~\citep[e.g.,][]{Krumholz2018}.
+	advancements suggest more sophisticated forms~\citep[e.g.,][]{Krumholz2018}.
 } where the normalization of the SFH and size of the galaxy are taken into
 account.
 In these cases, the likelihood function is given by
@@ -233,7 +234,7 @@ calculation.
 There are a variety of ways to construct the likelihood distribution in
 parameter space.
 In the present paper, we employ the MCMC method, making use of
-the~\mc~\python~package~\citep{Foreman-Mackey2013} to construct our Markov
+the~\mc~\python~package~\citep{ForemanMackey2013} to construct our Markov
 chains.
 Despite being more computationally expensive than other methods (e.g.,
 maximum a posteriori estimation), MCMC offers a more generic solution by

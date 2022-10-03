@@ -3,31 +3,33 @@
 \begin{document}
 
 \begin{abstract}
-We develop a Bayesian method which requires no binning of the data for fitting
-one-zone models of galactic chemical evolution to observed stellar abundances
-and ages (where available).
-Assuming only that the data arise as a stochastic sample from an
-arbitrary evolutionary track perturbed by measurement uncertainties, we
-demonstrate that a single likelihood function appropriate for one-zone models
-can be derived.
-We establish the accuracy of this likelihood function by means of tests
-against mock data, showing that it accurately recovers the known parameters of
-input models across a broad range of sample sizes ($20 \leq N \leq 2000$) and
-measurement uncertainties in both abundances ($0.01 \leq \sigma_\text{[X/Y]}
-\leq 0.5$) and ages ($0.02 \leq \sigma_{\log_{10}(\text{age})} \leq 1$).
-The precision of the inferred parameters generally scales with sample size
-as~$\sim N^{-1/2}$.
-We apply this method to two disrupted dwarf galaxies in the Milky Way
-halo:~\gaia-Sausage Enceladus (GSE) and Wukong.
-We describe these systems with exponential accretion histories and derive
-e-folding timescales of~$\tau_\text{in} = 1.01 \pm 0.13$ Gyr for GSE and
-$\tau_\text{in} = 3.08^{+3.19}_{-1.16}$ Gyr for Wukong.
-In principle, this method allows accurate derivations of evolutionary
-timescales even in the absence of age measurements, though in practice either
-ages or an empirically-motivated prior on the star formation history are
-required for the application to observed data.
-Due to the first principles nature of its derivation, our likelihood function
-should be universally applicable to one-zone models of any parametrization.
+We model the stellar abundances and ages of two disrupted dwarf galaxies in the
+Milky Way stellar halo:~\gaia-Sausage Enceladus (GSE) and Wukong (also known as
+LMS-1).
+Using a statistically robust likelihood function, we fit one-zone models of
+galactic chemical evolution with exponential infall histories to both systems,
+deriving e-folding timescales of~$\tau_\text{in} = 1.01 \pm 0.13$ Gyr for GSE
+and~$\tau_\text{in} = 3.08^{+3.19}_{-1.16}$ Gyr for Wukong.
+GSE formed stars for~$\tau_\text{tot} = 5.40^{+0.32}_{-0.31}$ Gyr, sustaining
+star formation for~$\sim$$1.5 - 2$ Gyr after its first infall into the Milky
+Way~$\sim$10 Gyr ago.
+Our fit suggests that star formation lasted for
+$\tau_\text{tot} = 3.36^{+0.55}_{-0.47}$ Gyr in Wukong, though our sample does
+not contain any age measurements.
+The variations in evolutionary parameters between the two are qualitatively
+consistent with simulations and semi-analytic models of galaxy formation.
+Our fitting method is based only on poisson sampling from an evolutionary
+track and requires no binning of the data.
+We demonstrate its accuracy by means of tests against mock data, showing that
+it accurately recovers the input model across a broad range of sample sizes
+($20 \leq N \leq 2000$) and measurement uncertainties
+($0.01 \leq \sigma_\afe,~\sigma_\feh \leq 0.5$;
+$0.02 \leq \sigma_{\log_{10}(\text{age})} \leq 1$).
+The fit precision of the inferred parameters generally scales with sample size
+as~$\sim$$1/\sqrt{N}$.
+Due to its generic nature, our likelihood function is highly generic and should
+be applicable to one-zone models of any parametrization as well as other
+astrophysical models which predict tracks in some observed space.
 \end{abstract}
 
 \end{document}

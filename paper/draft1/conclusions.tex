@@ -71,7 +71,7 @@ We reserve more detailed modelling of galaxies with both simple and complex
 evolutionary histories for future work.
 \par
 Our method is built around a likelihood function which requires no binning of
-the data (equation~\ref{eq:likelihood}) and has two central features.
+the data (Eq.~\ref{eq:likelihood}) and has two central features.
 First, the likelihood of observing some datum~$\script{D}_i$ must be
 marginalized over the entire evolutionary track~\script{M}.
 This requirement arises due to measurement uncertainties: for any given datum,
@@ -106,13 +106,41 @@ It should therefore be applicable to one-zone models of any parametrization as
 well as easily extensible to other astrophysical models in which the chief
 prediction is a track of some form (e.g., stellar streams and isochrones).
 \par
-This method could have a strong impact in deriving SFHs and quenching times for
-dwarf galaxies.
+Our method is of particular interest to authors seeking to derive quenching
+times (i.e., the lookback time to when star formation stopped) for intact and 
+disrupted dwarf galaxies
+At present, the most reliable method to empirically determine a dwarf galaxy's
+quenching time is via a direct reconstruction of its SFH through some method,
+such as analysing its CMD~\citep[e.g.,][]{Sohn2013, Weisz2015}.
+Consequently, the most precise SFH measurements are for nearby systems with
+resolved stars, a considerable limitation even with modern instrumentation.
+To our knowledge, there are only four quenched galaxies outside of the Milky
+Way subgroup with well-constrained SFHs: Andromeda II, Andromeda XIV
+\citep{Weisz2014a}, Cetus~\citep{Monelli2010a} and Tucana~\citep{Monelli2010b}.
+Some authors have connected quenching timescales to observed galaxy properties
+in N-body simulations (e.g.,~\citealp*{Rocha2012};~\citealp{Slater2013,
+Slater2014, Phillips2014, Phillips2015, Wheeler2014}), but unfortunately
+simulation outcomes are strongly dependent on the details of the adopted
+sub-grid models~\citep[e.g.,][]{Li2020} as well as how feedback and the grid
+itself are implemented~\citep{Hu2022}.
+Our results suggest that chemical abundances can provide valuable additional
+information for these methods.
+% Our results suggest that the duration of star formation can instead be inferred
+% from elemental abundance alone, though having~\textit{some} age information can
+% significantly improve the precision of the fit.
+% While this is theoretically possible, we demonstrate in~\S~\ref{sec:h3:gse}
+% below that the exclusion of age information from the fit to our GSE sample
+% produces significantly different results for evolutionary timescales.
+% These discrepancies indicate that age information in some form is more
+% important in practice than our proof of concept would suggest.
+\par
+% This method could have a strong impact in deriving SFHs and quenching times for
+% dwarf galaxies.
 However, with current instrumentation, spectroscopic measurements of
 multi-element abundances in dwarf galaxies are limited to the local group
 \citep[e.g.,][]{Kirby2011, Kirby2020}, and sample sizes are small even for
 these relatively nearby systems.
-Larger spectroscopic sample sizes could potentially be achieved with a high
+Larger sample sizes could potentially be achieved with a high
 angular resolution integral field unit such as the Multi Unit Spectroscopic
 Explorer~\citep[MUSE;][]{Bacon2014}.
 Alternatively, photometry is more conducive to larger sample sizes due to the

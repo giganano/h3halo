@@ -5,8 +5,12 @@
 \section{Galactic Chemical Evolution}
 \label{sec:onezone}
 
-The fundamental assumption of one-zone models is that newly produced metals mix
-instantaneously throughout the star-forming gas reservoir.
+One-zone GCE models connect the star formation and accretion histories of
+galaxies to the enrichment rates in the ISM through prescriptions for
+nucleosynthetic yields, outflows, and star formation efficiency (SFE) within
+a simple mathematical framework.
+Their fundamental assumption is that newly produced metals mix instantaneously
+throughout the star-forming gas reservoir.
 In detail, this assumption is valid as long as the mixing timescale is short
 compared to the depletion timescale (i.e., the average time a fluid element
 remains in the ISM before getting incorporated into new stars or ejected in an
@@ -67,8 +71,8 @@ degenerate with the absolute scale of nucleosynthetic yields.
 We discuss this further below and quantify the strength of the degeneracy in
 more detail in Appendix~\ref{sec:degeneracy}.
 \par
-The SFR and the mass of the ISM are related by the star formation efficiency
-(SFE) timescale~$\tau_\star$, defined as the ratio of the two:
+The SFR and the mass of the ISM are related by the SFE timescale~$\tau_\star$,
+defined as the ratio of the two:
 \begin{equation}
 \tau_\star \equiv \frac{M_\text{g}}{\dot{M}_\star}.
 \label{eq:taustar}
@@ -78,9 +82,8 @@ The inverse~$\tau_\star^{-1}$ is the SFE itself, quantifying the
 Some authors refer to~$\tau_\star$ as the ``depletion time''
 \citep[e.g.,][]{Tacconi2018} because it describes the e-folding decay timescale
 of the ISM mass due to star formation if no additional gas is added.
-Our nomenclature is based off of~\citet{Weinberg2017}, who demonstrate that
-depletion times in GCE models can shorten significantly in the presence of
-outflows.
+Our nomenclature follows~\citet{Weinberg2017}, who demonstrate that depletion
+times in GCE models can shorten significantly in the presence of outflows.
 \par
 The recycling rate~$\dot{M}_\text{r}$ is a complicated function which depends
 on the stellar initial mass function~\citep[IMF; e.g.,][]{Salpeter1955,
@@ -100,7 +103,7 @@ second-order effect on the gas-phase evolutionary track in the~\afe-\feh~plane.
 The first-order details are instead determined by the SFE timescale~$\tau_\star$
 and the mass-loading factor~$\eta$ (see discussion in~\citealt{Weinberg2017}).
 In the absence of sudden events such as a burst of star formation, the detailed
-form of the SFH actually has minimal impact of the shape of the track
+form of the SFH actually has minimal impact of the shape of the model track
 \citep{Weinberg2017, Johnson2020}.
 That information is instead encoded inthe stellar MDFs (i.e., the density of
 stars along the track).
@@ -171,17 +174,19 @@ The total enrichment rate can be computed by simply adding up all of the source
 terms and subtracting the sink terms:
 \begin{equation}
 \dot{M}_\text{x} = \dot{M}_\text{x}^\text{CC} + \dot{M}_\text{x}^\text{Ia} -
-Z_\text{x}\dot{M}_\star - Z_\text{x}\dot{M}_\text{out} + \dot{M}_{\text{x,r}}.
+Z_\text{x}\dot{M}_\star - Z_\text{x}\dot{M}_\text{out} + \dot{M}_{\text{x,r}},
 \label{eq:enrichment}
 \end{equation}
+where~$Z_x = M_\text{x} / M_\text{ISM}$ is the abundance by mass of the nuclear
+species x in the ISM.
 This equation as written assumes that the outflowing material is of the same
 composition as the ISM, but in principle, the various nuclear species of
 interest may be some factor above or below the ISM abundance.
 In the present paper we assume all accreting material to be zero metallicity
-gas; when this assumption is relaxed, this equation simply picks up an
-additional term~$Z_\text{x,in}\dot{M}_\text{in}$.
+gas; when this assumption is relaxed, an additional term
+$Z_\text{x,in}\dot{M}_\text{in}$ appears in this equation.
 \par
-As mentioned above, the strength of outflows are degenerate with the absolute
+As mentioned above, the strength of outflows is degenerate with the absolute
 scale of nucleosynthetic yields.
 This ``yield-outflow degeneracy'' is remarkably strong, and it arises because
 yields and outflows are the dominant source and sink terms in equation
