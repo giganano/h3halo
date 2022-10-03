@@ -12,73 +12,8 @@ static double **multiply_matrices(double **matrix1, double **matrix2,
 static double **transpose(double **matrix, unsigned short m, unsigned short n);
 static double chi_squared(FIT_DRIVER fd, unsigned long model_idx,
 	unsigned long sample_idx);
-
-
-#if 0
-int main() {
-
-	// double **matrix1 = (double **) malloc (3u * sizeof(double *));
-	double **matrix1 = (double **) malloc (sizeof(double *));
-	double **matrix2 = (double **) malloc (3u * sizeof(double *));
-
-	matrix1[0] = (double *) malloc (3u * sizeof(double));
-	matrix1[0][0] = 1;
-	matrix1[0][1] = 2;
-	matrix1[0][2] = 3;
-
-	unsigned short i, j;
-	for (i = 0u; i < 3u; i++) {
-		matrix2[i] = (double *) malloc (3u * sizeof(double));
-		for (j = 0u; j < 3u; j++) {
-			if (i == 2u || j == 2u) {
-				matrix2[i][j] = NAN;
-			} else {
-				matrix2[i][j] = i + j + 1;
-			}
-		}
-	}
-
-	// for (i = 0u; i < 3u; i++) {
-	for (i = 0u; i < 1u; i++) {
-		for (j = 0u; j < 3u; j++) printf("%.2f\t", matrix1[i][j]);
-		printf("\n");
-	}
-	printf("============================\n");
-
-	double **trans = transpose(matrix1, 1, 3);
-	for (i = 0u; i < 3u; i++) {
-		for (j = 0u; j < 1u; j++) printf("%.2f\t", trans[i][j]);
-		printf("\n");
-	}
-	printf("============================\n");
-
-	for (i = 0u; i < 3u; i++) {
-		for (j = 0u; j < 3u; j++) printf("%.2f\t", matrix2[i][j]);
-		printf("\n");
-	}
-	printf("============================\n");
-
-	double **matrix3 = multiply_matrices(matrix1, matrix2, 1u, 3u, 3u);
-	for (i = 0u; i < 1u; i++) {
-		for (j = 0u; j < 3u; j++) printf("%.2f\t", matrix3[i][j]);
-		printf("\n");
-	}
-	printf("============================\n");
-
-	double **matrix4 = multiply_matrices(matrix3, trans, 1u, 3u, 1u);
-	for (i = 0u; i < 1u; i++) {
-		for (j = 0u; j < 1u; j++) printf("%.2f\t", matrix4[i][j]);
-		printf("\n");
-	}
-
-	free(matrix1);
-	free(matrix2);
-	free(matrix3);
-	free(matrix4);
-	free(trans);
-
-}
-#endif
+static double likelihood_best_trackpoint(FIT_DRIVER fd,
+	const unsigned long datum_idx);
 
 
 extern FIT_DRIVER *fit_driver_initialize(void) {
@@ -146,13 +81,34 @@ extern double loglikelihood(FIT_DRIVER fd) {
 	unsigned long i, j;
 
 	for (i = 0ul; i < fd.n_sample; i++) {
-		double s = 0;
-		for (j = 0ul; j < fd.n_model; j++) {
-			s += fd.weights[j] * exp(-0.5 * chi_squared(fd, j, i));
-		}
-		result += log(s);
+		// double s = 0;
+		// for (j = 0ul; j < fd.n_model; j++) {
+		// 	s += fd.weights[j] * exp(-0.5 * chi_squared(fd, j, i));
+		// }
+		result += log(likelihood_best_trackpoint(fd, i));
 	}
 
+	return result;
+
+}
+
+
+static double likelihood_best_trackpoint(FIT_DRIVER fd,
+	const unsigned long datum_idx) {
+
+	unsigned long i, idx = 0ul;
+	double *likelihood = (double *) malloc (fd.n_model * sizeof(double));
+	for (i = 0u; i < fd.n_model; i++) {
+		likelihood[i] = fd.weights[i] * exp(-0.5 * chi_squared(fd, i,
+			datum_idx));
+	}
+
+	for (i = 1u; i < fd.n_model; i++) {
+		if (likelihood[i] > likelihood[idx]) idx = i;
+	}
+
+	double result = likelihood[idx];
+	free(likelihood);
 	return result;
 
 }
