@@ -24,36 +24,49 @@ Quantitatively, we arrive at a longer duration of star formation than
 \citet{Gallart2019}, who derived an age distribution for GSE by analysing its
 CMD according to the method described in~\citet{Dolphin2002} and found a
 median age of 12.37 Gyr.
-In agreement with this,~\citet{Vincenzo2019} infer a sharply declining infall
-history with a timescale of~$\tau_\text{in} = 0.24$ Gyr.
-The star-by-star age measurements provided by H3~\citep{Conroy2019} suggest
-that GSE's SFH was more extended (see Fig.~\ref{fig:gse}), and we consequently
-deduce a higher value of~$\tau_\text{in} = 1.01 \pm 0.13$ Gyr.
+Consistent with their results,~\citet{Vincenzo2019} infer a sharply declining
+infall history with a timescale of~$\tau_\text{in} = 0.24$ Gyr.
+However, the star-by-star age measurements provided by H3~\citep{Conroy2019}
+suggest that GSE's SFH was more extended (see Fig.~\ref{fig:gse}).
+The peak of the age distribution is near~$\sim$11 Gyr (Fig.~\ref{fig:gse}),
+consistent with Feuillet et al.'s~\citeyearpar{Feuillet2021} results
+from~\gaia~\citep{Gaia2016} and APOGEE~\citep{Majewski2017}.
+Consequently, we deduce a higher value of~$\tau_\text{in}$ of~$1.01 \pm 0.13$
+Gyr.
 If its first infall into the Milky Way halo was~$\sim$10 Gyr ago
-\citep[e.g.,][]{Helmi2018, Bonaca2020}, then the duration of star formation we
-derive ($\tau_\text{tot} = 5.4$ Gyr) implies that GSE formed stars for
-$1.6 - 2.2$ Gyr, depending on exactly how long ago it began.
+\citep[e.g.,][]{Helmi2018, Bonaca2020}, then depending on exactly how long ago
+it started forming stars, the duration of star formation we derive
+($\tau_\text{tot} = 5.4$ Gyr) implies that GSE formed stars for~$\sim$$1.5 - 2$
+Gyr after its first infall.
 \par
 To our knowledge, this is the first detailed modelling of multi-element stellar
 abundances in Wukong.
-Star formation lasted~$\sim$2 Gyr longer in GSE than Wukong -- if they started
-forming stars around the same time, then Wukong was quenched around the same
-time as the GSE-Milky Way merger.
-However, our age distribution is purely a prediction as we do not have any age
-measurements of individual stars and we do not model Wukong's CMD here.
+Wukong experienced a more extended accretion history
+($\tau_\text{in} = 3.08^{+3.19}_{-1.16}$ Gyr), but the duration of star
+formation was~$\sim$2 Gyr shorter than in GSe.
+If they started forming stars around the same time, then Wukong was quenched at
+approximately the time of GSE's first infall.
+However, our sample includes no age information for Wukong, so the centroid of
+the age distribution is a prediction of our model as opposed to an empirical
+constraint.
 We find no statistically significant evidence of IMF variability or
 metallicity-dependent Fe yields comparing GSE and Wukong.
+A pathway to investigate this further and potentially pin down the
+yield-outflow degeneracy as well (see discussion in
+Appendix~\ref{sec:degeneracy}) is to perform a hierarchical analysis of a
+sample of galaxies where the yields are free parameters but are required to be
+the same for all systems.
 \par
 Although these models are statistically good descriptions of our GSE and Wukong
 data, they are simplified in nature.
 In particular, we have assumed a linear relation between the gas supply and the
 SFR while empirical results would suggest a non-linear relation
-\citep[e.g.][]{Kennicutt1998, Kennicutt2012, delosReyes2019, Kennicutt2021}.
-We have also taken a constant outflow mass-loading factor~$\eta$ when in
-principle,~$\eta$ could vary with time as the potential well of the galaxy
-deepens.
+\citep[e.g.,][]{Kennicutt1998, Kennicutt2012, delosReyes2019, Kennicutt2021}.
+We have also taken a constant outflow mass-loading factor~$\eta$, when in
+principle this parameter could vary with time as the potential well of the
+galaxy deepens as in, e.g.,~\citet{Conroy2022}.
 The primary motivation of these choices, however, is to provide proof of
-concept for this fitting method with an example application to observations.
+concept for our fitting method with an example application to observations.
 We reserve more detailed modelling of galaxies with both simple and complex
 evolutionary histories for future work.
 \par
@@ -93,159 +106,33 @@ It should therefore be applicable to one-zone models of any parametrization as
 well as easily extensible to other astrophysical models in which the chief
 prediction is a track of some form (e.g., stellar streams and isochrones).
 \par
-{\color{red}
-Blurbs about quenching times and how doing things with CMD-derived SFHs included
-as a prior could be highly impactful -- can also get photometric MDFs from the
-CMD, modelling of which would proceed with a similar framwork.
-To pin down the yield outflow degeneracy, one can imagine some form of
-hierarchical modelling where they simultaneously fit the abundances and ages
-across a broad sample of galaxies and enforce that the yields be the same
-between all of them -- this could help break the degeneracy.
-Blurb about how the next step is to take a ``chemical census'' of the local
-group dwarf galaxies, and that Roman is going to revolutionize stellar pops
-and statistically robust models such as ours are going to be essential to
-deduce what lessons they have to teach us about galaxy evolution at the
-low-mass end.}
-
-% We have started from first principles with poisson sampling from an arbitrary
-% evolutionary track in abundance space.
-% From this, we derive a likelihood function for fitting one-zone GCE models to
-% observed stellar abundances and ages, where available (see equation
-% \ref{eq:likelihood} in~\S~\ref{sec:fitting} and derivation in
-% Appendix~\ref{sec:likelihood}).
-% This derivation does not assume that the observational benchmarks are
-% stellar ages and abundances, and it should therefore be easily extensible to
-% other astrophysical models in which the chief prediction is a track of some
-% form (e.g. stellar streams in kinematic space and isochrones in CMDs).
-% Although there are a handful of examples in the literature already in which
-% the authors derive best-fit parameters for GCE models~\citep[e.g.][]{Kirby2011,
-% Spitoni2020, Spitoni2021, Hasselquist2021}, to our knowledge this is the first
-% of such instances in which the statistical validity of the method has been
-% robustly demonstrated.
-% \par
-% There are two central features to our likelihood function which appear in all
-% of its forms.
-% First, the likelihood of observing some datum~$\script{D}_i$ must be
-% marginalized over the entire evolutionary track~\script{M}.
-% This requirement arises due to observational uncertainties: for any given
-% datum, there is no way of knowing where on the track the observation truly
-% arose from, and to properly take this into account, one must consider all
-% pair-wise combinations of~\script{D}~and~\script{M}.
-% Second, the likelihood of observing a datum~$\script{D}_i$ given a point on
-% the evolutionary track~$\script{M}_j$ must be weighted by the SFR at that time
-% in the model, simultaneously folding in any selection effects introduced by the
-% survey.
-% This requirement arises because an observed star is proportionally more likely
-% to have been sampled from an epoch of a galaxy's history in which the SFR was
-% large and/or if the survey designed is biased toward certain epochs.
-% \par
-% We establish the accuracy of this fitting method by means of mock data samples.
-% To this end, we sample from the SFH of an input one-zone model and perturb the
-% ages and abundances by some artificial uncertainty.
-% Within the range of sample sizes ($N = 20 - 2000$), abundance uncertainties
-% ($\sigma_\text{[X/Y]} = 0.01 - 0.5$), age uncertainties
-% ($\sigma_{\log_{10}(\text{age})} = 0.02 - 1$) and the fraction of the sample
-% with age information ($f_\text{age} = 0 - 1$) probed here, we find that this
-% method recovers the known evolutionary parameters of the input model in all
-% cases (see Fig.~\ref{fig:accuracy}).
-% The mean offset between the known and best-fit values is at the~$\sim 1 \sigma$
-% level, exactly as expected for a Gaussian random process (see discussion
-% in~\S~\ref{sec:mocks:variations}).
-% We have conducted further ``stress tests'' of this method by fitting models
-% with complicated evolutionary histories whichwe elect not to illustrate in this
-% paper.
-% In all cases, our method accurately recovers the input model parameters,
-% reinforicng our interpretation that equation~\refp{eq:likelihood} should be
-% universally applicable to GCE models as it takes the model-predicted track as
-% input and is independent of the details of the model from which it was
-% computed.
-% We emphasize that it is not that the marginalization over the track and the
-% weights each individually improve the precision of the fit; it is that they
-% are both~\textit{essential} to the accuracy of the inferred parameters.
-% When either of the two are neglected from our fitting procedure, we fail to
-% recover the known parameters with discrepancies at the many-$\sigma$ level.
-% \par
-% Interestingly, our likelihood function accurately recovers input timescales
-% even in the~\textit{absence} of age information, including the total duration
-% of star formation.
-% This arises through their impact on the centroid and shape of the MDF,
-% information which can be extracted with a fit to a sample of sufficient size
-% and measurement precision.
-% While age information does improve the precision of the fit, the inferred
-% values remain accurate nonetheless even without such measurements.
-% However, we find significant differences in the inferred evolutionary
-% timescales when fitting our GSE sample with and without ages.
-% This discrepancy suggests that in application to observed data, this requires
-% removing all systematic differences between the data and model and that age
-% information provides more information than our theoretical justification would
-% suggest.
-% Nonetheless, this method could be of notable use to authors interested in
-% deriving quenching times for dwarf galaxies (i.e. the lookback time to when
-% star formation stopped).
-% At present, the most robust method for empirically measuring a galaxy's
-% quenching time is to directly measure its SFH by some means, such as analysing
-% its CMD~\citep[e.g.][]{Sohn2013, Weisz2015}.
-% At present, this leaves only a handful of galaxies with well-constrained SFHs
-% outside of the Milky Way subgroup~\citep{Monelli2010a, Monelli2010b,
-% Weisz2014a}.
-% By constraining the quenching times and SFHs from stellar abundances and ages
-% (or, alternatively, some empirically-motivated prior on the SFH), these
-% chemically-derived evolutionary histories could offer new and independent
-% insight into galaxy formation at the low stellar mass regime.
-% \par
-% We apply our fitting method to the GSE~\citep{Belokurov2018, Helmi2018} and
-% Wukong~\citep{Naidu2020, Naidu2022} stellar streams in the Milky Way halo using
-% data from the H3 survey~\citep{Conroy2019}.
-% We find that the Wukong progenitor experienced a more extended infall history
-% than GSE ($\tau_\text{in} = 3.46^{+3.58}_{-1.36}$ Gyr versus
-% $\tau_\text{in} = 1.01 \pm 0.13$ Gyr) but that its duration of star formation
-% was~$\sim$2 Gyr shorter.
-% The Wukong stream also experienced~$\sim$5 times stronger winds and~$\sim$3
-% times less efficient star formation than the GSE.
-% These results point to the Wukong progenitor being significantly lower stellar
-% mass than the GSE progenitor, an unsurprising result since the GSE is believed
-% to be among the most massive satellites to have been accreted by the Milky Way
-% \citep{Myeong2018, Deason2019, Fattahi2019, Mackereth2019, Vincenzo2019}.
-% Such an interpretation is also in qualitative agreement with semi-analytic
-% models of galaxy formation, which suggest that dwarf galaxies in the field
-% experience more extended SFHs~\citep{Baugh2006, Somerville2015a, Behroozi2019}.
-% The parametrization of our GCE models is however independent of stellar mass,
-% so they offer no constraints the normalization of the SFH.
-% \par
-% Although these models are statistically good descriptions of our GSE and Wukong
-% data, they are simplified in nature.
-% In particular, we have assumed a linear relation between the gas supply and the
-% SFR while empirical results would suggest a non-linear relation
-% \citep[e.g.][]{Kennicutt1998, Kennicutt2012, delosReyes2019, Kennicutt2021}.
-% We have also taken a constant outflow mass-loading factor~$\eta$ when in
-% principle, the strength of outflows could vary with time as the potential well
-% of the galaxy deepens.
-% The primary motivation of these choices, however, is to provide proof of
-% concept for this fitting method with an example application to observations.
-% We reserve more detailed modelling of galaxies with both simple and complex
-% evolutionary histories for future work.
-% % \par
-% % The methods outlined in this paper are only as accurate as the instantaneous
-% % mixing approximation on a galaxy-by-galaxy basis, which likely limits the
-% % most reliable application to the dwarf galaxy regime (see discussion
-% % in~\S~\ref{sec:onezone}).
-% % In larger galaxies such as the Milky Way, processes such as radial gas flows
-% % \citep[e.g.][]{Lacey1985, Bilitewski2012} and the radial migration of stars
-% % \citep[e.g.][]{Sellwood2002, Loebman2011, Okalidis2022} are expected to
-% % significantly impact the observed abundance distributions in a given Galactic
-% % region.
-% % These results have prompted the development of a number of so-called
-% % ``multi-zone'' GCE models~\citep[e.g.][]{Schoenrich2009, Johnson2021, Chen2022}
-% % which stitch together multiple one-zone models via the exchange of gas and
-% % stars.
-% % Though we do not consider these models here, it is an interesting potential
-% % direction for future work to properly compute statistical likelihood in the
-% % presence of multiple evolutionary tracks.
-% % Such models could provide valuable insight into the evolution of higher mass
-% % galaxies with data from next-generation spectroscopic surveys like Milky
-% % Way Mapper~\citep{Kollmeier2017}.
-% % As increasingly sensitive instruments come online, statistically robust methods
-% % such as this will be essential to extract the lessons that can be learned
-% % about galaxies of all stellar masses.
+This method could have a strong impact in deriving SFHs and quenching times for
+dwarf galaxies.
+However, with current instrumentation, spectroscopic measurements of
+multi-element abundances in dwarf galaxies are limited to the local group
+\citep[e.g.,][]{Kirby2011, Kirby2020}, and sample sizes are small even for
+these relatively nearby systems.
+Larger spectroscopic sample sizes could potentially be achieved with a high
+angular resolution integral field unit such as the Multi Unit Spectroscopic
+Explorer~\citep[MUSE;][]{Bacon2014}.
+Alternatively, photometry is more conducive to larger sample sizes due to the
+lower observational overhead, and the MDF can still be constrained usin the
+CMD~\citep[e.g.,][]{Lianou2011}.
+One possibility is to forward-model the CMDs of dwarf galaxies using the SFHs
+and MDFs predicted by one-zone GCE models, simultaneously constraining both
+quantities photometrically.
+% In some cases, narrow-band imaging can also provide worthwhile constraints on
+% the MDF~\citep{Fu2022}, particularly when combined with machine learning
+% algorithms trained on spectroscopic data~\citep{Whitten2011}.
+The high angular resolution of the James Webb Space Telescope
+\citep[JWST;][]{Gardner2006} should provide a considerable increase in the
+number of resolved stars in nearby galaxies, making it a promising instrument
+to pursue this potential pathway.
+Farther in the future, the upcoming Nancy Grace Roman Space Telescope
+(\citealp{Spergel2013, Spergel2015}; formerly WFIRST) will revolutionize
+stellar populations in nearby galaxies.
+In the era of next-generation telescopes, statistically robust methods such as
+the one detailed in this paper will be essential to deduce the lessons the
+community can learn about dwarf galaxy evolution.
 
 \end{document}

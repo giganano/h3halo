@@ -14,32 +14,31 @@
 \caption{
 Our GSE sample.
 Red lines in all panels denote the best-fit one-zone model, while the
-blue lines in the left and middle panels denote the best-fit model when the
-age measurements are excluded from the fit.
+blue lines in the top and bottom left panels denote the best-fit model obtained
+when excluding age measurements from the fit.
 Distributions in~\feh,~\afe~and age are convolved with the median uncertainty
 of the sample (see discussion in~\S~\ref{sec:h3:gse}).
 We additionally subsample 200 sets of parameter choices from our Markov chain
 and plot their predictions as highly transparent lines to offer a sense of the
 fit uncertainty.
-\textbf{Left}: The~\afe-\feh~plane and the associated marginalized
+Error bars in each distribution indicate a~$\sqrt{N}$ uncertainty associated
+with random sampling.
+\textbf{Top}: Our sample in chemical space and the associated marginalized
 distributions.
-Stars are colour-coded according to their ages where available and are
-otherwise plotted in black.
+Stars with age measurements are colour coded accordingly and are otherwise
+plotted in black.
 The median~\feh~and~\afe~uncertainty in the sample is shown by the error bar
 to the right of the data.
-Error bars indicate a~$\sqrt{N}$ uncertainty associated with random
-sampling both here and in the middle panel.
-\textbf{Middle}: The age distribution measured for our GSE sample (black,
+\textbf{Bottom left}: The age distribution of our GSE sample (black,
 binned).
-\textbf{Right}: The age-\feh~(top) and age-\afe~(bottom) relations for our
-sample (black) and our best-fit chemical evolution model (red).
+\textbf{Bottom right}: Age-\feh~(top) and age-\afe~(bottom) relations
 The median~\feh,~\afe~and age uncertainties are shown by the error bars at the
 top and bottom of each panel.
 We plot the two stars that we exclude from our fit as black X's (likely
 blue stragglers; see discussion in~\S~\ref{sec:h3:gse}).
-Red points denote a mock sample drawn from our best-fit model with~$N = 95$
-stars (the same size as the stars with ages in our GSE sample) and perturbed by
-the median age uncertainty of the sample.
+Red points denote~$N = 95$ stars (the same size as the stars with ages in our
+GSE sample) drawn from out best-fit model and perturbed by the median age
+uncertainty of the sample.
 }
 \label{fig:gse}
 \end{figure*}
@@ -47,51 +46,25 @@ the median age uncertainty of the sample.
 % fig 6
 \begin{figure*}
 \centering
-\includegraphics[scale = 0.5]{gsechem_512k.pdf}
+\includegraphics[scale = 0.45]{gsechem_512k.pdf}
 \caption{
-The ``corner-plot'' showing the results of our fitting method applied to GSE
-stars observed by the H3 survey.
+Posterior distributions for an exponential infall history applied to our GSE
+sample.
+The parametrization is the same as the input model to our mock samples (see
+discussion in~\S~\ref{sec:mocks:fiducial}).
 Panels below the diagonal show 2-dimensional cross-sections of the likelihood
 function while panels along the diagonal show the marginalized distributions
 along with the best-fit values and confidence intervals.
 Red ``cross-hairs'' mark the element of the Markov chain with the maximum
 statistical likelihood.
-{\color{red} blurb about the tail in the distribution seen in the
-$\yfecc - \tau_\text{in}$ plane.}
+The points in the upper left corner of the~$\yfecc - \tau_\text{in}$ plane
+are a part of an extended tail of the likelihood distribution which does
+not appear in other panels when zoomed in on the peak.
 }
 \label{fig:gse_corner}
 \end{figure*}
 
-% fig 7
-\begin{figure}
-\centering
-\includegraphics[scale = 0.65]{wukong_bestfit.pdf}
-\caption{
-Our Wukong sample in the~\afe-\feh~plane and the associated marginalized
-distributions.
-Error bars in the central denote the measurement uncertainty on individual
-stars' abundances, and error bars in the top and right panels indicate the
-uncertainty in the abundance distribution assuming~$\sigma = \sqrt{N}$ from
-sampling noise.
-The red lines denote our best-fit chemical evolution model in red (see
-discussion in~\S~\ref{sec:h3:wukong}), with 200 additional sets of parameter
-choices subsampled from our Markov chain to give a sense of the fit precision.
-The blue lines denote an alternate fit in which we allow the Fe yields to vary
-as free parameters.
-}
-\label{fig:wukong}
-\end{figure}
-
-% fig 8
-\begin{figure*}
-\centering
-\includegraphics[scale = 0.52]{wukong_512k.pdf}
-\caption{
-The same as Fig.~\ref{fig:gse_corner} but for our Wukong sample.
-In this fit we fix the Fe yields at the values inferred from the GSE sample.
-}
-\label{fig:wukong_corner}
-\end{figure*}
+\subfile{results.tablebody.tex}
 
 We now apply our likelihood function (equation~\ref{eq:likelihood}) to two
 disrupted dwarf galaxies in the Milky Way stellar halo.
@@ -101,16 +74,23 @@ Milky Way's history~\citep{Chaplin2020} which contributed~$10^9 - 10^{10}~\msun$
 of total stellar mass to the Galaxy~\citep{Deason2019, Fattahi2019,
 Mackereth2019, Vincenzo2019}, including eight globular clusters in the stellar
 halo~\citep{Myeong2018}.
+GSE is a good test case for this method both because it is the dominant
+structure in the Milky Way's inner halo~\citep{Helmi2018} and because we can
+compare to independent constraints thanks to the amount of attention it has
+received in the literature.
 The second is a less well-studied system: Wukong, a structure chemically
 distinct from GSE which sits between it and the Helmi stream~\citep{Helmi1999}
 in energy-angular momentum space~\citep{Naidu2020, Naidu2022}.
-Wukong was independently discovered and dubbed LMS-1 by~\citep{Yuan2020},
+Wukong was independently discovered and dubbed LMS-1 by~\citet{Yuan2020},
 and its nearly polar orbit has been characterized by~\citet{Malhan2021,
 Malhan2022} and~\citet{Shank2022}.
+Wukong is an interesting system for to investigate with our method because it
+displays a ``classic'' enrichment history with an obvious ``knee'' in the
+evolutionary track near~$\feh \approx -2.8$ (see Fig.~\ref{fig:wukong} below).
 We make use of data from the H3 survey (see discussion
 in~\S~\ref{sec:h3:survey} below) and discuss our GCE model fits to GSE and
-Wukong in~\S\S~\ref{sec:h3:gse} and~\ref{sec:h3:wukong} below with comparison
-in~\S~\ref{sec:h3:comparison}.
+Wukong in~\S\S~\ref{sec:h3:gse} and~\ref{sec:h3:wukong}, comparing our results
+for the two galaxies in~\S~\ref{sec:h3:comparison}.
 
 \subsection{The H3 Survey}
 \label{sec:h3:survey}
@@ -118,7 +98,7 @@ in~\S~\ref{sec:h3:comparison}.
 The H3 survey~\citep{Conroy2019} is collecting medium-resolution spectra
 of~$\sim$300,000 stars in high-latitude fields ($\left|b\right| > 20^\circ$).
 Spectra are collected from the Hectochelle instrument on the MMT
-\citep{Szentgyorgyi2011} which delivers~$R \approx$~32,000 spectra over the
+\citep{Szentgyorgyi2011}, which delivers~$R \approx$~32,000 spectra over the
 wavelength range of~$5150 - 5300$~\AA.
 Spectral lines in this wavelength range are dominated by iron-peak elements and
 the MgI triplet (see Fig. 6 of~\citealt{Conroy2019}).
@@ -145,11 +125,47 @@ We have also re-fit high signal-to-noise data with a flat age prior for cases
 where ages play an important role.
 In this paper we use the catalog which uses this flat age prior.
 
-
 \subsection{\gaia-Sausage Enceladus}
 \label{sec:h3:gse}
 
-\subfile{results.tablebody.tex}
+% fig 7
+\begin{figure}
+\centering
+\includegraphics[scale = 0.65]{wukong_bestfit.pdf}
+\caption{
+Our Wukong sample in the~\afe-\feh~plane and the associated marginalized
+distributions.
+Error bars indicate uncertainties on individual abundances in the central panel
+and a~$\sigma = \sqrt{N}$ uncertainty from sampling noise in the top and right
+panels.
+Red lines denote our best-fit chemical evolution model (see discussion
+in~\S~\ref{sec:h3:wukong}), with 200 additional sets of parameter choices
+subsampled from our Markov chain to give a sense of the fit precision.
+Blue lines denote an alternate fit in which we allow the Fe yields to vary as
+free parameters.
+}
+\label{fig:wukong}
+\end{figure}
+
+% fig 8
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.52]{wukong_512k.pdf}
+\caption{
+Posterior distributions for an exponential infall history applied to our Wukong
+sample.
+The parametrization is the same as the input model to our mock samples (see
+discussion in~\S~\ref{sec:mocks:fiducial}) but with the Fe yields held fixed
+at the values determined by the fit to our GSE sample
+($\yfecc = \scinote{7.78}{-4}$ and~$\yfeia = \scinote{1.23}{-3}$).
+Panels below the diagonal show 2-dimensional cross-sections of the likelihood
+function while panels along the diagonal show the marginalized distributions
+along with the best-fit values and confidence intervals.
+Red ``cross-hairs'' mark the element of the Markov chain with the maximum
+statistical likelihood.
+}
+\label{fig:wukong_corner}
+\end{figure*}
 
 Our GSE sample consists of 189 stars, 95 of which have age measurements.
 Abundance uncertainties range from~$\sim$0.02 to 0.12 dex in
@@ -203,7 +219,7 @@ formation, stopping before SN Ia enrichment could produce enough Fe to reach
 solar~\afe.
 The associated truncation of the age distribution (shown in the bottom left
 panel of Fig.~\ref{fig:gse}) likely reflects the quenching of star
-formation in the GSE progenitor as a consequence of RAM pressure stripping by
+formation in the GSE progenitor as a consequence of ram pressure stripping by
 the hot halo of the Milky Way after its first infal~$\sim$10 Gyr ago
 \citep{Bonaca2020}.
 The inferred Fe yields suggest that massive stars account for
@@ -248,8 +264,9 @@ We report the best-fit parameters in Table~\ref{tab:results}.
 This procedure results in accurate fits to the~\feh~and~\afe~distributions, and
 the SN yields and mass-loading factor~$\eta$ are generally consistent with
 and without ages.
-The inferred timescales are discrepant by~$\sim$$2\sigma$, and the duration of
-star formation shows the largest difference.
+The inferred timescales are biased toward higher values and are discrepant
+by~$\sim$$2\sigma$, with the duration of star formation showing the largest
+difference.
 These results indicate that such an approach is theoretically possible, but in
 practice age information in some form is essential to pinning down these
 timescales.
@@ -271,37 +288,45 @@ is an accurate description of the galaxy.
 \centering
 \includegraphics[scale = 0.6]{gse_wukong_timescales.pdf}
 \caption{
-A comparison of the best-fit timescales for GSE and Wukong.
+Our best-fit evolutionary timescales for Wukong (blue) and GSE (red) as a
+function of their stellar mass (taken from~\citealt{Naidu2022}; values are
+tabulated in Table~\ref{tab:results}).
+The uncertainties in the infall timescale~$\tau_\text{in}$ and the SFE
+timescales~$\tau_\star$ for GSE are smaller than the point.
 }
 \label{fig:gse_wukong_timescales}
 \end{figure}
 
-% fig 11
+% fig 10
 \begin{figure}
 \centering
-\includegraphics[scale = 0.6]{gse_wukong_eta.pdf}
+\includegraphics[scale = 0.65]{gse_wukong_eta.pdf}
 \caption{
-A comparison of our best-fit mass-loading factors~$\eta$ between the GSE and
-Wukong.
+Our best-fit mass-loading factors~$\eta$ for Wukong (blue) and GSE (red) as
+a function of their stellar mass (taken from~\citealt{Naidu2022}; values are
+tabulated in Table~\ref{tab:results}).
+The black dashed line denotes~$\eta \propto M_\star^{-1/3}$ as suggested by
+\citet{Finlator2008} and~\citet{Peeples2011} with the normalization of
+$\eta = 3.6$ at~$M_\star = 10^{10}~M_\odot$ taken from~\citet{Muratov2015}.
 }
 \label{fig:gse_wukong_eta}
 \end{figure}
 
-% fig 10
+% fig 11
 \begin{figure*}
 \centering
 \includegraphics[scale = 0.45]{gse_wukong_comparison.pdf}
 \caption{
-A comparison of the predictions of our best-fit GCE models describing our
-GSE (red) and Wukong (blue) data: the age distributions (left), the
-age-\feh~relations (middle) and age-\afe~relations (right).
+A comparison of our best-fit models for GSE (red) and Wukong (blue): the age
+distributions (left), the age-\feh~relations (middle) and age-\afe~relations
+(right).
 The inset in the right hand panel shows the tracks in the~\afe-\feh~plane.
 In all panels, we subsample 200 additional parameter choices from our Markov
 chains and plot the predictions as high transparency lines to provide a sense
 of the fit uncertainty.
-Due to the lack of age information for Wukong, the results in each panel with
-the exception of the inset can shift left or right without impacting the
-quality of the fit.
+Due to the lack of age information for Wukong, the centroid of the age
+distribution is determined by our assumption that star formation began 13.2
+Gyr ago (see discussion in~\S~\ref{sec:mocks:fiducial}).
 }
 \label{fig:comparison}
 \end{figure*}
@@ -345,7 +370,7 @@ space.
 This tail is significantly more extended if the Fe yields are allowed to vary
 as a free parameter (see Table~\ref{tab:results} and discussion below).
 \par
-An exponential infall history yields a statistically excellent fit
+An exponential infall history yields a statistically good fit
 ($\chi_\text{dof}^2 = 0.98$; equation \ref{eq:chisquared_dof}) for Wukong,
 though visually it appears that the SN yields implied by our GSE data
 underestimate the height of the [$\alpha$/Fe] plateau, which we indirectly
@@ -394,18 +419,22 @@ information is added to the fit.
 \par
 As expected given Wukong's shallower gravity well, it experienced stronger
 mass-loading than GSE.
-Fig.~\ref{fig:gse_wukong_eta} demonstrates this in comparison to Muratov et
-al.'s~\citeyearpar{Muratov2015} scaling of~$\eta$ with stellar mass computed
-from the FIRE simulation suite~\citep{Hopkins2014}.
-There is excellent agreement between their calculations and our one-zone model
-fits, rather remarkably so given that quantifying outflows in simulations
-requires choices to be made regarding what constitutes an outflow.
+Fig.~\ref{fig:gse_wukong_eta} demonstrates this in comparison to the scaling
+of~$\eta \propto M_\star^{-1/3}$ as suggested by~\citet{Finlator2008} and
+\citet{Peeples2011} modelling the impact of outflows on the mass-metallicity
+realtion for galaxies.
+We take the normalization of~$\eta = 3.6$ at~$M_\star = 10^{10}~M_\odot$ from
+\citet{Muratov2015} who find a similar scaling ($\eta \propto M_\star^{-0.35}$)
+in the FIRE simulations~\citep{Hopkins2014}.
+There is excellent agreement between this predicted scaling and our one-zone
+model fits -- rather remarkably so given that we have made no deliberate
+choices for either the normalization or the slope to agree.
 \par
 In Fig.~\ref{fig:comparison}, we compare our best-fit models for GSE and Wukong.
 The intrinsic age distribution of GSE is predicted with considerably higher
 precision than for Wukong, a consequence of the lack of age information in our
 Wukong sample.
-The uncertainties in the Wukong age distribution are noticably asymmetric due
+The uncertainties in the Wukong age distribution are noticeably asymmetric due
 to the skewed posterior distribution of the infall timescale
 ($\tau_\text{in} = 3.08^{+3.19}_{-1.16}$ Gyr).
 If our assumption that star formation began~$T \approx 13.2$ Gyr ago (see

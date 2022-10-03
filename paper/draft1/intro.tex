@@ -6,9 +6,6 @@
 \label{sec:intro}
 
 Dwarf galaxies provide a unique window into galaxy formation and evolution.
-% Their intrinsic abundance~\citep{Bell2003, Baldry2012} allows the construction
-% of statistical samples where resolved stars are available, but in practice,
-% their low luminosities limit our scope to the local universe.
 In the local universe, dwarfs can be studied in detail using resolved stellar
 populations across a wide range of mass, morphology and star formation history
 (SFH).
@@ -24,73 +21,51 @@ Resolved stellar populations encode a wealth of information on their host
 galaxy's evolutionary history.
 Photometrically, one can constrain the SFH by fitting the observed
 color-magnitude diagram (CMD) with a composite set of theoretical isochrones
-\citep[e.g.,][]{Dolphin2002}.
-% \citet{Weisz2014b} demonstrate that this method is accurate even when the CMD
-% does not extend to the oldest main sequence turnoff stars, but that those
-% populations are critical for precisely constraining the earliest epochs of the
-% SFH.
-The CMD may also offer constraints on the metallicity distribution function
-(MDF), but this information can be deduced much more reliably and precisely
-with spectroscopy, especially with resolved stars.
-If such measurements are feasible, multi-element abundances ratios can be
-determined on a star-by-star basis.
+\citep[e.g.,][]{Dolphin2002, Weisz2014b}.
+The CMD also offers constraints on the metallicity distribution function
+(MDF;~\citealp*[e.g.,][]{Lianou2011}).
+In some cases, the MDF can also be constrained with narrow-band imaging
+\citep{Fu2022}, especially when combined with machine learning algorithms
+trained on spectroscopic measurements as in~\citet{Whitten2011}.
+Depending on the limiting magnitude of the survey and the evolutionary stages
+of the accessible stars, it may or may not be feasible to estimate ages on a
+star-by-star basis.
+When these measurements are made spectroscopically, however, multi-element
+abundance information becomes avaialable, and age estimates become more precise
+by pinning down various stellar parameters such as effective temperatures and
+surface gravities.
 \par
-The chemical composition of a star is a many-dimensional quantity, even when
-grouping elements based on common enrichment channels~\citep{Ting2022}.
-
-% Furthermore, stellar age measurements are generally imprecise, and no single
-% method is applicable to all ranges of spectral types across the full range of
-% ages (\citealp{Angus2019}; see also the reviews in~\citealp{Soderblom2010}
-% and~\citealp{Chaplin2013}).
-% Consequently, the SFHs of surviving satellites and stellar streams are
-% difficult to measure even with star-by-star age measurements.
-% Accurate SFHs can instead by derived by fitting the observed color-magnitude
-% diagram (CMD) with a composite set of theoretical isochrones for simple
-% stellar populations~\citep[e.g.][]{Dolphin2002}.
-% \citet{Weisz2014b} demonstrate that this method is accurate even when the CMD
-% does not extend to the oldest main sequence turnoff stars, but that those
-% populations are critical for precisely constraining the earliest epochs of the
-% SFH.
-% Nonetheless, CMD-derived SFHs can be especially difficult for distant systems
-% as the observational uncertainties increase and the main sequence turnoff of
-% progressively younger populations are found below the magnitude limit of the
-% survey.
-% \par
-% Alternatively, chemical abundances can offer independent constraints on the
-% evolutionary histories of dwarf galaxies, including the earliest epochs of
-% star formation.
-% Stars are believed to be born with the same chemical composition as their natal
-% molecular clouds, and this hypothesis holds up against spectroscopic abundance
-% measurements in open clusters which have demonstrated the FGK main-sequence and
-% red giant stars exhibit chemical homogeneities within~$\sim0.02 - 0.03$ dex
-% \citep{DeSilva2006, Bovy2016, Liu2016b, Casamiquela2020} while inhomogeneities
-% at the~$\sim0.1 - 0.2$ dex level can be attributed to diffusion
-% \citep{BertelliMotta2018, Liu2019, Souto2019} or planet formation
-% \citep{Melendez2009, Liu2016a, Spina2018}.
-% A star's detailed metal abundance is therefore a snapshot of the gas-phase
-% composition of the galactic environment it was born from, encoding information
-% on the nuclear reactions -- and by proxy the stars and supernovae which
-% facilitated those reaction -- that polluted the gas since big bang
-% nucleosynthesis.
-\par
+Chemcial abundances in a dwarf galaxy can also offer independent constraints
+on the evolutionary histories of dwarf galaxies, including the earliest epochs
+of star formation.
+Stars are born with the same composition as their natal molecular clouds --
+spectroscopic abundance measurements in open clusters have demonstrated that
+FGK main-sequence and red giant stars exhibit chemical homogeneities
+within~$\sim$$0.02 - 0.03$ dex~\citep{DeSilva2006, Bovy2016, Liu2016b,
+Casamiquela2020} while inhomogeneities at the~$\sim$$0.1 - 0.2$ dex level can
+be attributed to diffusion~\citep{BertelliMotta2018, Liu2019, Souto2019} or
+planet formation~\citep{Melendez2009, Liu2016a, Spina2018}.
+A star's detailed metal content is therefore a snapshot of the galactic
+environment that it formed from.
 This connection is the basis of galactic chemical evolution (GCE), which
 bridges the gap between nuclear physics and astrophysics by combining galactic
 processes such as star formation with nuclear reaction networks to estimate the
 production rates of various nuclear species by stars and derive their
 abundances in the intertsellar medium (ISM).
-GCE has its roots in the early works assessing the astrophysical sites and
-conditions which give rise to nuclear reactions, a review of which can be
-found in~\citep[][the famous ``B2FH'' paper]{Burbidge1957}.
-The simplest and most well-studied GCE models are called ``one-zone'' models,
-reviews of which can be found in works such as~\citet{Tinsley1980},
-\citet{Pagel2009} and~\citet{Matteucci2012, Matteucci2021}.
+A GCE model that accurately describes the observed abundances can offer
+conclusions regarding key parameters of the galaxy's evolutionary history, such
+as the star formation and accretion histories and their durations, the
+efficiency of outflows, and the origin of the observed abundance patterns.
 \par
 In this paper, we systematically assess the information that can be extracted
 from the abundances and ages of stars in dwarf galaxies when modelling the
 data in this framework.
+The simplest and most well-studied GCE models are called ``one-zone'' models,
+reviews of which can be found in works such as~\citet{Tinsley1980},
+\citet{Pagel2009} and \citet{Matteucci2012, Matteucci2021}.
 One-zone models are computationally cheap, and with reasonable approximations,
 even allow analytic solutions to the evolution of the abundances for simple
-SFHs~\citep*[e.g.][]{Weinberg2017}.
+SFHs~\citep*[e.g.,][]{Weinberg2017}.
 This low expense expedites the application of statistical likelihood estimates
 to infer best-fit parameters for some set of assumptions regarding a galaxy's
 evolutionary history.
@@ -100,7 +75,7 @@ To name a few,~\citet{Kirby2011} measure and fit the MDFs of eight Milky Way
 dwarf satellite galaxies with the goal of determining which evolved according
 to ``leaky-box,'' ``pre-enriched'' or ``extra-gas'' analytic models.
 To derive best-fit parameters for the two-infall model of the Milky Way disc
-\citep[e.g.][]{Chiappini1997},~\citet{Spitoni2020, Spitoni2021} use Markov
+\citep[e.g.,][]{Chiappini1997},~\citet{Spitoni2020, Spitoni2021} use Markov
 chain Monte Carlo (MCMC) methods and base their likelihood function off of the
 minimum distance between each star and the evolutionary track in
 the~\afe-\feh\footnote{
@@ -138,16 +113,26 @@ which predict evolutionary tracks in some observed space, such as stellar
 streams in kinematic space or isochrones on CMDs.
 We however limit our discussion in this paper to our use case of one-zone GCE
 models.
-We establish the accuracy of this likelihood function by means of tests
-against mock data and explore how the precision of inferred parameters is
-affected by sample size, measurement uncertainties and what portion of the
-sample has age information.
-We then demonstrate this method in application to two stellar streams in the
-Milky Way halo using data from the H3 survey (Hectochelle in the Halo at High
-resolution;~\citealp{Conroy2019}).
+\par
+After discussing the one-zone model framework in~\S~\ref{sec:onezone} and
+our fitting method in~\S~\ref{sec:fitting}, we establish the accuracy of this
+likelihood function by means of tests against mock data in~\S~\ref{sec:mocks},
+simultaneously exploring how the precision of inferred parameters is affected
+by sample size, measurement uncertainties and the portion of the sample that
+has age information.
+These methods are able to reconstruct the SFHs of dwarf galaxies because the
+GCE framework allows one to convert the number of stars versus metallicity into
+the number of stars versus time.
+Abundance ratios such as~\afe~quantify the relative importance of type Ia
+supernova (SN Ia) enrichment, and constraints on its associated delay-time
+distribution (DTD) setting an overall timescale.
+In~\S~\ref{sec:h3}, we then demonstrate our method in action by modelling two
+disrupted dwarf galaxies in the Milky Way halo.
 One has received a considerable amount of attention in the literature: the
 \gaia-Sausage Enceladus (GSE;~\citealp{Belokurov2018, Helmi2018}), and the
-other, discovered more recently, is a less deeply studied system: the Wukong
-stream~\citep{Naidu2020, Naidu2022}.
+other, discovered more recently, is a less deeply studied system: Wukong
+\citep{Naidu2020, Naidu2022}, independently discovered and given the
+alternative name of LMS-1 by~\citet{Yuan2020}.
+
 
 \end{document}

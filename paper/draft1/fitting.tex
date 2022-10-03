@@ -36,7 +36,7 @@ stated.
 \par
 As mentioned in~\S~\ref{sec:intro}, the sampling of stars from an underlying
 evolutionary track in abundance space proceeds according to an IPPP
-\citep[e.g.][]{Press2007}.
+\citep[e.g.,][]{Press2007}.
 Due to its detailed nature, we reserve a full derivation of our likelihood
 function for Appendix~\ref{sec:likelihood} and provide qualitative discussion
 of its form here.
@@ -44,7 +44,7 @@ Though our use case in the present paper is in the context of one-zone GCE
 models, our derivation assumes only that the chief prediction of the model is
 a track of some arbitrary form in the observed space.
 It is therefore highly generic and should be easily extensible to other
-astrophysical models which predict tracks of some form (e.g. stellar streams
+astrophysical models that predict tracks of some form (e.g., stellar streams
 in kinematic space and stellar isochrones on CMDs).
 \par
 In practice, the evolutionary track predicted by a one-zone GCE model is
@@ -68,7 +68,9 @@ the likelihood function is given by
 where~$\Delta_{ij} = \script{D}_i - \script{M}_j$ is the vector difference
 between the~$i$th datum and the~$j$th point on the predicted track,~$C_i^{-1}$
 is the inverse covariance matrix of the~$i$th datum, and~$w_j$ is a weight to
-be attached to~$\script{M}_j$.
+be attached to~$\script{M}_j$ (we clarify our notation that~$ij$ refers to a
+data-model pair and not a matrix element; the covariance matrix need not be
+diagonal for this approach).
 This functional form is appropriate for GCE models in which the normalization
 of the SFH is inconsequential to the evolution of the abundances; in the
 opposing case where the normalization does impact the predicted abundances,
@@ -134,16 +136,17 @@ conditions are not met.
 We discuss these conditions and the necessary modifications below, referring to
 Appendix~\ref{sec:likelihood} for mathematical justification.
 \par
-\textit{The track is infinitely thin.}
+\textit{The model track is infinitely thin.}
 In the absence of measurement uncertainties, all of the data would fall
 perfectly on a line in the observed space.
 As discussed in the beginning of~\S~\ref{sec:onezone}, the fundamental
 assumption of one-zone GCE models is instantaneous mixing of the various
 nuclear species throughout the star forming reservoir.
 Consequently, the ISM is chemically homogeneous and the model predicts a single
-exactabundance for each element or isotope at any given time.
+exact abundance for each element or isotope at any given time.
 If the model in question instead predicts a track of some finite width, then
-the likelihood function will have a fundamentally different form.
+the likelihood function will have a different form requiring at least one
+additional integral.
 \par
 \textit{Each observation is independent.}
 When this condition is met, the total likelihood of observing the
@@ -175,9 +178,9 @@ multivariate Gaussian.
 That is, the spacing between the points on the track~\script{M}~is small
 compared to the observational uncertainties in the data.
 This assumption can be relaxed at the expense of including an additional
-correction factor~$\beta_{ij}$ given by equation~(X) which integrates the
-likelihood between each pair of adjacent points~$\script{M}_j$ and
-$\script{M}_{j + 1}$ along the track.
+correction factor~$\beta_{ij}$ given by equation~\refp{eq:corrective_beta}
+that integrates the likelihood between each pair of adjacent
+points~$\script{M}_j$ and~$\script{M}_{j + 1}$ along the track.
 If computing the evolutionary track is sufficiently expensive, relaxing the
 number of points and including this correction factor may be the more
 computationally efficient option.
@@ -201,16 +204,14 @@ Kennicutt-Schmidt relation\footnote{
 	$\dot{\Sigma}_\star \propto \Sigma_\text{g}^N \implies \tau_\star \propto
 	\Sigma_\text{g}^{1 - N}$ where~$N \neq 1$.
 	\citet{Kennicutt1998} measured~$N = 1.4 \pm 0.15$ from the global gas
-	densities and SFRs in star-forming spiral galaxies, althoug there have
-	been recent advancements in this field suggesting more sophisticated forms
-	than a single power-law (see discussion in~\S~2.6 of~\citealt{Johnson2021}
-	and references therein).
+	densities and SFRs in star-forming spiral galaxies, although recent
+	advancement suggest more sophisticated forms~\citep[e.g.,][]{Krumholz2018}.
 } where the normalization of the SFH and size of the galaxy are taken into
 account.
-In these cases, the likelihood function is given by equation (X) where the
-weights remain un-normalized and their sum must be subtracted from
-equation~\refp{eq:likelihood}.
-This requirement can be qualitatively understood as a penalty for models which
+In these cases, the likelihood function is given by
+equation~\refp{eq:corrective_beta} where the weights remain un-normalized and
+their sum must be subtracted from equation~\refp{eq:likelihood}.
+This requirement can be qualitatively understood as a penalty for models that
 predict data in regions of the observed space where there are none -- a term
 which encourages parsimony, rewarding parameter choices which explain the data
 in as few predicted instances as possible.
@@ -234,7 +235,7 @@ parameter space.
 In the present paper, we employ the MCMC method, making use of
 the~\mc~\python~package~\citep{Foreman-Mackey2013} to construct our Markov
 chains.
-Despite being more computationally expensive than other methods (e.g.
+Despite being more computationally expensive than other methods (e.g.,
 maximum a posteriori estimation), MCMC offers a more generic solution by
 sampling tails and multiple modes of the likelihood distribution which could
 otherwise be missed or inaccurately characterized by the assumption of

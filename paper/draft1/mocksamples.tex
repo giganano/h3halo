@@ -5,6 +5,35 @@
 \section{Mock Samples}
 \label{sec:mocks}
 
+% fig 1
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.5]{fiducial_mock_afe_feh.pdf}
+\includegraphics[scale = 0.42]{fiducial_mock_agedist.pdf}
+\includegraphics[scale = 0.41]{fiducial_mock_amr.pdf}
+\caption{
+Our fiducial mock sample.
+Red lines in all panels denote the input model while blue lines denote the
+recovered best-fit model.
+The mock sample has~$N = 500$ stars with abundance uncertainties of
+$\sigma_\feh = \sigma_\afe = 0.05$ (marked by the errorbar in the left panel).
+$N = 100$ of the stars have age information as indicated by the colourbar in
+the left panel with an artificial uncertainty
+of~$\sigma_{\log_{10}(\text{age})} = 0.1$.
+\textbf{Left}: The mock sample in chemical space, with the marginalized
+distributions in~\feh~and~\afe~shown on the top and right, respectively.
+\textbf{Middle}: The age distribution of the mock sample (black, binned).
+The dashed red line indicates the age distribution obtained by sampling
+$N = 10^4$ rather than~$N = 500$ stars from the input model and assuming the
+same age uncertainty.
+\textbf{Right}: The age-\feh~(top) and age-\afe~(bottom) relations for the mock
+sample.
+Uncertainties at various ages are marked by the error bars at the top and
+bottom of each panel.
+}
+\label{fig:fiducial_mock}
+\end{figure*}
+
 Using our parametrization of one-zone GCE models described
 in~\S~\ref{sec:onezone}, here we define a set of parameter choices from which
 mock samples of stars can be drawn.
@@ -18,47 +47,20 @@ measurement precision, and the availability of age information.
 \subsection{A Fiducial Mock Sample}
 \label{sec:mocks:fiducial}
 
-% fig 1
-\begin{figure*}
-\centering
-\includegraphics[scale = 0.5]{fiducial_mock_afe_feh.pdf}
-\includegraphics[scale = 0.42]{fiducial_mock_agedist.pdf}
-\includegraphics[scale = 0.41]{fiducial_mock_amr.pdf}
-\caption{
-\textbf{Left}: Our fiducial mock sample in the~\afe-\feh~plane.
-There are~$N = 500$ stars with abundance uncertainties of~$\sigma_\feh =
-\sigma_\afe = 0.05$ as indicated by the errorbar.
-$N = 100$ of the stars have age information as indicated by the colorbar with
-an artificial uncertainty of~$\sigma_{\log_{10}(\text{age})} = 0.1$.
-On the top and right, we show the marginalized distributions in~\afe~and~\feh,
-with red lines denoting the known distribution.
-\textbf{Center}: The age distribution of the mock sample (black, binned).
-The dashed red line indicates the age distribution that is obtained by sampling
-$N = 10^4$ rather than~$N = 500$ stars from the input model and assuming the
-same age uncertainty.
-\textbf{Right}: The age-\feh~(top) and age-\afe~(bottom) relations for the
-mock sample with artificial uncertainties denoted by the error bars on each
-panel.
-Solid red and blue lines in all panels denote the known relations from the
-input model and the recovered best-fit model, respectively.
-}
-\label{fig:fiducial_mock}
-\end{figure*}
-
 % fig 2
 \begin{figure*}
 \centering
-\includegraphics[scale = 0.5]{fiducial_512k.pdf}
+\includegraphics[scale = 0.45]{fiducial_512k.pdf}
 \caption{
-The ``corner-plot'' showing the results of applying our fitting method to our
-fiducial mock sample (see discussion in~\S\S~\ref{sec:fitting} and
-\ref{sec:mocks:fiducial}).
+Posterior distributions obtained from applying our fitting method to our
+fiducial mock sample (see Fig.~\ref{fig:fiducial_mock} and discussion
+in~\S\S~\ref{sec:fitting} and~\ref{sec:mocks:fiducial}).
 Panels below the diagonal show 2-dimensional cross-sections of the likelihood
 function while panels along the diagonal show the marginalized distributions
 along with the best-fit values and confidence intervals.
 Blue stars mark the element of the Markov chain with the maximum likelihood.
-Red ``cross-hairs'' denote the true, nown values of the parameters from the
-input model (see the top row of Table X).
+Red ``cross-hairs'' denote the true, known values of the parameters from the
+input model (see the top row of Table~\ref{tab:recovered_values}).
 }
 \label{fig:fiducial_mock_corner}
 \end{figure*}
@@ -68,7 +70,7 @@ We take an exponential infall history~$\dot{M}_\text{in} \propto e^{-t /
 initial ISM mass of~$M_\text{g} = 0$.
 We select an SFE timescale of~$\tau_\star = 15$ Gyr, motivated by the
 observational result that dwarf galaxies have generally inefficient star
-formation~\citep[e.g.][]{Hudson2015}.
+formation~\citep[e.g.,][]{Hudson2015}.
 We additionally select a mass-loading factor of~$\eta = 10$ because the
 strength of outflows should, in principle, contain information on the depth of
 the gravity well of a given galaxy, with lower mass systems being more
@@ -88,28 +90,28 @@ with normalized weights, whereas equation~\refp{eq:lnL_minus_weights} with
 un-normalized weights would be the proper form if we had selected a
 parametrization in which the absolute scale of the SFH impacts the enrichment
 history.
-Inspection of the average SFHs of predicted by the~\textsc{UniverseMachine}
+Inspection of the average SFHs predicted by the~\textsc{UniverseMachine}
 semi-analytic model for galaxy formation~\citep{Behroozi2019} suggests that the
 onset of star formation tends to occur a little over~$\sim$13 Gyr ago across
 many orders of magnitude in stellar mass extending as low as
 $\text{M}_\star \approx 10^{7.2}~\msun$.
 We therefore assume that the onset of star formation occurred~$\sim$13.2 Gyr
 ago, allowing~$\sim$500 Myr between the Big Bang and the first stars.
-We evolve this model for 10 Gyr exactly (i.e. the youngest stars in the mock
+We evolve this model for 10 Gyr exactly (i.e., the youngest stars in the mock
 sample have an exact age of 3.2 Gyr), stopping short of 13.2 Gyr because
 surviving dwarf galaxies and stellar streams often have their star formation
-quenched (e.g.~\citealp{Monelli2010a, Monelli2010b, Sohn2013, Weisz2014a,
+quenched (e.g.,~\citealp{Monelli2010a, Monelli2010b, Sohn2013, Weisz2014a,
 Weisz2014b, Weisz2015}).
 These choices are not intended to resemble any one galaxy, but instead to
 qualitatively resemble some dwarf galaxy whose evolutionary parameters can
-be re-derived using our likelihood function as a sanity check that it produces
+be re-derived using our likelihood function as a check that it produces
 accurate best-fit parameters.
 \par
 As discussed in~\S~\ref{sec:onezone}, thoughout this paper we assume that the
 IMF-averaged alpha element yield is exactly~$\yacc = 0.01$ and
 $y_\alpha^\text{Ia} = 0$.
 While loosely motivated by nucleosynthesis models in massive stars
-\citep[e.g.][]{Nomoto2013, Sukhbold2016, Limongi2018}, this choice is intended
+\citep[e.g.,][]{Nomoto2013, Sukhbold2016, Limongi2018}, this choice is intended
 to set some normalization of the effective yields which can be scaled up or
 down to accommodate alternative choices.
 If no scale is assumed, then extremely strong degeneracies arise in the
@@ -127,10 +129,10 @@ abundance of O in the sun according to~\citet{Asplund2009} and consistent with
 the recent revisions of~\citet*{Asplund2021}, though similar~\afe~ratios would
 arise anyway if we instead took, e.g., Mg and asserted that [O/Mg]~$\approx 0$.
 \par
-\citet{Weinberg2017} adopt~$\yacc = 0.014$,~$\yfecc = 0.0012$ and
+\citet{Weinberg2017} adopt~$\yacc = 0.015$,~$\yfecc = 0.0012$ and
 $\yfeia = 0.0017$ (see discussion in their~\S~2.2).
 This massive star yield of Fe is appropriate for nucleosynthesis models in
-which most~$M > 8~\msun$ stars explode as a CCSN~\citep[e.g.][]{Woosley1995,
+which most~$M > 8~\msun$ stars explode as a CCSN~\citep[e.g.,][]{Woosley1995,
 Chieffi2004, Chieffi2013, Nomoto2013} assuming a~\citet{Kroupa2001} IMF.
 This SN Ia yield of Fe is based on the W70 explosion model of
 \citet{Iwamoto1999} which produces~$\sim$0.77~\msun~of Fe per SN Ia event and
@@ -148,23 +150,23 @@ We then sample~$N = 500$ stars from the underlying SFH each of which have -- in
 the interest of mimicking the typical precision achieved by a spectroscopic
 survey of a local group dwarf galaxy --~$\sigma_\afe = \sigma_\feh = 0.05$.
 100 of these stars have age measurements with an uncertainty of
-$\sigma_{\log_{10}(\text{age})} = 0.1$ (i.e.~$\sim$23\% precision).
+$\sigma_{\log_{10}(\text{age})} = 0.1$ (i.e.,~$\sim$23\% precision).
 
 \subsection{Recovered Parameters of the Fiducial Mock}
 \label{sec:mocks:recovered}
 
 We now apply the method outline in~\S~\ref{sec:fitting} to the mock sample
 detailed in~\S~\ref{sec:mocks:fiducial}.
-Fig.~\ref{fig:fiducial_mock_corner} shows the ``corner-plot'' derived from this
-procedure with the marginalized likelihood distributions along the diagonal and
-2-dimensional cross sections below the diagonal comparing the best-fit values
-with their known values.
+Fig.~\ref{fig:fiducial_mock_corner} shows the posterior distributions derived
+from this procedure with the marginalized likelihood distributions along the
+diagonal and 2-dimensional cross sections below the diagonal comparing the
+best-fit values with their known values.
 Our likelihood function accurately recovers each of the model parameters.
 We include the predictions of the best-fit model in Fig.~\ref{fig:fiducial_mock},
 finding excellent agreement with the input model.
 To quantify the quality of the fit, for each datum~$\script{D}_i$ we find the
 point along the track~$\script{M}_j$ with the maximum likelihood of observation
-(i.e.~$\{\script{D}_i,\script{M}_j~|~\ln L(\script{D}_i | \script{M}_j) =
+(i.e.,~$\{\script{D}_i,\script{M}_j~|~\ln L(\script{D}_i | \script{M}_j) =
 \max(\ln L(\script{D}_i | \script{M}))\}$).
 We then compute the chi-squared per degree of freedom diagnostic according to
 \begin{equation}
@@ -194,115 +196,133 @@ discrepancies in Fig.~\ref{fig:fiducial_mock_corner}, we demonstrate
 in~\S~\ref{sec:mocks:variations} below that the differences between the known
 and best-fit values here are consistent with randomly sampling from a Gaussian
 distribution due to measurement uncertainty.
+Although most cross sections of the posterior distribution are sufficiently
+described by a multivariate Gaussian, there is some subtructure in the
+likelihood distribution of~$\tau_\text{in}$, most noticeable in the
+$\yfecc - \tau_\text{in}$ plane.
 There are a handful of degeneracies in the likelihood distribution of the
-recovered parameters which arise as a consequence of having an impact on the
+recovered parameters, which arise as a consequence of having an impact on the
 same observable.
 We discuss them individually below.
 \par
-\textit{The centroid of the MDF.}
-With a fixed alpha element yield of~$\yacc = 0.01$ as we have adopted here,
-the strength of outflows~$\eta$ is set by ensuring the centroid of
-the~\ah~distribution is in agreement with the data.
-This in turn requires a total Fe yields of~$\yfecc + \yfeia$ which corresponds
-to the centroid of the~\feh~distribution.
-The total Fe yield, however, can be achieved with different breakdowns between
-CCSN and SN Ia enrichment, giving rise to the inverse relationship
-between the two Fe yields.
-\par
+% \textit{The centroid of the MDF.}
+% With a fixed alpha element yield of~$\yacc = 0.01$ as we have adopted here,
+% the strength of outflows~$\eta$ is set by ensuring the centroid of
+% the~\ah~distribution is in agreement with the data.
+% This in turn requires a total Fe yields of~$\yfecc + \yfeia$ which corresponds
+% to the centroid of the~\feh~distribution.
+% The total Fe yield, however, can be achieved with different breakdowns between
+% CCSN and SN Ia enrichment, giving rise to the inverse relationship
+% between the two Fe yields.
+% \par
 \textit{The height of the ``plateau'' and position of the ``knee'' in the
 evolutionary track.}
 The plateau in the~\afe-\feh~plane occurs in our input model
-at~$\afe_\text{CC} \approx +0.45$ and arises due to the IMF-averaged
-massive star yields of alpha and iron-peak elements.
+at~$\afe_\text{CC} \approx +0.45$ and arises due to the IMF-averaged massive
+star yields of alpha and iron-peak elements.
 The knee occurs thereafter with the onset of SN Ia enrichment, a
 nucleosynthetic source of Fe but negligible amounts of alpha elements like O
 and Mg~\citep{Johnson2019}.
-For a fixed choice of yields,~\citet{Weinberg2017} demonstrate that the SFE
-timescale~$\tau_\star$ plays the dominant role in establishing the value
-of~\feh~at which the knee occurs (see discussion in~\S~\ref{sec:onezone}).
-With the knee in an observed position,~\yfecc~can be lowered in exchange for
-faster star formation to reach the same abundance before the onset of the
-first SNe Ia.
-This relationship gives rise to the direct degeneracy between~$\tau_\star$
-and~\yfecc~in Fig.~\ref{fig:degeneracy} in Appendix~\ref{sec:degeneracy} where
-we have relaxed our assumption that~$\yacc = 0.01$.
-In Fig.~\ref{fig:fiducial_mock_corner}, however, we see the opposite
-degeneracy.
-At fixed~\yacc, variations in~\yfecc~adjust the height of the plateau
-$\afe_\text{CC}$.
-With a lowered plateau (i.e. higher~\yfecc), the track moves uniformly downward
-in the~\afe-\feh~plane.
-If this adjustment is accompanied by faster star formation (i.e.
-lower~$\tau_\star$), the knee will occur at a slightly higher~\feh, placing the
-portion of the evolutionary track in which~\afe~is decreasing in a similar
-region of abundance space.
+With fixed~\yacc, variations in~\yfecc~adjust the vertical height of the
+plateau.
+\citet{Weinberg2017} demonstrate that, to first order, the SFE timescale
+$\tau_\star$ determines the metallicity~\feh~at which the knee occurs with
+low~$\tau_\star$ models predicting a knee at high~\feh.
+If a lowered plateau (i.e., higher~\yfecc) is accompanied by faster star
+formation (i.e., lower~$\tau_\star$), the portion of the evolutionary track
+in which~\afe~is decreasing occurs in a similar region of chemical space.
 This gives rise to the inverse degeneracy between~\yfecc~and~$\tau_\star$ in
 Fig.~\ref{fig:fiducial_mock_corner} when an overall scale of nucleosynthetic
 yields is chosen.
+When the overall scale is allowed to vary, we find a degeneracy of the opposite
+sign (see discussion in Appendix~\ref{sec:degeneracy}).
 \par
-\textit{The location of the track in abundance space.}
-This observable which plays an important role in producing the inverse
-degeneracy between~\yfecc~and~$\tau_\star$ in Fig.
-\ref{fig:fiducial_mock_corner} is also related to the SN Ia yield~\yfeia.
-Similar to~\yfecc~impacting the height of the plateau, adjustments to the
-value of~\yfeia~move the track vertically in the~\afe-\feh~plane when other
-parameters are held fixed (there is horizontal movement as well, though the
-vertical movement is stronger).
-In combination with the yields themselves, the outflow mass-loading factor
-$\eta$ establishes the late-time equilibrium abundance (\citealp{Weinberg2017};
-see discussion in~\S~\ref{sec:onezone}).
-Adjusting~$\eta$ shifts the track horizontally in the~\afe-\feh~plane by
-changing the metal mass retained by the ISM.
-Therein lies the origin of the degeneracy between~\yfeia~and~$\eta$: a
-downward shift in the evolutionary track can be paired with a rightward shift
-in order to place the track in a similar location in abundance space to achieve
-similar agreement with the data.
+\textit{The endpoint of the model track and centroid of the MDF.}
+% The ratio~$\yfecc / \yfeia$ controls the drop in~\afe~between the plateau
+% and the equilibrium~\afe.
+This is the region of chemical space where most of the data are generally
+found, so for a given choice of~$\eta$, the~\textit{total} Fe yield is
+well constrained observationally.
+With only the total precisely determined,~\yfecc~and~\yfeia~are inversely
+related, producing the degeneracy seen in Fig.~\ref{fig:fiducial_mock_corner}.
+On its own, adjusting~\yfeia~shifts the track vertically in the~\afe-\feh~plane
+(there is horizontal movement as well, though the vertical movement is
+stronger).
+A downward shift in the predicted track (i.e., and increase in~$\yfeia$) can be
+accompanied by a rightward shift (i.e., a decrease in~$\eta$) such that the
+endpoint lies in the same location as the data.
+This relationship gives rise to the inverse relation between~$\yfeia$ and
+$\eta$, whereas the yield-outflow degeneracy produces a direct relationship
+between these parameters (see Appendix~\ref{sec:degeneracy}).
+% This observable, which plays an important role in producing the inverse
+% degeneracy between~\yfecc~and~$\tau_\star$ in Fig.
+% \ref{fig:fiducial_mock_corner}, is also related to the SN Ia yield~\yfeia.
+% Similar to~\yfecc~impacting the height of the plateau, adjustments to the
+% value of~\yfeia~move the track vertically in the~\afe-\feh~plane when other
+% parameters are held fixed (there is horizontal movement as well, though the
+% vertical movement is stronger).
+% In combination with the yields themselves, the outflow mass-loading factor
+% $\eta$ establishes the late-time equilibrium abundance (\citealp{Weinberg2017};
+% see discussion in~\S~\ref{sec:onezone}).
+% Adjusting~$\eta$ shifts the track horizontally in the~\afe-\feh~plane by
+% changing the metal mass retained by the ISM.
+% Therein lies the origin of the degeneracy between~\yfeia~and~$\eta$: a
+% downward shift in the evolutionary track can be paired with a rightward shift
+% in order to place the track in a similar location in abundance space to achieve
+% similar agreement with the data.
 \par
 \textit{The shape of the MDF.}
 The~\ah~and~\feh~distributions are affected in a handful of ways by the
 parameters of this input model.
 The duration of star formation has the simplest effect of cutting off the MDF
 at some abundance.
-Inefficient star formation (i.e. high~$\tau_\star$) increases the frequency of
+Inefficient star formation (i.e., high~$\tau_\star$) increases the frequency of
 low metallicity stars because it takes significantly longer for the ISM to
 reach the equilibrium abundance.
-Sharp infall histories (i.e. low~$\tau_\text{in}$) predict wide MDFs because
+Sharp infall histories (i.e., low~$\tau_\text{in}$) predict wide MDFs because
 the ISM mass declines with time through losses to star formation and the lack
 of replenishment by accretion.
-Metals are then deposited into a ``gas-starved'' reservoir which then reaches
+Metals are then deposited into a ``gas-starved'' reservoir, which then reaches
 higher abundances due to a deficit of hydrogen and helium.
 This effect is particularly strong for Fe because of the delayed nature of SN
 Ia enrichment~\citep{Weinberg2017}.
 These models achieve higher metallicities in the ISM, but their declining SFHs
 produce a larger fraction of their stars early in their evolutionary history
 when the abundances are lower than the late-time equilibrium abundance.
-Consequently, the MDF which arises is wider for sharp infall histories but has
+Consequently, the MDF that arises is wider for sharp infall histories but has
 a peak in a similar position regardless of~$\tau_\text{in}$.
 Folding these effects together, degeneracies arise in the inferred parameters
 as a consequence of their effects on the MDF.
 Between~$\tau_\text{in}$ and~$\tau_\text{tot}$, a sharp infall history can
 broaden the MDF, but cutting off star formation earlier can allow the
 distribution to remain peaked if the data suggest it.
-Similarly, efficient star formation (i.e. low~$\tau_\star$) allows the ISM to
+Similarly, efficient star formation (i.e., low~$\tau_\star$) allows the ISM to
 spend more time near its equilibrium abundance, enhancing the peak of the MDF,
-but this change in shape can be reverted by cutting off star formation.
+but this change in shape can be reversed by cutting off star formation.
 Between~$\tau_\text{in}$ and~$\eta$, a sharp infall history gives rise to a
 high metallicity tail of the MDF, but increasing the strength of outflows
 can lower the overall metallicity if this tail is too metal-rich compared to
 the data.
 \par
-We clarify that our fits achieve this level of precision by selecting an
+We emphasize that our fits achieve this level of precision by selecting an
 overall scale for nucleosynthetic yields and outflows ($\yacc = 0.01$; see
 discussion in~\S~\ref{sec:onezone} and Appendix~\ref{sec:degeneracy}).
-Any GCE parameter which influences the centroid of the MDF or the position or
+Any GCE parameter that influences the centroid of the MDF or the position or
 shape of the evolutionary track in abundance space is subject to the
 yield-outflow degeneracy.
-This includes all evolutionary parameters in our input model with the exception
-of~$\tau_\text{in}$ and~$\tau_\text{tot}$ because they impact only the shape of
-the MDF, an observational diagnostic which is constrained by a sufficiently
-large sample.
-We discuss the implications of this result applied to observed data
-in~\S~\ref{sec:mocks:variations} below.
+Given an overall scale of yields, set here by choosing~\yacc, a sample like
+our fiducial mock gives quite precise constraints on all model parameters.
+If we modify our choice of~\yacc, we would find similar predictions by
+adjusting our Fe yields,~$\tau_\star$ and~$\eta$.
+If~\yacc~is instead allowed to vary as a free parameter, then the degeneracies
+are strong, but~$\tau_\text{in}$ and~$\tau_\text{tot}$ remain well constrained
+due to their impact on the MDF shape.
+% This includes all evolutionary parameters in our input model with the exception
+% of~$\tau_\text{in}$ and~$\tau_\text{tot}$ because they impact only the shape of
+% the MDF, an observational diagnostic which is constrained by a sufficiently
+% large sample.
+% We discuss the implications of these results applied to observed data
+% in~\S~\ref{sec:mocks:variations} below.
 \par
 These tests against mock samples demonstrate the importance of the two central
 features of this method -- weighting the likelihood of observation by the SFH
@@ -328,15 +348,16 @@ Availability of Age Information}
 \includegraphics[scale = 0.42]{dp_sigma_precision.pdf}
 \includegraphics[scale = 0.42]{dp_sigma_agefrac.pdf}
 \caption{
-The mean deviation between the re-derived parameters
+Differences between input model parameters and recovered best-fit values.
+Each point is the mean deviation~$\left|\Delta\theta\right|$ for each of the
+six free parameters in Table~\ref{tab:recovered_values} (i.e.,
 $\{\theta\} = \{\tau_\text{in}, \eta, \tau_\star, \tau_\text{tot}, \yfecc,
-\yfeia\}$ and their known values from the input model in units of the
-uncertainty on the best-fit values.
-We show the mean offset as a function of the sample size (left), measurement
-precision in~\feh~and~\afe~abundances (middle, black), measurement precision
-in~$\log_{10}(\text{age})$ (middle, red), and the fraction of the sample with
-available age information (right).
-Error bars denote the error in the mean deviation of the six parameters.
+\yfeia\}$) in units of the best-fit uncertainty~$\sigma$.
+Our mock samples vary in terms of their sample size (left), measurement
+precision in~\feh~and~\afe~abundances (middle, black), measurement precision in
+$\log_{10}(\text{age})$ (middle, red), and the fraction of the sample with
+available age measurements (right).
+Error bars denote the error in the mean deviation of the six free parameters.
 Blue dotted lines mark~$\langle \Delta \theta / \sigma \rangle = 1$, the
 expected mean offset due to randomly sampling from a Gaussian distribution.
 }
@@ -351,12 +372,16 @@ expected mean offset due to randomly sampling from a Gaussian distribution.
 \includegraphics[scale = 0.55]{precision_abundanceuncertainty.pdf}
 \includegraphics[scale = 0.55]{precision_ageuncertainty.pdf}
 \caption{
-The precision (i.e. $\left|\Delta \theta\right| / \sigma$) of our re-derived
-mock sample parameters~$\{\theta\} = \{\tau_\text{in}, \eta, \tau_\star,
-\tau_\text{tot}, \yfecc, \yfeia\}$ as a function of sample size (top left),
-the fraction of the sample with age measurements (top right), measurement
-uncertainty in~\feh~and~\afe~(bottom left), and measurement uncertainty
-in~$\log_{10}(\text{age})$ (bottom right).
+Precision of our fitting method.
+For a fit uncertainty~$\sigma$ and deviation from the known value
+$\Delta\theta$, we compute precision according to
+$\left|\Delta\theta\right| / \sigma$ for each of the six free parameters
+in Table~\ref{tab:recovered_values} and plot them as a function
+of sample size (top left), the fraction of the sample with age information (top
+right), abundance uncertainties (bottom left), and age uncertainties (bottom
+right).
+Grey lines in each panel denote~$x^{\pm0.5}$ scaling where~$x$ is the quantity
+on the~$y$-axis.
 We plot timescales in red, Fe yields in blue, and the mass-loading
 factor~$\eta$ in black in all panels according to the legend.
 }
@@ -384,18 +409,13 @@ In the remaining columns, we provide the associated values derived for each
 GCE parameter~$\theta$ along with their~$1\sigma$ confidence intervals.
 The sample sizes we consider are intended to reflect the range that is
 typically achieved in dwarf galaxies.
-Much more distant than nearby Galactic stars and intrinsically smaller, dwarf
-galaxies are considerably less conducive to the large sample sizes achieved by
-Milky Way surveys like APOGEE~\citep{Majewski2017} and GALAH
-% \footnote{
-% 	APOGEE: Apache Point Observatory Galaxy Evolution Experiment. \\
-% 	GALAH: GALactic Archaeology with Hermes.
-% }~\citep{DeSilva2015, Martell2017}.
-\citep{DeSilva2015, Martell2017}.
+Because of their distance and low stellar mass, dwarf galaxies are considerably
+less conducive to the large sample sizes achieved by Milky Way surveys like
+APOGEE~\citep{Majewski2017} and GALAH~\citep{DeSilva2015, Martell2017}.
 Our choices in measurement precision are intended to reflect typical values
 achieved by modern spectroscopic surveys.
 Although deriving elemental abundances through spectroscopy is a nontrivial
-problem known to be affected by systematics~\citep[e.g.][]{Anguino2018},
+problem known to be affected by systematics~\citep[e.g.,][]{Anguino2018},
 stellar age measurements
 are generally the more difficult of the two~\citep{Soderblom2010, Chaplin2013}.
 The age measurements may therefore be available for only a small portion of the
@@ -403,10 +423,10 @@ sample and are often less precise than the abundances ($f_\text{age} = 30$\%
 and~$\sigma_\feh = \sigma_\afe = 0.05$ versus
 $\sigma_{\log_{10}(\text{age})} = 0.1$ in our fiducial mock).
 \par
-Fig.~\ref{fig:accuracy} demonstrate the accuracy of our fitting method with
+Fig.~\ref{fig:accuracy} demonstrates the accuracy of our fitting method with
 respect to variations in these details surrounding the data.
 We compute the deviation between each re-derived parameter~$\theta$
-(i.e.~$\tau_\text{in}$,~$\eta$,~$\tau_\star$, etc.) and its known value from
+(i.e.,~$\tau_\text{in}$,~$\eta$,~$\tau_\star$, etc.) and its known value from
 the input model, then divide by the fit uncertainty~$\sigma_\theta$ and plot
 the mean on the y-axis.
 Under all variants that we explore, our likelihood function accurately recovers
@@ -431,11 +451,13 @@ in all cases.
 To name a couple of these ``stress tests,'' one is a case in which we build in
 a significant starburst, finding that we accurately recover both the timing and
 the strength of the burst.
-We have also explored an infall rate which varies sinusoidally about some mean
+We have also explored an infall rate that varies sinusoidally about some mean
 value, mimicking natural fluctuations in the accretion history or a series of
 minor starbursts.
 Although idealized and potentially unrealistic, our likelihood function
 accurately recovers the amplitude, phase and frequency in this case as well.
+Of course, the parametrization itself must allow for such possibilities, but
+we stick to smooth SFHs for the remainder of these tests.
 \par
 Fig.~\ref{fig:precision} demonstrates how the uncertainty of each best-fit
 parameter is affected by these details of the sample.
@@ -448,7 +470,7 @@ large compared to the age uncertainties, in which case the Fe yields are
 constrained to a similar precision as~$\tau_\text{in}$ and~$\tau_\star$
 but~$\tau_\text{tot}$ is determined more precisely.
 The Fe yields are, unsurprisingly, the most sensitive parameters to the
-abundance uncertainties, while~$\eta$ can be determined by~$\sim$10\% precision
+abundance uncertainties, while~$\eta$ can be determined with~$\sim$10\% precision
 even with highly imprecise measurements ($\sigma_\text{[X/Y])} \approx 0.5$).
 Even with imprecise abundances, the centroid of the MDF can still be robustly
 determined with a sufficiently large sample, which allows a precise inference
@@ -473,21 +495,21 @@ Thankfully, abundances are generally easier than ages to measure on a
 star-by-star basis~\citep{Soderblom2010, Chaplin2013}.
 \par
 These results are of particular interest to authors seeking to derive quenching
-times for dwarf galaxies (i.e. the lookback time to when their star formation
+times for dwarf galaxies (i.e., the lookback time to when their star formation
 stopped).
 At present, the most reliable method to empirically determine a dwarf galaxy's
 quenching time is via a direct reconstruction of its SFH through some method,
-such as analysing its CMD~\citep[e.g.][]{Sohn2013, Weisz2015}.
+such as analysing its CMD~\citep[e.g.,][]{Sohn2013, Weisz2015}.
 Consequently, the most precise SFH measurements are for nearby systems with
 resolved stars, a considerable limitation even with modern instrumentation.
 To our knowledge, there are only four quenched galaxies outside of the Milky
 Way subgroup with well-constrained SFHs: Andromeda II, Andromeda XIV
 \citep{Weisz2014a}, Cetus~\citep{Monelli2010a} and Tucana~\citep{Monelli2010b}.
 Some authors have connected quenching timescales to observed galaxy properties
-in N-body simulations (e.g.~\citealp*{Rocha2012};~\citealp{Slater2013,
+in N-body simulations (e.g.,~\citealp*{Rocha2012};~\citealp{Slater2013,
 Slater2014, Phillips2014, Phillips2015, Wheeler2014}), but unfortunately
 simulation outcomes are strongly dependent on the details of the adopted
-sub-grid models~\citep[e.g.][]{Li2020} as well as how feedbak and the grid
+sub-grid models~\citep[e.g.,][]{Li2020} as well as how feedback and the grid
 itself are implemented~\citep{Hu2022}.
 Our results suggest that the duration of star formation can instead be inferred
 from elemental abundance alone, though having~\textit{some} age information can
@@ -496,7 +518,7 @@ While this is theoretically possible, we demonstrate in~\S~\ref{sec:h3:gse}
 below that the exclusion of age information from the fit to our GSE sample
 produces significantly different results for evolutionary timescales.
 These discrepancies indicate that age information in some form is more
-important in practice than this proof of concept would suggest.
+important in practice than our proof of concept would suggest.
 % While this is theoretically possible, this proof of concept assumes the same
 % evolutionary history of the mock data and even fits them with the same
 % numerical code which which we integrated the input model.

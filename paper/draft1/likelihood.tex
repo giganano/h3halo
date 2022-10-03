@@ -15,7 +15,7 @@ In its most general form, the problem at hand is to treat some set of data as a
 stochasitc sample from an evolutionary track in some observed space.
 This assumption implies that all of the data would fall perfectly on some
 infinitely thin line or curve in the absence of measurement uncertainties.
-We make no assumptions about the underlying model which computes the track, so
+We make no assumptions about the underlying model that computes the track, so
 this approach should be universally applicable to one-zone GCE models of any
 parametrization.
 Evolutionary tracks also arise in the context of, e.g., stellar streams and
@@ -142,7 +142,7 @@ When the spacing~$\Delta\script{M}_j$ between the points~$\script{M}_j$ and
 $\script{M}_{j + 1}$ is large compared to the observation uncertainties
 associated with the datum~$\script{D}_i$ (shown by the dotted red contours),
 the finite length of the line segment becomes an important correction.
-Additional vector quantities which appear in our derivation are also noted.
+Additional vector quantities that appear in our derivation are also noted.
 }
 \label{fig:marginalization}
 \end{figure}
@@ -189,6 +189,9 @@ point along the track~$A(q)$ in the observed space.
 For notational convenience, we have introduced the variable
 $\Delta_{ij} = \script{D}_i - \script{M}_j$ as the vector difference between
 the~$i$th datum and the~$j$th point sampled on the track.
+We clarify our notation that the subscripts~$i$ and~$ij$ in equation
+\refp{eq:l_di_mj_q} above do not refer to rows and columns of matrices, but
+rather to the~$i$th datum and the~$j$th point on the model track.
 If a multivariate Gaussian is not an accurate description of the measurement
 uncertainties in any one datum, then equation~\refp{eq:l_di_mj_q} must
 be replaced with some alternative characterization of the likelihood of
@@ -299,12 +302,12 @@ The following likelihood function then arises:
 \label{eq:lnL_minus_weights}
 \end{equation}
 where we have omitted the term~$\sum \ln \left(\sqrt{2\pi \det{(C_i)}}\right)$
-because it is a constant which can safely be neglected in the interest of
+because it is a constant that can safely be neglected in the interest of
 optimization.
 This likelihood function considers each pair-wise combination of the data and
 model, weighting the likelihood according to the predicted density of
 observations and penalizing models by the sum of their weights.
-This penalty encourages parsimony, rewarding models which explain the
+This penalty encourages parsimony, rewarding models that explain the
 observations in as few predicted instances as possible, simultaneously lowering
 the inferred likelihood when data are predicted to exist in regions of the
 observed space where there are none.
@@ -353,7 +356,7 @@ overall scale (this is also the ``most correct'' scale in the sense that the
 number of stars in the sample is exactly as predicted).
 The first two terms in the above expression for~$\ln L$ then become
 $-N + N \ln N$, a constant for a given sample which can safely be neglected
-for optimzation along with the term incorporating the determinants of the
+for optimization along with the term incorporating the determinants of the
 covariance matrices.
 We arrive at the following expression for the likelihood function in cases
 where the normalization of the SFH does not impact the evolution of the
@@ -378,7 +381,7 @@ does indeed impact the abundance evolution, then authors should adopt
 equation~\refp{eq:lnL_minus_weights}.
 Such models can arise, e.g., when the mass-loading factor~$\eta$ grows with the
 stellar mass to mimic the deepending of the potential
-well~\citep[e.g.][]{Conroy2022}.
+well~\citep[e.g.,][]{Conroy2022}.
 In either case, the corrective term~$\beta_{ij}$ given by equation
 \refp{eq:corrective_beta} is approximately 1 and can be safely neglected when
 the track is densely sampled relative to the observational uncertainties.
