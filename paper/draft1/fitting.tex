@@ -10,7 +10,7 @@ age measurements as additional data where available, and without any binning,
 accurately constructs the~\textit{likelihood function}
 $L(\script{D} | \{\theta\})$ describing the probabiliy of observing the
 data~$\script{D}$ given a set of model parameters $\{\theta\}$.
-This is related to the~\textit{posterior probability}
+$L(\script{D} | \{\theta\})$ is related to the~\textit{posterior probability}
 $\L(\{\theta\} | \script{D})$ according to Bayes' Theorem:
 \begin{equation}
 L(\{\theta\} | \script{D}) = \frac{
@@ -99,10 +99,11 @@ given by a weighted~$e^{-\chi^2/2}$ expression.
 Mathematically, the requirement for this marginalization arises naturally from
 the application of statistical likelihood and an IPPP to an evolutionary track
 (see Appendix~\ref{sec:likelihood}).
-Qualitatively, it arises due to observational uncertainties -- there is no way
-of knowing which point on the evolutionary track the datum~$\script{D}_i$ is
-truly associated with, and the only way to properly take this into account is
-to consider all pair-wise combinations of~\script{D}~and~\script{M}.
+Qualitatively, this requirement is due to observational uncertainties -- there
+is no way of knowing which point on the evolutionary track the
+datum~$\script{D}_i$ is truly associated with, and the only way to properly
+account for its unknown position is to consider all pair-wise combinations
+of~\script{D}~and~\script{M}.
 \par
 The mathematical requirement for a weighted as opposed to unweighted
 $e^{-\chi^2/2}$ likelihood expression also arises naturally in our derivation.
@@ -170,8 +171,8 @@ expression is no longer an accurate parametrization of~$L(\script{D}_i |
 equation~\refp{eq:likelihood_general}.
 In these cases, a common alternative would be to replace~$e^{-\chi^2 / 2}$ with
 some kernel density estimate of the uncertainty at the point~$\script{M}_j$
-while retaining the weight~$w_j$, but this is only necessary for the subset
-of~\script{D}~whose uncertainties are not adequately described by a
+while retaining the weight~$w_j$, but this substitution is only necessary for
+the subset of~\script{D}~whose uncertainties are not adequately described by a
 multivariate Gaussian.
 \par
 \textit{The track is densely sampled.}
@@ -227,9 +228,9 @@ Although our likelihood function does not include a direct fit to the
 stellar distributions in age and abundances, weighting the inferred likelihood
 by the SFR in the model indeed incorporates this information on how many stars
 should form at which ages and abundances.
-This results in an~\textit{implicit} fit to the age and abundance distributions,
-even though this information is not directly included in the likelihood
-calculation.
+Our method therefore provides~\textit{implicit} fits to the age and abundance
+distributions, even though this information is not directly included in the
+likelihood calculation.
 \par
 There are a variety of ways to construct the likelihood distribution in
 parameter space.

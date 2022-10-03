@@ -93,7 +93,8 @@ distribution~$\Lambda$ according to
 \lambda(\script{M}_j | \{\theta\}) = \script{S}(\script{M}_j | \{\theta\})
 \Lambda(\script{M}_j | \{\theta\}).
 \end{equation}
-Plugging this into our expression for the likelihood function, we obtain
+Plugging the Poisson distribution into our expression for the likelihood
+function, we obtain
 \begin{subequations}\begin{align}
 L(\script{D} | \{\theta\}) &= \int_\script{M}
 \left(\prod_i^N L(\script{D}_i | \script{M})\right)
@@ -123,14 +124,14 @@ The next step is to assess the likelihood~$L(\script{D}_i | \script{M})$ of
 observing each datum given the predicted track.
 The line integral within the summation indicates that the most general solution
 is to marginalize the likelihood over the entire evolutionary track.
-In fact, we find in our tests against mock samples that this is necessary to
+In fact, we find in our tests against mock samples that this marginalizaion is necessary to
 ensure that the inferred best-fit parameters are accurate (see discussion
 in~\S~\ref{sec:mocks:recovered}).
 This requirement arises due to observational uncertainties -- there is no way
 of knowing~\textit{a priori} which point on the track any individual datum is
 truly associated with.
-If this were the case,~$L(\script{D}_i | \script{M})$ would reduce to a delta
-function at the known point.
+If this information were available,~$L(\script{D}_i | \script{M})$ would reduce
+to a delta function at the known point~$\script{M}_j$.
 
 \begin{figure}
 \centering
@@ -152,9 +153,9 @@ Additional vector quantities that appear in our derivation are also noted.
 In practice, the track may be complicated in shape and is generally not known
 as a smooth and continuous function, instead in some piece-wise linear
 approximation computed by a numerical code.
-We visualize this in Fig.~\ref{fig:marginalization} where we have deliberately
-exaggerated the spacing between two arbitrary points~$\script{M}_j$ and
-$\script{M}_{j + 1}$ along the track for illustrative purposes.
+We visualize a hypothetical track and datum in Fig.~\ref{fig:marginalization}
+where we have deliberately exaggerated the spacing between two adjacent
+points~$\script{M}_j$ and~$\script{M}_{j + 1}$ for illustrative purposes.
 In principle, the likelihood of observing some datum~$\script{D}_i$ varies
 along the line segment~$\Delta\script{M}_j$ connecting the two points.
 To properly take this variation into account, we must integrate along the

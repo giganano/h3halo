@@ -70,7 +70,8 @@ We take an exponential infall history~$\dot{M}_\text{in} \propto e^{-t /
 initial ISM mass of~$M_\text{g} = 0$.
 We select an SFE timescale of~$\tau_\star = 15$ Gyr, motivated by the
 observational result that dwarf galaxies have generally inefficient star
-formation~\citep[e.g.,][]{Hudson2015}.
+formation (e.g.,~\citealp{Hudson2015}; though not necessarily halo dwarfs that
+formed in denser environments -- see discussion in~\citealt{Naidu2022}).
 We additionally select a mass-loading factor of~$\eta = 10$ because the
 strength of outflows should, in principle, contain information on the depth of
 the gravity well of a given galaxy, with lower mass systems being more
@@ -138,8 +139,8 @@ This SN Ia yield of Fe is based on the W70 explosion model of
 \citet{Iwamoto1999} which produces~$\sim$0.77~\msun~of Fe per SN Ia event and
 assuming that~$\scinote{2.2}{-3}~\msun^{-1}$ SNe Ia arise per solar mass of
 star formation based on~\citet{Maoz2012a}.
-Following this, we scale these yields down by factors of~$\sim$2/3 such that
-$\yacc = 0.01$, adopting~$\yfecc = \scinote{8}{-4}$ and
+Following these arguments, we scale these yields down by factors of~$\sim$2/3
+such that $\yacc = 0.01$, adopting~$\yfecc = \scinote{8}{-4}$ and
 $\yfeia = \scinote{1.1}{-3}$ in our mock samples.
 We retain the assumption that~$\yacc = 0.01$ in our fits to our mock samples
 but otherwise let the Fe yields~\yfecc~and~\yfeia~be free parameters to be
@@ -235,29 +236,28 @@ low~$\tau_\star$ models predicting a knee at high~\feh.
 If a lowered plateau (i.e., higher~\yfecc) is accompanied by faster star
 formation (i.e., lower~$\tau_\star$), the portion of the evolutionary track
 in which~\afe~is decreasing occurs in a similar region of chemical space.
-This gives rise to the inverse degeneracy between~\yfecc~and~$\tau_\star$ in
-Fig.~\ref{fig:fiducial_mock_corner} when an overall scale of nucleosynthetic
-yields is chosen.
+\yfecc~and~$\tau_\star$ are therefore inversely related when an overall scale
+of nucleosynthetic yields is chosen.
 When the overall scale is allowed to vary, we find a degeneracy of the opposite
 sign (see discussion in Appendix~\ref{sec:degeneracy}).
 \par
 \textit{The endpoint of the model track and centroid of the MDF.}
 % The ratio~$\yfecc / \yfeia$ controls the drop in~\afe~between the plateau
 % and the equilibrium~\afe.
-This is the region of chemical space where most of the data are generally
-found, so for a given choice of~$\eta$, the~\textit{total} Fe yield is
-well constrained observationally.
+These are the regions of chemical space where most of the
+data are generally found, so for a given choice of~$\eta$, the~\textit{total}
+Fe yield is well constrained observationally.
 With only the total precisely determined,~\yfecc~and~\yfeia~are inversely
-related, producing the degeneracy seen in Fig.~\ref{fig:fiducial_mock_corner}.
+related.
 On its own, adjusting~\yfeia~shifts the track vertically in the~\afe-\feh~plane
 (there is horizontal movement as well, though the vertical movement is
 stronger).
 A downward shift in the predicted track (i.e., and increase in~$\yfeia$) can be
 accompanied by a rightward shift (i.e., a decrease in~$\eta$) such that the
 endpoint lies in the same location as the data.
-This relationship gives rise to the inverse relation between~$\yfeia$ and
-$\eta$, whereas the yield-outflow degeneracy produces a direct relationship
-between these parameters (see Appendix~\ref{sec:degeneracy}).
+$\yfeia$ and~$\eta$ are therefore inversely related, whereas the yield-outflow
+degeneracy produces a direct relationship between these parameters
+(see Appendix~\ref{sec:degeneracy}).
 % This observable, which plays an important role in producing the inverse
 % degeneracy between~\yfecc~and~$\tau_\star$ in Fig.
 % \ref{fig:fiducial_mock_corner}, is also related to the SN Ia yield~\yfeia.
@@ -439,11 +439,11 @@ the input model, then divide by the fit uncertainty~$\sigma_\theta$ and plot
 the mean on the y-axis.
 Under all variants that we explore, our likelihood function accurately recovers
 the input parameters to~$\sim1\sigma$ or slightly better.
-This is exactly as expected when the uncertainties are described by a
+This deviation is exactly as expected when the uncertainties are described by a
 Gaussian random process, wherein the most likely deviation from the true value
 is exactly~$1\sigma$.
-This is true even with infinite data, though in that limit the~$1\sigma$
-uncertainty interval becomes arbitrarily small.
+This expectation holds even with infinite data, though in that limit
+the~$1\sigma$ uncertainty interval becomes arbitrarily small.
 This demonstrates that equation~\refp{eq:likelihood} provides accurate best-fit
 parameters even when the sample size is as low as~$N \approx 20$, when the
 measurement uncertainties are as imprecise as~$\sigma_\text{[X/Y]} \approx 0.5$
