@@ -47,24 +47,6 @@ measurement precision, and the availability of age information.
 \subsection{A Fiducial Mock Sample}
 \label{sec:mocks:fiducial}
 
-% fig 2
-\begin{figure*}
-\centering
-\includegraphics[scale = 0.45]{fiducial_512k.pdf}
-\caption{
-Posterior distributions obtained from applying our fitting method to our
-fiducial mock sample (see Fig.~\ref{fig:fiducial_mock} and discussion
-in~\S\S~\ref{sec:fitting} and~\ref{sec:mocks:fiducial}).
-Panels below the diagonal show 2-dimensional cross-sections of the likelihood
-function while panels along the diagonal show the marginalized distributions
-along with the best-fit values and confidence intervals.
-Blue stars mark the element of the Markov chain with the maximum likelihood.
-Red ``cross-hairs'' denote the true, known values of the parameters from the
-input model (see the top row of Table~\ref{tab:recovered_values}).
-}
-\label{fig:fiducial_mock_corner}
-\end{figure*}
-
 We take an exponential infall history~$\dot{M}_\text{in} \propto e^{-t /
 \tau_\text{in}}$ with an e-folding timescale of~$\tau_\text{in} = 2$ Gyr and an
 initial ISM mass of~$M_\text{g} = 0$.
@@ -155,6 +137,24 @@ $\sigma_{\log_{10}(\text{age})} = 0.1$ (i.e.,~$\sim$23\% precision).
 
 \subsection{Recovered Parameters of the Fiducial Mock}
 \label{sec:mocks:recovered}
+
+% fig 2
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.42]{fiducial_512k.pdf}
+\caption{
+Posterior distributions obtained from applying our fitting method to our
+fiducial mock sample (see Fig.~\ref{fig:fiducial_mock} and discussion
+in~\S\S~\ref{sec:fitting} and~\ref{sec:mocks:fiducial}).
+Panels below the diagonal show 2-dimensional cross-sections of the likelihood
+function while panels along the diagonal show the marginalized distributions
+along with the best-fit values and confidence intervals.
+Blue stars mark the element of the Markov chain with the maximum likelihood.
+Red ``cross-hairs'' denote the true, known values of the parameters from the
+input model (see the top row of Table~\ref{tab:recovered_values}).
+}
+\label{fig:fiducial_mock_corner}
+\end{figure*}
 
 Fig.~\ref{fig:fiducial_mock} shows our fiducial mock in the observed space.
 As intended by our parameter choices (see discussion
@@ -366,30 +366,6 @@ Blue dotted lines mark~$\langle \Delta \theta / \sigma \rangle = 1$, the
 expected mean offset due to randomly sampling from a Gaussian distribution.
 }
 \label{fig:accuracy}
-\end{figure*}
-
-% fig 4
-\begin{figure*}
-\centering
-\includegraphics[scale = 0.55]{precision_samplesize.pdf}
-\includegraphics[scale = 0.55]{precision_agefrac.pdf}
-\includegraphics[scale = 0.55]{precision_abundanceuncertainty.pdf}
-\includegraphics[scale = 0.55]{precision_ageuncertainty.pdf}
-\caption{
-Precision of our fitting method.
-For a fit uncertainty~$\sigma$ and deviation from the known value
-$\Delta\theta$, we compute precision according to
-$\left|\Delta\theta\right| / \sigma$ for each of the six free parameters
-in Table~\ref{tab:recovered_values} and plot them as a function
-of sample size (top left), the fraction of the sample with age information (top
-right), abundance uncertainties (bottom left), and age uncertainties (bottom
-right).
-Grey lines in each panel denote~$x^{\pm0.5}$ scaling where~$x$ is the quantity
-on the~$y$-axis.
-We plot timescales in red, Fe yields in blue, and the mass-loading
-factor~$\eta$ in black in all panels according to the legend.
-}
-\label{fig:precision}
 \end{figure*}
 
 We now explore variations of our fiducial mock sample.

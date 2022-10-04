@@ -5,6 +5,102 @@
 \section{Application to Observations}
 \label{sec:h3}
 
+% fig 4
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.55]{precision_samplesize.pdf}
+\includegraphics[scale = 0.55]{precision_agefrac.pdf}
+\includegraphics[scale = 0.55]{precision_abundanceuncertainty.pdf}
+\includegraphics[scale = 0.55]{precision_ageuncertainty.pdf}
+\caption{
+Precision of our fitting method.
+For a fit uncertainty~$\sigma$ and deviation from the known value
+$\Delta\theta$, we compute precision according to
+$\left|\Delta\theta\right| / \sigma$ for each of the six free parameters
+in Table~\ref{tab:recovered_values} and plot them as a function
+of sample size (top left), the fraction of the sample with age information (top
+right), abundance uncertainties (bottom left), and age uncertainties (bottom
+right).
+Grey lines in each panel denote~$x^{\pm0.5}$ scaling where~$x$ is the quantity
+on the~$y$-axis.
+We plot timescales in red, Fe yields in blue, and the mass-loading
+factor~$\eta$ in black in all panels according to the legend.
+}
+\label{fig:precision}
+\end{figure*}
+
+We now apply our likelihood function (Eq.~\ref{eq:likelihood}) to two
+disrupted dwarf galaxies in the Milky Way stellar halo.
+The first is a relatively well-studied system: GSE~\citep{Belokurov2018,
+Helmi2018, Haywood2018, Myeong2018, Mackereth2019}, believed to be responsible
+for a major merger event early in the Milky Way's history~\citep{Gallart2019,
+Bonaca2020, Chaplin2020, Montalban2021, Xiang2022} which
+contributed~$\sim$$10^9~\msun$ of total stellar mass to the Galaxy
+\citep{Deason2019, Fattahi2019, Mackereth2019, Vincenzo2019, Kruijssen2020,
+Han2022}, including eight globular clusters in the stellar
+halo~\citep{Myeong2018, Massari2019, Kruijssen2019, Forbes2020}.
+GSE is a good test case for this method both because it is the dominant
+structure in the Milky Way's inner halo~\citep{Helmi2018} and because we can
+compare to independent constraints thanks to the amount of attention it has
+received in the literature.
+
+\subfile{results.tablebody.tex}
+
+The second is a less well-studied system: Wukong/LMS-1, a structure chemically
+distinct from GSE which sits between it and the Helmi stream~\citep{Helmi1999}
+in energy-angular momentum space~\citep{Naidu2020, Yuan2020} that
+formed from an M$_\star \approx \scinote{1.3}{7}~\msun$ disrupted
+galaxy~\citep{Naidu2022}.
+Wukong/LMS-1 is an interesting system to investigate with our method
+because it displays a ``classic'' enrichment history with an obvious ``knee''
+in the evolutionary track near~$\feh \approx -2.8$ (see Fig.~\ref{fig:wukong}
+below).
+It has been associated~\citep{Malhan2022} with the most metal-poor streams in
+the halo~\citep[e.g.,][]{Roederer2019, Wan2020, Martin2020} and a high fraction
+of carbon-enhanced metal-poor stars given its low stellar mass
+\citep{Shank2022, Zepeda2022}, marking it as a disrupted dwarf with a
+potentially remarkable chemical history.
+We make use of data from the H3 survey (see discussion
+in~\S~\ref{sec:h3:survey} below) and discuss our GCE model fits to GSE and
+Wukong/LMS-1 in~\S\S~\ref{sec:h3:gse} and~\ref{sec:h3:wukong}, comparing our
+results for the two galaxies in~\S~\ref{sec:h3:comparison}.
+
+\subsection{The H3 Survey}
+\label{sec:h3:survey}
+
+The H3 survey~\citep{Conroy2019} is collecting medium-resolution spectra
+of~$\sim$300,000 stars in high-latitude fields ($\left|b\right| > 20^\circ$).
+Spectra are collected from the Hectochelle instrument on the MMT
+\citep{Szentgyorgyi2011}, which delivers~$R \approx$~32,000 spectra over the
+wavelength range of~$5150 - 5300$~\AA.
+Spectral lines in this wavelength range are dominated by iron-peak elements and
+the MgI triplet (see Fig. 6 of~\citealt{Conroy2019}).
+Throughout this section, the alpha element abundances we refer to are therefore
+Mg abundances specifically, whereas in previous sections an alpha element
+refers to any species where the only statistically significant enrichment
+source is a metallicity-dependent yield from massive stars.
+\par
+The survey selection function is deliberately simple: the primary sample
+consists of stars with~$r$ band magnitudes of~$15 < r < 18$
+and~\gaia~\citep{Gaia2016} parallaxes~$<$ 0.3 mas (this threshold has evolved
+over the course of the survey as the~\gaia~astrometry has become more precise).
+Stellar parameters are estimated by the~\textsc{MINESweeper} program
+\citep{Cargile2020}, which fits grids of isochrones, synthetic spectra and
+photometry to the Hectochelle spectrum and broadband photometry from~\gaia,
+Pan-STARRS~\citep{Chambers2016}, SDSS~\citep{York2000}, 2MASS
+\citep{Skrutskie2006} and WISE~\citep{Wright2010} with the~\gaia~parallax
+used as a prior.
+The fitted parameters include radial velocity, spectrophotometric distance,
+reddening,~\feh,~\afe~and age.
+The default analysis includes a complicated prior on age and distance
+(see~\citealt{Cargile2020} for details).
+We have also re-fit high signal-to-noise data with a flat age prior for cases
+where ages play an important role.
+In this paper we use the catalog which uses this flat age prior.
+
+\subsection{\gaia-Sausage Enceladus}
+\label{sec:h3:gse}
+
 % fig 5
 \begin{figure*}
 \centering
@@ -64,82 +160,6 @@ not appear in other panels when zoomed in on the peak.
 \label{fig:gse_corner}
 \end{figure*}
 
-\subfile{results.tablebody.tex}
-
-We now apply our likelihood function (Eq.~\ref{eq:likelihood}) to two
-disrupted dwarf galaxies in the Milky Way stellar halo.
-The first is a relatively well-studied system: GSE~\citep{Belokurov2018,
-Helmi2018, Haywood2018, Myeong2018, Mackereth2019}, believed to be responsible
-for a major merger event early in the Milky Way's history~\citep{Gallart2019,
-Bonaca2020, Chaplin2020, Montalban2021, Xiang2022} which
-contributed~$\sim$$10^9 - 10^{10}~\msun$ of total stellar mass to the Galaxy
-\citep{Deason2019, Fattahi2019, Mackereth2019, Vincenzo2019, Kruijssen2020,
-Han2022}, including eight globular clusters in the stellar
-halo~\citep{Myeong2018, Massari2019, Kruijssen2019, Forbes2020}.
-GSE is a good test case for this method both because it is the dominant
-structure in the Milky Way's inner halo~\citep{Helmi2018} and because we can
-compare to independent constraints thanks to the amount of attention it has
-received in the literature.
-The second is a less well-studied system: Wukong/LMS-1, a structure chemically
-distinct from GSE which sits between it and the Helmi stream~\citep{Helmi1999}
-in energy-angular momentum space~\citep{Naidu2020, Yuan2020} that
-formed from an M$_\star \approx \scinote{1.3}{7}~\msun$ disrupted
-galaxy~\citep{Naidu2022}.
-% Its nearly polar orbit has been characterized by~\citet{Malhan2021, Malhan2022}
-% and~\citet{Shank2022}.
-% Wukong was independently discovered and dubbed LMS-1 by~\citet{Yuan2020},
-% and its nearly polar orbit has been characterized by~\citet{Malhan2021,
-% Malhan2022} and~\citet{Shank2022}.
-Wukong/LMS-1 is an interesting system to investigate with our method
-because it displays a ``classic'' enrichment history with an obvious ``knee''
-in the evolutionary track near~$\feh \approx -2.8$ (see Fig.~\ref{fig:wukong}
-below).
-It has also been associated with a handful of stellar streams, metal-poor
-globular clusters (NGC 5024, NGC 5053, ESO 280-SC06;~\citealp{Yuan2020,
-Malhan2021, Malhan2022, Naidu2022}), and carbon-enhanced metal-poor stars
-\citep{Shank2022}, though our GCE models do not make any predictions regarding
-these populations.
-We make use of data from the H3 survey (see discussion
-in~\S~\ref{sec:h3:survey} below) and discuss our GCE model fits to GSE and
-Wukong/LMS-1 in~\S\S~\ref{sec:h3:gse} and~\ref{sec:h3:wukong}, comparing our
-results for the two galaxies in~\S~\ref{sec:h3:comparison}.
-
-\subsection{The H3 Survey}
-\label{sec:h3:survey}
-
-The H3 survey~\citep{Conroy2019} is collecting medium-resolution spectra
-of~$\sim$300,000 stars in high-latitude fields ($\left|b\right| > 20^\circ$).
-Spectra are collected from the Hectochelle instrument on the MMT
-\citep{Szentgyorgyi2011}, which delivers~$R \approx$~32,000 spectra over the
-wavelength range of~$5150 - 5300$~\AA.
-Spectral lines in this wavelength range are dominated by iron-peak elements and
-the MgI triplet (see Fig. 6 of~\citealt{Conroy2019}).
-Throughout this section, the alpha element abundances we refer to are therefore
-Mg abundances specifically, whereas in previous sections an alpha element
-refers to any species where the only statistically significant enrichment
-source is a metallicity-dependent yield from massive stars.
-\par
-The survey selection function is deliberately simple: the primary sample
-consists of stars with~$r$ band magnitudes of~$15 < r < 18$
-and~\gaia~\citep{Gaia2016} parallaxes~$<$ 0.3 mas (this threshold has evolved
-over the course of the survey as the~\gaia~astrometry has become more precise).
-Stellar parameters are estimated by the~\textsc{MINESweeper} program
-\citep{Cargile2020}, which fits grids of isochrones, synthetic spectra and
-photometry to the Hectochelle spectrum and broadband photometry from~\gaia,
-Pan-STARRS~\citep{Chambers2016}, SDSS~\citep{York2000}, 2MASS
-\citep{Skrutskie2006} and WISE~\citep{Wright2010} with the~\gaia~parallax
-used as a prior.
-The fitted parameters include radial velocity, spectrophotometric distance,
-reddening,~\feh,~\afe~and age.
-The default analysis includes a complicated prior on age and distance
-(see~\citealt{Cargile2020} for details).
-We have also re-fit high signal-to-noise data with a flat age prior for cases
-where ages play an important role.
-In this paper we use the catalog which uses this flat age prior.
-
-\subsection{\gaia-Sausage Enceladus}
-\label{sec:h3:gse}
-
 % fig 7
 \begin{figure}
 \centering
@@ -162,7 +182,7 @@ free parameters.
 % fig 8
 \begin{figure*}
 \centering
-\includegraphics[scale = 0.58]{wukong_512k.pdf}
+\includegraphics[scale = 0.6]{wukong_512k.pdf}
 \caption{
 Posterior distributions for an exponential infall history applied to our
 Wukong/LMS-1 sample.
@@ -179,7 +199,8 @@ statistical likelihood.
 \label{fig:wukong_corner}
 \end{figure*}
 
-Our GSE sample consists of 189 stars with spectroscopic signal-to-noise
+We select our GSE sample based on the criteria in~\citet{Conroy2022}, which
+yields a sample of 189 stars with spectroscopic signal-to-noise
 SNR~$> 15$ and~\gaia~RUWE~$< 1.5$.
 95 of them are main sequence turnoff and subgiant stars with surface gravities
 of~$3.8 < \log g < 4.2$ with reliable age measurements.
@@ -303,7 +324,7 @@ is an accurate description of the galaxy.
 % fig 9
 \begin{figure}
 \centering
-\includegraphics[scale = 0.6]{gse_wukong_timescales.pdf}
+\includegraphics[scale = 0.63]{gse_wukong_timescales.pdf}
 \caption{
 Our best-fit evolutionary timescales for Wukong/LMS-1 (blue) and GSE (red) as a
 function of their stellar mass (taken from~\citealt{Naidu2022}; values are
@@ -329,32 +350,31 @@ $\eta = 3.6$ at~$M_\star = 10^{10}~M_\odot$ taken from~\citet{Muratov2015}.
 \label{fig:gse_wukong_eta}
 \end{figure}
 
-% fig 11
-\begin{figure*}
-\centering
-\includegraphics[scale = 0.45]{gse_wukong_comparison.pdf}
-\caption{
-A comparison of our best-fit models for GSE (red) and Wukong/LMS-1 (blue): the
-age distributions (left), the age-\feh~relations (middle) and age-\afe~relations
-(right).
-The inset in the right hand panel shows the tracks in the~\afe-\feh~plane.
-In all panels, we subsample 200 additional parameter choices from our Markov
-chains and plot the predictions as high transparency lines to provide a sense
-of the fit uncertainty.
-Due to the lack of age information for Wukong/LMS-1, the centroid of the age
-distribution is determined by our assumption that star formation began 13.2
-Gyr ago (see discussion in~\S~\ref{sec:mocks:fiducial}).
-}
-\label{fig:comparison}
-\end{figure*}
+We select Wukong/lMS-1 stars following the criteria in~\citet{Naidu2020}, with
+the following additional cuts for high purity (inspired by the orbits of the
+accomparnying globular clusters, NGC 5024 and NGC 5053, and~\citealt{Yuan2020}
+and~\citealt{Malhan2021} who made selections based on the orbital plane):
+\begin{itemize}
 
-Our Wukong/LMS-1 sample consists of 57 stars with spectroscopic SNR~$> 10$
+	\item[\textbf{1.}] $(J_z - J_r) / J_\text{tot}$ > 0.7, where~$J$ is
+	angular momentum.
+
+	\item[\textbf{2.}] $90^\circ < \theta < 120^\circ$, where~$\theta$ and
+	$\phi$ are angles defining the angular momentum unit vector.
+
+\end{itemize}
+The~\citet{Naidu2020} selection features a hard cut at~$\feh < -1.45$ to avoid
+GSE contamination, though from our modelling of the~\afe-\feh~distribution (see
+Fig.~\ref{fig:wukong}), it appears that the MDF cuts off around~$\sim$$-1.5$
+anyway.
+Our sample consists of 57 stars with spectroscopic SNR~$> 10$
 and~\gaia~RUWE~$< 1.5$, none of which have age information as they are all
 distant halo stars.
 Within this sample, 23 stars are at SNR~$> 20$ and the remaining 34 are at
 $10 <$ SNR~$< 20$.
 Abundance uncertainties range from~$\sim$0.02 to~$\sim$0.10 dex in
 both~\afe~and~\feh~with median values near~$\sim$0.045.
+\par
 Fig.~\ref{fig:wukong} illustrates this sample in chemical space along with our
 best-fit GCE model (see discussion below).
 Similar to the GSE, the lack of discontinuities in the age and abundance trends
