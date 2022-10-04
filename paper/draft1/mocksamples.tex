@@ -1,38 +1,9 @@
 
-\documentclass[ms.tex]{subfiles}
+\documentclass[foo.tex]{subfiles}
 \begin{document}
 
 \section{Mock Samples}
 \label{sec:mocks}
-
-% fig 1
-\begin{figure*}
-\centering
-\includegraphics[scale = 0.5]{fiducial_mock_afe_feh.pdf}
-\includegraphics[scale = 0.42]{fiducial_mock_agedist.pdf}
-\includegraphics[scale = 0.41]{fiducial_mock_amr.pdf}
-\caption{
-Our fiducial mock sample.
-Red lines in all panels denote the input model while blue lines denote the
-recovered best-fit model.
-The mock sample has~$N = 500$ stars with abundance uncertainties of
-$\sigma_\feh = \sigma_\afe = 0.05$ (marked by the errorbar in the left panel).
-$N = 100$ of the stars have age information as indicated by the colourbar in
-the left panel with an artificial uncertainty
-of~$\sigma_{\log_{10}(\text{age})} = 0.1$.
-\textbf{Left}: The mock sample in chemical space, with the marginalized
-distributions in~\feh~and~\afe~shown on the top and right, respectively.
-\textbf{Middle}: The age distribution of the mock sample (black, binned).
-The dashed red line indicates the age distribution obtained by sampling
-$N = 10^4$ rather than~$N = 500$ stars from the input model and assuming the
-same age uncertainty.
-\textbf{Right}: The age-\feh~(top) and age-\afe~(bottom) relations for the mock
-sample.
-Uncertainties at various ages are marked by the error bars at the top and
-bottom of each panel.
-}
-\label{fig:fiducial_mock}
-\end{figure*}
 
 Using our parametrization of one-zone GCE models described
 in~\S~\ref{sec:onezone}, here we define a set of parameter choices from which
@@ -339,10 +310,6 @@ For this reason, we caution against the reliability of GCE parameters inferred
 from simplified likelihood estimates, such as matching each datum with the
 nearest point on the track.
 
-\subsection{Variations in Sample Size, Measurement Precision and the
-Availability of Age Information}
-\label{sec:mocks:variations}
-
 \subfile{mocksamples.tablebody.tex}
 
 % fig 3
@@ -367,6 +334,10 @@ expected mean offset due to randomly sampling from a Gaussian distribution.
 }
 \label{fig:accuracy}
 \end{figure*}
+
+\subsection{Variations in Sample Size, Measurement Precision and the
+Availability of Age Information}
+\label{sec:mocks:variations}
 
 We now explore variations of our fiducial mock sample.
 We retain the same evolutionary parameters of the input model (see discussion
@@ -428,7 +399,31 @@ information available at all.
 The precision of the fit will indeed suffer in such cases (see Fig.
 \ref{fig:precision} and associated discussion below), but the inferred
 parameters will remain accurate nonetheless.
-\par
+
+% fig 4
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.55]{precision_samplesize.pdf}
+\includegraphics[scale = 0.55]{precision_agefrac.pdf}
+\includegraphics[scale = 0.55]{precision_abundanceuncertainty.pdf}
+\includegraphics[scale = 0.55]{precision_ageuncertainty.pdf}
+\caption{
+Precision of our fitting method.
+For a fit uncertainty~$\sigma$ and deviation from the known value
+$\Delta\theta$, we compute precision according to
+$\left|\Delta\theta\right| / \sigma$ for each of the six free parameters
+in Table~\ref{tab:recovered_values} and plot them as a function
+of sample size (top left), the fraction of the sample with age information (top
+right), abundance uncertainties (bottom left), and age uncertainties (bottom
+right).
+Grey lines in each panel denote~$x^{\pm0.5}$ scaling where~$x$ is the quantity
+on the~$y$-axis.
+We plot timescales in red, Fe yields in blue, and the mass-loading
+factor~$\eta$ in black in all panels according to the legend.
+}
+\label{fig:precision}
+\end{figure*}
+
 We have explored alternate parametrizations of our mock sample's evolutionary
 history and indeed found that our method accurately recovers the parameters
 in all cases.

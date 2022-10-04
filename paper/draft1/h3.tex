@@ -1,33 +1,9 @@
 
-\documentclass[ms.tex]{subfiles}
+\documentclass[foo.tex]{subfiles}
 \begin{document}
 
 \section{Application to Observations}
 \label{sec:h3}
-
-% fig 4
-\begin{figure*}
-\centering
-\includegraphics[scale = 0.55]{precision_samplesize.pdf}
-\includegraphics[scale = 0.55]{precision_agefrac.pdf}
-\includegraphics[scale = 0.55]{precision_abundanceuncertainty.pdf}
-\includegraphics[scale = 0.55]{precision_ageuncertainty.pdf}
-\caption{
-Precision of our fitting method.
-For a fit uncertainty~$\sigma$ and deviation from the known value
-$\Delta\theta$, we compute precision according to
-$\left|\Delta\theta\right| / \sigma$ for each of the six free parameters
-in Table~\ref{tab:recovered_values} and plot them as a function
-of sample size (top left), the fraction of the sample with age information (top
-right), abundance uncertainties (bottom left), and age uncertainties (bottom
-right).
-Grey lines in each panel denote~$x^{\pm0.5}$ scaling where~$x$ is the quantity
-on the~$y$-axis.
-We plot timescales in red, Fe yields in blue, and the mass-loading
-factor~$\eta$ in black in all panels according to the legend.
-}
-\label{fig:precision}
-\end{figure*}
 
 We now apply our likelihood function (Eq.~\ref{eq:likelihood}) to two
 disrupted dwarf galaxies in the Milky Way stellar halo.
@@ -56,7 +32,7 @@ because it displays a ``classic'' enrichment history with an obvious ``knee''
 in the evolutionary track near~$\feh \approx -2.8$ (see Fig.~\ref{fig:wukong}
 below).
 It has been associated~\citep{Malhan2022} with the most metal-poor streams in
-the halo~\citep[e.g.,][]{Roederer2019, Wan2020, Martin2020} and a high fraction
+the halo~\citep[e.g.,][]{Roederer2019, Wan2020, Martin2022} and a high fraction
 of carbon-enhanced metal-poor stars given its low stellar mass
 \citep{Shank2022, Zepeda2022}, marking it as a disrupted dwarf with a
 potentially remarkable chemical history.
@@ -350,23 +326,23 @@ $\eta = 3.6$ at~$M_\star = 10^{10}~M_\odot$ taken from~\citet{Muratov2015}.
 \label{fig:gse_wukong_eta}
 \end{figure}
 
-We select Wukong/lMS-1 stars following the criteria in~\citet{Naidu2020}, with
+We select Wukong/LMS-1 stars following the criteria in~\citet{Naidu2020}, with
 the following additional cuts for high purity (inspired by the orbits of the
 accomparnying globular clusters, NGC 5024 and NGC 5053, and~\citealt{Yuan2020}
 and~\citealt{Malhan2021} who made selections based on the orbital plane):
 \begin{itemize}
 
-	\item[\textbf{1.}] $(J_z - J_r) / J_\text{tot}$ > 0.7, where~$J$ is
-	angular momentum.
+	\item[\textbf{1.}] $(J_z - J_r) / J_\text{tot}$ > 0.7, where~$J$ is action.
 
 	\item[\textbf{2.}] $90^\circ < \theta < 120^\circ$, where~$\theta$ and
 	$\phi$ are angles defining the angular momentum unit vector.
 
 \end{itemize}
 The~\citet{Naidu2020} selection features a hard cut at~$\feh < -1.45$ to avoid
-GSE contamination, though from our modelling of the~\afe-\feh~distribution (see
-Fig.~\ref{fig:wukong}), it appears that the MDF cuts off around~$\sim$$-1.5$
-anyway.
+GSE contamination, but visual inspection of the Wukong/LMS-1 sequence in
+the~\afe-\feh~plane indicates that it drops off around~$\feh \approx -1.5$,
+(see Fig.~\ref{fig:wukong}) and high [$\alpha$/Fe] GSE stars appear at higher
+metallicities.
 Our sample consists of 57 stars with spectroscopic SNR~$> 10$
 and~\gaia~RUWE~$< 1.5$, none of which have age information as they are all
 distant halo stars.

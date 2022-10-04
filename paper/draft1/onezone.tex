@@ -1,5 +1,5 @@
 
-\documentclass[ms.tex]{subfiles}
+\documentclass[foo.tex]{subfiles}
 \begin{document}
 
 \section{Galactic Chemical Evolution}
@@ -45,8 +45,8 @@ We provide an overview of the model framework below and refer to
 At a given moment in time, gas is added to the ISM via inflows and recycled
 stellar envelopes and is removed from the ISM by star formation and outflows,
 if present.
-This gives rise to the following differential equation describing the evolution
-of the gas supply:
+The sum of these terms gives rise to the following differential equation
+describing the evolution of the gas supply:
 \begin{equation}
 \dot{M}_\text{g} = \dot{M}_\text{in} - \dot{M}_\star - \dot{M}_\text{out}
 + \dot{M}_\text{r},
@@ -126,10 +126,10 @@ provided that the data contain such measurements.
 Due to the steep nature of the stellar mass-lifetime relation
 \citep[e.g.,][]{Larson1974, Maeder1989, Hurley2000}, massive stars, their winds,
 and their SNe enrich the ISM on~$\sim$few Myr timescales.
-As long as this is shorter than the relevant timescales for a galaxy's
-evolution and the present-day stellar mass is sufficiently high such that
-stochastic sampling of the IMF does not significantly impact the yields, then
-it is adequate to approximate this nucleosynthetic material as some
+As long as these lifetimes is shorter than the relevant timescales for a
+galaxy's evolution and the present-day stellar mass is sufficiently high such
+that stochastic sampling of the IMF does not significantly impact the yields,
+then it is adequate to approximate this nucleosynthetic material as some
 population-averaged yield ejected instantaneously following a single stellar
 population's formation.
 This implies a linear relationship between the CCSN enrichment rate and the
@@ -210,8 +210,8 @@ abundance (e.g., $\yacc = 1.75 Z_{\text{Mg},\odot} \approx
 	The lighter alpha elements like O and Mg evolve similarly in GCE models due
 	to metallicity-independent yields dominated by massive stars, so it is
 	mathematically convenient to treat them as a single nuclear species
-	under the assertion that [O/Mg]~$\approx 0$ (this is indeed supported by
-	empirical measurements in APOGEE; see, e.g., Fig. 8 of
+	under the assertion that [O/Mg]~$\approx 0$ (this assumption is indeed
+	supported by empirical measurements in APOGEE; see, e.g., Fig. 8 of
 	\citealt{Weinberg2019}).
 	In practice, however, we use the~$\yacc = 0.01$ value for O and a solar
 	abundance of~$Z_{\text{O},\odot} = 0.00572$~\citep{Asplund2009}.

@@ -1,5 +1,5 @@
 
-\documentclass[ms.tex]{subfiles}
+\documentclass[foo.tex]{subfiles}
 \begin{document}
 
 \section{The Fitting Method}
@@ -207,7 +207,8 @@ Kennicutt-Schmidt relation\footnote{
 	\Sigma_\text{g}^{1 - N}$ where~$N \neq 1$.
 	\citet{Kennicutt1998} measured~$N = 1.4 \pm 0.15$ from the global gas
 	densities and SFRs in star-forming spiral galaxies, although recent
-	advancements suggest more sophisticated forms~\citep[e.g.,][]{Krumholz2018}.
+	advancements suggest more sophisticated forms (e.g.,~\citealp{Krumholz2018};
+	see discussion in~\S~2.6 of~\citealt{Johnson2021}).
 } where the normalization of the SFH and size of the galaxy are taken into
 account.
 In these cases, the likelihood function is given by
@@ -221,7 +222,36 @@ This penalty is still included in models which normalize the weights, with the
 tracks that extend too far in abundance space instead having a higher
 \textit{fractional} weight from data at large~$\chi^2$, lowering the total
 likelihood (see discussion near the end of Appendix~\ref{sec:likelihood}).
-\par
+
+% fig 1
+\begin{figure*}
+\centering
+\includegraphics[scale = 0.5]{fiducial_mock_afe_feh.pdf}
+\includegraphics[scale = 0.42]{fiducial_mock_agedist.pdf}
+\includegraphics[scale = 0.41]{fiducial_mock_amr.pdf}
+\caption{
+Our fiducial mock sample.
+Red lines in all panels denote the input model while blue lines denote the
+recovered best-fit model.
+The mock sample has~$N = 500$ stars with abundance uncertainties of
+$\sigma_\feh = \sigma_\afe = 0.05$ (marked by the errorbar in the left panel).
+$N = 100$ of the stars have age information as indicated by the colourbar in
+the left panel with an artificial uncertainty
+of~$\sigma_{\log_{10}(\text{age})} = 0.1$.
+\textbf{Left}: The mock sample in chemical space, with the marginalized
+distributions in~\feh~and~\afe~shown on the top and right, respectively.
+\textbf{Middle}: The age distribution of the mock sample (black, binned).
+The dashed red line indicates the age distribution obtained by sampling
+$N = 10^4$ rather than~$N = 500$ stars from the input model and assuming the
+same age uncertainty.
+\textbf{Right}: The age-\feh~(top) and age-\afe~(bottom) relations for the mock
+sample.
+Uncertainties at various ages are marked by the error bars at the top and
+bottom of each panel.
+}
+\label{fig:fiducial_mock}
+\end{figure*}
+
 We demonstrate the accuracy of our likelihood function in~\S~\ref{sec:mocks}
 below by means of tests against mock data samples.
 Although our likelihood function does not include a direct fit to the
