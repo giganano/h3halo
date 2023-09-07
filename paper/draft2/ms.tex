@@ -1,0 +1,143 @@
+
+\documentclass[fleqn, usenatbib]{mnras}
+\usepackage{newtxtext, newtxmath} 	% Required for MNRAS
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{pdflscape}
+\usepackage{natbib}
+\usepackage[section]{placeins}
+\usepackage{lipsum}
+\usepackage{etoolbox}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage[toc, page]{appendix}
+\usepackage{subfiles}
+\usepackage{geometry}
+\usepackage{CJKutf8}
+\setlength{\parskip}{0pt}
+% \linespread{1.8}
+\hypersetup{ % all blue links
+	colorlinks		= true,
+	urlcolor 		= blue,
+	linkcolor 		= blue,
+	citecolor 		= blue
+}
+
+\newcommand{\mc}{\textsc{emcee}}
+\newcommand{\vice}{\textsc{VICE}}
+\newcommand{\ah}{\ensuremath{\text{[}\alpha\text{/H]}}}
+\newcommand{\feh}{\ensuremath{\text{[Fe/H]}}}
+\newcommand{\afe}{\ensuremath{\text{[$\alpha$/Fe]}}}
+\newcommand{\logage}{\ensuremath{\log_{10}\text{(age)}}}
+\newcommand{\ddfrac}[2]{\frac{\displaystyle{#1}}{\displaystyle{#2}}}
+\newcommand{\refp}[1]{(\ref{#1})}
+\newcommand{\yacc}{\ensuremath{y_\alpha^\text{CC}}}
+\newcommand{\yfecc}{\ensuremath{y_\text{Fe}^\text{CC}}}
+\newcommand{\yfeia}{\ensuremath{y_\text{Fe}^\text{Ia}}}
+\newcommand{\script}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\scinote}[2]{\ensuremath{#1\times10^{#2}}}
+\newcommand{\erf}{\ensuremath{\text{erf}}}
+\newcommand{\python}{\textsc{python}}
+\newcommand{\msun}{\ensuremath{\text{M}_\odot}}
+\newcommand{\gaia}{\textit{Gaia}}
+
+% control over bibtex's alphabetizing
+\providecommand{\noopsort}[1]{}
+
+\title[Dwarf Galaxy Archaeology]{Dwarf galaxy archaeology from chemical
+abundances and star formation histories}
+
+\author[J.W. Johnson et al.]{James W. Johnson,$^{1, 2}$\thanks{
+	Contact e-mail:~\href{mailto:johnson.7419@osu.edu}{johnson.7419@osu.edu}}
+	Charlie Conroy,$^{3}$
+	Benjamin D. Johnson,$^{3}$
+	Annika H. G. Peter,$^{1, 2, 4}$
+	\newauthor
+	Phillip A. Cargile,$^{3}$
+	Ana Bonaca,$^{5}$
+	Rohan P. Naidu,$^{3, 6}$\thanks{NASA Hubble Fellow}
+	Turner Woody,$^{3}$
+	Yuan-Sen Ting
+	(\begin{CJK*}{UTF8}{gbsn}丁源森\ignorespacesafterend\end{CJK*}),$^{7, 8}$
+	\newauthor
+	Jiwon Jesse Han,$^{3}$
+	and Joshua S. Speagle
+	(\begin{CJK*}{UTF8}{gbsn}沈佳士\ignorespacesafterend\end{CJK*})$^{9, 10, 11,
+	12}$
+	\\
+	$^{1}$Department of Astronomy, The Ohio State University,
+	140 W. 18th Ave., Columbus, OH, 43210, USA
+	\\
+	$^{2}$Center for Cosmology and Astroparticle Physics (CCAPP),
+	The Ohio State University, 191 W. Woodruff Ave., Columbus, OH, 43210, USA
+	\\
+	$^{3}$Center for Astrophysics | Harvard \& Smithsonian, 60 Garden Street,
+	Cambridge, MA, 02138, USA
+	\\
+	$^{4}$Department of Physics, The Ohio State University, 191 W. Woodruff
+	Ave., Columbus, OH, 43210, USA
+	\\
+	$^{5}$The Observatories of the Carnegie Institution for Science, 813 Santa
+	Barbara St., Pasadena, CA, 91101, USA
+	\\
+	$^{6}$Kavli Institute for Astrophysics and Space Research, Massachusetts
+	Institute of Technology, 70 Vassar St., Cambridge, MA, 02139, USA
+	\\
+	$^{7}$Research School of Astronomy \& Astrophysics, Australian National
+	University, Cotter Rd., Weston, ACT 2611, Australia
+	\\
+	$^{8}$School of Computing, Australian National University, Acton, ACT
+	2601, Australia
+	\\
+	$^{9}$Department of Statistical Sciences, University of Toronto, 9th Floor,
+	Ontario Power Building, 700 University Ave, Toronto, ON M5G 1Z5, Canada
+	\\
+	$^{10}$David A. Dunlap Department of Astronomy \& Astrophysics, University
+	of Toronto, 50 St George Street, Toronto ON M5S 3H4, Canada
+	\\
+	$^{11}$Dunlap Institute for Astronomy \& Astrophysics, University of
+	Toronto, 50 St George Street, Toronto, ON M5S 3H4, Canada
+	\\
+	$^{12}$Data Sciences Institute, University of Toronto, 17th Floor, Ontario
+	Power Building, 700 University Ave, Toronto, ON M5G 1Z5, Canada
+}
+
+\date{Accepted XXX; Received YYY; in original form ZZZ}
+\pubyear{2022}
+
+\begin{document}
+\label{firstpage}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\maketitle
+
+\subfile{abstract.tex}
+
+\begin{keywords}
+methods: numerical -- galaxies: abundances -- galaxies: evolution --
+galaxies: star formation -- galaxies: stellar content
+\end{keywords}
+
+\subfile{intro.tex}
+\subfile{onezone.tex}
+\subfile{fitting.tex}
+\subfile{mocksamples.tex}
+\subfile{h3.tex}
+\subfile{conclusions.tex}
+\subfile{acknowledgments.tex}
+\subfile{data_availability.tex}
+
+\bibliographystyle{mnras}
+\bibliography{ms}
+
+\begin{appendices}
+\subfile{likelihood.tex}
+\subfile{yield_outflow_degeneracy.tex}
+\end{appendices}
+
+\label{lastpage}
+\end{document}
+

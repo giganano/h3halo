@@ -1,0 +1,255 @@
+
+\documentclass[foo.tex]{subfiles}
+\begin{document}
+
+\section{Galactic Chemical Evolution}
+\label{sec:onezone}
+
+One-zone GCE models connect the star formation and accretion histories of
+galaxies to the enrichment rates in the ISM through prescriptions for
+nucleosynthetic yields, outflows, and star formation efficiency (SFE) within
+a simple mathematical framework.
+Their fundamental assumption is that newly produced metals mix instantaneously
+throughout the star-forming gas reservoir.
+In detail, this assumption is valid as long as the mixing timescale is short
+compared to the depletion timescale (i.e., the average time a fluid element
+remains in the ISM before getting incorporated into new stars or ejected in an
+outflow).
+Based on the observations of~\citet{Leroy2008},~\citet{Weinberg2017} calculate
+that characteristic depletion times can range from~$\sim$500 Myr up to~$\sim$10
+Gyr for conditions in typical star forming disc galaxies.
+In the dwarf galaxy regime, the length scales are short, star formation is slow
+\citep[e.g.,][]{Hudson2015}, and the ISM velocities are turbulent
+\citep{Dutta2009, Stilp2013, Schleicher2016}.
+With this combination, instantaneous mixing should be a good approximation,
+though we are unaware of any studies which address this observationally.
+As long as the approximation is valid, then there should exist an evolutionary
+track in chemical space (e.g., the~\afe-\feh~plane) about which the intrinsic
+scatter is negligible compared to the measurement uncertainty.
+This empirical test should be feasible on a galaxy-by-galaxy basis.
+\par
+With the goal of assessing the information content of one-zone GCE models
+applied to dwarf galaxies, we emphasize that the accuracy of the methods we
+outline in this paper are contingent on the validity of the instantaneous
+mixing approximation.
+This assumption reduces GCE to a system of coupled integro-differential
+equations, which we solve using the publicly available~\textsc{Versatile
+Integrator for Chemical Evolution} (\vice\footnote{
+	\url{https://pypi.org/project/vice}
+};~\citealp{Johnson2020}).
+We provide an overview of the model framework below and refer to
+\citet{Johnson2020} and the~\vice~science documentation\footnote{
+	\url{https://vice-astro.readthedocs.io/en/latest/science_documentation}
+} for further details.
+\par
+At a given moment in time, gas is added to the ISM via inflows and recycled
+stellar envelopes and is removed from the ISM by star formation and outflows,
+if present.
+The sum of these terms gives rise to the following differential equation
+describing the evolution of the gas supply:
+\begin{equation}
+\dot{M}_\text{g} = \dot{M}_\text{in} - \dot{M}_\star - \dot{M}_\text{out}
++ \dot{M}_\text{r},
+\label{eq:mdotgas}
+\end{equation}
+where~$\dot{M}_\text{in}$ is the infall rate,~$\dot{M}_\star$ is the SFR,
+$\dot{M}_\text{out}$ is the outflow rate, and~$\dot{M}_\text{r}$ describes
+the return of stellar envelopes from previous generations of stars.
+\par
+\vice~implements the same characterization of outflows as the~\textsc{FlexCE}
+\citep{Andrews2017} and~\textsc{OMEGA}~\citep{Cote2017} chemical evolution
+codes in which a ``mass-loading factor''~$\eta$ describes a linear relationship
+between the outflow rate itself and the SFR:
+\begin{equation}
+\eta \equiv \frac{\dot{M}_\text{out}}{\dot{M}_\star}.
+\label{eq:massloading}
+\end{equation}
+This parametrization is appropriate for models in which massive stars are the
+dominant source of energy for outflow-driving winds.
+Empirically, the strength of outflows (i.e., the value of~$\eta$) is strongly
+degenerate with the absolute scale of nucleosynthetic yields.
+We discuss this further below and quantify the strength of the degeneracy in
+more detail in Appendix~\ref{sec:degeneracy}.
+\par
+The SFR and the mass of the ISM are related by the SFE timescale~$\tau_\star$,
+defined as the ratio of the two:
+\begin{equation}
+\tau_\star \equiv \frac{M_\text{g}}{\dot{M}_\star}.
+\label{eq:taustar}
+\end{equation}
+The inverse~$\tau_\star^{-1}$ is the SFE itself, quantifying the
+\textit{fractional} rate at which some ISM fluid element is forming stars.
+Some authors refer to~$\tau_\star$ as the ``depletion time''
+\citep[e.g.,][]{Tacconi2018} because it describes the e-folding decay timescale
+of the ISM mass due to star formation if no additional gas is added.
+Our nomenclature follows~\citet{Weinberg2017}, who demonstrate that depletion
+times in GCE models can shorten significantly in the presence of outflows.
+\par
+The recycling rate~$\dot{M}_\text{r}$ is a complicated function which depends
+on the stellar initial mass function~\citep[IMF; e.g.,][]{Salpeter1955,
+Miller1979, Kroupa2001, Chabrier2003}, the initial-final remnant mass relation
+\citep[e.g.,][]{Kalirai2008}, and the mass-lifetime relation\footnote{
+	We assume a~\citet{Kroupa2001} IMF and the~\citet{Larson1974} mass-lifetime
+	relation throughout this paper.
+	These choices do not significantly impact our conclusions as~$\eta$
+	and~$\tau_\star$ play a much more significant role in establish the
+	evolutionary histories of our GCE models.
+	Our fitting method is nonetheless easily extensible to models which relax
+	these assumptions.
+}~\citep*[e.g.,][]{Larson1974, Maeder1989, Hurley2000}, all of which must then
+be convolved with the SFH.
+However, the detailed rate of return of stellar envelopes has only a
+second-order effect on the gas-phase evolutionary track in the~\afe-\feh~plane.
+The first-order details are instead determined by the SFE timescale~$\tau_\star$
+and the mass-loading factor~$\eta$ (see discussion in~\citealt{Weinberg2017}).
+In the absence of sudden events such as a burst of star formation, the detailed
+form of the SFH actually has minimal impact of the shape of the model track
+\citep{Weinberg2017, Johnson2020}.
+That information is instead encoded in the stellar MDFs (i.e., the density of
+stars along the track).
+\par
+In the present paper, we focus on the enrichment of the so-called ``alpha''
+(e.g., O, Ne, Mg) and ``iron-peak'' elements (e.g., Cr, Fe, Ni, Zn), with the
+distribution of stars in the~\afe-\feh~plane being our primary observational
+diagnostic to distinguish between GCE models.
+Massive stars and their core collapse SNe (CCSNe) are the dominant enrichment
+source of alpha elements in the universe, while iron-peak elements are produced
+in significant amounts by both massive stars and SNe Ia~\citep[e.g.,][]{Johnson2019}.
+In detail, some alpha and iron-peak elements also have contributions from slow
+neutron capture nucleosynthesis, an enrichment pathway responsible for much of
+the abundances of yet heavier nuclei (specifically Sr and up).
+Because the neutron capture yields of alpha and iron-peak elements are
+small compared to their SN yields, we do not discuss this process further.
+Our fitting method is nonetheless easily extensible to GCE models which do,
+provided that the data contain such measurements.
+\par
+Due to the steep nature of the stellar mass-lifetime relation
+\citep[e.g.,][]{Larson1974, Maeder1989, Hurley2000}, massive stars, their winds,
+and their SNe enrich the ISM on~$\sim$few Myr timescales.
+As long as these lifetimes is shorter than the relevant timescales for a
+galaxy's evolution and the present-day stellar mass is sufficiently high such
+that stochastic sampling of the IMF does not significantly impact the yields,
+then it is adequate to approximate this nucleosynthetic material as some
+population-averaged yield ejected instantaneously following a single stellar
+population's formation.
+This implies a linear relationship between the CCSN enrichment rate and the
+SFR:
+\begin{equation}
+\dot{M}_\text{x}^\text{CC} = y_\text{x}^\text{CC} \dot{M}_\star,
+\end{equation}
+where~$y_\text{x}^\text{CC}$ is the IMF-averaged fractional net yield from
+massive stars of some element x.
+That is, for a fiducial value of~$y_\text{x}^\text{CC} = 0.01$, 100~\msun~of
+star formation would produce 1~\msun~of~\textit{newly produced} element x (the
+return of previously produced metals is implemented as a separate term
+in~\vice; see~\citealt{Johnson2020} or the~\vice~science documentation for
+details).
+\par
+Unlike CCSNe, SNe Ia occur on a significantly extended DTD.
+The details of the DTD are a topic of active inquiry~\citep[e.g.,][]{Greggio2005,
+Strolger2020, Freundlich2021}, and at least a portion of the uncertainty can be
+traced to uncertainties in both galactic and cosmic SFHs.
+Comparisons of the cosmic SFH~\citep[e.g.,][]{Hopkins2006, Madau2014, Davies2016,
+Madau2017, Driver2018} with volumetric SN Ia rates as a function of redshift
+indicate that the cosmic DTD is broadly consistent with a uniform~$\tau^{-1}$
+power-law (\citealp{Maoz2012a};~\citealp*{Maoz2012b};~\citealp{Graur2013,
+Graur2014}).
+Following~\citet{Weinberg2017}, we take a~$\tau^{-1.1}$ power-law DTD with a
+minimum delay time of~$t_\text{D} = 150$ Myr, though in principle this
+delay can be as short as~$t_\text{D} \approx 40$ Myr due to the lifetimes
+of the most massive white dwarf progenitors.
+For any selected DTD~$R_\text{Ia}(\tau)$, the SN Ia enrichment rate can be
+expressed as an integral over the SFH weighted by the DTD:
+\begin{equation}
+\dot{M}_\text{x}^\text{Ia} = y_\text{x}^\text{Ia}\ddfrac{
+	\int_0^{T - t_\text{D}} \dot{M}_\star(t) R_\text{Ia}(T - t) dt
+}{
+	\int_0^\infty R_\text{Ia}(t) dt
+}.
+\end{equation}
+In general, the mass of some element x in the ISM is also affected by outflows,
+recycling and star formation.
+The total enrichment rate can be computed by simply adding up all of the source
+terms and subtracting the sink terms:
+\begin{equation}
+\dot{M}_\text{x} = \dot{M}_\text{x}^\text{CC} + \dot{M}_\text{x}^\text{Ia} -
+Z_\text{x}\dot{M}_\star - Z_\text{x}\dot{M}_\text{out} + \dot{M}_{\text{x,r}},
+\label{eq:enrichment}
+\end{equation}
+where~$Z_x = M_\text{x} / M_\text{ISM}$ is the abundance by mass of the nuclear
+species x in the ISM.
+This equation as written assumes that the outflowing material is of the same
+composition as the ISM, but in principle, the various nuclear species of
+interest may be some factor above or below the ISM abundance.
+In the present paper we assume all accreting material to be zero metallicity
+gas; when this assumption is relaxed, an additional term
+$Z_\text{x,in}\dot{M}_\text{in}$ appears in this equation.
+\par
+As mentioned above, the strength of outflows is degenerate with the absolute
+scale of nucleosynthetic yields.
+This ``yield-outflow degeneracy'' is remarkably strong, and it arises because
+yields and outflows are the dominant source and sink terms in equation
+\refp{eq:enrichment} above.
+As a consequence, high-yield and high-outflow models generally have a
+low-yield and low-outflow counterpart that predicts a similar enrichment
+history.
+In order to break this degeneracy, only a single parameter setting the absolute
+scale is required.
+{\color{red}
+To this end, we set the O and Mg yields to 1.75 times their solar abundances,
+corresponding to~$y_\text{O}^\text{CC} = 0.01$ and
+$y_\text{Mg}^\text{CC} = 1.2 \times 10^{-4}$.
+This choice is motivated by nucleosynthesis theory in that massive star
+evolutionary models (e.g.,~\citealp*{Nomoto2013};~\citealp{Sukhbold2016,
+Limongi2018}) typically predict~$y_\text{O}^\text{CC} = 0.005 - 0.015$ (see
+discussion in, e.g.,~\citealp{Weinberg2017} and~\citealp{Johnson2020}).
+The primary motivation, however, is to select a normalization that allows our
+best-fit values affected by this degeneracy to simply be scaled up or down
+accordingly to accommodate different assumptions.
+\par
+O and Mg evolve similarly in GCE models due to metallicity-independent yields
+dominated by massive stars (see, e.g., Fig. 20 in~\citealp{Andrews2017}), so it
+is convenient to treat them as a single nuclear species under
+the assertion that [O/Mg] = 0.
+This assumption is indeed supported by empirical measurements in APOGEE (see,
+e.g., Fig. 8 of~\citealp{Weinberg2019}).
+In practice, however, we use the~$\yacc = 0.01$ value for O and a solar
+abundance of~$Z_{\text{O},\odot} = 0.00572$~\citep{Asplund2009} to integrate
+our GCE models.
+Mathematically, the predictions would be the exact same if we integrated with
+Mg instead due to how our GCE models are parametrized.
+Our observational sample, however, contains Mg as opposed to
+O measurements due to the spectral range of the H3 survey (see discussion
+in~\S~\ref{sec:h3:survey} below).
+}
+
+% To this end, we set the alpha element yield from massive stars to be exactly
+% $\yacc = 0.01$ and let our Fe yields be free parameters.
+% Appropriate for O, this value is loosely motivated by nucleosynthesis theory in
+% that massive star evolutionary models (e.g.,~\citealp*{Nomoto2013};
+% \citealp{Sukhbold2016, Limongi2018}) typically predict
+% $y_\text{O}^\text{CC} = 0.005 - 0.015$ (see discussion in, e.g.,
+% \citealp{Weinberg2017} and~\citealp{Johnson2020}).
+% This value is~$\sim$1.75 times the solar O abundance of~$\sim$0.57\%
+% \citep{Asplund2009}, and if we had chosen a different alpha element (e.g., Mg),
+% then we would need to adjust accordingly to account for the intrinsically lower
+% abundance (e.g., $\yacc = 1.75 Z_{\text{Mg},\odot} \approx
+% \scinote{1.2}{-4}$).\footnote{
+% 	The lighter alpha elements like O and Mg evolve similarly in GCE models due
+% 	to metallicity-independent yields dominated by massive stars, so it is
+% 	mathematically convenient to treat them as a single nuclear species
+% 	under the assertion that [O/Mg]~$\approx 0$ (this assumption is indeed
+% 	supported by empirical measurements in APOGEE; see, e.g., Fig. 8 of
+% 	\citealt{Weinberg2019}).
+% 	In practice, however, we use the~$\yacc = 0.01$ value for O and a solar
+% 	abundance of~$Z_{\text{O},\odot} = 0.00572$~\citep{Asplund2009}.
+% }
+% The primary motivation behind this choice is to select a round number that
+% allows our best-fit values affected by this degeneracy to be scaled up or down
+% under different assumptions regarding the scale of effective yields.
+% We reserve further discussion of this topic for Appendix~\ref{sec:degeneracy}
+% where we also quantify the considerably strength of the yield-outflow
+% degeneracy in more detail.
+
+\end{document}
+
