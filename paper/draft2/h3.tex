@@ -51,14 +51,19 @@ Spectra are collected from the Hectochelle instrument on the MMT
 wavelength range of~$5150 - 5300$~\AA.
 Spectral lines in this wavelength range are dominated by iron-peak elements and
 the MgI triplet (see Fig. 6 of~\citealt{Conroy2019}).
-Throughout this section, the alpha element abundances we refer to are therefore
-Mg abundances specifically.
 {\color{red}
-Although we integrate our GCE models with O, we treat O and Mg as a single
-nuclear species in this paper under the assumption that [O/Mg] = 0, so the
-predictions would be the same regardless (see discussion at the end
-of~\S~\ref{sec:onezone}).
+For this reason, Mg is by far the strongest tracer of the alpha element
+abundance, and in comparison to other surveys (e.g., APOGEE), the H3
+[$\alpha$/Fe] ratios show the strongest correlation with [Mg/Fe].
 }
+% Throughout this section, the alpha element abundances we refer to are therefore
+% Mg abundances specifically.
+% {\color{red}
+% Although we integrate our GCE models with O, we treat O and Mg as a single
+% nuclear species in this paper under the assumption that [O/Mg] = 0, so the
+% predictions would be the same regardless (see discussion at the end
+% of~\S~\ref{sec:onezone}).
+% }
 % , whereas in previous sections an alpha element
 % refers to any species where the only statistically significant enrichment
 % source is a metallicity-dependent yield from massive stars.
@@ -519,13 +524,28 @@ Gyr ago (see discussion in~\S~\ref{sec:mocks:fiducial}).
 \centering
 \includegraphics[scale = 0.5]{yield-comparison.pdf}
 \caption{
-A comparison of our inferred Mg (top) and O (bottom) yields (dotted lines)
-against the~\citet{Limongi2018} massive star models
-at~$\log_{10}(Z / Z_\odot) = -2$ and $-3$ (points are colour-coded by initial
-rotation velocity~$v_\text{rot}$ according to the legend).
-Since our samples contain Mg measurements as opposed to O, the [O/Fe] plateau
-that we have marked comes from our assertion that [O/Mg] = 0 (see discussion at
-the end of~\S~\ref{sec:onezone}).
+A comparison of our inferred Fe yields against massive star models.
+Points mark the IMF-averaged [Mg/Fe] ratio predicted by the
+\citet[][black]{Limongi2018},~\citet[][red]{Nomoto2013}, and
+\citet[][blue]{Sukhbold2016} tables (see discussion
+in~\S~\ref{sec:h3:yields}).
+The~\citet{Nomoto2013} and~\citet{Sukhbold2016} models do not include rotation,
+while the rotating models of~\citet{Limongi2018} are plotted according to the
+legend.
+The red arrow denotes the [Mg/Fe] predicted from the~$Z = 0$ tables of
+\citet{Nomoto2013}.
+We mark the heights of the [Mg/Fe] plateau and approximate positions of the
+``knee'' inferred from our fits to our GSE and Wukong/LMS-1 samples as grey
+boxes, with the height of each box denoting the uncertainty in the position
+of the plateau.
+% A comparison of our inferred Mg (top) and O (bottom) yields (dotted lines)
+% against the~\citet{Limongi2018} massive star models
+% at~$\log_{10}(Z / Z_\odot) = -2$ and $-3$ (points are colour-coded by initial
+% rotation velocity~$v_\text{rot}$ according to the legend).
+% Since our samples contain Mg measurements as opposed to O, the [O/Fe] plateau
+% that we have marked comes from our assertion that [O/Mg] = 0 (see discussion at
+% the end of~\S~\ref{sec:onezone}).
+%
 % Each point represents the IMF-averaged yield ratio as predicted from tables
 % published by~\citet[][black]{Limongi2018},~\citet[][blue]{Sukhbold2016},
 % and~\citet[][red]{Nomoto2013}.
@@ -547,36 +567,64 @@ Furthermore, the absolute scale of yields in GCE models need not match that
 predicted by stellar models, because a portion of SN ejecta may be lost
 directly to a hot outflow (e.g.,~\citealt*{Chisholm2018};
 \citealt{Cameron2021}).
-We therefore focus on yield ratios, because it is considerably less
-enlightening to reproduce our chosen O and Mg yields.
+That which is lost may be substantial for low-mass systems like GSE and
+especially Wukong/LMS-1.
+We therefore focus on yield ratios.
 \par
 We use~\vice's~\texttt{vice.yields.ccsne.fractional} function, which computes
-IMF-averaged yields for individual elements given built-in yield tables taken
-from the literature (see, e.g.,~\citealt{Griffith2022} or the~\vice~science
-documentation for further details).
-Since the ``knee'' in the best-fit evolutionary track occurs between [Fe/H] =
-$-2$ and~$-3$ in both GSE and Wukong/LMS-1, we focus on this metallicity range.
-Fig.~\ref{fig:yield-comparison} shows the predicted [Mg/Fe] and [O/Fe] ratios
-of massive star ejecta predicted from the~\citet{Limongi2018} tables at various
-rotational velocities in comparison to the values inferred from both disrupted
-dwarfs.
-We clarify that we have computed the corresponding O and Mg yields for the
-purpose of this discussion rather than assuming metallicity-independent
-values as in previous sections.
+IMF-averaged yields for individual elements given built-in tables of yields
+from individual stars taken from the literature (see,
+e.g.,~\citealt{Griffith2022} or the~\vice~science documentation for further
+details).
+We compute both Mg and Fe yields from~\citet{Nomoto2013},~\citet{Sukhbold2016},
+and~\citet{Limongi2018}.
+Fig.~\ref{fig:yield-comparison} shows the results of these calculations as a
+function of metallicity in comparison to the positions of the plateau derived
+from our fits.
+% Since the ``knee'' in the best-fit evolutionary track occurs between [Fe/H] =
+% $-2$ and~$-3$ in both GSE and Wukong/LMS-1, we focus on this metallicity range.
+% Fig.~\ref{fig:yield-comparison} shows the predicted [Mg/Fe] and [O/Fe] ratios
+% of massive star ejecta predicted from the~\citet{Limongi2018} tables at various
+% rotational velocities in comparison to the values inferred from both disrupted
+% dwarfs.
+% We clarify that we have computed the corresponding O and Mg yields for the
+% purpose of this discussion rather than assuming metallicity-independent
+% values as in previous sections.
 \par
-The [Mg/Fe] plateau is underpredicted at all rotational velocities
-where~\citet{Limongi2018} report yields.
-The [O/Fe] plateau, however, is readily explained by the non-rotating models
-but overpredicted by the rotating models.
-This discrepancy is a known issue with massive star models in which Mg is
-underproduced relative to O~\citep[see discussion in][]{Griffith2022}.
-Unfortunately, this so-called ``oxygen-magnesium problem'' makes it challenging
-to assess whether massive star models are consistent with our empirically
-determined yield ratio as it dominates the comparison.
-We do not discuss this topic further as it is outside the scope of this paper,
-though nonetheless it underscores the usefulness of empirically calibrated
-elemental yields in light of the uncertainties affecting stellar
-nucleosynthesis models.
+The [Mg/Fe] plateau is underpredicted by~\citet{Sukhbold2016}, whose tables are
+limited to solar metallicity, as well as by~\citet{Limongi2018} at all
+rotational velocities.
+Only~\citet{Nomoto2013} is able to reproduce the normalization, though they do
+not predict yields at the metallicities of the knee in either GSE or
+Wukong/LMS-1.
+However, the results change if we instead take O as the representative alpha
+element.
+In this case,~\citet{Nomoto2013} overpredict the [O/Fe] pateau, while
+\citet{Sukhbold2016} and the non-rotating models of~\citet{Limongi2018}
+successfully reproduce it.
+With [O/Mg] ratios observed to be~$\sim$solar across much of the Galactic disk
+\citep[e.g.,][]{Weinberg2019}, this discrepancy between O and Mg yields is a
+known problem with massive star models, whereby Mg is underproduced relative to
+O (see discussion in, e.g.,~\citealp{Griffith2022}).
+While our original motivation was to compare these theoretical and empirical Fe
+yields, the information is unfortunately washed out by this so-called
+``oxygen-magnesium'' problem, making it challenging to assess if massive star
+models are consistent with our empirically derived yield ratios.
+% Nonetheless, the silver lining is that our GCE fitting method can effectively
+% infer yield ratios and marginalize over uncertainties therein.
+% The [Mg/Fe] plateau is underpredicted at all rotational velocities
+% where~\citet{Limongi2018} report yields.
+% The [O/Fe] plateau, however, is readily explained by the non-rotating models
+% but overpredicted by the rotating models.
+% This discrepancy is a known issue with massive star models in which Mg is
+% underproduced relative to O~\citep[see discussion in][]{Griffith2022}.
+% Unfortunately, this so-called ``oxygen-magnesium problem'' makes it challenging
+% to assess whether massive star models are consistent with our empirically
+% determined yield ratio as it dominates the comparison.
+% We do not discuss this topic further as it is outside the scope of this paper,
+% though nonetheless it underscores the usefulness of empirically calibrated
+% elemental yields in light of the uncertainties affecting stellar
+% nucleosynthesis models.
 
 
 
@@ -615,10 +663,6 @@ nucleosynthesis models.
 % Furthermore, the absolute scale of yields in GCE models need not match that
 % predicted by stellar models, because a portion of SN ejecta may be lost
 % directly to a hot outflow (e.g.,~\citealt*{Chisholm2018};~\citealt{Cameron2021}).
-
-
-
-
 % The normalization of elemental yields is sensitive to many uncertain processes
 % in stellar astrophysics, such as black hole
 % formation~\citep[e.g.,][]{Pejcha2015, Ertl2016},

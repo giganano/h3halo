@@ -61,9 +61,9 @@ qualitatively resemble some disrupted dwarf galaxy whose evolutionary
 parameters can be re-derived using our likelihood function as a check that it
 produces accurate best-fit parameters.
 \par
-As discussed in~\S~\ref{sec:onezone}, thoughout this paper we assume that the
-IMF-averaged alpha element yield is exactly~$\yacc = 0.01$ and
-$y_\alpha^\text{Ia} = 0$.
+As discussed at the end of~\S~\ref{sec:onezone}, thoughout this paper we assume
+that the IMF-averaged alpha element yield is exactly~$\yacc = \scinote{1.2}{-4}$
+and~$y_\alpha^\text{Ia} = 0$.
 While loosely motivated by nucleosynthesis models in massive stars
 \citep[e.g.,][]{Nomoto2013, Sukhbold2016, Limongi2018}, this choice is intended
 to set some normalization of the effective yields which can be scaled up or
@@ -72,35 +72,55 @@ If no scale is assumed, then extremely strong degeneracies arise in the
 inferred yields, the strength of outflows~$\eta$, and the SFE timescale
 $\tau_\star$ due to the yield-outflow degeneracy (see discussion in
 Appendix~\ref{sec:degeneracy}).
+% \st{
+{\color{red}
+\hypersetup{draft}
+\st{
 We do not distinguish between alpha elements in this validation of our
 likelihood function because, from a modelling standpoint, they can all be
 treated the same with a metallicity-independent yield from CCSNe and negligible
 yields from all other sources (at least for the lighter alpha elements such as
-O and Mg;~\citealp{Johnson2019}).
+O and Mg;~\mbox{\citealp{Johnson2019}}).
 In practice, however, we take O as the canonical alpha element when integrating
 these models with~\vice, adopting~$Z_{\text{O},\odot} = 0.00572$ as the
-abundance of O in the sun according to~\citet{Asplund2009} and consistent with
-the recent revisions of~\citet*{Asplund2021}, though similar~\afe~ratios would
+abundance of O in the sun according to~\mbox{\citet{Asplund2009}} and consistent with
+the recent revisions of~\mbox{\citet*{Asplund2021}}, though similar~\afe~ratios would
 arise anyway if we instead took, e.g., Mg and asserted that [O/Mg]~$\approx 0$.
+}
+}
 \par
-\citet{Weinberg2017} adopt~$\yacc = 0.015$,~$\yfecc = 0.0012$ and
+{\color{red}
+\citet{Weinberg2017} adopt an O yield of~$y_\text{O}^\text{CC} = 0.015$ and
+Fe yields of}~$\yfecc = 0.0012$ and
 $\yfeia = 0.0017$ (see discussion in their~\S~2.2).
 This massive star yield of Fe is appropriate for nucleosynthesis models in
 which most~$M > 8~\msun$ stars explode as a CCSN~\citep[e.g.,][]{Woosley1995,
 Chieffi2004, Chieffi2013, Nomoto2013} assuming a~\citet{Kroupa2001} IMF.
 This SN Ia yield of Fe is based on the W70 explosion model of
-\citet{Iwamoto1999} which produces~$\sim$0.77~\msun~of Fe per SN Ia event and
+\citet{Iwamoto1999}, which produces~$\sim$0.77~\msun~of Fe per SN Ia event and
 assuming that~$\scinote{2.2}{-3}~\msun^{-1}$ SNe Ia arise per solar mass of
 star formation based on~\citet{Maoz2012a}.
-Following these arguments, we scale these yields down by factors of~$\sim$2/3
-such that $\yacc = 0.01$, adopting~$\yfecc = \scinote{8}{-4}$ and
+{\color{red}
+The overall scale of yields would be lower if a portion of massive stars
+collapse directly to black holes~\citep[e.g.,][]{Ertl2016, Sukhbold2016,
+Griffith2022}.
+We therefore scale these yields down by factors of~$\sim$$2/3$ such that
+$y_\text{O}^\text{CC} = 0.01$,~$\yfecc = \scinote{8}{-4}$ and
 $\yfeia = \scinote{1.1}{-3}$ in our mock samples.
-We retain the assumption that~$\yacc = 0.01$ in our fits to our mock samples
+Assuming solar [O/Mg] ratios~\citep[e.g.,][]{Weinberg2019} results in the Mg
+yield~$y_\text{Mg}^\text{CC} = \scinote{1.2}{-4}$ that we adopt here (see
+discussion at the end of~\S~\ref{sec:onezone}).
+We retain this Mg yield throughout this paper
+}
+% Following these arguments, we scale these yields down by factors of~$\sim$2/3
+% such that $\yacc = 0.01$, adopting~$\yfecc = \scinote{8}{-4}$ and
+% $\yfeia = \scinote{1.1}{-3}$ in our mock samples.
+% We retain the assumption that~$\yacc = 0.01$ in our fits to our mock samples
 but otherwise let the Fe yields~\yfecc~and~\yfeia~be free parameters to be
 recovered by our likelihood function.
 We use this procedure in our application to the H3 survey in~\S~\ref{sec:h3}
 below as well.
-We then sample~$N = 500$ stars from the underlying SFH each of which have -- in
+We then sample~$N = 500$ stars from the underlying SFH, each of which have -- in
 the interest of mimicking the typical precision achieved by a spectroscopic
 survey of a local group dwarf galaxy --~$\sigma_\afe = \sigma_\feh = 0.05$.
 100 of these stars have age measurements with an uncertainty of
@@ -280,7 +300,8 @@ can lower the overall metallicity if this tail is too metal-rich compared to
 the data.
 \par
 We emphasize that our fits achieve this level of precision by selecting an
-overall scale for nucleosynthetic yields and outflows ($\yacc = 0.01$; see
+overall scale for nucleosynthetic yields and outflows
+($\yacc = \scinote{1.2}{-4}$; see
 discussion in~\S~\ref{sec:onezone} and Appendix~\ref{sec:degeneracy}).
 Any GCE parameter that influences the centroid of the MDF or the position or
 shape of the evolutionary track in abundance space is subject to the
@@ -454,8 +475,8 @@ even with highly imprecise measurements ($\sigma_\text{[X/Y])} \approx 0.5$).
 Even with imprecise abundances, the centroid of the MDF can still be robustly
 determined with a sufficiently large sample, which allows a precise inference
 of the strength of winds due to its impact on the equilibrium metallicity (for
-an assumed scale of nucleosynthetic yields such as~$\yacc = 0.01$ in this
-paper).
+an assumed scale of nucleosynthetic yields such as~$\yacc = \scinote{1.2}{-4}$
+in this paper).
 \par
 Only the inferred timescales are impacted by the availability of age
 information and the uncertainties thereof.

@@ -195,33 +195,60 @@ low-yield and low-outflow counterpart that predicts a similar enrichment
 history.
 In order to break this degeneracy, only a single parameter setting the absolute
 scale is required.
+\par
 {\color{red}
-To this end, we set the O and Mg yields to 1.75 times their solar abundances,
-corresponding to~$y_\text{O}^\text{CC} = 0.01$ and
-$y_\text{Mg}^\text{CC} = 1.2 \times 10^{-4}$.
+To this end, we set the Mg yield from massive stars
+to~$y_\text{Mg}^\text{CC} = \scinote{1.2}{-4}$, which is 1.75 times the Solar
+photospheric value from~\citet{Asplund2009}.
 This choice is motivated by nucleosynthesis theory in that massive star
 evolutionary models (e.g.,~\citealp*{Nomoto2013};~\citealp{Sukhbold2016,
-Limongi2018}) typically predict~$y_\text{O}^\text{CC} = 0.005 - 0.015$ (see
-discussion in, e.g.,~\citealp{Weinberg2017} and~\citealp{Johnson2020}).
-The primary motivation, however, is to select a normalization that allows our
-best-fit values affected by this degeneracy to simply be scaled up or down
-accordingly to accommodate different assumptions.
-\par
-O and Mg evolve similarly in GCE models due to metallicity-independent yields
-dominated by massive stars (see, e.g., Fig. 20 in~\citealp{Andrews2017}), so it
-is convenient to treat them as a single nuclear species under
-the assertion that [O/Mg] = 0.
-This assumption is indeed supported by empirical measurements in APOGEE (see,
-e.g., Fig. 8 of~\citealp{Weinberg2019}).
-In practice, however, we use the~$\yacc = 0.01$ value for O and a solar
-abundance of~$Z_{\text{O},\odot} = 0.00572$~\citep{Asplund2009} to integrate
-our GCE models.
-Mathematically, the predictions would be the exact same if we integrated with
-Mg instead due to how our GCE models are parametrized.
-Our observational sample, however, contains Mg as opposed to
-O measurements due to the spectral range of the H3 survey (see discussion
+Limongi2018}) typically predict O yields of~$y_\text{O}^\text{CC} = 0.005 -
+0.015$ (see discussion in, e.g.,~\citealp{Weinberg2017b}
+and~\citealp{Johnson2020}.
+Our Mg yield then arises from combining~$y_\text{O}^\text{CC} = 0.01$ with a
+solar [O/Mg] ratio everywhere, as suggested by APOGEE (see, e.g., Fig. 8
+of~\citealp{Weinberg2019}).
+We deliberately choose a value that is in agreement with massive star models,
+but the primary motivation behind simply selecting the normalization of
+elemental yields in the first place is that it allows best-fit parameter values
+affected by the yield-outflow degeneracy to be scaled up or down to accommodate
+different assumptions.
+Although our Mg yield is based on a chosen O yield from previous GCE models,
+we integrate our models with Mg, because it is the alpha element with spectral
+lines in the wavelength range of the H3 survey (see discussion
 in~\S~\ref{sec:h3:survey} below).
 }
+
+% {\color{red}
+% To this end, we set the O and Mg yields to 1.75 times their solar abundances,
+% corresponding to~$y_\text{O}^\text{CC} = 0.01$ and
+% $y_\text{Mg}^\text{CC} = 1.2 \times 10^{-4}$.
+% This choice is motivated by nucleosynthesis theory in that massive star
+% evolutionary models (e.g.,~\citealp*{Nomoto2013};~\citealp{Sukhbold2016,
+% Limongi2018}) typically predict~$y_\text{O}^\text{CC} = 0.005 - 0.015$ (see
+% discussion in, e.g.,~\citealp{Weinberg2017} and~\citealp{Johnson2020}).
+% The primary motivation, however, is to select a normalization that allows our
+% best-fit values affected by this degeneracy to simply be scaled up or down
+% accordingly to accommodate different assumptions.
+% \par
+% O and Mg evolve similarly in GCE models due to metallicity-independent yields
+% dominated by massive stars (see, e.g., Fig. 20 in~\citealp{Andrews2017}), so it
+% is convenient to treat them as a single nuclear species under
+% the assertion that [O/Mg] = 0.
+% This assumption is indeed supported by empirical measurements in APOGEE (see,
+% e.g., Fig. 8 of~\citealp{Weinberg2019}).
+% In practice, however, we use the~$\yacc = 0.01$ value for O and a solar
+% abundance of~$Z_{\text{O},\odot} = 0.00572$~\citep{Asplund2009} to integrate
+% our GCE models.
+% Mathematically, the predictions would be the exact same if we integrated with
+% Mg instead due to how our GCE models are parametrized.
+% Our observational sample, however, contains Mg as opposed to
+% O measurements due to the spectral range of the H3 survey (see discussion
+% in~\S~\ref{sec:h3:survey} below).
+% }
+
+
+
 
 % To this end, we set the alpha element yield from massive stars to be exactly
 % $\yacc = 0.01$ and let our Fe yields be free parameters.
