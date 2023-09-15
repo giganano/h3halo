@@ -49,12 +49,28 @@ of~$\sim$300,000 stars in high-latitude fields ($\left|b\right| > 20^\circ$).
 Spectra are collected from the Hectochelle instrument on the MMT
 \citep{Szentgyorgyi2011}, which delivers~$R \approx$~32,000 spectra over the
 wavelength range of~$5150 - 5300$~\AA.
-Spectral lines in this wavelength range are dominated by iron-peak elements and
-the MgI triplet (see Fig. 6 of~\citealt{Conroy2019}).
+% Spectral lines in this wavelength range are dominated by iron-peak elements and
+% the MgI triplet (see Fig. 6 of~\citealt{Conroy2019}).
 {\color{red}
-For this reason, Mg is by far the strongest tracer of the alpha element
-abundance, and in comparison to other surveys (e.g., APOGEE), the H3
-[$\alpha$/Fe] ratios show the strongest correlation with [Mg/Fe].
+The survey selection function is deliberately simple: the primary sample
+consists of stars with~$r$ band magnitudes of~$15 < r < 18$
+and~\gaia~\citep{Gaia2016} parallaxes~$<$ 0.3 mas (this threshold has evolved
+over the course of the survey as the~\gaia~astrometry has become more precise).
+\par
+Stellar parameters are estimated by the~\textsc{MINESweeper} program
+\citep{Cargile2020}, which fits grids of isochrones, synthetic spectra and
+photometry to the Hectochelle spectrum and broadband photometry from~\gaia,
+Pan-STARRS~\citep{Chambers2016}, SDSS~\citep{York2000}, 2MASS
+\citep{Skrutskie2006} and WISE~\citep{Wright2010} with the~\gaia~parallax
+used as a prior.
+The fitted parameters include radial velocity, spectrophotometric distance,
+reddening,~\feh,~\afe~and age.
+\textsc{MINESweeper} varies each of the alpha elements in lockstep with one
+another, but spectral features in H3's wavelength range are dominated by
+iron-peak elements and the MgI triplet (see Fig. 6 of~\citealp{Conroy2019}), so
+Mg is by far the strongest tracer of the alpha abundance.
+In comparison with other surveys (e.g., APOGEE), the H3 [$\alpha$/Fe] ratios
+show the strongest correlation with their [Mg/Fe].
 }
 % Throughout this section, the alpha element abundances we refer to are therefore
 % Mg abundances specifically.
@@ -67,19 +83,13 @@ abundance, and in comparison to other surveys (e.g., APOGEE), the H3
 % , whereas in previous sections an alpha element
 % refers to any species where the only statistically significant enrichment
 % source is a metallicity-dependent yield from massive stars.
-\par
-The survey selection function is deliberately simple: the primary sample
-consists of stars with~$r$ band magnitudes of~$15 < r < 18$
-and~\gaia~\citep{Gaia2016} parallaxes~$<$ 0.3 mas (this threshold has evolved
-over the course of the survey as the~\gaia~astrometry has become more precise).
-Stellar parameters are estimated by the~\textsc{MINESweeper} program
-\citep{Cargile2020}, which fits grids of isochrones, synthetic spectra and
-photometry to the Hectochelle spectrum and broadband photometry from~\gaia,
-Pan-STARRS~\citep{Chambers2016}, SDSS~\citep{York2000}, 2MASS
-\citep{Skrutskie2006} and WISE~\citep{Wright2010} with the~\gaia~parallax
-used as a prior.
-The fitted parameters include radial velocity, spectrophotometric distance,
-reddening,~\feh,~\afe~and age.
+% \par
+% Stellar parameters are estimated by the~\textsc{MINESweeper} program
+% \citep{Cargile2020}, which fits grids of isochrones, synthetic spectra and
+% photometry to the Hectochelle spectrum and broadband photometry from~\gaia,
+% Pan-STARRS~\citep{Chambers2016}, SDSS~\citep{York2000}, 2MASS
+% \citep{Skrutskie2006} and WISE~\citep{Wright2010} with the~\gaia~parallax
+% used as a prior.
 The default analysis includes a complicated prior on age and distance
 (see~\citealt{Cargile2020} for details).
 We have also re-fit high signal-to-noise data with a flat age prior for cases
