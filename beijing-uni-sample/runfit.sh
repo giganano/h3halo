@@ -6,5 +6,5 @@
 #SBATCH --output="%j.log"
 
 date
-python gsefit.py
+python gsefit-withprior.py
 date
