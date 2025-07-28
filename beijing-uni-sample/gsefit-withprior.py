@@ -47,6 +47,7 @@ class gsefit(gsefit_base):
 
 	def __call__(self, walker):
 		logl = super().__call__(walker)
+		if np.isinf(logl) or np.isnan(logl): return -float("inf")
 		logl *= self.johnson2023_prior(walker)
 		return logl
 
