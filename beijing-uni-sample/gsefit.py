@@ -10,7 +10,7 @@ import vice
 import time
 import sys
 sys.path.append("..")
-from gsefit import gsefit_base
+from gsefit import gsefit as gsefit_base
 import os
 from utils import get_sample
 # import yields
