@@ -15,7 +15,8 @@ import os
 from utils import get_sample
 # import yields
 
-vice.yields.ccsne.settings['mg'] = 1.2e-4
+vice.yields.ccsne.settings['mg'] = 0.01 / vice.solar_z['o'] * vice.solar_z['mg']
+
 
 OUTFILE = "./gsefit_test.out"
 MODEL_BASENAME = "gsefit"
@@ -23,8 +24,8 @@ MODEL_BASENAME = "gsefit"
 N_PROC = 30
 N_TIMESTEPS = 500
 N_WALKERS = 256
-N_BURNIN = 100
-N_ITERS = 500
+N_BURNIN = 1000
+N_ITERS = 5000
 COSMOLOGICAL_AGE = 13.2
 N_DIM = 6
 
