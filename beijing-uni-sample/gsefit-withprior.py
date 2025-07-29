@@ -20,11 +20,11 @@ vice.yields.ccsne.settings['mg'] = 1.2e-4
 OUTFILE = "./gsefit_test.out"
 MODEL_BASENAME = "gsefit"
 
-N_PROC = 4
+N_PROC = 30
 N_TIMESTEPS = 500
 N_WALKERS = 256
-N_BURNIN = 1000
-N_ITERS = 2000
+N_BURNIN = 100
+N_ITERS = 500
 COSMOLOGICAL_AGE = 13.2
 N_DIM = 6
 
@@ -49,6 +49,7 @@ class gsefit(gsefit_base):
 		logl = super().__call__(walker)
 		if np.isinf(logl) or np.isnan(logl): return -float("inf")
 		logl += self.johnson2023_prior(walker)
+		print(logl)
 		return logl
 
 	@staticmethod
