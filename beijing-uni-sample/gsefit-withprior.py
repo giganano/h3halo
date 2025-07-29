@@ -48,19 +48,19 @@ class gsefit(gsefit_base):
 	def __call__(self, walker):
 		logl = super().__call__(walker)
 		if np.isinf(logl) or np.isnan(logl): return -float("inf")
-		logl *= self.johnson2023_prior(walker)
+		logl += self.johnson2023_prior(walker)
 		return logl
 
 	@staticmethod
 	def johnson2023_prior(walker):
-		factor = 1
-		factor *= np.exp(-(walker[0] - 1.01)**2 / (2 * 0.13**2))
-		factor *= np.exp(-(walker[1] - 8.84)**2 / (2 * 0.86**2))
-		factor *= np.exp(-(walker[2] - 16.08)**2 / (2 * 1.29**2))
-		factor *= np.exp(-(walker[3] - 5.40)**2 / (2 * 0.31**2))
-		factor *= np.exp(-(walker[4] - 7.78e-4)**2 / (2 * 0.37e-4**2))
-		factor *= np.exp(-(walker[5] - 1.23e-3)**2 / (2 * 0.11e-3**2))
-		return factor
+		logp = 0
+		logp -= (walker[0] - 1.01)**2 / (2 * 0.13**2)
+		logp -= (walker[1] - 8.84)**2 / (2 * 0.86**2)
+		logp -= (walker[2] - 16.08)**2 / (2 * 1.29**2)
+		logp -= (walker[3] - 5.40)**2 / (2 * 0.31**2)
+		logp -= (walker[4] - 7.78e-4)**2 / (2 * 0.37e-4**2)
+		logp -= (walker[5] - 1.23e-3)**2 / (2 * 0.11e-3**2)
+		return logp
 
 
 # class gsefit(singlezone_mcmc):
