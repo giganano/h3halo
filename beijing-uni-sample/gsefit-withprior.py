@@ -24,8 +24,8 @@ MODEL_BASENAME = "gsefit"
 N_PROC = 30
 N_TIMESTEPS = 500
 N_WALKERS = 256
-N_BURNIN = 1000
-N_ITERS = 5000
+N_BURNIN = 500
+N_ITERS = 2000
 COSMOLOGICAL_AGE = 13.2
 N_DIM = 6
 
@@ -144,8 +144,9 @@ if __name__ == "__main__":
 	# sampler = EnsembleSampler(N_WALKERS, N_DIM, logl)
 	p0 = 10 * np.random.rand(N_WALKERS, N_DIM)
 	for i in range(len(p0)):
-		p0[i][4] /= 1000
-		p0[i][5] /= 1000
+		p0[i][4] /= 1e4
+		p0[i][5] /= 1e3
+		p0[i][2] *= 2
 	start = time.time()
 	state = sampler.run_mcmc(p0, N_BURNIN)
 	sampler.reset()
