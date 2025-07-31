@@ -21,7 +21,7 @@ vice.yields.ccsne.settings['mg'] = 0.01 / vice.solar_z['o'] * vice.solar_z['mg']
 OUTFILE = "./gsefit_initial.out"
 MODEL_BASENAME = "gsefit"
 
-N_PROC = 30
+N_PROC = 48
 N_TIMESTEPS = 500
 N_WALKERS = 256
 N_BURNIN = 500
